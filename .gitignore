@@ -1,0 +1,16 @@
+*.class
+
+# Package Files #
+*.war
+*.ear
+
+*.iml
+*/target
+.idea/*
+.idea/workspace.xml
+*.log
+*.st
+*.lock
+data/*
+WQ/*
+WQ.md

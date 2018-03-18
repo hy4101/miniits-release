@@ -1,0 +1,60 @@
+spring:
+  messages:
+    basename: message
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ms?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
+    username: root
+    password: 123456
+    druid:
+      initial-size: 50
+      min-idle: 50
+      max-active: 1000
+      max-wait: 60000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+  application:
+    name: miniits
+  freemarker:
+    cache: false
+    charset: utf-8
+    check-template-location: true
+    content-type: text/html
+    enabled: true
+    suffix: .ftl
+    template-loader-path: classpath:/templates
+    defaultTemplateName: index.ftl
+    defaultPath: classpath:/html
+    defaultFileName: index.html
+    prefer-file-system-access: false
+  thymeleaf:
+    prefix: classpath:/templates
+    suffix: .html
+    mode: HTML5
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    cache: false
+  resources:
+    chain:
+      strategy:
+        content:
+          enabled: true
+          paths: /**
+
+server:
+  port: 8000
+
+miniits-release:
+  request:
+    header: /admin/user
