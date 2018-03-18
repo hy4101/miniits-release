@@ -1,2 +1,0 @@
-# miniits-release
-miniits-release
