@@ -59,8 +59,6 @@
 </style>
 <body>
 <div id="div_index">
-    <#assign num='hehe'/>
-${num}
     <div class="container-fluid">
         <div class="row div-fixed-title">
             <div class="col-md-12" style="line-height: 60px;">
