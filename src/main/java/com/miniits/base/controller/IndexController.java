@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * WWW.MINIITS.COM
  */
 @Controller
-@RequestMapping("index")
+@RequestMapping("/fc")
 public class IndexController {
 
     @GetMapping
@@ -27,7 +27,7 @@ public class IndexController {
         return "default/Index";
     }
 
-    @GetMapping("{path}")
+    @GetMapping("/{path}")
     public String path(
             @PathVariable(value = "path") String path,
             ModelMap modelMap) {

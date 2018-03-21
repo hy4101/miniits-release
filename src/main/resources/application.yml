@@ -39,7 +39,7 @@ spring:
     prefer-file-system-access: false
   thymeleaf:
     prefix: classpath:/templates
-    suffix: .html
+    suffix: .ftl
     mode: HTML5
     encoding: UTF-8
     servlet:
