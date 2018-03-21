@@ -11,10 +11,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -42,6 +39,12 @@ public class UserController extends BaseController {
             UserVO userVO = ConvertUtil.toVO(user, UserVO.class);
             return success(userVO);
         }
+        return error("用户名或密码错误");
+    }
+
+    @GetMapping("/users")
+    public Result getUsers() {
+//        Page<User> users = userService.search(pageable);
         return error("用户名或密码错误");
     }
 

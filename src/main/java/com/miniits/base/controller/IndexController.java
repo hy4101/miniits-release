@@ -5,7 +5,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.DispatcherServlet;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -16,8 +15,8 @@ import org.springframework.web.servlet.DispatcherServlet;
  * WWW.MINIITS.COM
  */
 @Controller
-@RequestMapping("index")
-public class IndexController extends DispatcherServlet {
+@RequestMapping("/fc")
+public class IndexController {
 
     @GetMapping
     public String test(ModelMap modelMap) {
@@ -28,7 +27,7 @@ public class IndexController extends DispatcherServlet {
         return "default/Index";
     }
 
-    @GetMapping("{path}")
+    @GetMapping("/{path}")
     public String path(
             @PathVariable(value = "path") String path,
             ModelMap modelMap) {
