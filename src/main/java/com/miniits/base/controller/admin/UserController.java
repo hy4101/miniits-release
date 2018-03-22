@@ -59,6 +59,26 @@ public class UserController extends BaseController {
     public Result users(Pageable pageable) {
         Page<User> users = userService.search(pageable);
         List<UserVO> userVOS = (List<UserVO>) ConvertUtil.toVOS(users.getContent(), UserVO.class);
-        return page(userVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).totalCount(users.getTotalElements());
+        return page(userVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).totalCount(users.getTotalElements()).total(users.getTotalElements());
     }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public Result deleteUser(@PathVariable(value = "id") String id) {
+        userService.delete(id);
+        return success("用户删除成功");
+    }
+
+    @GetMapping("/get/{id}")
+    @ResponseBody
+    public Result getUser(@PathVariable(value = "id") String id) {
+        return success(ConvertUtil.toVO(userService.findOne(id), UserVO.class));
+    }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public Result saveUser(User user) {
+        return success(ConvertUtil.toVO(userService.save(user), UserVO.class));
+    }
+
 }

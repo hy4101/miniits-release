@@ -14,10 +14,7 @@ public class Result {
 
     private boolean isSuccess;
 
-    /**
-     * 每页条数
-     */
-    private int total = 15;
+    private long total;
 
     /**
      * 当前页码
@@ -27,7 +24,7 @@ public class Result {
     /**
      * 总页码数
      */
-    private int totalPage;
+    private long totalPage;
 
     /**
      * 总记录数
@@ -89,11 +86,11 @@ public class Result {
         isSuccess = success;
     }
 
-    public int getTotal() {
+    public long getTotal() {
         return total;
     }
 
-    public void setTotal(int total) {
+    public void setTotal(long total) {
         this.total = total;
     }
 
@@ -115,16 +112,16 @@ public class Result {
         return this;
     }
 
-    public int getTotalPage() {
+    public long getTotalPage() {
         if (this.getTotalCount() % this.getTotal() > 0) {
-            this.setTotalPage(((int) this.getTotalCount() / this.getTotal()) + 1);
+            this.setTotalPage((this.getTotalCount() / this.getTotal()) + 1);
         } else {
-            this.setTotalPage((int) this.getTotalCount() / this.getTotal());
+            this.setTotalPage(this.getTotalCount() / this.getTotal());
         }
         return totalPage;
     }
 
-    public void setTotalPage(int totalPage) {
+    public void setTotalPage(long totalPage) {
         this.totalPage = totalPage;
     }
 
@@ -140,4 +137,10 @@ public class Result {
         this.totalCount = totalCount;
         return this;
     }
+
+    public Result total(long total) {
+        this.total = total;
+        return this;
+    }
+
 }
