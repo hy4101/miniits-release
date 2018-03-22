@@ -298,7 +298,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
         Sort sort = SortUtil.parseSorts(pageable.getSorts());
         return repository.findAll(
                 (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.and(getPredicates(pageable.getFilters(), root, criteriaBuilder)),
-                new PageRequest(pageable.getPage() - 1, pageable.getSize(), sort)
+                new PageRequest(pageable.getPageNumber() - 1, pageable.getPageSize(), sort)
         );
     }
 
@@ -401,7 +401,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
                     criteriaQuery.distinct(true);
                     return criteriaBuilder.and(PredicateUtil.getExtendPredicates(pageable.getFilters(), criteriaBuilder, root).toArray(new Predicate[]{}));
                 },
-                new PageRequest(pageable.getPage() - 1, pageable.getSize(), sort)
+                new PageRequest(pageable.getPageNumber() - 1, pageable.getPageSize(), sort)
         );
     }
 

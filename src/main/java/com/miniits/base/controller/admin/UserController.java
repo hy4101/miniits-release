@@ -1,7 +1,8 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.model.User;
+import com.miniits.base.model.entity.User;
 import com.miniits.base.model.vo.UserVO;
+import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.UserService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
@@ -10,8 +11,13 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -21,8 +27,8 @@ import org.springframework.web.bind.annotation.*;
  * Description:
  * WWW.MINIITS.COM
  */
-@RestController
-@RequestMapping("/admin/user")
+@Controller
+@RequestMapping("/admin/users")
 public class UserController extends BaseController {
 
     @Autowired
@@ -42,10 +48,17 @@ public class UserController extends BaseController {
         return error("用户名或密码错误");
     }
 
-    @GetMapping("/users")
-    public Result getUsers() {
-//        Page<User> users = userService.search(pageable);
-        return error("用户名或密码错误");
+    @GetMapping("init")
+    public String init(ModelMap modelMap) {
+        modelMap.put("active", "users");
+        return "admin/views/system/Users";
     }
 
+    @GetMapping
+    @ResponseBody
+    public Result users(Pageable pageable) {
+        Page<User> users = userService.search(pageable);
+        List<UserVO> userVOS = (List<UserVO>) ConvertUtil.toVOS(users.getContent(), UserVO.class);
+        return page(userVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).totalCount(users.getTotalElements());
+    }
 }

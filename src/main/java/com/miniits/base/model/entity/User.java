@@ -1,4 +1,4 @@
-package com.miniits.base.model;
+package com.miniits.base.model.entity;
 
 
 import com.miniits.base.mysql.BaseEntity;

@@ -1,6 +1,6 @@
 package com.miniits.base.dao;
 
-import com.miniits.base.model.User;
+import com.miniits.base.model.entity.User;
 import com.miniits.base.mysql.BaseRepository;
 
 /**

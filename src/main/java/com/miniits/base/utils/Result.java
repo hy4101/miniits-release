@@ -17,7 +17,7 @@ public class Result {
     /**
      * 每页条数
      */
-    private int size = 15;
+    private int total = 15;
 
     /**
      * 当前页码
@@ -40,7 +40,7 @@ public class Result {
 
     private Object object;
 
-    private List<Object> objects;
+    private List<Object> rows;
 
     public Integer getErrorCode() {
         return errorCode;
@@ -66,12 +66,12 @@ public class Result {
         this.object = object;
     }
 
-    public List<Object> getObjects() {
-        return objects;
+    public List<Object> getRows() {
+        return rows;
     }
 
-    public void setObjects(List<Object> objects) {
-        this.objects = objects;
+    public void setRows(List<Object> rows) {
+        this.rows = rows;
     }
 
     public Result() {
@@ -89,16 +89,16 @@ public class Result {
         isSuccess = success;
     }
 
-    public int getSize() {
-        return size;
+    public int getTotal() {
+        return total;
     }
 
-    public void setSize(int size) {
-        this.size = size;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public Result size(int size) {
-        this.size = size;
+        this.total = total;
         return this;
     }
 
@@ -116,10 +116,10 @@ public class Result {
     }
 
     public int getTotalPage() {
-        if (this.getTotalCount() % this.getSize() > 0) {
-            this.setTotalPage(((int) this.getTotalCount() / this.getSize()) + 1);
+        if (this.getTotalCount() % this.getTotal() > 0) {
+            this.setTotalPage(((int) this.getTotalCount() / this.getTotal()) + 1);
         } else {
-            this.setTotalPage((int) this.getTotalCount() / this.getSize());
+            this.setTotalPage((int) this.getTotalCount() / this.getTotal());
         }
         return totalPage;
     }

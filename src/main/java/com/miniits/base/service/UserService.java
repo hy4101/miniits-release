@@ -1,7 +1,7 @@
 package com.miniits.base.service;
 
 import com.miniits.base.dao.UserRepository;
-import com.miniits.base.model.User;
+import com.miniits.base.model.entity.User;
 import com.miniits.base.mysql.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

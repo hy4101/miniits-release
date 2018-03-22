@@ -45,7 +45,7 @@ public class BaseController {
     public Result all(List list) {
         Result result = new Result();
         result.setSuccess(true);
-        result.setObjects(list);
+        result.setRows(list);
         return result;
     }
 
@@ -53,7 +53,7 @@ public class BaseController {
     public Result page(List list) {
         Result result = new Result();
         result.setSuccess(true);
-        result.setObjects(list);
+        result.setRows(list);
         return result;
     }
 

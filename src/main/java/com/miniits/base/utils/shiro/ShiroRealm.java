@@ -1,6 +1,6 @@
 package com.miniits.base.utils.shiro;
 
-import com.miniits.base.model.User;
+import com.miniits.base.model.entity.User;
 import com.miniits.base.service.UserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

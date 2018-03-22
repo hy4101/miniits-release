@@ -12,11 +12,11 @@ public class Pageable {
 
     private String filters;
 
-    private String sorts;
+    private String sorts = "-createDate";
 
-    private Integer page;
+    private Integer pageSize = 15;
 
-    private Integer size;
+    private Integer pageNumber = 1;
 
     public String getFilters() {
         return filters;
@@ -34,19 +34,19 @@ public class Pageable {
         this.sorts = sorts;
     }
 
-    public Integer getPage() {
-        return page;
+    public Integer getPageSize() {
+        return pageSize;
     }
 
-    public void setPage(Integer page) {
-        this.page = page;
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
     }
 
-    public Integer getSize() {
-        return size;
+    public Integer getPageNumber() {
+        return pageNumber;
     }
 
-    public void setSize(Integer size) {
-        this.size = size;
+    public void setPageNumber(Integer pageNumber) {
+        this.pageNumber = pageNumber;
     }
 }
