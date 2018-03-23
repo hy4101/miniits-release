@@ -1,3 +1,12 @@
+
+<style>
+    .menu-item{
+        line-height: 40px;
+    }
+    .menu-title-text{
+        font-size: 15px;
+    }
+</style>
 <div class="div-main-menu">
     <aside class="main-sidebar">
         <!-- sidebar: style can be found in sidebar.less -->
@@ -37,30 +46,23 @@
                 <li class="${(active == 'users')?string('active', '')} treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
-                        <span>系统管理</span>
+                        <span><b class="menu-title-text">系统管理</b></span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a>
-                        </li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                        <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed
-                            Sidebar</a></li>
+                        <li class="menu-item"><a href="../users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a></li>
                     </ul>
                 </li>
-                <li class="treeview">
+                <li class="${(active == 'layout')?string('active', '')} treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
-                        <span>Layout Options</span>
+                        <span><b class="menu-title-text">布局管理</b></span>
                         <span class="label label-primary pull-right">4</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a>
-                        </li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                        <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed
-                            Sidebar</a></li>
+                        <li class="menu-item"><a href="../pages/init"><i class="fa fa-paperclip" aria-hidden="true"></i>页面管理</a></li>
+                        <li class="menu-item"><a href="../components/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件管理</a></li>
+                        <li class="menu-item"><a href="../components/init"><i class="fa fa-cubes" aria-hidden="true"></i>系统布局</a></li>
+                        <li class="menu-item"><a href="../components/init"><i class="fa fa-file-code-o" aria-hidden="true"></i>系统组件</a></li>
                     </ul>
                 </li>
                 <li>
