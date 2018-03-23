@@ -32,6 +32,8 @@ public class UserVO extends BaseEntityVO {
 
     private String userName;
 
+    private String password;
+
     private String EMail;
 
     public String getUserTypeName() {
@@ -82,4 +84,11 @@ public class UserVO extends BaseEntityVO {
         this.userTypeCode = userTypeCode;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

@@ -47,7 +47,7 @@ public class User extends BaseEntity {
     private String userStatusName;
 
     @Size(max = 60)
-    @Column(name = "user_name", nullable = false)
+    @Column(name = "user_name", nullable = false, unique = true)
     private String userName;
 
     @Size(max = 60)

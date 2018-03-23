@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/1/3
@@ -30,5 +32,9 @@ public class UserService extends BaseServiceImpl<User, String> {
 
     public User findByUserName(String userName) {
         return userRepository.findByUserName(userName);
+    }
+
+    public void changeStatus(String id, Integer userStatusCode) {
+        userRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
     }
 }

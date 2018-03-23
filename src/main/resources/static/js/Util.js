@@ -162,6 +162,18 @@
                 target.on('hide.bs.modal', function (e) {
                     $('body').find(target).remove();
                 });
+            },
+
+            isEmpty: function (str) {
+                if (str === '' || str == null || str === undefined) {
+                    return true;
+                }
+                if (str instanceof Array) {
+                    if (str == null || str.length <= 0) {
+                        return true;
+                    }
+                }
+                return false;
             }
         }
     }();

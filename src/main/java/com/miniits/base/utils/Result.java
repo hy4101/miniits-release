@@ -24,7 +24,7 @@ public class Result {
     /**
      * 总页码数
      */
-    private long totalPage;
+//    private long totalPage;
 
     /**
      * 总记录数
@@ -112,18 +112,18 @@ public class Result {
         return this;
     }
 
-    public long getTotalPage() {
-        if (this.getTotalCount() % this.getTotal() > 0) {
-            this.setTotalPage((this.getTotalCount() / this.getTotal()) + 1);
-        } else {
-            this.setTotalPage(this.getTotalCount() / this.getTotal());
-        }
-        return totalPage;
-    }
-
-    public void setTotalPage(long totalPage) {
-        this.totalPage = totalPage;
-    }
+//    public long getTotalPage() {
+//        if (this.getTotalCount() % this.getTotal() > 0) {
+//            this.setTotalPage((this.getTotalCount() / this.getTotal()) + 1);
+//        } else {
+//            this.setTotalPage(this.getTotalCount() / this.getTotal());
+//        }
+//        return totalPage;
+//    }
+//
+//    public void setTotalPage(long totalPage) {
+//        this.totalPage = totalPage;
+//    }
 
     public long getTotalCount() {
         return totalCount;

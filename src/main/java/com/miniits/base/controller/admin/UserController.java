@@ -15,6 +15,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -78,7 +79,21 @@ public class UserController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(User user) {
+        if (!ObjectUtils.isEmpty(userService.findByUserName(user.getUserName()))) {
+            return error(user.getUserName() + "已经存在，无法新增");
+        }
+        if (StringUtils.isEmpty(user.getUserStatusCode())){
+            user.setUserStatusCode(100000002);
+            user.setUserStatusName("禁用");
+        }
         return success(ConvertUtil.toVO(userService.save(user), UserVO.class));
+    }
+
+    @PostMapping("/change/status")
+    @ResponseBody
+    public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "status") Integer status) {
+        userService.changeStatus(id, status);
+        return success("更改成功");
     }
 
 }
