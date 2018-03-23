@@ -65,7 +65,7 @@
                         filters = 'LIKE_userName=' + $("#userName").val();
                     }
                     if (!isEmpty($("#userStatusName").val())) {
-                        filters = filters += 'LIKE_userStatusName=' + $("#userStatusName").val();
+                        filters = filters += ';LIKE_userStatusName=' + $("#userStatusName").val();
                     }
                     var temp = {
                         pageSize: params.limit,                         //页面大小
