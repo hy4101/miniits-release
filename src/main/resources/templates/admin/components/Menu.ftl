@@ -40,7 +40,7 @@
                         <span>系统管理</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="../admin/users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a>
+                        <li><a href="../users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a>
                         </li>
                         <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
                         <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
