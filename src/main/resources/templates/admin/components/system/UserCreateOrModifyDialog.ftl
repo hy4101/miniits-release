@@ -95,7 +95,8 @@
                     user.userStatusName = userStatusCode === '100000001' ? '启用' : '禁用';
                     userData = user;
                 }
-                userData.createDate = new Date(isEmpty(userData.createDate) ? null : userData.createDate);
+                debugger;
+                userData.createDate = isEmpty(userData.createDate) ? new Date() : new Date(userData.createDate);
                 $.ajax({
                     type: 'post',
                     url: 'save',
@@ -131,7 +132,6 @@
         };
 
         win.commitUser = function (data) {
-            debugger;
             if (isEmpty(data)) {
                 $("#inp_userName").val(null);
                 $("#password").val(null);
@@ -162,7 +162,7 @@
                             message: '文本框必须输入'
                         },
                         stringLength: {//检测长度
-                            min: 6,
+                            min: 2,
                             max: 20,
                             message: '长度必须在6-20之间'
                         },
