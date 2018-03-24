@@ -20,8 +20,7 @@ import java.util.List;
 @Table(name = "page")
 public class Page extends BaseEntity {
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "page")
-    private List<Component> component;
+    private List<PageComponentAssociate> pageComponentAssociates;
 
     private String pageName;
 
@@ -31,4 +30,44 @@ public class Page extends BaseEntity {
 
     private String pageStatusName;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "page")
+    public List<PageComponentAssociate> getPageComponentAssociates() {
+        return pageComponentAssociates;
+    }
+
+    public void setPageComponentAssociates(List<PageComponentAssociate> pageComponentAssociates) {
+        this.pageComponentAssociates = pageComponentAssociates;
+    }
+
+    public String getPageName() {
+        return pageName;
+    }
+
+    public void setPageName(String pageName) {
+        this.pageName = pageName;
+    }
+
+    public String getPagePath() {
+        return pagePath;
+    }
+
+    public void setPagePath(String pagePath) {
+        this.pagePath = pagePath;
+    }
+
+    public Integer getPageStatus() {
+        return pageStatus;
+    }
+
+    public void setPageStatus(Integer pageStatus) {
+        this.pageStatus = pageStatus;
+    }
+
+    public String getPageStatusName() {
+        return pageStatusName;
+    }
+
+    public void setPageStatusName(String pageStatusName) {
+        this.pageStatusName = pageStatusName;
+    }
 }

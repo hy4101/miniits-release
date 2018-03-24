@@ -12,14 +12,10 @@ import javax.persistence.*;
  */
 public class Component {
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "page_id")
-    private Page page;
-
     @Column(name = "component_name", nullable = false, length = 30)
     private String componentName;
 
-    @Column(name = "component_id", nullable = false, length = 125)
+    @Column(name = "component_id", nullable = false, unique = true, length = 45)
     private String componentId;
 
     @Column(name = "component_status", nullable = false, length = 9)
@@ -36,4 +32,51 @@ public class Component {
     @Column(name = "component_body_api", nullable = false, length = 500)
     private String componentBodyApi;
 
+    public String getComponentName() {
+        return componentName;
+    }
+
+    public void setComponentName(String componentName) {
+        this.componentName = componentName;
+    }
+
+    public String getComponentId() {
+        return componentId;
+    }
+
+    public void setComponentId(String componentId) {
+        this.componentId = componentId;
+    }
+
+    public Integer getComponentStatus() {
+        return componentStatus;
+    }
+
+    public void setComponentStatus(Integer componentStatus) {
+        this.componentStatus = componentStatus;
+    }
+
+    public String getComponentStatusName() {
+        return componentStatusName;
+    }
+
+    public void setComponentStatusName(String componentStatusName) {
+        this.componentStatusName = componentStatusName;
+    }
+
+    public String getComponentBody() {
+        return componentBody;
+    }
+
+    public void setComponentBody(String componentBody) {
+        this.componentBody = componentBody;
+    }
+
+    public String getComponentBodyApi() {
+        return componentBodyApi;
+    }
+
+    public void setComponentBodyApi(String componentBodyApi) {
+        this.componentBodyApi = componentBodyApi;
+    }
 }
