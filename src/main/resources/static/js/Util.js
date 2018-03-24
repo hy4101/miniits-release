@@ -8,6 +8,7 @@
  * @returns {boolean}
  */
 (function ($) {
+
     window.Mini = function () {
         var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
             '<div class="modal-dialog modal-sm" style="margin-top: 150px;width: 35%;">' +
@@ -74,7 +75,30 @@
             return modalId;
         }
 
+        var asserEmpty = function (str) {
+            if (str === '' || str == null || str === undefined) {
+                return true;
+            }
+            if (str instanceof Array) {
+                if (str == null || str.length <= 0) {
+                    return true;
+                }
+            }
+            return false;
+        };
         return {
+            isEmpty: function (str) {
+                debugger;
+                if (str === '' || str == null || str === undefined) {
+                    return true;
+                }
+                if (str instanceof Array) {
+                    if (str == null || str.length <= 0) {
+                        return true;
+                    }
+                }
+                return false;
+            },
             alert: function (options) {
                 if (typeof options == 'string') {
                     options = {
@@ -163,18 +187,6 @@
                     $('body').find(target).remove();
                 });
             },
-
-            isEmpty: function (str) {
-                if (str === '' || str == null || str === undefined) {
-                    return true;
-                }
-                if (str instanceof Array) {
-                    if (str == null || str.length <= 0) {
-                        return true;
-                    }
-                }
-                return false;
-            }
         }
     }();
 })(jQuery);

@@ -21,9 +21,9 @@
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-    <#include "components/Header.ftl"/>
+    <#include "components/common/Header.ftl"/>
     <#include "components/Body.ftl"/>
-    <#include "components/Footer.ftl"/>
+    <#include "components/common/Footer.ftl"/>
 </div>
 <!-- jQuery 2.1.4 -->
 <script src="/static/css/jQuery-2.1.4.min.js"></script>

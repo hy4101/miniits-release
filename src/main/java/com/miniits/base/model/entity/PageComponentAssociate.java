@@ -1,5 +1,7 @@
 package com.miniits.base.model.entity;
 
+import com.miniits.base.mysql.BaseEntity;
+
 import javax.persistence.*;
 
 /**
@@ -12,14 +14,14 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "page_component_associate")
-public class PageComponentAssociate {
+public class PageComponentAssociate  extends BaseEntity {
 
     private Page page;
 
     private Component component;
 
-    @Column(name = "sort", length = 10)
-    private Integer sort;
+    @Column(name = "sorts", length = 10)
+    private Integer sorts;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "page_id")
@@ -31,12 +33,12 @@ public class PageComponentAssociate {
         this.page = page;
     }
 
-    public Integer getSort() {
-        return sort;
+    public Integer getSorts() {
+        return sorts;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setSorts(Integer sorts) {
+        this.sorts = sorts;
     }
 
     @OneToOne(fetch = FetchType.LAZY)

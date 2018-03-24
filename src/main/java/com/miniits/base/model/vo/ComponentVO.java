@@ -1,39 +1,25 @@
-package com.miniits.base.model.entity;
-
-import com.miniits.base.mysql.BaseEntity;
-
-import javax.persistence.*;
+package com.miniits.base.model.vo;
 
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/24
- * @Time: 11:11
+ * @Time: 22:55
  * <p>
- * 组件表
+ * Description:
  * WWW.MINIITS.COM
  */
-@Entity
-@Table(name = "component")
-public class Component extends BaseEntity {
+public class ComponentVO extends BaseEntityVO {
 
-    @Column(name = "component_name", nullable = false, length = 30)
     private String componentName;
 
-    @Column(name = "component_id", nullable = false, unique = true, length = 45)
     private String componentId;
 
-    @Column(name = "component_status", nullable = false, length = 9)
     private Integer componentStatus;
 
-    @Column(name = "component_status_name", length = 25)
     private String componentStatusName;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "component_body", nullable = false, columnDefinition = "TEXT")
     private String componentBody;
 
-    @Column(name = "component_body_api", nullable = false, length = 500)
     private String componentBodyApi;
 
     public String getComponentName() {
