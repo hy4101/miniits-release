@@ -10,6 +10,8 @@ import javax.persistence.*;
  * 页面组件关联表
  * WWW.MINIITS.COM
  */
+@Entity
+@Table(name = "page_component_associate")
 public class PageComponentAssociate {
 
     private Page page;

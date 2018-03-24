@@ -10,6 +10,8 @@ import javax.persistence.*;
  * 组件表
  * WWW.MINIITS.COM
  */
+@Entity
+@Table(name = "component")
 public class Component {
 
     @Column(name = "component_name", nullable = false, length = 30)

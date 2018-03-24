@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * WWW.MINIITS.COM
  */
 @Entity
-@Table(name = "page")
+@Table(name = "article")
 public class Article extends BaseEntity {
 
 }
