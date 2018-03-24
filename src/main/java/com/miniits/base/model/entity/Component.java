@@ -29,6 +29,7 @@ public class Component {
     private String componentStatusName;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     @Column(name = "component_body", nullable = false, columnDefinition = "TEXT")
     private String componentBody;
 
