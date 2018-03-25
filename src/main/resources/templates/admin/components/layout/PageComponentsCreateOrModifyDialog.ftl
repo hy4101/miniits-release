@@ -1,6 +1,6 @@
 <script src="/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
 <script type="text/javascript" src="/static/js/md5.js"></script>
-<div class="modal fade" id="page_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div class="modal fade" id="page_components_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="border-radius: 5px;">
     <div class="modal-dialog" role="document">
         <form id="page_form" name="page_form">
@@ -9,21 +9,9 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title" id="new_page_title" style="font-size: xx-large;">新增</h4>
+                    <h4 class="modal-title" id="new_page_components_title" style="font-size: xx-large;">新增</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group div-form-group">
-                        <label for="txt_departmentname" class="label-form-group-title-item">页面名称 : </label>
-                        <input type="text" name="pageName" class="form-control input-form-group-value-item"
-                               id="pageName"
-                               placeholder="请输入页面名称">
-                    </div>
-                    <div class="form-group div-form-group">
-                        <label for="txt_parentdepartment" class="label-form-group-title-item">页面访问路径 : </label>
-                        <input type="text" name="pagePath" class="form-control input-form-group-value-item"
-                               id="pagePath"
-                               placeholder="密码输入页面访问路径">
-                    </div>
                     <div class="form-group div-form-group">
                         <label for="txt_departmentlevel" class="label-form-group-title-item">状态 : </label>
                         <select class="form-control input-form-group-value-item" id="pageStatus"
@@ -32,7 +20,6 @@
                             <option value="100000002">禁用</option>
                         </select>
                     </div>
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">

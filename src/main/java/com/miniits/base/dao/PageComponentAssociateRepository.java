@@ -3,6 +3,8 @@ package com.miniits.base.dao;
 import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.mysql.BaseRepository;
 
+import java.util.List;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/24
@@ -12,4 +14,9 @@ import com.miniits.base.mysql.BaseRepository;
  * WWW.MINIITS.COM
  */
 public interface PageComponentAssociateRepository extends BaseRepository<PageComponentAssociate, String> {
+
+    void deleteByPage_Id(String pageId);
+
+    List<PageComponentAssociate> findByPage_Id(String pageId);
+
 }

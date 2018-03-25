@@ -1,6 +1,7 @@
 package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.vo.PageVO;
+import com.miniits.base.model.vo.UserVO;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.PageService;
 import com.miniits.base.utils.BaseController;
@@ -10,9 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -44,6 +44,30 @@ public class PageController extends BaseController {
         List<PageVO> pageVOS = (List<PageVO>) ConvertUtil.toVOS(pages.getContent(), PageVO.class);
         return page(pageVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).
                 totalCount(pages.getTotalElements()).total(pages.getTotalElements());
+    }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public Result saveUser(com.miniits.base.model.entity.Page page) {
+        if (StringUtils.isEmpty(page.getPageStatus())) {
+            page.setPageStatus(100000002);
+            page.setPageStatusName("禁用");
+        }
+        return success(ConvertUtil.toVO(pageService.save(page), UserVO.class));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public Result deleteUser(@PathVariable(value = "id") String id) {
+        pageService.delete(id);
+        return success("页面删除成功");
+    }
+
+    @PostMapping("/change/status")
+    @ResponseBody
+    public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "status") Integer status) {
+        pageService.changeStatus(id, status);
+        return success("更改成功");
     }
 
 }
