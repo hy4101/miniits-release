@@ -46,7 +46,8 @@
     </div>
     <div style="width: 79%;padding-left: 10px;flex: 9">
         <div id="component_toolbar" class="btn-group">
-            <button id="btn_add_show_component_dialog_click" type="button" class="btn" style="background-color: #3c8dbc;color: #fff;">
+            <button id="btn_add_show_component_dialog_click" type="button" class="btn"
+                    style="background-color: #3c8dbc;color: #fff;">
                 <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
         </div>
@@ -229,7 +230,8 @@
                     visible: false
                 }, {
                     field: 'sorts',
-                    title: '排序'
+                    title: '排序',
+                    width: 30
                 }, {
                     field: 'componentVO.componentName',
                     title: '组件名'
@@ -243,9 +245,9 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 200,
-                    events: operateEvents,
-                    formatter: operateFormatter
+                    width: 220,
+                    events: operateEventsComponent,
+                    formatter: operateFormatterComponent
                 }],
                 onClickRow: function (row, $element) {
                 }
@@ -271,6 +273,21 @@
             return editBtns.join('');
         }
 
+        function operateFormatterComponent(value, row, index) {
+            debugger;
+            var editBtns = [
+                '<button type="button" class="user-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
+            ];
+            var statusBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
+            if (row.componentVO.componentStatus === 100000002) {
+                statusBtn = '<button type="button" class="user-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
+            }
+            var createHTMLBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">添加应用</button>';
+            editBtns.push(statusBtn);
+            editBtns.push(createHTMLBtn);
+            return editBtns.join('');
+        }
+
         win.operateEvents = {
             'click .user-delete': function (e, value, row, index) {
                 deletePage(row);
@@ -287,8 +304,39 @@
                 changeStatus(row, 100000001, '【 启用 】 成功');
             }
         };
+        win.operateEventsComponent = {
+            'click .user-delete': function (e, value, row, index) {
+                deletePage(row);
+            },
+            'click .user-status-disabled': function (e, value, row, index) {
+                changeStatusComponent(row, 100000002, '【 禁用 】 成功');
+            },
+            'click .user-status-enable': function (e, value, row, index) {
+                changeStatusComponent(row, 100000001, '【 启用 】 成功');
+            }
+        };
 
         function changeStatus(row, status, message) {
+            $.ajax({
+                type: 'post',
+                url: 'change/status',
+                datatype: 'json',
+                data: {
+                    id: row.id,
+                    status: status
+                },
+                success: function (data) {
+                    toastr.success(message);
+                    searchPagesByFilters();
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+
+        function changeStatusComponent(row, status, message) {
+            debugger;
             $.ajax({
                 type: 'post',
                 url: 'change/status',

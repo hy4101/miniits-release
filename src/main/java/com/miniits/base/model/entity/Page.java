@@ -2,10 +2,7 @@ package com.miniits.base.model.entity;
 
 import com.miniits.base.mysql.BaseEntity;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -30,7 +27,7 @@ public class Page extends BaseEntity {
 
     private String pageStatusName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "page")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "page", cascade = CascadeType.PERSIST)
     public List<PageComponentAssociate> getPageComponentAssociates() {
         return pageComponentAssociates;
     }

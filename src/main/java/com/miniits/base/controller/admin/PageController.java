@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -49,10 +48,6 @@ public class PageController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(com.miniits.base.model.entity.Page page) {
-        if (StringUtils.isEmpty(page.getPageStatus())) {
-            page.setPageStatus(100000002);
-            page.setPageStatusName("禁用");
-        }
         return success(ConvertUtil.toVO(pageService.save(page), UserVO.class));
     }
 

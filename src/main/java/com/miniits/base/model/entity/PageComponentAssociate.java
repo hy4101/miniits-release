@@ -14,11 +14,11 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "page_component_associate")
-public class PageComponentAssociate  extends BaseEntity {
+public class PageComponentAssociate extends BaseEntity {
 
     private Page page;
 
-    private Component component;
+    private ComponentImage componentImage;
 
     @Column(name = "sorts", length = 10)
     private Integer sorts;
@@ -41,13 +41,13 @@ public class PageComponentAssociate  extends BaseEntity {
         this.sorts = sorts;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "component_id")
-    public Component getComponent() {
-        return component;
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "component_image_id")
+    public ComponentImage getComponentImage() {
+        return componentImage;
     }
 
-    public void setComponent(Component component) {
-        this.component = component;
+    public void setComponentImage(ComponentImage componentImage) {
+        this.componentImage = componentImage;
     }
 }
