@@ -13,7 +13,11 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group div-form-group">
-                        <label for="txt_departmentname" class="label-form-group-title-item">页面名称 : </label>
+                        <label for="txt_departmentname" class="label-form-group-title-item">页面(文件)名称 :
+                            <br>
+                            (提示：该属性为创建静态HTML文件的名称，
+                            <label style="color: red">建议使用英文</label>
+                            )</label>
                         <input type="text" name="pageName" class="form-control input-form-group-value-item"
                                id="pageName"
                                placeholder="请输入页面名称">
@@ -55,6 +59,7 @@
         function userDialogInit() {
 
         }
+
         $("#btn_save_page").click(function () {
             var uf = $("#page_form");
             if (uf.data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
@@ -163,6 +168,7 @@
                 }
             }
         });
+
         function isEmpty(str) {
             if (str === '' || str == null || str === undefined) {
                 return true;

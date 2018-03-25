@@ -16,6 +16,9 @@ import javax.persistence.*;
 @Table(name = "component_image")
 public class ComponentImage extends BaseEntity {
 
+    @Column(name = "component_reference_id", length = 32)
+    private String componentReferenceId;
+
     @Column(name = "component_name", nullable = false, length = 30)
     private String componentName;
 
@@ -82,5 +85,13 @@ public class ComponentImage extends BaseEntity {
 
     public void setComponentBodyApi(String componentBodyApi) {
         this.componentBodyApi = componentBodyApi;
+    }
+
+    public String getComponentReferenceId() {
+        return componentReferenceId;
+    }
+
+    public void setComponentReferenceId(String componentReferenceId) {
+        this.componentReferenceId = componentReferenceId;
     }
 }

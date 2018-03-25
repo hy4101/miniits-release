@@ -23,6 +23,8 @@ public class PageComponentAssociate extends BaseEntity {
     @Column(name = "sorts", length = 10)
     private Integer sorts;
 
+    private ComponentImage componentImagePId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "page_id")
     public Page getPage() {
@@ -41,7 +43,7 @@ public class PageComponentAssociate extends BaseEntity {
         this.sorts = sorts;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "component_image_id")
     public ComponentImage getComponentImage() {
         return componentImage;
@@ -49,5 +51,15 @@ public class PageComponentAssociate extends BaseEntity {
 
     public void setComponentImage(ComponentImage componentImage) {
         this.componentImage = componentImage;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "component_image_p_id")
+    public ComponentImage getComponentImagePId() {
+        return componentImagePId;
+    }
+
+    public void setComponentImagePId(ComponentImage componentImagePId) {
+        this.componentImagePId = componentImagePId;
     }
 }

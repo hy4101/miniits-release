@@ -10,16 +10,18 @@ package com.miniits.base.model.vo;
  */
 public class PageComponentAssociateVO extends BaseEntityVO {
 
-    private ComponentVO componentVO;
+    private ComponentImageVO componentImageVO;
+
+    private ComponentImageVO componentImagePIdVO;
 
     private Integer sorts;
 
-    public ComponentVO getComponentVO() {
-        return componentVO;
+    public ComponentImageVO getComponentImageVO() {
+        return componentImageVO;
     }
 
-    public void setComponentVO(ComponentVO componentVO) {
-        this.componentVO = componentVO;
+    public void setComponentImageVO(ComponentImageVO componentImageVO) {
+        this.componentImageVO = componentImageVO;
     }
 
     public Integer getSorts() {
@@ -28,5 +30,13 @@ public class PageComponentAssociateVO extends BaseEntityVO {
 
     public void setSorts(Integer sorts) {
         this.sorts = sorts;
+    }
+
+    public ComponentImageVO getComponentImagePIdVO() {
+        return componentImagePIdVO;
+    }
+
+    public void setComponentImagePIdVO(ComponentImageVO componentImagePIdVO) {
+        this.componentImagePIdVO = componentImagePIdVO;
     }
 }

@@ -2,7 +2,7 @@ package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.PageComponentAssociate;
-import com.miniits.base.model.vo.ComponentVO;
+import com.miniits.base.model.vo.ComponentImageVO;
 import com.miniits.base.model.vo.PageComponentAssociateVO;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.PageComponentAssociateService;
@@ -12,10 +12,10 @@ import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.ObjectUtils;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,10 +42,24 @@ public class PageComponentAssociateController extends BaseController {
         pageComponentAssociateVOS.forEach(pageComponentAssociateVO -> {
             ComponentImage componentImage = pageComponentAssociates.getContent().stream().filter(pageComponentAssociate -> pageComponentAssociate.getId()
                     .equals(pageComponentAssociateVO.getId())).collect(Collectors.toList()).get(0).getComponentImage();
-            pageComponentAssociateVO.setComponentVO(ConvertUtil.toVO(componentImage, ComponentVO.class));
+
+            for (PageComponentAssociate pageComponentAssociate : pageComponentAssociates.getContent()) {
+                if (!ObjectUtils.isEmpty(pageComponentAssociate.getComponentImagePId()) && pageComponentAssociate.getComponentImage().getId()
+                        .equals(pageComponentAssociate.getComponentImagePId().getId())) {
+                    pageComponentAssociateVO.setComponentImagePIdVO(ConvertUtil.toVO(pageComponentAssociate.getComponentImagePId(), ComponentImageVO.class));
+                }
+            }
+
+            pageComponentAssociateVO.setComponentImageVO(ConvertUtil.toVO(componentImage, ComponentImageVO.class));
         });
         return page(pageComponentAssociateVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).
                 totalCount(pageComponentAssociates.getTotalElements()).total(pageComponentAssociates.getTotalElements());
+    }
+
+    @PostMapping(value = "/save")
+    @ResponseBody
+    public Result save(@RequestBody PageComponentAssociate[] pageComponentAssociate) {
+        return success(ConvertUtil.toVOS(pageComponentAssociateService.save(Arrays.asList(pageComponentAssociate)), PageComponentAssociateVO.class));
     }
 
 }

@@ -9,7 +9,7 @@
     }
 </style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
-    <div style="width: 20%;flex: 3">
+    <div style="width: 20%;flex: 4">
         <div id="page_toolbar" class="btn-group">
             <button id="btn_add_show_page_dialog_click" type="button" class="btn"
                     style="background-color: #3c8dbc;color: #fff;">
@@ -44,11 +44,11 @@
         </div>
         <table id="table_pages" style="background-color: #FFFFFF"></table>
     </div>
-    <div style="width: 79%;padding-left: 10px;flex: 9">
-        <div id="component_toolbar" class="btn-group">
-            <button id="btn_add_show_component_dialog_click" type="button" class="btn"
-                    style="background-color: #3c8dbc;color: #fff;">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+    <div style="width: 79%;padding-left: 10px;flex: 8">
+        <div id="page_component_toolbar" class="btn-group">
+            <button class="btn" style="background-color: #ffffff;color: red;">
+                提示：创建页面系统会自动生成三个默认的组件，分别为 "文件名称_title", "文件名称_body", "文件名称_footer",
+                不能删除。排序会影响页面的组件布局，排序规则为在父组件内按升序排列
             </button>
         </div>
         <div class="div-page-component-title">
@@ -57,20 +57,24 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入名称" id="userName"
+                    <input type="text" class="form-control" placeholder="请输入名称" id="componentName"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入状态" id="userStatusName"
+                    <input type="text" class="form-control" placeholder="请输入状态" id="componentStatusName"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col-lg-4">
-                <button id="" type="button" class="btn"
+                <button id="btn_page_component_search" type="button" class="btn"
                         style="background-color: #27AE60;color: #fff;margin-right: 20px">
                     <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+                <button id="btn_page_components_refresh" type="button" class="btn"
+                        style="background-color: #ff754e;color: #fff;">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
                 </button>
             </div>
         </div>
@@ -94,21 +98,23 @@
                 win.commitPage(null);
             });
 
-            $("#btn_add_show_component_dialog_click").click(function () {
-                $("#new_page_components_title").text("添加新组件");
-                $('#page_components_modal').modal();
-                win.commitPage(null);
-            });
-
             $('#btn_search').click(function () {
                 searchPagesByFilters();
             });
 
+            $('#btn_page_component_search').click(function () {
+                $('#table_page_components').bootstrapTable('refresh');
+            });
         }
 
         $('#btn_refresh').click(function () {
             $("#searchPageName").val(null);
             $("#searchPageStatusName").val(null)
+        });
+
+        $('#btn_page_components_refresh').click(function () {
+            $("#componentName").val(null);
+            $("#componentStatusName").val(null)
         });
 
         function deletePage(row) {
@@ -173,13 +179,15 @@
                     visible: false
                 }, {
                     field: 'pageName',
-                    title: '页面名称'
+                    title: '页面名称',
+                    width: 100
                 }, {
                     field: 'pagePath',
                     title: '页面路径'
                 }, {
                     field: 'pageStatusName',
-                    title: '页面状态'
+                    title: '页面状态',
+                    width: 60
                 }, {
                     field: 'operate',
                     title: '操作',
@@ -205,16 +213,24 @@
 
         function searchPageComponents() {
             $('#table_page_components').bootstrapTable({
-                toolbar: '#component_toolbar',
+                toolbar: '#page_component_toolbar',
                 pagination: true,
                 queryParams: function (params) {
                     //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                    var filters = '';
+                    var filters = basePageComponentAssociateFtilers;
+                    var componentName = $("#componentName").val();
+                    var componentStatusName = $("#componentStatusName").val();
+                    if (!isEmpty(componentName)) {
+                        filters += ';LIKE_componentImage.componentName=' + componentName;
+                    }
+                    if (!isEmpty(componentStatusName)) {
+                        filters += ';LIKE_componentImage.componentStatusName=' + componentStatusName;
+                    }
                     var temp = {
                         pageSize: params.limit,                         //页面大小
                         pageNumber: (params.offset / params.limit) + 1,   //页码
                         sorts: '-createDate',      //排序列名
-                        filters: basePageComponentAssociateFtilers //排位命令（desc，asc）
+                        filters: filters //排位命令（desc，asc）
                     };
                     return temp;
                 },
@@ -233,13 +249,17 @@
                     title: '排序',
                     width: 30
                 }, {
-                    field: 'componentVO.componentName',
+                    field: 'componentImagePIdVO.componentName',
+                    title: '父组件',
+                    width: 30
+                }, {
+                    field: 'componentImageVO.componentName',
                     title: '组件名'
                 }, {
-                    field: 'componentVO.componentStatusName',
+                    field: 'componentImageVO.componentStatusName',
                     title: '组件状态',
                 }, {
-                    field: 'componentVO.componentBodyApi',
+                    field: 'componentImageVO.componentBodyApi',
                     title: '组件API',
                 }, {
                     field: 'operate',
@@ -274,15 +294,18 @@
         }
 
         function operateFormatterComponent(value, row, index) {
-            debugger;
             var editBtns = [
-                '<button type="button" class="user-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
+                '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>'
             ];
-            var statusBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
-            if (row.componentVO.componentStatus === 100000002) {
-                statusBtn = '<button type="button" class="user-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
+            var deleteBtn = '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
+            if (row.pageStatus === 100000002) {
+                editBtns.push(deleteBtn);
             }
-            var createHTMLBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">添加应用</button>';
+            var statusBtn = '<button type="button" class="page-component-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
+            if (row.componentImageVO.componentStatus === 100000002) {
+                statusBtn = '<button type="button" class="page-component-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
+            }
+            var createHTMLBtn = '<button type="button" class="page-component-add-btn btn btn-warning btn-sm" style="margin-right:15px;">添加组件</button>';
             editBtns.push(statusBtn);
             editBtns.push(createHTMLBtn);
             return editBtns.join('');
@@ -308,11 +331,16 @@
             'click .user-delete': function (e, value, row, index) {
                 deletePage(row);
             },
-            'click .user-status-disabled': function (e, value, row, index) {
+            'click .page-component-status-disabled': function (e, value, row, index) {
                 changeStatusComponent(row, 100000002, '【 禁用 】 成功');
             },
-            'click .user-status-enable': function (e, value, row, index) {
+            'click .page-component-status-enable': function (e, value, row, index) {
                 changeStatusComponent(row, 100000001, '【 启用 】 成功');
+            },
+            'click .page-component-add-btn': function (e, value, row, index) {
+                $("#new_page_components_title").text("添加新组件");
+                $('#page_components_modal').modal();
+                win.commitAddComponents(row);
             }
         };
 
@@ -336,18 +364,17 @@
         }
 
         function changeStatusComponent(row, status, message) {
-            debugger;
             $.ajax({
                 type: 'post',
-                url: 'change/status',
+                url: '../componentImages/change/status',
                 datatype: 'json',
                 data: {
-                    id: row.id,
+                    id: row.componentImageVO.id,
                     status: status
                 },
                 success: function (data) {
                     toastr.success(message);
-                    searchPagesByFilters();
+                    $('#table_page_components').bootstrapTable('refresh');
                 },
                 error: function (data) {
                     console.log(data)

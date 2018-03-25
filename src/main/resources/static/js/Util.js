@@ -12,7 +12,7 @@
     window.Mini = function () {
         var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
             '<div class="modal-dialog modal-sm" style="margin-top: 150px;width: 35%;">' +
-            '<div class="modal-content" style="height: 350px;border-radius: 10px;">' +
+            '<div class="modal-content" style="height: 363px;border-radius: 10px;">' +
             '<div class="modal-header" style="border-bottom: 0">' +
             '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
             '</div>' +

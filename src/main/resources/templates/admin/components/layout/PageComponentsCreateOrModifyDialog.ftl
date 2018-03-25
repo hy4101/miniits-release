@@ -58,7 +58,7 @@
 </div>
 <script>
     (function ($, win) {
-        var page = null;
+        var componentPId = null;
 
         function componentDialogInit() {
             getComponents();
@@ -121,14 +121,28 @@
                 }, {
                     field: 'componentBodyApi',
                     title: '数据API'
-                }],
-                onCheck: function (rows) {
-                }
+                }]
             });
         }
 
         $("#btn_save_page_component").click(function () {
-
+            var rows = $('#table_components').bootstrapTable('getSelections');
+            debugger;
+            $.ajax({
+                type: 'post',
+                url: '../page-component-associate/save',
+                contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                datatype: 'json',
+                data: rows,
+                success: function (data) {
+                    debugger;
+                    toastr.success(message);
+                    searchPagesByFilters();
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
         });
 
         function isEmpty(str) {
@@ -142,6 +156,14 @@
             }
             return false;
         };
+
+        win.commitAddComponents = function (data) {
+            if (isEmpty(data)) {
+                return toastr.error('打开失败，你可以尝试刷新页面后重试');
+            }
+            componentPId = data;
+        };
+
         componentDialogInit();
     })(jQuery, window);
 

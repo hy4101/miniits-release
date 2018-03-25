@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/25
@@ -27,4 +29,7 @@ public class ComponentImageServer extends BaseServiceImpl<ComponentImage, String
         super.setBaseDao(componentImageReposiory);
     }
 
+    public void changeStatus(String id, Integer userStatusCode) {
+        componentImageReposiory.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
+    }
 }

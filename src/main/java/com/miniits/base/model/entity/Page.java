@@ -27,7 +27,7 @@ public class Page extends BaseEntity {
 
     private String pageStatusName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "page", cascade = CascadeType.PERSIST)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "page", cascade = {CascadeType.PERSIST})
     public List<PageComponentAssociate> getPageComponentAssociates() {
         return pageComponentAssociates;
     }

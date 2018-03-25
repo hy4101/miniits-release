@@ -8,7 +8,7 @@ package com.miniits.base.model.vo;
  * Description:
  * WWW.MINIITS.COM
  */
-public class ComponentVO extends BaseEntityVO {
+public class ComponentImageVO extends BaseEntityVO {
 
     private String componentName;
 
