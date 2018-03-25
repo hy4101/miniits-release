@@ -22,13 +22,13 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入名称" id="pageName"
+                    <input type="text" class="form-control" placeholder="请输入名称" id="searchPageName"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入状态" id="pageStatusName"
+                    <input type="text" class="form-control" placeholder="请输入状态" id="searchPageStatusName"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
             <div class="col-lg-4">
-                <button id="btn_search" type="button" class="btn"
+                <button id="" type="button" class="btn"
                         style="background-color: #27AE60;color: #fff;margin-right: 20px">
                     <i class="fa fa-search" aria-hidden="true"></i>
                 </button>
@@ -105,10 +105,9 @@
 
         }
 
-        //查询按钮事件
         $('#btn_refresh').click(function () {
-            $("#pageName").val(null);
-            $("#pageStatusName").val(null)
+            $("#searchPageName").val(null);
+            $("#searchPageStatusName").val(null)
         });
 
         function deletePage(row) {
@@ -124,6 +123,7 @@
                     url: 'delete/' + row.id,
                     datatype: 'json',
                     success: function (data) {
+                        toastr.success('删除成功');
                         searchPagesByFilters()
                     },
                     error: function (data) {
@@ -144,13 +144,13 @@
                 pagination: true,
                 queryParams: function (params) {
                     var filters = '';
-                    var pageName = $("#pageName").val();
-                    var pageStatusName = $("#pageStatusName").val();
-                    if (!isEmpty(pageName)) {
-                        filters = 'LIKE_pageName=' + pageName;
+                    var searchPageName = $("#searchPageName").val();
+                    var searchPageStatusName = $("#searchPageStatusName").val();
+                    if (!isEmpty(searchPageName)) {
+                        filters = 'LIKE_pageName=' + searchPageName;
                     }
-                    if (!isEmpty(pageStatusName)) {
-                        filters += ';LIKE_pageStatusName=' + pageStatusName;
+                    if (!isEmpty(searchPageStatusName)) {
+                        filters += ';LIKE_pageStatusName=' + searchPageStatusName;
                     }
                     var temp = {
                         pageSize: params.limit,                         //页面大小
@@ -265,8 +265,9 @@
             if (row.pageStatus === 100000002) {
                 statusBtn = '<button type="button" class="user-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
             }
-
+            var createHTMLBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">生成页面</button>';
             editBtns.push(statusBtn);
+            editBtns.push(createHTMLBtn);
             return editBtns.join('');
         }
 

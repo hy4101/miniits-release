@@ -76,6 +76,7 @@
                     page.pageStatusName = pageStatus === '100000001' ? '启用' : '禁用';
                     pageData = page;
                 }
+                debugger;
                 pageData.createDate = isEmpty(pageData.createDate) ? new Date() : new Date(pageData.createDate);
                 $.ajax({
                     type: 'post',
@@ -83,7 +84,6 @@
                     data: pageData,
                     datatype: 'json',
                     success: function (data) {
-                        debugger;
                         var ud = null;
                         if (data.success) {
                             ud = {type: 'success', message: '成功'};

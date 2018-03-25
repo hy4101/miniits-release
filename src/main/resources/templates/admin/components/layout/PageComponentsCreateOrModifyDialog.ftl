@@ -1,8 +1,6 @@
-<script src="/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
-<script type="text/javascript" src="/static/js/md5.js"></script>
 <div class="modal fade" id="page_components_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="border-radius: 5px;">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="width: 50%;">
         <form id="page_form" name="page_form">
             <div class="modal-content">
                 <div class="modal-header">
@@ -12,23 +10,46 @@
                     <h4 class="modal-title" id="new_page_components_title" style="font-size: xx-large;">新增</h4>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group div-form-group">
-                        <label for="txt_departmentlevel" class="label-form-group-title-item">状态 : </label>
-                        <select class="form-control input-form-group-value-item" id="pageStatus"
-                                name="pageStatus">
-                            <option value="100000001">启用</option>
-                            <option value="100000002">禁用</option>
-                        </select>
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请输入名称" id="componentName"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请输入ID" id="componentId"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="请输入API" id="componentBodyApi"
+                                       aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <button id="btn_page_components_search" type="button" class="btn"
+                                    style="background-color: #27AE60;color: #fff;">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <button id="btn_page_components_refresh" type="button" class="btn"
+                                    style="background-color: #ff754e;color: #fff;">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                            </button>
+                        </div>
                     </div>
+                    <table id="table_components" style="background-color: #FFFFFF"></table>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <i class="fa fa-times" aria-hidden="true"></i>
                         关闭
                     </button>
-                    <button type="submit" id="btn_save_page" class="btn btn-primary" data-dismiss="modal">
+                    <button type="submit" id="btn_save_page_component" class="btn btn-primary" data-dismiss="modal">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        保存
+                        添加
                     </button>
                 </div>
             </div>
@@ -39,117 +60,77 @@
     (function ($, win) {
         var page = null;
 
-        function userDialogInit() {
-
+        function componentDialogInit() {
+            getComponents();
         }
-        $("#btn_save_page").click(function () {
-            var uf = $("#page_form");
-            if (uf.data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
-                var pageName = $("#pageName").val();
-                var pagePath = $("#pagePath").val();
-                var pageStatus = $("#pageStatus").val();
-                var pageData = null;
-                if (isEmpty(page)) {
-                    pageData = {
-                        pageName: pageName,
-                        pagePath: pagePath,
-                        pageStatus: pageStatus,
-                        pageStatusName: pageStatus === '100000001' ? '启用' : '禁用'
+
+        $('#btn_page_components_refresh').click(function () {
+            $("#componentName").val(null);
+            $("#componentId").val(null);
+            $("#componentBodyApi").val(null)
+        });
+
+        $('#btn_page_components_search').click(function () {
+            $('#table_components').bootstrapTable('refresh');
+        });
+
+        function getComponents() {
+            $('#table_components').bootstrapTable({
+                pagination: true,
+                queryParams: function (params) {
+                    var filters = '';
+                    var componentName = $("#componentName").val();
+                    var componentId = $("#componentId").val();
+                    var componentBodyApi = $("#componentBodyApi").val();
+                    if (!isEmpty(componentName)) {
+                        filters = 'LIKE_componentName=' + componentName;
+                    }
+                    if (!isEmpty(componentId)) {
+                        filters += ';LIKE_componentId=' + componentId;
+                    }
+                    if (!isEmpty(componentBodyApi)) {
+                        filters += ';LIKE_componentBodyApi=' + componentBodyApi;
+                    }
+                    var temp = {
+                        pageSize: params.limit,                         //页面大小
+                        pageNumber: (params.offset / params.limit) + 1,   //页码
+                        sorts: '-createDate',      //排序列名
+                        filters: filters //排位命令（desc，asc）
                     };
-                } else {
-                    page.pageName = pageName;
-                    page.pageStatus = pageStatus;
-                    page.pagePath = pagePath;
-                    page.pageStatusName = pageStatus === '100000001' ? '启用' : '禁用';
-                    pageData = page;
-                }
-                pageData.createDate = isEmpty(pageData.createDate) ? new Date() : new Date(pageData.createDate);
-                $.ajax({
-                    type: 'post',
-                    url: 'save',
-                    data: pageData,
-                    datatype: 'json',
-                    success: function (data) {
-                        debugger;
-                        var ud = null;
-                        if (data.success) {
-                            ud = {type: 'success', message: '成功'};
-                        } else {
-                            ud = {type: 'error', message: data.message};
-                        }
-                        win.refreshPage(ud);
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
-            }
-        });
-
-
-        function isEmpty(str) {
-            if (str === '' || str == null || str === undefined) {
-                return true;
-            }
-            if (str instanceof Array) {
-                if (str == null || str.length <= 0) {
-                    return true;
-                }
-            }
-            return false;
-        };
-
-        win.commitPage = function (data) {
-            if (isEmpty(data)) {
-                $("#pageName").val(null);
-                $("#pagePath").val(null);
-                $("#pageStatus").val(null);
-                page = null;
-            } else {
-                $("#pageName").val(data.pageName);
-                $("#pagePath").val(data.pagePath);
-                $("#pageStatus").val(data.pageStatus);
-                page = data;
-            }
-        };
-
-        $("#page_form").bootstrapValidator({
-            live: 'enabled',//验证时机，enabled是内容有变化就验证（默认），disabled和submitted是提交再验证
-            excluded: [':disabled', ':hidden', ':not(:visible)'],//排除无需验证的控件，比如被禁用的或者被隐藏的
-            submitButtons: '#btn_save_user',//指定提交按钮，如果验证失败则变成disabled，但我没试成功，反而加了这句话非submit按钮也会提交到action指定页面
-            message: '输入错误信息，请重新输入',//好像从来没出现过
-            feedbackIcons: {//根据验证结果显示的各种图标
-                valid: 'fa fa-check',
-                invalid: 'fa fa-times',
-                validating: 'fa fa-magic'
-            },
-            fields: {
-                userName: {
-                    validators: {
-                        notEmpty: {//检测非空,radio也可用
-                            message: '文本框必须输入'
-                        },
-                        stringLength: {//检测长度
-                            min: 2,
-                            max: 20,
-                            message: '长度必须在6-20之间'
-                        },
-                    }
+                    return temp;
                 },
-                password: {
-                    validators: {
-                        notEmpty: {//检测非空,radio也可用
-                            message: '文本框必须输入'
-                        },
-                        stringLength: {//检测长度
-                            min: 8,
-                            max: 30,
-                            message: '长度必须在8-30之间'
-                        },
-                    }
+                sidePagination: 'server',//指定服务器端分页
+                pageNumber: 1,                       //初始化加载第一页，默认第一页
+                pageSize: 15,                       //每页的记录行数（*）
+                pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
+                method: 'get',
+                url: "../components",//要请求数据的文件路径
+                contentType: "application/x-www-form-urlencoded",//必须要有！！！！
+                columns: [{
+                    field: 'id',
+                    visible: false
+                }, {
+                    field: 'checked',
+                    checkbox: true
+                }, {
+                    field: 'componentName',
+                    title: '组件名称'
+                }, {
+                    field: 'componentId',
+                    title: '组件ID'
+                }, {
+                    field: 'componentBodyApi',
+                    title: '数据API'
+                }],
+                onCheck: function (rows) {
                 }
-            }
+            });
+        }
+
+        $("#btn_save_page_component").click(function () {
+
         });
+
         function isEmpty(str) {
             if (str === '' || str == null || str === undefined) {
                 return true;
@@ -161,7 +142,7 @@
             }
             return false;
         };
-        userDialogInit();
+        componentDialogInit();
     })(jQuery, window);
 
 </script>
