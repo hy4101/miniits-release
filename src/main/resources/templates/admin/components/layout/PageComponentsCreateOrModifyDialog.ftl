@@ -131,9 +131,10 @@
             $.ajax({
                 type: 'post',
                 url: '../page-component-associate/save',
-                contentType: "application/x-www-form-urlencoded; charset=utf-8",
                 datatype: 'json',
-                data: rows,
+                data: {
+                    pageComponentAssociate: rows
+                },
                 success: function (data) {
                     debugger;
                     toastr.success(message);

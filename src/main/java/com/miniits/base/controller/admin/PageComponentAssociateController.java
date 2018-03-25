@@ -58,7 +58,7 @@ public class PageComponentAssociateController extends BaseController {
 
     @PostMapping(value = "/save")
     @ResponseBody
-    public Result save(@RequestBody PageComponentAssociate[] pageComponentAssociate) {
+    public Result save(@RequestParam(value = "pageComponentAssociate") PageComponentAssociate[] pageComponentAssociate) {
         return success(ConvertUtil.toVOS(pageComponentAssociateService.save(Arrays.asList(pageComponentAssociate)), PageComponentAssociateVO.class));
     }
 
