@@ -142,10 +142,25 @@
             });
         }
 
+        function revisionSort(row, type) {
+            console.log(row);
+            $.ajax({
+                type: 'post',
+                url: '../page-component-associate/revision-sort/' + row.id + '/' + type,
+                datatype: 'json',
+                success: function (data) {
+                    $('#table_page_components').bootstrapTable('refresh');
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
+
         function deletePageComponent(row) {
             console.log(row);
             Mini.confirm({
-                message: "您确认要删除 <b style='color: red'>" + row.pageName + "</b> ？",
+                message: "您确认要删除 <b style='color: red'>" + row.componentImageVO.componentName + "</b> ？",
                 btnok: '是的！确认删除'
             }).on(function (e) {
                 if (!e) {
@@ -290,7 +305,7 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 220,
+                    width: 270,
                     events: operateEventsComponent,
                     formatter: operateFormatterComponent
                 }]
@@ -347,7 +362,7 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 220,
+                    width: 270,
                     events: operateEventsComponent,
                     formatter: operateFormatterComponent
                 }],
@@ -378,11 +393,25 @@
         }
 
         function operateFormatterComponent(value, row, index) {
+            var options = $('#table_page_components').bootstrapTable('getOptions');
+            var rowNumber = options.totalRows - 1;
+
             var editBtns = [];
             var deleteBtn = '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
             if (row.componentImageVO.componentType === 100006002) {
                 editBtns.push(deleteBtn);
             }
+            var revisionSortDownBtn = '<button type="button" class="page-component-down btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>';
+            var revisionSortUpBtn = '<button type="button" class="page-component-up btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>';
+
+            if (row.sorts !== 1 && index != 0) {
+                editBtns.push(revisionSortUpBtn);
+            }
+
+            if (rowNumber != index) {
+                editBtns.push(revisionSortDownBtn);
+            }
+
             var statusBtn = '<button type="button" class="page-component-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
             if (row.componentImageVO.componentStatus === 100000002) {
                 statusBtn = '<button type="button" class="page-component-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
@@ -427,7 +456,14 @@
                     page: thisClickPage
                 }
                 win.commitAddComponents(data);
-            }
+            },
+
+            'click .page-component-down': function (e, value, row, index) {
+                revisionSort(row, 'down');
+            },
+            'click .page-component-up': function (e, value, row, index) {
+                revisionSort(row, 'up');
+            },
         };
 
         function changeStatus(row, status, message) {

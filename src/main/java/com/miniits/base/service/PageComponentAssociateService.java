@@ -35,4 +35,17 @@ public class PageComponentAssociateService extends BaseServiceImpl<PageComponent
     public PageComponentAssociate findFirstByComponentImagePId_IdOrderBySortsDesc(String pId) {
         return pageComponentAssociateRepository.findFirstByComponentImagePId_IdOrderBySortsDesc(pId);
     }
+
+    public PageComponentAssociate findByPage_IdAndLevelAndSorts(String pageId, Integer level, Integer sorts) {
+        return pageComponentAssociateRepository.findByPage_IdAndLevelAndSorts(pageId, level, sorts);
+    }
+
+    public PageComponentAssociate findByComponentImagePId_IdAndLevelAndSorts(String componentImagePId, Integer level, Integer sorts) {
+        return pageComponentAssociateRepository.findByComponentImagePId_IdAndLevelAndSorts(componentImagePId, level, sorts);
+    }
+
+    public void revisionSort(String id, Integer sorts) {
+        pageComponentAssociateRepository.revisionSort(id, sorts);
+    }
+
 }

@@ -20,7 +20,7 @@ public class PageComponentAssociate extends BaseEntity {
 
     private ComponentImage componentImage;
 
-    @Column(name = "sorts", length = 10)
+    @Column(name = "sorts", unique = true, length = 10)
     private Integer sorts;
 
     @Column(name = "level", length = 10)

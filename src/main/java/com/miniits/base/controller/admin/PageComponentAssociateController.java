@@ -5,7 +5,6 @@ import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.model.vo.ComponentImageVO;
 import com.miniits.base.model.vo.PageComponentAssociateVO;
 import com.miniits.base.mysql.Pageable;
-import com.miniits.base.service.ComponentImageServer;
 import com.miniits.base.service.PageComponentAssociateService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
@@ -37,9 +36,6 @@ public class PageComponentAssociateController extends BaseController {
 
     @Autowired
     private PageComponentAssociateService pageComponentAssociateService;
-
-    @Autowired
-    private ComponentImageServer componentImageServer;
 
     @GetMapping
     @ResponseBody
@@ -104,6 +100,41 @@ public class PageComponentAssociateController extends BaseController {
     public Result delete(@PathVariable(value = "id") String id) {
         pageComponentAssociateService.delete(id);
         return success("组件移除成功");
+    }
+
+    @PostMapping(value = "/revision-sort/{id}/{type}")
+    @ResponseBody
+    public Result revisionSort(@PathVariable(value = "id") String id, @PathVariable(value = "type") String type) {
+        PageComponentAssociate pageComponentAssociate = pageComponentAssociateService.findOne(id);
+        Integer sort = pageComponentAssociate.getSorts() - 1;
+        if (type.equals("down")) {
+            sort = pageComponentAssociate.getSorts() + 1;
+        }
+        PageComponentAssociate ppcoa = null;
+        if (pageComponentAssociate.getLevel().equals(1)) {
+            ppcoa = pageComponentAssociateService.findByPage_IdAndLevelAndSorts(pageComponentAssociate.getPage().getId(), pageComponentAssociate.getLevel(), sort);
+        } else {
+            ppcoa = pageComponentAssociateService.findByComponentImagePId_IdAndLevelAndSorts(pageComponentAssociate.getComponentImagePId().getId(), pageComponentAssociate.getLevel(), sort);
+        }
+
+        if (ObjectUtils.isEmpty(ppcoa)) {
+            String mes = type.equals("down") ? "当前组件在父组件容器内已经是 【 置底 】 状态，无需调整" : "当前组件在父组件容器内已经是 【 置顶 】 状态，无需调整";
+            return error(mes);
+        }
+
+        if (!ObjectUtils.isEmpty(pageComponentAssociate.getComponentImagePId()) && !ObjectUtils.isEmpty(ppcoa.getComponentImagePId()) && !pageComponentAssociate.getComponentImagePId().getId().equals(ppcoa.getComponentImagePId().getId())) {
+            return error("当前组件和上一个组件不在同一个父组件容器内，无法调整！你可以尝试删除组件后重新添加");
+        }
+
+        if (type.equals("down")) {
+            pageComponentAssociateService.revisionSort(pageComponentAssociate.getId(), pageComponentAssociate.getSorts() + 1);
+            pageComponentAssociateService.revisionSort(ppcoa.getId(), ppcoa.getSorts() - 1);
+        } else {
+            pageComponentAssociateService.revisionSort(pageComponentAssociate.getId(), pageComponentAssociate.getSorts() - 1);
+            pageComponentAssociateService.revisionSort(ppcoa.getId(), ppcoa.getSorts() + 1);
+        }
+
+        return success("组件调整成功");
     }
 
 }
