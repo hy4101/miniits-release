@@ -7,6 +7,7 @@
         padding-left: 10px;
         margin-bottom: 10px;
     }
+
 </style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
     <div style="width: 20%;flex: 5">
@@ -108,6 +109,11 @@
                 $('#table_page_components').bootstrapTable('refresh');
             });
         }
+
+        $("#table_pages").on('click-row.bs.table', function (e, row, element){
+            $('.success').removeClass('success');//去除之前选中的行的，选中样式
+            $(element).addClass('success');//添加当前选中的 success样式用于区别
+        });
 
         $('#btn_refresh').click(function () {
             $("#searchPageName").val(null);

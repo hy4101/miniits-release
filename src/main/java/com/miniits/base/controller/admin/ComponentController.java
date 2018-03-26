@@ -35,6 +35,12 @@ public class ComponentController extends BaseController {
         return "admin/views/layout/Components";
     }
 
+    @GetMapping("init-development")
+    public String initDevelopment(ModelMap modelMap) {
+        modelMap.put("active", "layout");
+        return "admin/views/layout/ComponentsDev";
+    }
+
     @GetMapping
     @ResponseBody
     public Result pages(Pageable pageable) {

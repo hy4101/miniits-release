@@ -61,7 +61,8 @@
                     <ul class="treeview-menu">
                         <li class="menu-item"><a href="../pages/init"><i class="fa fa-paperclip" aria-hidden="true"></i>页面管理</a></li>
                         <li class="menu-item"><a href="../components/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件管理</a></li>
-                        <li class="menu-item"><a href="../components/init"><i class="fa fa-cubes" aria-hidden="true"></i>系统布局</a></li>
+                        <li class="menu-item"><a href="../components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件开发</a></li>
+                        <li class="menu-item"><a href="../components/init"><i class="fa fa-cubes" aria-hidden="true"></i>系统页面</a></li>
                         <li class="menu-item"><a href="../components/init"><i class="fa fa-file-code-o" aria-hidden="true"></i>系统组件</a></li>
                     </ul>
                 </li>
