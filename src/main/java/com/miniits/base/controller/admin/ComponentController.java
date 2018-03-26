@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @RequestMapping("/admin/components")
-public class ComponentsController extends BaseController {
+public class ComponentController extends BaseController {
 
     @Autowired
     private ComponentService componentService;
@@ -41,4 +42,11 @@ public class ComponentsController extends BaseController {
         return page(pageComponentAssociates.getContent()).page(pageable.getPageSize()).size(pageable.getPageNumber()).
                 totalCount(pageComponentAssociates.getTotalElements()).total(pageComponentAssociates.getTotalElements());
     }
+
+    @PostMapping("/save")
+    @ResponseBody
+    public Result saveUser(Component component) {
+        return success(componentService.save(component));
+    }
+
 }

@@ -89,6 +89,8 @@
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
 
+        var thisClickPage = null;
+
         var basePageComponentAssociateFtilers = '';
 
         function clicks() {
@@ -128,6 +130,30 @@
                 $.ajax({
                     type: 'delete',
                     url: 'delete/' + row.id,
+                    datatype: 'json',
+                    success: function (data) {
+                        toastr.success('删除成功');
+                        searchPagesByFilters()
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                });
+            });
+        }
+
+        function deletePageComponent(row) {
+            console.log(row);
+            Mini.confirm({
+                message: "您确认要删除 <b style='color: red'>" + row.pageName + "</b> ？",
+                btnok: '是的！确认删除'
+            }).on(function (e) {
+                if (!e) {
+                    return;
+                }
+                $.ajax({
+                    type: 'delete',
+                    url: '../page-component-associate/delete/' + row.id,
                     datatype: 'json',
                     success: function (data) {
                         toastr.success('删除成功');
@@ -197,10 +223,12 @@
                     formatter: operateFormatter
                 }],
                 onClickRow: function (row, $element) {
+                    thisClickPage = row;
                     basePageComponentAssociateFtilers = 'EQ_page.id=' + row.id;
                     $('#table_page_components').bootstrapTable('refresh');
                 },
                 onCheck: function (rows) {
+                    thisClickPage = rows;
                     basePageComponentAssociateFtilers = 'EQ_page.id=' + rows.id;
                     $('#table_page_components').bootstrapTable('refresh');
                     searchPageComponents();
@@ -253,14 +281,18 @@
                     title: '父组件',
                     width: 30
                 }, {
+                    field: 'componentImageVO.componentTypeName',
+                    title: '组件类型',
+                    width: 30
+                }, {
                     field: 'componentImageVO.componentName',
                     title: '组件名'
                 }, {
                     field: 'componentImageVO.componentStatusName',
-                    title: '组件状态',
+                    title: '组件状态'
                 }, {
                     field: 'componentImageVO.componentBodyApi',
-                    title: '组件API',
+                    title: '组件API'
                 }, {
                     field: 'operate',
                     title: '操作',
@@ -294,11 +326,9 @@
         }
 
         function operateFormatterComponent(value, row, index) {
-            var editBtns = [
-                '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>'
-            ];
+            var editBtns = [];
             var deleteBtn = '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
-            if (row.pageStatus === 100000002) {
+            if (row.componentImageVO.componentType === 100006002) {
                 editBtns.push(deleteBtn);
             }
             var statusBtn = '<button type="button" class="page-component-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
@@ -328,8 +358,8 @@
             }
         };
         win.operateEventsComponent = {
-            'click .user-delete': function (e, value, row, index) {
-                deletePage(row);
+            'click .page-component-delete': function (e, value, row, index) {
+                deletePageComponent(row);
             },
             'click .page-component-status-disabled': function (e, value, row, index) {
                 changeStatusComponent(row, 100000002, '【 禁用 】 成功');
@@ -340,7 +370,11 @@
             'click .page-component-add-btn': function (e, value, row, index) {
                 $("#new_page_components_title").text("添加新组件");
                 $('#page_components_modal').modal();
-                win.commitAddComponents(row);
+                var data = {
+                    componentImagePId: row,
+                    page: thisClickPage
+                }
+                win.commitAddComponents(data);
             }
         };
 
@@ -401,6 +435,14 @@
                 toastr.error(data.message);
             }
             searchPagesByFilters();
+        };
+        win.refreshPageComponent = function (data) {
+            if (data.type === 'success') {
+                toastr.success(data.message);
+            } else {
+                toastr.error(data.message);
+            }
+            $('#table_page_components').bootstrapTable('refresh');
         };
     })(jQuery, window)
 </script>

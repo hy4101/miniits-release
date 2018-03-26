@@ -5,6 +5,7 @@ import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.model.vo.ComponentImageVO;
 import com.miniits.base.model.vo.PageComponentAssociateVO;
 import com.miniits.base.mysql.Pageable;
+import com.miniits.base.service.ComponentImageServer;
 import com.miniits.base.service.PageComponentAssociateService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
@@ -15,9 +16,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.miniits.base.utils.SystemDict.GLOBAL_TYPE_DIY;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -33,6 +36,9 @@ public class PageComponentAssociateController extends BaseController {
 
     @Autowired
     private PageComponentAssociateService pageComponentAssociateService;
+
+    @Autowired
+    private ComponentImageServer componentImageServer;
 
     @GetMapping
     @ResponseBody
@@ -58,8 +64,33 @@ public class PageComponentAssociateController extends BaseController {
 
     @PostMapping(value = "/save")
     @ResponseBody
-    public Result save(@RequestParam(value = "pageComponentAssociate") PageComponentAssociate[] pageComponentAssociate) {
-        return success(ConvertUtil.toVOS(pageComponentAssociateService.save(Arrays.asList(pageComponentAssociate)), PageComponentAssociateVO.class));
+    public Result save(@RequestParam(value = "jsonPage") String jsonPage,
+                       @RequestParam(value = "jsonComponentImagePId") String jsonComponentImagePId,
+                       @RequestParam(value = "jsonComponentImages") String jsonComponentImages) throws Exception {
+        com.miniits.base.model.entity.Page page = toEntity(jsonPage, com.miniits.base.model.entity.Page.class);
+        ComponentImage componentImagePId = toEntity(jsonComponentImagePId, ComponentImage.class);
+        List<ComponentImage> componentImages = (List<ComponentImage>) toEntitys(jsonComponentImages, ComponentImage.class);
+
+        List<PageComponentAssociate> pageComponentAssociates = new ArrayList<>();
+        componentImages.forEach(componentImage -> {
+            componentImage.setId(null);
+            componentImage.setComponentType(GLOBAL_TYPE_DIY);
+            componentImage.setComponentTypeName("DIY");
+            PageComponentAssociate pageComponentAssociate = new PageComponentAssociate();
+            pageComponentAssociate.setPage(page);
+            pageComponentAssociate.setComponentImagePId(componentImagePId);
+            pageComponentAssociate.setComponentImage(componentImage);
+            pageComponentAssociates.add(pageComponentAssociate);
+        });
+
+        return page(pageComponentAssociateService.save(pageComponentAssociates));
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    @ResponseBody
+    public Result delete(@PathVariable(value = "id") String id) {
+        pageComponentAssociateService.delete(id);
+        return success("组件移除成功");
     }
 
 }

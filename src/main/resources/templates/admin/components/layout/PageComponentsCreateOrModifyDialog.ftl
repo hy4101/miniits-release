@@ -58,7 +58,7 @@
 </div>
 <script>
     (function ($, win) {
-        var componentPId = null;
+        var PData = null;
 
         function componentDialogInit() {
             getComponents();
@@ -133,12 +133,12 @@
                 url: '../page-component-associate/save',
                 datatype: 'json',
                 data: {
-                    pageComponentAssociate: rows
+                    jsonPage: JSON.stringify(PData.page),
+                    jsonComponentImagePId: JSON.stringify(PData.componentImagePId.componentImageVO),
+                    jsonComponentImages: JSON.stringify(rows)
                 },
                 success: function (data) {
-                    debugger;
-                    toastr.success(message);
-                    searchPagesByFilters();
+                    win.refreshPageComponent({type: 'success', message: '组件添加成功'});
                 },
                 error: function (data) {
                     console.log(data)
@@ -162,7 +162,7 @@
             if (isEmpty(data)) {
                 return toastr.error('打开失败，你可以尝试刷新页面后重试');
             }
-            componentPId = data;
+            PData = data;
         };
 
         componentDialogInit();

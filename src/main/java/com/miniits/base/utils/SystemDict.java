@@ -19,7 +19,6 @@ public final class SystemDict {
     public final static Integer GLOBAL_STATUS_YES = 100000001;
     public final static Integer GLOBAL_STATUS_NO = 100000002;
 
-
     /**
      * 用户类型
      * 迷你书签 = 100001001
@@ -79,5 +78,13 @@ public final class SystemDict {
     public final static Integer MOVIE_SOURCE_YGDY8 = 100005006;
     public final static Integer MOVIE_SOURCE_HAOTOR = 100005007;
     public final static Integer MOVIE_SOURCE_BT1280 = 100005008;
+
+    /**
+     * 全局状态
+     * 系统 = 100006001
+     * 个人 = 100006002
+     */
+    public final static Integer GLOBAL_TYPE_SYSTEM = 100006001;
+    public final static Integer GLOBAL_TYPE_DIY = 100006002;
 
 }

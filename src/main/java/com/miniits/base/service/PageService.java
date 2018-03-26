@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
+import static com.miniits.base.utils.SystemDict.GLOBAL_TYPE_SYSTEM;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -56,6 +57,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         PageComponentAssociate pageComponentAssociate_1 = new PageComponentAssociate();
         componentImage_1.setComponentName(page.getPageName() + "_title");
         componentImage_1.setComponentId(System.currentTimeMillis() + "");
+        componentImage_1.setComponentType(GLOBAL_TYPE_SYSTEM);
+        componentImage_1.setComponentTypeName("系统");
         componentImage_1.setComponentStatus(100000002);
         componentImage_1.setComponentStatusName("禁用");
         componentImage_1.setComponentBody("<div componentId=" + System.currentTimeMillis() + " componentName=" + page.getPageName() + "_title style='width:100%;height:auto' >" +
@@ -67,6 +70,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         PageComponentAssociate pageComponentAssociate_2 = new PageComponentAssociate();
         componentImage_2.setComponentName(page.getPageName() + "_body");
         componentImage_2.setComponentId(System.currentTimeMillis() + "");
+        componentImage_2.setComponentType(GLOBAL_TYPE_SYSTEM);
+        componentImage_2.setComponentTypeName("系统");
         componentImage_2.setComponentStatus(100000002);
         componentImage_2.setComponentStatusName("禁用");
         componentImage_2.setComponentBody("<div componentId=" + System.currentTimeMillis() + " componentName=" + page.getPageName() + "_body style='width:100%;height:auto' >" +
@@ -78,6 +83,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         PageComponentAssociate pageComponentAssociate_3 = new PageComponentAssociate();
         componentImage_3.setComponentName(page.getPageName() + "_footer");
         componentImage_3.setComponentId(System.currentTimeMillis() + "");
+        componentImage_3.setComponentType(GLOBAL_TYPE_SYSTEM);
+        componentImage_3.setComponentTypeName("系统");
         componentImage_3.setComponentStatus(100000002);
         componentImage_3.setComponentStatusName("禁用");
         componentImage_3.setComponentBody("<div componentId=" + System.currentTimeMillis() + " componentName=" + page.getPageName() + "_footer style='width:100%;height:auto' >" +
@@ -90,7 +97,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
         pageComponentAssociate.add(pageComponentAssociate_3);
 
         for (PageComponentAssociate componentAssociate : pageComponentAssociate) {
-            componentAssociate.setPage(page );
+            componentAssociate.setPage(page);
         }
         return pageComponentAssociate;
     }
@@ -99,6 +106,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
         pageRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
     }
 
+    @Override
     public void delete(String id) {
         if (!ObjectUtils.isEmpty(pageComponentAssociateRepository.findByPage_Id(id))) {
             pageComponentAssociateRepository.deleteByPage_Id(id);
@@ -106,6 +114,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
         pageRepository.delete(id);
     }
 
+    @Override
     public Page save(Page page) {
         if (StringUtils.isEmpty(page.getPageStatus())) {
             page.setPageStatus(100000002);

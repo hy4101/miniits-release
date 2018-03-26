@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,6 +85,15 @@ public class BaseController {
     public <T> T toEntity(String json, Class<T> entityCls) throws Exception {
         try {
             T entity = objectMapper.readValue(json, entityCls);
+            return entity;
+        } catch (Exception ex) {
+            throw new Exception("Unable to parse json, " + ex.getMessage());
+        }
+    }
+
+    public <T> T toEntitys(String json, Class<T> entityCls) throws Exception {
+        try {
+            T entity = objectMapper.readValue(json, objectMapper.getTypeFactory().constructParametricType(ArrayList.class, entityCls));
             return entity;
         } catch (Exception ex) {
             throw new Exception("Unable to parse json, " + ex.getMessage());
