@@ -9,7 +9,7 @@
     }
 </style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
-    <div style="width: 20%;flex: 4">
+    <div style="width: 20%;flex: 5">
         <div id="page_toolbar" class="btn-group">
             <button id="btn_add_show_page_dialog_click" type="button" class="btn"
                     style="background-color: #3c8dbc;color: #fff;">
@@ -44,11 +44,11 @@
         </div>
         <table id="table_pages" style="background-color: #FFFFFF"></table>
     </div>
-    <div style="width: 79%;padding-left: 10px;flex: 8">
+    <div style="width: 79%;padding-left: 10px;flex: 7">
         <div id="page_component_toolbar" class="btn-group">
             <button class="btn" style="background-color: #ffffff;color: red;">
-                提示：创建页面系统会自动生成三个默认的组件，分别为 "文件名称_title", "文件名称_body", "文件名称_footer",
-                不能删除。排序会影响页面的组件布局，排序规则为在父组件内按升序排列
+                提示：创建页面系统会自动生成三个默认的组件，分别为 "页面名称_title、_body、_footer"。
+                排序会影响页面的组件布局，排序规则为在父组件内按升序排列
             </button>
         </div>
         <div class="div-page-component-title">
@@ -211,14 +211,10 @@
                     field: 'pagePath',
                     title: '页面路径'
                 }, {
-                    field: 'pageStatusName',
-                    title: '页面状态',
-                    width: 60
-                }, {
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 200,
+                    width: 260,
                     events: operateEvents,
                     formatter: operateFormatter
                 }],
@@ -243,9 +239,13 @@
             $('#table_page_components').bootstrapTable({
                 toolbar: '#page_component_toolbar',
                 pagination: true,
+                detailView: true,//父子表
+                onExpandRow: function (index, row, $detail) {
+                    InitSubTable(index, row, $detail);
+                },
                 queryParams: function (params) {
                     //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                    var filters = basePageComponentAssociateFtilers;
+                    var filters = basePageComponentAssociateFtilers + ';EQ_level=1';
                     var componentName = $("#componentName").val();
                     var componentStatusName = $("#componentStatusName").val();
                     if (!isEmpty(componentName)) {
@@ -257,7 +257,7 @@
                     var temp = {
                         pageSize: params.limit,                         //页面大小
                         pageNumber: (params.offset / params.limit) + 1,   //页码
-                        sorts: '-createDate',      //排序列名
+                        sorts: '+sorts',      //排序列名
                         filters: filters //排位命令（desc，asc）
                     };
                     return temp;
@@ -268,17 +268,13 @@
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
                 url: "../page-component-associate",//要请求数据的文件路径
-                contentType: "application/x-www-form-urlencoded",//必须要有！！！！
+                contentType: "application/x-www-form-urlencoded",
                 columns: [{
                     field: 'id',
                     visible: false
                 }, {
                     field: 'sorts',
                     title: '排序',
-                    width: 30
-                }, {
-                    field: 'componentImagePIdVO.componentName',
-                    title: '父组件',
                     width: 30
                 }, {
                     field: 'componentImageVO.componentTypeName',
@@ -288,8 +284,62 @@
                     field: 'componentImageVO.componentName',
                     title: '组件名'
                 }, {
-                    field: 'componentImageVO.componentStatusName',
-                    title: '组件状态'
+                    field: 'componentImageVO.componentBodyApi',
+                    title: '组件API'
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    width: 220,
+                    events: operateEventsComponent,
+                    formatter: operateFormatterComponent
+                }]
+            });
+        }
+
+        //初始化子表格(无线循环)
+        function InitSubTable(index, row, $detail) {
+            var parentId = row.componentImageVO.id;
+            var cur_table = $detail.html('<table></table>').find('table');
+            $(cur_table).bootstrapTable({
+
+                sidePagination: 'server',//指定服务器端分页
+                contentType: "application/x-www-form-urlencoded",
+
+
+                method: 'get',
+                url: "../page-component-associate",//要请求数据的文件路径
+                // queryParams: {strParentID: parentid},
+                queryParams: function (params) {
+                    var temp = {
+                        pageSize: params.limit,                         //页面大小
+                        pageNumber: (params.offset / params.limit) + 1,   //页码
+                        sorts: '+sorts',      //排序列名
+                        filters: 'EQ_componentImagePId.id=' + parentId //排位命令（desc，asc）
+                    };
+                    return temp;
+                },
+                // ajaxOptions: {strParentID: parentid},
+                clickToSelect: true,
+                pagination: true,
+                detailView: true,//父子表
+                uniqueId: "id",
+                pageSize: 10,
+                pageList: [10, 25],
+                columns: [{
+                    field: 'id',
+                    visible: false
+                }, {
+                    field: 'sorts',
+                    title: '排序',
+                    width: 30
+                }, {
+                    field: 'componentImageVO.componentTypeName',
+                    title: '组件类型',
+                    width: 30
+                }, {
+                    field: 'componentImageVO.componentName',
+                    title: '组件名'
                 }, {
                     field: 'componentImageVO.componentBodyApi',
                     title: '组件API'
@@ -301,10 +351,12 @@
                     events: operateEventsComponent,
                     formatter: operateFormatterComponent
                 }],
-                onClickRow: function (row, $element) {
+                //无线循环取子表，直到子表里面没有记录
+                onExpandRow: function (index, row, $Subdetail) {
+                    InitSubTable(index, row, $Subdetail);
                 }
             });
-        }
+        };
 
         function searchPagesByFilters() {
             $('#table_pages').bootstrapTable('refresh');

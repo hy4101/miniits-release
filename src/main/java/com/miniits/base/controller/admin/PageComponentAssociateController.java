@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.SystemDict.GLOBAL_TYPE_DIY;
@@ -69,8 +70,12 @@ public class PageComponentAssociateController extends BaseController {
                        @RequestParam(value = "jsonComponentImages") String jsonComponentImages) throws Exception {
         com.miniits.base.model.entity.Page page = toEntity(jsonPage, com.miniits.base.model.entity.Page.class);
         ComponentImage componentImagePId = toEntity(jsonComponentImagePId, ComponentImage.class);
-        List<ComponentImage> componentImages = (List<ComponentImage>) toEntitys(jsonComponentImages, ComponentImage.class);
+        PageComponentAssociate pca = pageComponentAssociateService.findFirstBycomponentAndComponentImagePId_Id(componentImagePId.getId());
+        PageComponentAssociate pcac = pageComponentAssociateService.findFirstByComponentImagePId_IdOrderBySortsDesc(componentImagePId.getId());
 
+        AtomicBoolean bo = new AtomicBoolean(false);
+        final Integer[] sort = {ObjectUtils.isEmpty(pcac) ? Integer.valueOf(pca.getSorts().toString() + "1") : pcac.getSorts()};
+        List<ComponentImage> componentImages = (List<ComponentImage>) toEntitys(jsonComponentImages, ComponentImage.class);
         List<PageComponentAssociate> pageComponentAssociates = new ArrayList<>();
         componentImages.forEach(componentImage -> {
             componentImage.setId(null);
@@ -80,6 +85,14 @@ public class PageComponentAssociateController extends BaseController {
             pageComponentAssociate.setPage(page);
             pageComponentAssociate.setComponentImagePId(componentImagePId);
             pageComponentAssociate.setComponentImage(componentImage);
+            pageComponentAssociate.setLevel(pca.getLevel() + 1);
+            Integer[] s = sort;
+            if (!ObjectUtils.isEmpty(pcac) || bo.get()) {
+                s[0] = ++sort[0];
+            }
+            bo.set(true);
+            pageComponentAssociate.setSorts(s[0]);
+
             pageComponentAssociates.add(pageComponentAssociate);
         });
 

@@ -19,4 +19,8 @@ public interface PageComponentAssociateRepository extends BaseRepository<PageCom
 
     List<PageComponentAssociate> findByPage_Id(String pageId);
 
+    PageComponentAssociate findFirstByComponentImage_IdOrderBySortsDesc(String pId);
+
+    PageComponentAssociate findFirstByComponentImagePId_IdOrderBySortsDesc(String pId);
+
 }

@@ -127,7 +127,6 @@
 
         $("#btn_save_page_component").click(function () {
             var rows = $('#table_components').bootstrapTable('getSelections');
-            debugger;
             $.ajax({
                 type: 'post',
                 url: '../page-component-associate/save',

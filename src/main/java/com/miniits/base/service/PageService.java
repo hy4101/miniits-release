@@ -64,6 +64,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
         componentImage_1.setComponentBody("<div componentId=" + System.currentTimeMillis() + " componentName=" + page.getPageName() + "_title style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_1.setSorts(1);
+        pageComponentAssociate_1.setLevel(1);
         pageComponentAssociate_1.setComponentImage(componentImage_1);
 
         ComponentImage componentImage_2 = new ComponentImage();
@@ -77,6 +78,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
         componentImage_2.setComponentBody("<div componentId=" + System.currentTimeMillis() + " componentName=" + page.getPageName() + "_body style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_2.setSorts(2);
+        pageComponentAssociate_2.setLevel(1);
         pageComponentAssociate_2.setComponentImage(componentImage_2);
 
         ComponentImage componentImage_3 = new ComponentImage();
@@ -90,6 +92,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
         componentImage_3.setComponentBody("<div componentId=" + System.currentTimeMillis() + " componentName=" + page.getPageName() + "_footer style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_3.setSorts(3);
+        pageComponentAssociate_3.setLevel(1);
         pageComponentAssociate_3.setComponentImage(componentImage_3);
 
         pageComponentAssociate.add(pageComponentAssociate_1);

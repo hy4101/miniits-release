@@ -23,6 +23,9 @@ public class PageComponentAssociate extends BaseEntity {
     @Column(name = "sorts", length = 10)
     private Integer sorts;
 
+    @Column(name = "level", length = 10)
+    private Integer level;
+
     private ComponentImage componentImagePId;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -61,5 +64,13 @@ public class PageComponentAssociate extends BaseEntity {
 
     public void setComponentImagePId(ComponentImage componentImagePId) {
         this.componentImagePId = componentImagePId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

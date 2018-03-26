@@ -28,4 +28,11 @@ public class PageComponentAssociateService extends BaseServiceImpl<PageComponent
         super.setBaseDao(pageComponentAssociateRepository);
     }
 
+    public PageComponentAssociate findFirstBycomponentAndComponentImagePId_Id(String pId) {
+        return pageComponentAssociateRepository.findFirstByComponentImage_IdOrderBySortsDesc(pId);
+    }
+
+    public PageComponentAssociate findFirstByComponentImagePId_IdOrderBySortsDesc(String pId) {
+        return pageComponentAssociateRepository.findFirstByComponentImagePId_IdOrderBySortsDesc(pId);
+    }
 }
