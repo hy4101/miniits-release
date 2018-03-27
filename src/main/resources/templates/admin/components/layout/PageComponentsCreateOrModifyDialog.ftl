@@ -13,7 +13,7 @@
                     <div class="row" style="margin-bottom: 10px">
                         <div class="col-lg-3">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="请输入名称" id="componentName"
+                                <input type="text" class="form-control" placeholder="请输入名称" id="inp_componentName"
                                        aria-describedby="basic-addon1">
                             </div>
                         </div>
@@ -34,7 +34,7 @@
                                     style="background-color: #27AE60;color: #fff;">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
-                            <button id="btn_page_components_refresh" type="button" class="btn"
+                            <button id="btn_add_page_components_refresh" type="button" class="btn"
                                     style="background-color: #ff754e;color: #fff;">
                                 <i class="fa fa-refresh" aria-hidden="true"></i>
                             </button>
@@ -64,8 +64,8 @@
             getComponents();
         }
 
-        $('#btn_page_components_refresh').click(function () {
-            $("#componentName").val(null);
+        $('#btn_add_page_components_refresh').click(function () {
+            $("#inp_componentName").val(null);
             $("#componentId").val(null);
             $("#componentBodyApi").val(null)
         });
@@ -79,7 +79,7 @@
                 pagination: true,
                 queryParams: function (params) {
                     var filters = '';
-                    var componentName = $("#componentName").val();
+                    var componentName = $("#inp_componentName").val();
                     var componentId = $("#componentId").val();
                     var componentBodyApi = $("#componentBodyApi").val();
                     if (!isEmpty(componentName)) {

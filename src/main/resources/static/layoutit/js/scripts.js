@@ -1,3 +1,5 @@
+toastr.options.positionClass = 'toast-top-center';
+
 function handleSaveLayout() {
     var e = $(".demo").html();
     if (e != window.demoHtml) {
@@ -285,7 +287,15 @@ $(document).ready(function () {
     })
 
     function saveComponent(element) {
+        var componentBodyApi = $("#componentBodyApi").val();
+        var componentName = $("#componentName").val();
+        if (componentName == null || componentName == '') {
+            toastr.error('组件名称不能为空');
+            return;
+        }
         var component = {
+            componentBodyApi: componentBodyApi,
+            componentName: componentName,
             componentBody: element
         };
         $.ajax({
