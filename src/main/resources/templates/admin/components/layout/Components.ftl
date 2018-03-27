@@ -1,11 +1,59 @@
 <div style="padding: 10px 10px 10px 10px;">
     <#include "../common/TableFiles.ftl"/>
-    <div class="container">
+    <div>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="btn-group btn-group-lg">
+                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-left"></em> 左
+                    </button>
+                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-center"></em> 中
+                    </button>
+                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-right"></em> 右
+                    </button>
+                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-justify"></em> 全
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <div class="tabbable" id="tabs-938180">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="#panel-152414" data-toggle="tab">Section 1</a>
+                        </li>
+                        <li class="active">
+                            <a href="#panel-535157" data-toggle="tab">Section 2</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane" id="panel-152414">
+                            <p>
+                                I'm in Section 1.
+                            </p>
+                        </div>
+                        <div class="tab-pane active" id="panel-535157">
+                            <p>
+                                Howdy, I'm in Section 2.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
         <div class="row clearfix">
             <div class="col-md-12 column">
                 <nav class="navbar navbar-default nofollow" role="navigation">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">切换导航</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a rel="nofollow" class="navbar-brand" href="#">导航</a>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1"><span class="sr-only">切换导航</span><span
+                                class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                        </button>
+                        <a rel="nofollow" class="navbar-brand" href="#">导航</a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -17,7 +65,8 @@
                                 <a rel="nofollow" href="#">链接</a>
                             </li>
                             <li class="dropdown">
-                                <a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong class="caret"></strong></a>
+                                <a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong
+                                        class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a rel="nofollow" href="#">列表一</a>
@@ -43,15 +92,17 @@
                         </ul>
                         <form class="navbar-form navbar-left" role="search">
                             <div class="form-group">
-                                <input type="text" class="form-control" />
-                            </div> <button type="submit" class="btn btn-default">搜索</button>
+                                <input type="text" class="form-control"/>
+                            </div>
+                            <button type="submit" class="btn btn-default">搜索</button>
                         </form>
                         <ul class="nav navbar-nav navbar-right">
                             <li>
                                 <a rel="nofollow" href="#">链接</a>
                             </li>
                             <li class="dropdown">
-                                <a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong class="caret"></strong></a>
+                                <a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong
+                                        class="caret"></strong></a>
                                 <ul class="dropdown-menu">
                                     <li>
                                         <a rel="nofollow" href="#">列表一</a>
