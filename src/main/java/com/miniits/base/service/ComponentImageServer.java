@@ -1,6 +1,6 @@
 package com.miniits.base.service;
 
-import com.miniits.base.dao.ComponentImageReposiory;
+import com.miniits.base.dao.ComponentImageRepository;
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.mysql.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +22,10 @@ import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 public class ComponentImageServer extends BaseServiceImpl<ComponentImage, String> {
 
     @Autowired
-    private ComponentImageReposiory componentImageReposiory;
+    private ComponentImageRepository componentImageReposiory;
 
     @Autowired
-    public void setBaseDao(ComponentImageReposiory componentImageReposiory) {
+    public void setBaseDao(ComponentImageRepository componentImageReposiory) {
         super.setBaseDao(componentImageReposiory);
     }
 

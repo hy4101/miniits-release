@@ -3,6 +3,7 @@ package com.miniits.base.mysql;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -16,13 +17,18 @@ import java.util.Date;
 
 @EntityListeners(EntityListener.class)
 @MappedSuperclass
-public class BaseEntity {
+public class BaseEntity implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String id;
 
     private Date createDate;
 
     private String createBy;
+
+    private Date modifyDate;
+
+    private String modifyBy;
 
     @Id
     @GeneratedValue(generator = "system-uuid")
@@ -45,12 +51,30 @@ public class BaseEntity {
         this.createDate = createDate;
     }
 
-    @Column(name = "create_by")
+    @Column(name = "create_by", length = 50)
     public String getCreateBy() {
         return createBy;
     }
 
     public void setCreateBy(String createBy) {
         this.createBy = createBy;
+    }
+
+    @Column(name = "modify_date")
+    public Date getModifyDate() {
+        return modifyDate;
+    }
+
+    public void setModifyDate(Date modifyDate) {
+        this.modifyDate = modifyDate;
+    }
+
+    @Column(name = "modify_by", length = 50)
+    public String getModifyBy() {
+        return modifyBy;
+    }
+
+    public void setModifyBy(String modifyBy) {
+        this.modifyBy = modifyBy;
     }
 }

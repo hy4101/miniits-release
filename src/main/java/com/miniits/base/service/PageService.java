@@ -1,6 +1,6 @@
 package com.miniits.base.service;
 
-import com.miniits.base.dao.ComponentImageReposiory;
+import com.miniits.base.dao.ComponentImageRepository;
 import com.miniits.base.dao.PageComponentAssociateRepository;
 import com.miniits.base.dao.PageRepository;
 import com.miniits.base.model.entity.ComponentImage;
@@ -39,7 +39,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
     private PageComponentAssociateRepository pageComponentAssociateRepository;
 
     @Autowired
-    private ComponentImageReposiory componentImageReposiory;
+    private ComponentImageRepository componentImageReposiory;
 
     @Autowired
     public void setBaseDao(PageRepository pageRepository) {

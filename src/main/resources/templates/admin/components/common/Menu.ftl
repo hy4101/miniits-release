@@ -46,7 +46,8 @@
                 <li class="${(active == 'users')?string('active', '')} treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
-                        <span><b class="menu-title-text">系统管理</b></span>
+                        <span>系统管理</span>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
                         <li class="menu-item"><a href="../users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a></li>
@@ -55,22 +56,29 @@
                 <li class="${(active == 'layout')?string('active', '')} treeview">
                     <a href="#">
                         <i class="fa fa-files-o"></i>
-                        <span><b class="menu-title-text">布局管理</b></span>
+                        <span>布局管理</span>
+                        <i class="fa fa-angle-left pull-right"></i>
                         <span class="label label-primary pull-right">4</span>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="menu-item"><a href="../pages/init"><i class="fa fa-paperclip" aria-hidden="true"></i>页面管理</a></li>
-                        <li class="menu-item"><a href="../components/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件管理</a></li>
-                        <li class="menu-item"><a href="../components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件开发</a></li>
-                        <li class="menu-item"><a href="../components/init"><i class="fa fa-cubes" aria-hidden="true"></i>系统页面</a></li>
-                        <li class="menu-item"><a href="../components/init"><i class="fa fa-file-code-o" aria-hidden="true"></i>系统组件</a></li>
+                        <li class="menu-item"><a href="/admin/pages/init"><i class="fa fa-paperclip" aria-hidden="true"></i>页面管理</a></li>
+                        <li class="menu-item"><a href="/admincomponents/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件管理</a></li>
+                        <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件开发</a></li>
+                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-cubes" aria-hidden="true"></i>系统页面</a></li>
+                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-file-code-o" aria-hidden="true"></i>系统组件</a></li>
                     </ul>
                 </li>
-                <li>
+                <li class="${(active == 'content')?string('active', '')} treeview">
                     <a href="pages/widgets.html">
-                        <i class="fa fa-th"></i> <span>Widgets</span>
-                        <small class="label pull-right bg-green">new</small>
+                        <i class="fa fa-th"></i> <span>内容管理</span>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </a>
+                    <ul class="treeview-menu">
+                        <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip" aria-hidden="true"></i>文章管理</a></li>
+                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>云标签管理</a></li>
+                        <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>分类管理</a></li>
+                        <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>友情链接</a></li>
+                    </ul>
                 </li>
                 <li class="treeview">
                     <a href="#">

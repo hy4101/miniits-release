@@ -14,7 +14,7 @@ import org.springframework.data.repository.query.Param;
  * Description:
  * WWW.MINIITS.COM
  */
-public interface ComponentImageReposiory extends BaseRepository<ComponentImage, String> {
+public interface ComponentImageRepository extends BaseRepository<ComponentImage, String> {
 
     @Modifying
     @Query("update ComponentImage set componentStatus =:componentStatus,componentStatusName =:componentStatusName where id=:id")

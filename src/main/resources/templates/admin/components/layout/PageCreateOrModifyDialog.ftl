@@ -23,10 +23,15 @@
                                placeholder="请输入页面名称">
                     </div>
                     <div class="form-group div-form-group">
-                        <label for="txt_parentdepartment" class="label-form-group-title-item">页面访问路径 : </label>
-                        <input type="text" name="pagePath" class="form-control input-form-group-value-item"
-                               id="pagePath"
-                               placeholder="密码输入页面访问路径">
+                        <label for="txt_parentdepartment" class="label-form-group-title-item">页面访问路径 : ( miniits为固定路径，其余参数为自定义， 默认后缀 .html )</label>
+                        <#--<input type="text" name="pagePath" class="form-control input-form-group-value-item"-->
+                               <#--id="pagePath"-->
+                               <#--placeholder="输入页面访问路径">-->
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3">https://www.url.com/miniits/</span>
+                            <input type="text" class="form-control" id="pagePath" name="pagePath"  aria-describedby="basic-addon3" placeholder="输入页面访问路径">
+                            <span class="input-group-addon">.html</span>
+                        </div>
                     </div>
                     <div class="form-group div-form-group">
                         <label for="txt_departmentlevel" class="label-form-group-title-item">状态 : </label>

@@ -1,9 +1,11 @@
 package com.miniits.base.mysql;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.PrePersist;
+import java.util.Calendar;
 
 
 /**
@@ -24,7 +26,11 @@ public class EntityListener {
     @PrePersist
     public void prePersist(BaseEntity entity) {
 //        User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
-//        entity.setCreateDate(Calendar.getInstance().getTime());
+        entity.setCreateDate(Calendar.getInstance().getTime());
+        if (!StringUtils.isEmpty(entity.getId())){
+            entity.setModifyDate(Calendar.getInstance().getTime());
+//            entity.setModifyBy();
+        }
 //        entity.setCreateBy(null != currentUser ? currentUser.getId() : null);
     }
 }
