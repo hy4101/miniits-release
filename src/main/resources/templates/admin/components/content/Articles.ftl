@@ -11,26 +11,14 @@
 
     </style>
     <div style="flex: 7">
-        <div id="articles_toolbar" class="btn-group">
-            <button id="btn_add_show_articles_dialog_click" type="button" class="btn"
-                    style="background-color: #3c8dbc;color: #fff;">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-        </div>
         <div class="div-articles-component-title">
-            页面管理
+            文章管理
         </div>
         <table id="table_articles" style="background-color: #FFFFFF"></table>
     </div>
     <div style="padding-left: 10px;flex: 5">
-        <div id="articles_comments_toolbar" class="btn-group">
-            <button id="btn_add_show_articles_dialog_click" type="button" class="btn"
-                    style="background-color: #3c8dbc;color: #fff;">
-                <i class="fa fa-plus" aria-hidden="true"></i>
-            </button>
-        </div>
         <div class="div-articles-component-title">
-            组件管理
+            评论管理
         </div>
         <table id="table_comments" style="background-color: #FFFFFF"></table>
     </div>

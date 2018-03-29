@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Table(name = "article")
 public class Article extends BaseEntity {
     /**
-     * post表主键
+     * 路径
      */
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "path")
