@@ -74,8 +74,8 @@
                             : </label>
                         <select class="form-control input-form-group-value-item" id="allowComment" style="flex: 4"
                                 name="allowComment">
-                            <option value="100000001">启用</option>
-                            <option value="100000002">禁用</option>
+                            <option value="100000001">允许</option>
+                            <option value="100000002">禁言</option>
                         </select>
                     </div>
                 </div>
@@ -91,9 +91,7 @@
 <script>
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
-
         $("#save_article_btn").click(function () {
-            debugger;
             var titleName = $("#titleName").val();
             var titleImage = $("#titleImage").val();
             var contentTitle = $("#contentTitle").val();
@@ -114,11 +112,9 @@
                 data: {article: JSON.stringify(data)},
                 datatype: 'json',
                 success: function (data) {
-                    debugger;
                     toastr.success('发布成功');
                 },
                 error: function (data) {
-                    debugger;
                     console.log(data);
                 }
             });

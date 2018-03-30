@@ -18,9 +18,8 @@ public class Article extends BaseEntity {
     /**
      * 路径
      */
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "path")
-    private Integer path;
+    private Long path = System.currentTimeMillis();
 
     /**
      * 内容状态
@@ -68,7 +67,7 @@ public class Article extends BaseEntity {
      * 内容作者id
      */
     @Column(name = "author_id", length = 50)
-    private Integer authorId;
+    private String authorId;
 
     /**
      * 内容作者名
@@ -115,7 +114,7 @@ public class Article extends BaseEntity {
      * 是否允许评论
      */
     @Column(name = "allow_comment")
-    private Boolean allowComment;
+    private Integer allowComment;
 
     /**
      * 内容文字
@@ -131,11 +130,11 @@ public class Article extends BaseEntity {
     @Column(name = "content_title", length = 125)
     private String contentTitle;
 
-    public Integer getPath() {
+    public Long getPath() {
         return path;
     }
 
-    public void setPath(Integer path) {
+    public void setPath(Long path) {
         this.path = path;
     }
 
@@ -195,11 +194,11 @@ public class Article extends BaseEntity {
         this.titleImage = titleImage;
     }
 
-    public Integer getAuthorId() {
+    public String getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Integer authorId) {
+    public void setAuthorId(String authorId) {
         this.authorId = authorId;
     }
 
@@ -259,11 +258,11 @@ public class Article extends BaseEntity {
         this.commentsNum = commentsNum;
     }
 
-    public Boolean getAllowComment() {
+    public Integer getAllowComment() {
         return allowComment;
     }
 
-    public void setAllowComment(Boolean allowComment) {
+    public void setAllowComment(Integer allowComment) {
         this.allowComment = allowComment;
     }
 
@@ -281,5 +280,8 @@ public class Article extends BaseEntity {
 
     public void setContentTitle(String contentTitle) {
         this.contentTitle = contentTitle;
+    }
+
+    public Article() {
     }
 }

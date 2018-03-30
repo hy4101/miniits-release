@@ -20,24 +20,22 @@ public final class SystemDict {
     public final static Integer GLOBAL_STATUS_NO = 100000002;
 
     /**
-     * 用户类型
-     * 迷你书签 = 100001001
-     * 迷你科技 = 100001002
-     * 平台 = 100001003
+     * 文章类型
+     * 用户 = 100001001
+     * 系统 = 100001002
+     * 第三方 = 100001003
      */
-    public final static Integer USER_TYPE_MINI_BK = 100001001;
-    public final static Integer USER_TYPE_MINI_ITS = 100001002;
-    public final static Integer USER_TYPE_PLATFORM = 100001003;
+    public final static Integer ARTICLES_TYPE_USER = 100001001;
+    public final static Integer ARTICLES_TYPE_SYSTEM = 100001002;
+    public final static Integer ARTICLES_TYPE_THIRD_PARTY = 100001003;
 
     /**
-     * 用户状态
-     * 待验证 = 100001001
-     * 验证通过 = 100001002
-     * 禁用 = 100001003
+     * 文章状态
+     * 启用 = 100001001
+     * 禁用 = 100001002
      */
-    public final static Integer USER_STATUS_NOT_EMAIL_VERIFICATION = 100002001;
-    public final static Integer USER_STATUS_YET_VERIFICATION = 100002002;
-    public final static Integer USER_STATUS_NOT_USE = 100002003;
+    public final static Integer ARTICLES_STATUS_ENABLE = 100002001;
+    public final static Integer ARTICLES_STATUS_DISABLED = 100002002;
 
     /**
      * 站点状态

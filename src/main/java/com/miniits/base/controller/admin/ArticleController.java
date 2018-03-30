@@ -3,12 +3,14 @@ package com.miniits.base.controller.admin;
 import com.miniits.base.model.entity.Article;
 import com.miniits.base.service.ArticleServer;
 import com.miniits.base.utils.BaseController;
-import com.miniits.base.utils.ConvertUtil;
 import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+
+import static com.miniits.base.utils.SystemDict.ARTICLES_STATUS_ENABLE;
+import static com.miniits.base.utils.SystemDict.ARTICLES_TYPE_USER;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -39,8 +41,15 @@ public class ArticleController extends BaseController {
 
     @PostMapping("/publish")
     @ResponseBody
-    public Result saveArticle(@RequestParam(value = "article") String article) {
-        return success(articleServer.save(ConvertUtil.toVO(article, Article.class)));
+    public Result saveArticle(@RequestParam(value = "article") String article) throws Exception {
+        Article o = toEntity(article, Article.class);
+        o.setSource(ARTICLES_TYPE_USER);
+        o.setSourceName("系统");
+        o.setStatus(ARTICLES_STATUS_ENABLE);
+        o.setStatusName("启用");
+        o.setAuthorId("");
+        o.setAuthorName("");
+        return success(articleServer.save(o));
     }
 
 }
