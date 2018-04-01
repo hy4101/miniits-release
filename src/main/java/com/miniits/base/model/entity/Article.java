@@ -3,6 +3,7 @@ package com.miniits.base.model.entity;
 import com.miniits.base.mysql.BaseEntity;
 
 import javax.persistence.*;
+import java.util.List;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -15,6 +16,10 @@ import javax.persistence.*;
 @Entity
 @Table(name = "article")
 public class Article extends BaseEntity {
+    /**
+     * 分类
+     */
+    private List<ArticleCatrgoryAssociate> catrgoryAssociates;
     /**
      * 路径
      */
@@ -283,5 +288,14 @@ public class Article extends BaseEntity {
     }
 
     public Article() {
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "articles", cascade = {CascadeType.PERSIST})
+    public List<ArticleCatrgoryAssociate> getCatrgoryAssociates() {
+        return catrgoryAssociates;
+    }
+
+    public void setCatrgoryAssociates(List<ArticleCatrgoryAssociate> catrgoryAssociates) {
+        this.catrgoryAssociates = catrgoryAssociates;
     }
 }

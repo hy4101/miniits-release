@@ -1,8 +1,17 @@
+<style>
+    .bootstrap-select.form-control:not([class*=col-]){
+        width: 81% !important;
+    }
+</style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
     <link href="/static/toastr/toastr.css" rel="stylesheet"/>
     <script src="/static/toastr/toastr.min.js"></script>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
     <script src="/static/editor.md/src/editormd.js"></script>
+    <link rel="stylesheet" href="/static/tagsinput/jquery.tagsinput.css"/>
+    <script src="/static/tagsinput/jquery.tagsinput.min.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-select.min.css"/>
+    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap-select.min.js"></script>
     <div style="width: 100%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -52,21 +61,24 @@
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
                                style="flex: 1;line-height: 29px;">类别
                             : </label>
-                        <select class="form-control input-form-group-value-item" id="types" style="flex: 4"
-                                name="types">
-                            <option value="100000001">启用</option>
-                            <option value="100000002">禁用</option>
+                        <select class="form-control selectpicker" id="types" title="请选择省份" multiple >
+                            <option data-content="<span class='label label-success'>广东省</span>">100000001</option>
+                            <option data-content="<span class='label label-info'>广西省</span>">100000002</option>
+                            <option data-content="<span class='label label-warning'>福建省</span>">100000003</option>
+                            <option data-content="<span class='label label-danger'>山东省</span>">100000004</option>
                         </select>
+                    <#--<select class="form-control input-form-group-value-item" id="types" style="flex: 4"-->
+                    <#--name="types">-->
+                    <#--<option value="100000001">启用</option>-->
+                    <#--<option value="100000002">禁用</option>-->
+                    <#--</select>-->
                     </div>
                     <div class="col-md-4 column" style="display: flex">
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
                                style="flex: 1;line-height: 29px;">标签
                             : </label>
-                        <select class="form-control input-form-group-value-item" id="tags" style="flex: 4"
-                                name="tags">
-                            <option value="100000001">启用</option>
-                            <option value="100000002">禁用</option>
-                        </select>
+                        <input name="tags" id="tags" style="flex: 4" type="text" class="form-control"
+                               placeholder="请填写文章标签"/>
                     </div>
                     <div class="col-md-4 column" style="display: flex">
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
@@ -91,6 +103,13 @@
 <script>
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
+        $('#tags').tagsInput({
+            width: '81%',
+            height: '35px',
+            defaultText: '输入标签'
+        });
+
+
         $("#save_article_btn").click(function () {
             var titleName = $("#titleName").val();
             var titleImage = $("#titleImage").val();
