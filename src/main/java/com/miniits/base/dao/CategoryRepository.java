@@ -12,4 +12,7 @@ import com.miniits.base.mysql.BaseRepository;
  * WWW.MINIITS.COM
  */
 public interface CategoryRepository extends BaseRepository<Category, String> {
+
+    Category findByCategoryName(String categoryName);
+
 }

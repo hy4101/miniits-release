@@ -62,7 +62,7 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="menu-item"><a href="/admin/pages/init"><i class="fa fa-paperclip" aria-hidden="true"></i>页面管理</a></li>
-                        <li class="menu-item"><a href="/admincomponents/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件管理</a></li>
+                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件管理</a></li>
                         <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>组件开发</a></li>
                         <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-cubes" aria-hidden="true"></i>系统页面</a></li>
                         <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-file-code-o" aria-hidden="true"></i>系统组件</a></li>
@@ -77,7 +77,7 @@
                         <li class="menu-item"><a href="/admin/contents/article/publish/init"><i class="fa fa-paperclip" aria-hidden="true"></i>发布文章</a></li>
                         <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip" aria-hidden="true"></i>采集文章</a></li>
                         <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip" aria-hidden="true"></i>文章管理</a></li>
-                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>云标签管理</a></li>
+                        <li class="menu-item"><a href="/admin/tags/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>云标签管理</a></li>
                         <li class="menu-item"><a href="/admin/categorys/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>分类管理</a></li>
                         <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>友情链接</a></li>
                     </ul>

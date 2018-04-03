@@ -1,13 +1,25 @@
-/**
- * 判断属性是否空
- *  isEmpty 支持的类型如下：
- *    1、字符串：内容为空，返回 true，否则 false
- *    2、对象：对象为空，返回 true，否则 false
- *    3、数组：数组为空，返回 true，否则 false
- * @param str
- * @returns {boolean}
- */
 (function ($) {
+
+    /**
+     * 判断属性是否空
+     *  isEmpty 支持的类型如下：
+     *    1、字符串：内容为空，返回 true，否则 false
+     *    2、对象：对象为空，返回 true，否则 false
+     *    3、数组：数组为空，返回 true，否则 false
+     * @param str
+     * @returns {boolean}
+     */
+    window.isEmpty = function (str) {
+        if (str === '' || str == null || str === undefined) {
+            return true;
+        }
+        if (str instanceof Array) {
+            if (str == null || str.length <= 0) {
+                return true;
+            }
+        }
+        return false;
+    };
 
     window.Mini = function () {
         var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
@@ -75,30 +87,7 @@
             return modalId;
         }
 
-        var asserEmpty = function (str) {
-            if (str === '' || str == null || str === undefined) {
-                return true;
-            }
-            if (str instanceof Array) {
-                if (str == null || str.length <= 0) {
-                    return true;
-                }
-            }
-            return false;
-        };
         return {
-            isEmpty: function (str) {
-                debugger;
-                if (str === '' || str == null || str === undefined) {
-                    return true;
-                }
-                if (str instanceof Array) {
-                    if (str == null || str.length <= 0) {
-                        return true;
-                    }
-                }
-                return false;
-            },
             alert: function (options) {
                 if (typeof options == 'string') {
                     options = {

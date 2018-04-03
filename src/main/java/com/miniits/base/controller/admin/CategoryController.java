@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -42,19 +44,24 @@ public class CategoryController extends BaseController {
 
     @PostMapping
     @ResponseBody
-    public Result saveCategory(@RequestParam(value = "id") String id, @RequestParam(value = "categoryName") String categoryName) {
-        if (id.isEmpty()) {
-            long number = categoryServer.countExtend("EQ_categoryName=" + categoryName);
+    public Result saveCategory(@RequestParam(value = "category") String category) throws Exception {
+        Category o = toEntity(category, Category.class);
+        String mes = "添加成功";
+        if (StringUtils.isEmpty(o.getId())) {
+            long number = categoryServer.countExtend("EQ_categoryName=" + o.getCategoryName());
             if (number > 0) {
-                return error("【 " + categoryName + " 】类别已经存在");
+                return error("【 " + o.getCategoryName() + " 】类别已经存在");
             }
-            categoryServer.save(new Category(categoryName));
+            categoryServer.save(o);
         } else {
-            Category category = categoryServer.findOne(id);
-            category.setCategoryName(categoryName);
-            category = categoryServer.save(category);
+            Category old = categoryServer.findByCategoryName(o.getCategoryName());
+            if (!ObjectUtils.isEmpty(old) && !old.getId().equals(o.getId()) && old.getCategoryName().equals(o.getCategoryName())) {
+                return error("【 " + o.getCategoryName() + " 】类别已经存在");
+            }
+            categoryServer.save(o);
+            mes = "修改成功";
         }
-        return success("添加成功");
+        return success(mes);
     }
 
     @DeleteMapping("{id}")
