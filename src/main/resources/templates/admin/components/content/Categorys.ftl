@@ -1,5 +1,8 @@
 <div style="padding: 10px 10px 10px 10px">
     <#include "../common/TableFiles.ftl"/>
+    <script src="/static/bootstrap-3.3.7-dist/table/bootstrap-editable.js"></script>
+    <script src="/static/bootstrap-3.3.7-dist/table/bootstrap-table-editable.js"></script>
+    <link href="/static/bootstrap-3.3.7-dist/table/bootstrap-editable.css" rel="stylesheet"/>
     <div>
         <div class="row" style="margin-bottom: 10px">
             <div class="col-lg-6">
@@ -37,44 +40,48 @@
 
         function searchArticles() {
             $('#div_table_categorys').bootstrapTable({
-                toolbar: '#categorys_toolbar',
-                pagination: true,
-                queryParams: function (params) {
-                    var filters = '';
-                    var categoryName = $("#categoryName").val();
-                    if (!isEmpty(categoryName)) {
-                        filters = 'LIKE_categoryName=' + categoryName;
+                        toolbar: '#categorys_toolbar',
+                        pagination: true,
+                        queryParams: function (params) {
+                            var filters = '';
+                            var categoryName = $("#categoryName").val();
+                            if (!isEmpty(categoryName)) {
+                                filters = 'LIKE_categoryName=' + categoryName;
+                            }
+                            var temp = {
+                                pageSize: params.limit,                         //页面大小
+                                pageNumber: (params.offset / params.limit) + 1,   //页码
+                                sorts: '-createDate',      //排序列名
+                                filters: filters //排位命令（desc，asc）
+                            };
+                            return temp;
+                        },
+                        sidePagination: 'server',//指定服务器端分页
+                        pageNumber: 1,                       //初始化加载第一页，默认第一页
+                        pageSize: 15,                       //每页的记录行数（*）
+                        pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
+                        method: 'get',
+                        url: "../categorys",//要请求数据的文件路径
+                        contentType: "application/x-www-form-urlencoded",//必须要有！！！！
+                        columns: [{
+                            field: 'id',
+                            visible: false
+                        }, {
+                            field: 'categoryName',
+                            title: '类别名称',
+                            editable: {required: true, type: 'text'}
+                        }, {
+                            field: 'operate',
+                            title: '操作',
+                            align: 'center',
+                            width: 260,
+                            events: cOperateEvents,
+                            formatter: cOperateFormatter
+                        }],
+                        onEditableSave: function (field, row, oldValue, $el) {
+                        }
                     }
-                    var temp = {
-                        pageSize: params.limit,                         //页面大小
-                        pageNumber: (params.offset / params.limit) + 1,   //页码
-                        sorts: '-createDate',      //排序列名
-                        filters: filters //排位命令（desc，asc）
-                    };
-                    return temp;
-                },
-                sidePagination: 'server',//指定服务器端分页
-                pageNumber: 1,                       //初始化加载第一页，默认第一页
-                pageSize: 15,                       //每页的记录行数（*）
-                pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
-                method: 'get',
-                url: "../categorys",//要请求数据的文件路径
-                contentType: "application/x-www-form-urlencoded",//必须要有！！！！
-                columns: [{
-                    field: 'id',
-                    visible: false
-                }, {
-                    field: 'categoryName',
-                    title: '标题'
-                }, {
-                    field: 'operate',
-                    title: '操作',
-                    align: 'center',
-                    width: 260,
-                    events: cOperateEvents,
-                    formatter: cOperateFormatter
-                }]
-            });
+            );
         }
 
         $('#btn_search').click(function () {
@@ -161,5 +168,6 @@
         };
         categorysInit();
 
-    })(jQuery, window)
+    })
+    (jQuery, window)
 </script>
