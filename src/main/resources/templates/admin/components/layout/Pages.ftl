@@ -323,14 +323,10 @@
             var parentId = row.componentImageVO.id;
             var cur_table = $detail.html('<table></table>').find('table');
             $(cur_table).bootstrapTable({
-
                 sidePagination: 'server',//指定服务器端分页
                 contentType: "application/x-www-form-urlencoded",
-
-
                 method: 'get',
                 url: "../page-component-associate",//要请求数据的文件路径
-                // queryParams: {strParentID: parentid},
                 queryParams: function (params) {
                     var temp = {
                         pageSize: params.limit,                         //页面大小

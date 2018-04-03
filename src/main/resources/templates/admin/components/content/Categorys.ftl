@@ -25,6 +25,9 @@
         <table id="div_table_categorys">
 
         </table>
+        <div>
+            <#include "CategorysCreateOrModify.ftl"/>
+        </div>
     </div>
 </div>
 <script>
@@ -39,6 +42,10 @@
             $('#div_table_categorys').bootstrapTable({
                 toolbar: '#categorys_toolbar',
                 pagination: true,
+                detailView: true,//父子表
+                onExpandRow: function (index, row, $detail) {
+                    InitSubTable(index, row, $detail);
+                },
                 queryParams: function (params) {
                     var filters = '';
                     var categoryName = $("#categoryName").val();
@@ -49,7 +56,7 @@
                         pageSize: params.limit,                         //页面大小
                         pageNumber: (params.offset / params.limit) + 1,   //页码
                         sorts: '-createDate',      //排序列名
-                        filters: filters //排位命令（desc，asc）
+                        filters: filters + ';EQ_level=1' //排位命令（desc，asc）
                     };
                     return temp;
                 },
@@ -65,7 +72,7 @@
                     visible: false
                 }, {
                     field: 'categoryName',
-                    title: '标题'
+                    title: '分类名称'
                 }, {
                     field: 'operate',
                     title: '操作',
@@ -77,6 +84,56 @@
             });
         }
 
+        //初始化子表格(无线循环)
+        function InitSubTable(index, row, $detail) {
+            var pId = row.id;
+            var cur_table = $detail.html('<table></table>').find('table');
+            $(cur_table).bootstrapTable({
+                sidePagination: 'server',//指定服务器端分页
+                contentType: "application/x-www-form-urlencoded",
+                method: 'get',
+                url: "../categorys",//要请求数据的文件路径
+                queryParams: function (params) {
+                    var filters = '';
+                    var categoryName = $("#categoryName").val();
+                    if (!isEmpty(categoryName)) {
+                        filters = 'LIKE_categoryName=' + categoryName;
+                    }
+                    var temp = {
+                        pageSize: params.limit,
+                        pageNumber: (params.offset / params.limit) + 1,
+                        sorts: '-createDate',
+                        filters: filters + ';EQ_pId=' + pId
+                    };
+                    return temp;
+                },
+                clickToSelect: true,
+                pagination: true,
+                detailView: true,//父子表
+                uniqueId: "id",
+                pageSize: 10,
+                pageList: [10, 25],
+                columns: [{
+                    field: 'id',
+                    visible: false
+                }, {
+                    field: 'categoryName',
+                    title: '分类名称'
+                }, {
+                    field: 'operate',
+                    title: '操作',
+                    align: 'center',
+                    width: 260,
+                    events: cOperateEvents,
+                    formatter: cOperateFormatter
+                }],
+                //无线循环取子表，直到子表里面没有记录
+                onExpandRow: function (index, row, $Subdetail) {
+                    InitSubTable(index, row, $Subdetail);
+                }
+            });
+        };
+
         $('#btn_search').click(function () {
             $('#div_table_categorys').bootstrapTable('refresh');
         });
@@ -87,12 +144,17 @@
 
         $("#btn_add_category_click").click(function () {
             var categoryName = $("#categoryName").val();
+            if (isEmpty(categoryName)) {
+                return;
+            }
             $.ajax({
                 type: 'post',
                 url: '../categorys',
                 data: {
-                    id: '',
-                    categoryName: categoryName
+                    category: JSON.stringify({
+                        categoryName: categoryName,
+                        level: 1
+                    })
                 },
                 datatype: 'json',
                 success: function (data) {
@@ -114,13 +176,21 @@
                 deleteBy(row);
             },
             'click .category-modify': function (e, value, row, index) {
-                $("#categoryName").val(row.categoryName);
+                $("#new_category_title").text("修改分类");
+                $('#category_modal').modal();
+                commitCategory({row: row});
+            },
+            'click .category-add-child': function (e, value, row, index) {
+                $("#new_category_title").text('添加' + row.categoryName + '子类');
+                $('#category_modal').modal();
+                commitCategory({row: row, child: 'child'});
             }
         };
 
         function cOperateFormatter(value, row, index) {
             var editBtns = ['<button type="button" class="category-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
-                '<button type="button" class="category-modify btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+                '<button type="button" class="category-modify btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button>',
+                '<button type="button" class="category-add-child btn btn-delete btn-sm" style="margin-right:15px;background-color: #3c8dbc;color: #fff;"><i class="fa fa-plus" aria-hidden="true"></i></button>',
             ];
             return editBtns.join('');
         }
@@ -148,17 +218,6 @@
             });
         }
 
-        function isEmpty(str) {
-            if (str === '' || str == null || str === undefined) {
-                return true;
-            }
-            if (str instanceof Array) {
-                if (str == null || str.length <= 0) {
-                    return true;
-                }
-            }
-            return false;
-        };
         categorysInit();
 
     })(jQuery, window)

@@ -27,6 +27,8 @@ public class CategoryServer extends BaseServiceImpl<Category, String> {
         super.setBaseDao(categoryRepository);
     }
 
-
+    public Category findByCategoryName(String categoryName) {
+        return categoryRepository.findByCategoryName(categoryName);
+    }
 
 }

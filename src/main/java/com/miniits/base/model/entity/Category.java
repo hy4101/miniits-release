@@ -18,7 +18,14 @@ import java.util.List;
 @Table(name = "category")
 public class Category extends BaseEntity {
 
+    @Column(name = "category_name", unique = true, nullable = false, length = 30)
     private String categoryName;
+
+    @Column(name = "p_id", length = 36)
+    private String pId;
+
+    @Column(name = "level", nullable = false)
+    private Integer level;
 
     private List<ArticleCatrgoryAssociate> articleCatrgoryAssociates;
 
@@ -41,10 +48,19 @@ public class Category extends BaseEntity {
         this.articleCatrgoryAssociates = articleCatrgoryAssociates;
     }
 
-    public Category() {
+    public String getpId() {
+        return pId;
     }
 
-    public Category(String categoryName) {
-        this.categoryName = categoryName;
+    public void setpId(String pId) {
+        this.pId = pId;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }
