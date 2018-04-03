@@ -12,4 +12,7 @@ import com.miniits.base.mysql.BaseRepository;
  * ***
  */
 public interface TagRepositoy extends BaseRepository<Tag, String> {
+
+    Tag findByName(String name);
+
 }
