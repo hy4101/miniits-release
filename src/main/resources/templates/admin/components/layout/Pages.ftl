@@ -110,7 +110,7 @@
             });
         }
 
-        $("#table_pages").on('click-row.bs.table', function (e, row, element){
+        $("#table_pages").on('click-row.bs.table', function (e, row, element) {
             $('.success').removeClass('success');//去除之前选中的行的，选中样式
             $(element).addClass('success');//添加当前选中的 success样式用于区别
         });
@@ -336,7 +336,6 @@
                     };
                     return temp;
                 },
-                // ajaxOptions: {strParentID: parentid},
                 clickToSelect: true,
                 pagination: true,
                 detailView: true,//父子表
@@ -506,17 +505,6 @@
             });
         }
 
-        function isEmpty(str) {
-            if (str === '' || str == null || str === undefined) {
-                return true;
-            }
-            if (str instanceof Array) {
-                if (str == null || str.length <= 0) {
-                    return true;
-                }
-            }
-            return false;
-        };
         pageInit();
         win.refreshPage = function (data) {
             if (data.type === 'success') {
