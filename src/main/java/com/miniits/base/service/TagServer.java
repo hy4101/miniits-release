@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: wq
  * @Date: 2018/4/3
@@ -30,5 +32,9 @@ public class TagServer extends BaseServiceImpl<Tag, String> {
 
     public Tag findByName(String name) {
         return tagRepositoy.findByName(name);
+    }
+
+    public void modifyTagNumber(List<String> name, Integer number) {
+        tagRepositoy.modifyTagNumber(name, number);
     }
 }

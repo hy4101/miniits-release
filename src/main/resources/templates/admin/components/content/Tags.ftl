@@ -93,8 +93,8 @@
                     '    margin-right: 5px;">' + data.number + '</span><span class="caret"></span>\n' +
                     '            </button>\n' +
                     '            <ul class="dropdown-menu">\n' +
-                    '                <li style="text-align: center;"><a onclick ="deleteTag(\'' + id + '\',\'' + name + '\')" ><i class="fa fa-trash-o" aria-hidden="true" style="margin-right: 0"></i></a></li>\n' +
-                    '                <li style="text-align: center;"><a onclick ="modifyTAG(\'' + id + '\',\'' + name + '\')" ><i class="fa fa-pencil" aria-hidden="true" style="margin-right: 0"></i></a></li>\n' +
+                    '                <li style="text-align: center;"><a onclick ="deleteTag(\'' + id + '\',\'' + name + '\')" ><i class="fa fa-trash-o" aria-hidden="true" style="margin-right: 0;color: red;"></i></a></li>\n' +
+                    '                <li style="text-align: center;"><a onclick ="modifyTAG(\'' + id + '\',\'' + name + '\')" ><i class="fa fa-pencil" aria-hidden="true" style="margin-right: 0;color: #119e17;"></i></a></li>\n' +
                     '            </ul>\n' +
                     '        </div>'
         }

@@ -10,9 +10,8 @@
     <script src="/static/editor.md/src/editormd.js"></script>
     <link rel="stylesheet" href="/static/tagsinput/jquery.tagsinput.css"/>
     <script src="/static/tagsinput/jquery.tagsinput.min.js"></script>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-select.min.css"/>
-    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap-select.min.js"></script>
-
+    <#--<link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-select.min.css"/>-->
+    <#--<script src="/static/bootstrap-3.3.7-dist/js/bootstrap-select.min.js"></script>-->
 
     <script type="text/javascript" src="/static/select-tree-search/bootstrap-select.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/select-tree-search/bootstrap-select.css">
@@ -170,7 +169,7 @@
                 type: 'get',
                 url: '/admin/categorys',
                 data: {
-                    pageSize: 100,
+                    pageSize: 1000,
                     pageNumber: 1,
                     sorts: '-createDate',
                     filters: ''
