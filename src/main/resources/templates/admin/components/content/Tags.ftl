@@ -5,6 +5,7 @@
         <div class="col-lg-2">
             <input type="text" class="form-control" placeholder="请输入标签名称" id="tagName"
                    aria-describedby="basic-addon1">
+            <input type="text" id="tagId" style="display:none">
         </div>
         <div class="col-lg-6">
             <button id="add_tag_btn" type="button" class="btn"
@@ -39,7 +40,6 @@
                     for (var i = 0; i < os.length; ++i) {
                         $("#div_tags").append(getHtml(os[i]))
                     }
-
                 },
                 error: function (data) {
                     toastr.error(data.responseText);
@@ -49,6 +49,7 @@
 
         $("#add_tag_btn").click(function () {
             var tagName = $("#tagName").val();
+            var tagId = $("#tagId").val();
             if (isEmpty(tagName)) {
                 return;
             }
@@ -59,11 +60,13 @@
                 type: 'POST',
                 url: '../tags',
                 data: {
-                    name: tagName,
-                    number: 0
+                    id: tagId,
+                    name: tagName
                 },
                 dataType: 'json',
                 success: function (data) {
+                    $("#tagName").val(null);
+                    $("#tagId").val(null);
                     if (data.success) {
                         toastr.success(data.message);
                         searchTages();
@@ -72,12 +75,16 @@
                     }
                 },
                 error: function (data) {
+                    $("#tagName").val(null);
+                    $("#tagId").val(null);
                     toastr.error(data.responseText);
                 }
             });
         })
 
         function getHtml(data) {
+            var id = data.id;
+            var name = data.name;
             var RGBA = '#' + Math.floor(Math.random() * 16777215).toString(16);
             return ' <div class="btn-group" style="margin: 5px 5px;">' +
                     '            <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" style="background-color:' + RGBA + '" aria-haspopup="true"\n' +
@@ -86,12 +93,40 @@
                     '    margin-right: 5px;">' + data.number + '</span><span class="caret"></span>\n' +
                     '            </button>\n' +
                     '            <ul class="dropdown-menu">\n' +
-                    '                <li><button type="button" class="tag-delete btn btn-delete btn-sm" style="margin-right:15px;    width: 100%;    margin-bottom: 10px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button></li>\n' +
-                    '                <li><button type="button" class="tag-modify btn btn-default btn-sm" style="margin-right:15px;    width: 100%;"><i class="fa fa-pencil" aria-hidden="true"></i></button></li>\n' +
+                    '                <li style="text-align: center;"><a onclick ="deleteTag(\'' + id + '\',\'' + name + '\')" ><i class="fa fa-trash-o" aria-hidden="true" style="margin-right: 0"></i></a></li>\n' +
+                    '                <li style="text-align: center;"><a onclick ="modifyTAG(\'' + id + '\',\'' + name + '\')" ><i class="fa fa-pencil" aria-hidden="true" style="margin-right: 0"></i></a></li>\n' +
                     '            </ul>\n' +
                     '        </div>'
         }
 
         initTage()
-    })(jQuery, window)
+    })(jQuery, window);
+
+    function deleteTag(id, name) {
+        Mini.confirm({
+            message: "您确认要删除 <b style='color: red'>" + name + "标签</b> ？",
+            btnok: '是的！确认删除'
+        }).on(function (e) {
+            if (!e) {
+                return;
+            }
+            $.ajax({
+                type: 'delete',
+                url: id,
+                datatype: 'json',
+                success: function (data) {
+                    toastr.success('删除成功');
+                    location.replace(location.href);
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        });
+    }
+
+    function modifyTAG(id, name) {
+        $("#tagName").val(name);
+        $("#tagId").val(id);
+    }
 </script>

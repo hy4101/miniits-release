@@ -1,5 +1,5 @@
 <style>
-    .bootstrap-select.form-control:not([class*=col-]){
+    .bootstrap-select.form-control:not([class*=col-]) {
         width: 81% !important;
     }
 </style>
@@ -12,6 +12,11 @@
     <script src="/static/tagsinput/jquery.tagsinput.min.js"></script>
     <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-select.min.css"/>
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap-select.min.js"></script>
+
+
+    <script type="text/javascript" src="/static/select-tree-search/bootstrap-select.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/select-tree-search/bootstrap-select.css">
+
     <div style="width: 100%;">
         <div class="modal-content">
             <div class="modal-header">
@@ -61,17 +66,9 @@
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
                                style="flex: 1;line-height: 29px;">类别
                             : </label>
-                        <select class="form-control selectpicker" id="types" title="请选择省份" multiple >
-                            <option data-content="<span class='label label-success'>广东省</span>">100000001</option>
-                            <option data-content="<span class='label label-info'>广西省</span>">100000002</option>
-                            <option data-content="<span class='label label-warning'>福建省</span>">100000003</option>
-                            <option data-content="<span class='label label-danger'>山东省</span>">100000004</option>
+                        <select id="sel_category_select" class="selectpicker form-control bla bla bli" multiple
+                                data-live-search="true">
                         </select>
-                    <#--<select class="form-control input-form-group-value-item" id="types" style="flex: 4"-->
-                    <#--name="types">-->
-                    <#--<option value="100000001">启用</option>-->
-                    <#--<option value="100000002">禁用</option>-->
-                    <#--</select>-->
                     </div>
                     <div class="col-md-4 column" style="display: flex">
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
@@ -103,25 +100,28 @@
 <script>
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
+        var categorys = null;
+        var editor = null;
         $('#tags').tagsInput({
             width: '81%',
             height: '35px',
             defaultText: '输入标签'
         });
 
-
         $("#save_article_btn").click(function () {
             var titleName = $("#titleName").val();
             var titleImage = $("#titleImage").val();
             var contentTitle = $("#contentTitle").val();
             var types = $("#types").val();
+            var typeNames = categorys.val().join();
             var tags = $("#tags").val();
             var allowComment = $("#allowComment").val();
             var data = {
                 titleName: titleName,
                 titleImage: titleImage,
                 contentTitle: contentTitle,
-                types: types,
+                content: editor.getHTML(),
+                typeNames: typeNames,
                 tags: tags,
                 allowComment: allowComment
             };
@@ -140,7 +140,7 @@
         });
 
         function initArticlesPublish() {
-            editormd("test-editormd", {
+            editor = editormd("test-editormd", {
                 width: "95%",
                 height: 740,
                 syncScrolling: "single",
@@ -154,6 +154,31 @@
                 path: "/static/editor.md/lib/",
                 //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
                 saveHTMLToTextarea: true
+            });
+            searchCategorys();
+        }
+
+        function searchCategorys() {
+            $.ajax({
+                type: 'get',
+                url: '/admin/categorys',
+                data: {
+                    pageSize: 100,
+                    pageNumber: 1,
+                    sorts: '-createDate',
+                    filters: ''
+                },
+                success: function (data) {
+                    for (var i = 0; i < data.rows.length; i++) {
+                        var o = data.rows[i];
+                        $("#sel_category_select").append('<option value="' + o.categoryName + '">' + o.categoryName + '</option>');
+                    }
+                    categorys = $('.selectpicker').selectpicker({});
+                    toastr.success('发布成功');
+                },
+                error: function (data) {
+                    console.log(data);
+                }
             });
         }
 

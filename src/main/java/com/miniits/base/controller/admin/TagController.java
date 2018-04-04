@@ -10,10 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: wq
@@ -48,11 +46,26 @@ public class TagController extends BaseController {
     @ResponseBody
     public Result save(Tag tag) {
         Tag t = tagServer.findByName(tag.getName());
+        Tag ta = null;
         if (!ObjectUtils.isEmpty(t) && !t.getId().equals(tag.getId()) && t.getName().equals(tag.getName())) {
             return error("【 " + tag.getName() + " 】标签已经存在");
         }
-        tagServer.save(tag);
-        return success("标签添加成功");
+        if (StringUtils.isEmpty(tag.getId())) {
+            tag.setNumber(0);
+            ta = tag;
+        } else {
+            ta = tagServer.findOne(tag.getId());
+            ta.setName(tag.getName());
+        }
+        tagServer.save(ta);
+        return success("标签保存成功");
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public Result delete(@PathVariable(value = "id") String id) {
+        tagServer.delete(id);
+        return success("标签删除成功");
     }
 
 }
