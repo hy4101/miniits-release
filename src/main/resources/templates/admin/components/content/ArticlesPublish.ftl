@@ -110,6 +110,13 @@
 
         $("#save_article_btn").click(function () {
             var titleName = $("#titleName").val();
+            if (isEmpty(titleName)) {
+                return toastr.error('文章名称不能为空');
+            }
+            var content = editor.getHTML();
+            if (isEmpty(content)) {
+                return toastr.error('文章内容不能为空');
+            }
             var titleImage = $("#titleImage").val();
             var contentTitle = $("#contentTitle").val();
             var types = $("#types").val();
@@ -120,7 +127,7 @@
                 titleName: titleName,
                 titleImage: titleImage,
                 contentTitle: contentTitle,
-                content: editor.getHTML(),
+                content: content,
                 typeNames: typeNames,
                 tags: tags,
                 allowComment: allowComment
