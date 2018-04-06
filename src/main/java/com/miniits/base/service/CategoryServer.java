@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/4/1
@@ -29,6 +31,10 @@ public class CategoryServer extends BaseServiceImpl<Category, String> {
 
     public Category findByCategoryName(String categoryName) {
         return categoryRepository.findByCategoryName(categoryName);
+    }
+
+    public void modifyCategoryNumber(List<String> name, Integer number) {
+        categoryRepository.modifyCategoryNumber(name, number);
     }
 
 }

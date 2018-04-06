@@ -27,6 +27,9 @@ public class Category extends BaseEntity {
     @Column(name = "level", nullable = false)
     private Integer level;
 
+    @Column(name = "number")
+    private Integer number;
+
     private List<ArticleCatrgoryAssociate> articleCatrgoryAssociates;
 
     @Column(name = "category_name", length = 45, unique = true, nullable = false)
@@ -62,5 +65,13 @@ public class Category extends BaseEntity {
 
     public void setLevel(Integer level) {
         this.level = level;
+    }
+
+    public Integer getNumber() {
+        return number;
+    }
+
+    public void setNumber(Integer number) {
+        this.number = number;
     }
 }

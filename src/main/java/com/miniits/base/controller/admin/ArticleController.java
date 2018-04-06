@@ -1,14 +1,17 @@
 package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.entity.Article;
+import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ArticleServer;
 import com.miniits.base.service.CategoryServer;
 import com.miniits.base.service.TagServer;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
@@ -45,25 +48,62 @@ public class ArticleController extends BaseController {
     }
 
     @GetMapping("publish/init")
-    public String publish(ModelMap modelMap) {
+    public String publish(ModelMap modelMap, @RequestParam(value = "id") String id) {
         modelMap.put("active", "content");
+        if (!StringUtils.isEmpty(id)) {
+            modelMap.put("article", articleServer.findOne(id));
+        }
         return "admin/views/content/ArticlesPublish";
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public Result pages(@PathVariable(value = "id") String id) {
+        articleServer.delete(id);
+        return success("删除成功");
+    }
+
+    @GetMapping
+    @ResponseBody
+    public Result pages(Pageable pageable) {
+        Page<Article> articles = articleServer.search(pageable);
+        return page(articles.getContent()).page(pageable.getPageSize()).size(pageable.getPageNumber()).
+                totalCount(articles.getTotalElements()).total(articles.getTotalElements());
+    }
+
+    @PostMapping("/change/status")
+    @ResponseBody
+    public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "status") Integer status) {
+        articleServer.changeStatus(id, status);
+        return success("更改成功");
     }
 
     @PostMapping("/publish")
     @ResponseBody
     public Result saveArticle(@RequestParam(value = "article") String article) throws Exception {
         Article o = toEntity(article, Article.class);
-        List<String> tags = Arrays.asList(o.getTags().split(","));
-        List<String> types = Arrays.asList(o.getTypeNames().split(","));
-        tagServer.modifyTagNumber(tags, 1);
+        o = initDefaultValue(o);
         o.setSource(ARTICLES_TYPE_USER);
         o.setSourceName("系统");
         o.setStatus(ARTICLES_STATUS_ENABLE);
         o.setStatusName("启用");
         o.setAuthorId("");
         o.setAuthorName("");
-        return success(articleServer.save(o));
+        o = articleServer.save(o);
+
+        List<String> tags = Arrays.asList(o.getTags().split(","));
+        List<String> types = Arrays.asList(o.getTypeNames().split(","));
+        tagServer.modifyTagNumber(tags, 1);
+        categoryServer.modifyCategoryNumber(types, 1);
+
+        return success(o);
+    }
+
+    private Article initDefaultValue(Article o) {
+        if (StringUtils.isEmpty(o.getId())) {
+            o.setHits(0);
+        }
+        return o;
     }
 
 }

@@ -74,12 +74,12 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="menu-item"><a href="/admin/contents/article/publish/init"><i class="fa fa-paperclip" aria-hidden="true"></i>发布文章</a></li>
+                        <li class="menu-item"><a href="/admin/contents/article/publish/init?id="><i class="fa fa-paperclip" aria-hidden="true"></i>发布文章</a></li>
                         <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip" aria-hidden="true"></i>采集文章</a></li>
                         <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip" aria-hidden="true"></i>文章管理</a></li>
                         <li class="menu-item"><a href="/admin/tags/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>云标签管理</a></li>
                         <li class="menu-item"><a href="/admin/categorys/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>分类管理</a></li>
-                        <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>友情链接</a></li>
+                        <li class="menu-item"><a href="/admin/links/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>友情链接</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

@@ -31,8 +31,8 @@ public final class SystemDict {
 
     /**
      * 文章状态
-     * 启用 = 100001001
-     * 禁用 = 100001002
+     * 显示 = 100001001
+     * 隐藏 = 100001002
      */
     public final static Integer ARTICLES_STATUS_ENABLE = 100002001;
     public final static Integer ARTICLES_STATUS_DISABLED = 100002002;

@@ -21,7 +21,7 @@ public interface TagRepositoy extends BaseRepository<Tag, String> {
     Tag findByName(String name);
 
     @Modifying
-    @Query("update Tag set number = number + (:number) where id in (:name)")
+    @Query("update Tag set number = number + (:number) where name in (:name)")
     void modifyTagNumber(@Param("name") List<String> name, @Param("number") Integer number);
 
 }

@@ -1,8 +1,11 @@
 package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.entity.Category;
+import com.miniits.base.model.entity.Tag;
+import com.miniits.base.model.vo.CategoryAndTag;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.CategoryServer;
+import com.miniits.base.service.TagServer;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +31,9 @@ public class CategoryController extends BaseController {
     @Autowired
     private CategoryServer categoryServer;
 
+    @Autowired
+    private TagServer tagServer;
+
     @GetMapping("init")
     public String init(ModelMap modelMap) {
         modelMap.put("active", "content");
@@ -42,12 +48,21 @@ public class CategoryController extends BaseController {
                 totalCount(categories.getTotalElements()).total(categories.getTotalElements());
     }
 
+    @GetMapping(value = "/category-and-tag")
+    @ResponseBody
+    public Result searchCTS(Pageable pageable) {
+        Page<Category> categories = categoryServer.search(pageable);
+        Page<Tag> tags = tagServer.search(pageable);
+        return success(new CategoryAndTag(categories.getContent(), tags.getContent()));
+    }
+
     @PostMapping
     @ResponseBody
     public Result saveCategory(@RequestParam(value = "category") String category) throws Exception {
         Category o = toEntity(category, Category.class);
         String mes = "添加成功";
         if (StringUtils.isEmpty(o.getId())) {
+            o.setNumber(0);
             long number = categoryServer.countExtend("EQ_categoryName=" + o.getCategoryName());
             if (number > 0) {
                 return error("【 " + o.getCategoryName() + " 】类别已经存在");

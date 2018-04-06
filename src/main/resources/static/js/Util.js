@@ -10,6 +10,7 @@
      * @returns {boolean}
      */
     window.isEmpty = function (str) {
+        alert(str)
         if (str === '' || str == null || str === undefined) {
             return true;
         }

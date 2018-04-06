@@ -124,8 +124,6 @@ public class Article extends BaseEntity {
     /**
      * 内容文字
      */
-    @Lob
-    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
     /**
@@ -271,6 +269,8 @@ public class Article extends BaseEntity {
         this.allowComment = allowComment;
     }
 
+    @Lob
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     public String getContent() {
         return content;
     }

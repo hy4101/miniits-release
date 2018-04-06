@@ -14,11 +14,59 @@
         <div class="div-articles-component-title">
             文章管理
         </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入名称" id="titleName"
+                           aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入状态" id="statusName"
+                           aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <button id="btn_articles_search" type="button" class="btn"
+                        style="background-color: #27AE60;color: #fff;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+                <button id="btn_articles_refresh" type="button" class="btn"
+                        style="background-color: #ff754e;color: #fff;">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
         <table id="table_articles" style="background-color: #FFFFFF"></table>
     </div>
     <div style="padding-left: 10px;flex: 5">
         <div class="div-articles-component-title">
             评论管理
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入名称" id="titleName"
+                           aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="请输入状态" id="statusName"
+                           aria-describedby="basic-addon1">
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <button id="btn_articles_search" type="button" class="btn"
+                        style="background-color: #27AE60;color: #fff;">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                </button>
+                <button id="btn_articles_refresh" type="button" class="btn"
+                        style="background-color: #ff754e;color: #fff;">
+                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
         <table id="table_comments" style="background-color: #FFFFFF"></table>
     </div>
@@ -27,13 +75,24 @@
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
 
+        var baseFilers = null;
+        var thisClickRows = null;
+
         function articlesInit() {
             searchArticles();
-            searchPageComponents();
             clicks();
         }
 
         function clicks() {
+            $("#btn_articles_search").click(function () {
+                $('#table_articles').bootstrapTable('refresh');
+            });
+
+            $("#btn_articles_refresh").click(function () {
+                $("#titleName").val(null);
+                $("#statusName").val(null);
+            })
+
         }
 
         function searchArticles() {
@@ -42,13 +101,13 @@
                 pagination: true,
                 queryParams: function (params) {
                     var filters = '';
-                    var searchPageName = $("#searchPageName").val();
-                    var searchPageStatusName = $("#searchPageStatusName").val();
-                    if (!isEmpty(searchPageName)) {
-                        filters = 'LIKE_pageName=' + searchPageName;
+                    var titleName = $("#titleName").val();
+                    var statusName = $("#statusName").val();
+                    if (!isEmpty(titleName)) {
+                        filters = 'LIKE_titleName=' + titleName;
                     }
-                    if (!isEmpty(searchPageStatusName)) {
-                        filters += ';LIKE_pageStatusName=' + searchPageStatusName;
+                    if (!isEmpty(statusName)) {
+                        filters += ';LIKE_statusName=' + statusName;
                     }
                     var temp = {
                         pageSize: params.limit,                         //页面大小
@@ -63,7 +122,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../pages",//要请求数据的文件路径
+                url: "../article",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -75,30 +134,33 @@
                     field: 'statusName',
                     title: '状态'
                 }, {
+                    field: 'hits',
+                    title: '访问量'
+                }, {
                     field: 'sourceName',
                     title: '来源'
                 }, {
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 260
-                    // events: operateEvents,
-                    // formatter: operateFormatter
+                    width: 260,
+                    events: operateEvents,
+                    formatter: operateFormatter
                 }],
-                // onClickRow: function (row, $element) {
-                //     thisClickPage = row;
-                //     basePageComponentAssociateFtilers = 'EQ_page.id=' + row.id;
-                //     $('#table_page_components').bootstrapTable('refresh');
-                // },
-                // onCheck: function (rows) {
-                //     thisClickPage = rows;
-                //     basePageComponentAssociateFtilers = 'EQ_page.id=' + rows.id;
-                //     $('#table_page_components').bootstrapTable('refresh');
-                //     searchPageComponents();
-                // },
-                // onLoadSuccess: function (data) {
-                //     $('#table_pages').bootstrapTable('check', 0);
-                // }
+                onClickRow: function (row, $element) {
+                    thisClickRows = row;
+                    baseFilers = 'EQ_page.id=' + row.id;
+                    $('#table_comments').bootstrapTable('refresh');
+                },
+                onCheck: function (rows) {
+                    thisClickRows = rows;
+                    baseFilers = 'EQ_page.id=' + rows.id;
+                    $('#table_page_components').bootstrapTable('refresh');
+                    searchPageComponents();
+                },
+                onLoadSuccess: function (data) {
+                    $('#table_articles').bootstrapTable('check', 0);
+                }
             });
         }
 
@@ -108,7 +170,7 @@
                 pagination: true,
                 queryParams: function (params) {
                     //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
-                    var filters = basePageComponentAssociateFtilers + ';EQ_level=1';
+                    var filters = baseFilers + ';EQ_level=1';
                     var componentName = $("#componentName").val();
                     var componentStatusName = $("#componentStatusName").val();
                     if (!isEmpty(componentName)) {
@@ -160,6 +222,71 @@
             });
         }
 
+        function operateFormatter(value, row, index) {
+            var editBtns = [
+                '<button type="button" class="article-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
+                '<a href="publish/init?id=' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>'
+            ];
+            var statusBtn = '<button type="button" class="article-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">隐藏</button>';
+            if (row.status === 100002002) {
+                statusBtn = '<button type="button" class="article-status-enable btn btn-info btn-sm" style="margin-right:15px;">显示</button>';
+            }
+            editBtns.push(statusBtn);
+            return editBtns.join('');
+        }
+
+        win.operateEvents = {
+            'click .article-delete': function (e, value, row, index) {
+                deleteArticle(row);
+            },
+            'click .article-status-disabled': function (e, value, row, index) {
+                changeStatus(row, 100002002, '【 禁用 】 成功');
+            },
+            'click .article-status-enable': function (e, value, row, index) {
+                changeStatus(row, 100002001, '【 启用 】 成功');
+            }
+        };
+
+        function deleteArticle(row) {
+            Mini.confirm({
+                message: "您确认要删除 <b style='color: red'>" + row.titleName + "</b> ？",
+                btnok: '是的！确认删除'
+            }).on(function (e) {
+                if (!e) {
+                    return;
+                }
+                $.ajax({
+                    type: 'delete',
+                    url: row.id,
+                    success: function (data) {
+                        toastr.success(data.message);
+                        $('#table_articles').bootstrapTable('refresh');
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                });
+            });
+        }
+
+        function changeStatus(row, status, message) {
+            $.ajax({
+                type: 'post',
+                url: 'change/status',
+                datatype: 'json',
+                data: {
+                    id: row.id,
+                    status: status
+                },
+                success: function (data) {
+                    toastr.success(message);
+                    $('#table_articles').bootstrapTable('refresh');
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
 
         function isEmpty(str) {
             if (str === '' || str == null || str === undefined) {

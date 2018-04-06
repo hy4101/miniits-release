@@ -10,8 +10,6 @@
     <script src="/static/editor.md/src/editormd.js"></script>
     <link rel="stylesheet" href="/static/tagsinput/jquery.tagsinput.css"/>
     <script src="/static/tagsinput/jquery.tagsinput.min.js"></script>
-    <#--<link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap-select.min.css"/>-->
-    <#--<script src="/static/bootstrap-3.3.7-dist/js/bootstrap-select.min.js"></script>-->
 
     <script type="text/javascript" src="/static/select-tree-search/bootstrap-select.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/select-tree-search/bootstrap-select.css">
@@ -21,6 +19,8 @@
             <div class="modal-header">
                 <h4 class="modal-title" style="font-size: xx-large;">
                     发布文章
+                    <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js"
+                            data-url="https://imgchr.com/upload" data-auto-insert="bbcode-embed-medium"></script>
                     <button id="save_article_btn" type="submit" class="btn btn-primary"
                             style="float: right">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -35,8 +35,15 @@
                             <label for="txt_parentdepartment" class="label-form-group-title-item"
                                    style="flex: 1;line-height: 29px;">标题名称
                                 :</label>
-                            <input type="text" class="form-control" id="titleName" name="titleName" style="flex: 4;"
-                                   aria-describedby="basic-addon3" placeholder="请输入标题名称">
+                        <#if article?exists>
+                           <input type="text" class="form-control" id="titleName" name="titleName"
+                                  style="flex: 4;" value="${article.titleName}"
+                                  aria-describedby="basic-addon3" placeholder="请输入标题名称">
+                        <#else>
+                         <input type="text" class="form-control" id="titleName" name="titleName"
+                                style="flex: 4;"
+                                aria-describedby="basic-addon3" placeholder="请输入标题名称">
+                        </#if>
                         </div>
                     </div>
                     <div class="col-md-4 column">
@@ -44,9 +51,15 @@
                             <label for="txt_parentdepartment" class="label-form-group-title-item"
                                    style="flex: 1;line-height: 29px;">标题图片
                                 :</label>
+                        <#if article?exists>
+                            <input type="text" class="form-control" id="titleImage" name="titleImage"
+                                   style="flex: 4;" value="${article.titleImage}"
+                                   aria-describedby="basic-addon3" placeholder="请使用图片外链">
+                        <#else>
                             <input type="text" class="form-control" id="titleImage" name="titleImage"
                                    style="flex: 4;"
-                                   aria-describedby="basic-addon3" placeholder="选择标题图片">
+                                   aria-describedby="basic-addon3" placeholder="请使用图片外链">
+                        </#if>
                         </div>
                     </div>
                     <div class="col-md-4 column">
@@ -54,9 +67,15 @@
                             <label for="txt_parentdepartment" class="label-form-group-title-item"
                                    style="flex: 1;line-height: 29px;">标题内容
                                 :</label>
+                             <#if article?exists>
                             <input type="text" class="form-control" id="contentTitle" name="contentTitle"
-                                   style="flex: 4;"
+                                   style="flex: 4;" value="${article.contentTitle}"
                                    aria-describedby="basic-addon3" placeholder="输入标题内容">
+                             <#else>
+                             <input type="text" class="form-control" id="contentTitle" name="contentTitle"
+                                    style="flex: 4;"
+                                    aria-describedby="basic-addon3" placeholder="输入标题内容">
+                             </#if>
                         </div>
                     </div>
                 </div>
@@ -73,8 +92,11 @@
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
                                style="flex: 1;line-height: 29px;">标签
                             : </label>
-                        <input name="tags" id="tags" style="flex: 4" type="text" class="form-control"
-                               placeholder="请填写文章标签"/>
+                    <#--<input name="tags" id="tags" style="flex: 4" type="text" class="form-control"-->
+                    <#--placeholder="请填写文章标签"/>-->
+                        <select id="sel_tags" class="sel_tags form-control bla bla bli" multiple
+                                data-live-search="true">
+                        </select>
                     </div>
                     <div class="col-md-4 column" style="display: flex">
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
@@ -82,24 +104,42 @@
                             : </label>
                         <select class="form-control input-form-group-value-item" id="allowComment" style="flex: 4"
                                 name="allowComment">
-                            <option value="100000001">允许</option>
-                            <option value="100000002">禁言</option>
+                            <option value="100000001" ${(article?exists&&article.status==100002001)?string('selected', '')}>
+                                允许
+                            </option>
+                            <option value="100000002" ${(article?exists&&article.status==100002002)?string('selected', '')}>
+                                禁言
+                            </option>
                         </select>
                     </div>
                 </div>
             </div>
-            <div class="editormd" id="test-editormd">
-                <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"></textarea>
+            <div class="editormd" id="div-editormd">
+                <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"
+                          id="textarea-text"></textarea>
                 <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
                 <textarea class="editormd-html-textarea" name="text"></textarea>
             </div>
         </div>
     </div>
+    <div>123
+        <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js" data-url="https://imgchr.com/upload"
+                data-auto-insert="bbcode-embed-medium"></script>
+    </div>
 </div>
 <script>
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
+        var asdf = null;
+          <#if article??>
+          <#--<#list article as roleItem>-->
+          <#--${article!}-->
+          <#--asdf =JSON.stringify("${article}")-->
+          <#--</#list>-->
+          </#if>
+
         var categorys = null;
+        var seTags = null;
         var editor = null;
         $('#tags').tagsInput({
             width: '81%',
@@ -112,7 +152,7 @@
             if (isEmpty(titleName)) {
                 return toastr.error('文章名称不能为空');
             }
-            var content = editor.getHTML();
+            var content = editor.getMarkdown();
             if (isEmpty(content)) {
                 return toastr.error('文章内容不能为空');
             }
@@ -120,7 +160,7 @@
             var contentTitle = $("#contentTitle").val();
             var types = $("#types").val();
             var typeNames = categorys.val().join();
-            var tags = $("#tags").val();
+            var tags = seTags.val().join();
             var allowComment = $("#allowComment").val();
             var data = {
                 titleName: titleName,
@@ -146,7 +186,7 @@
         });
 
         function initArticlesPublish() {
-            editor = editormd("test-editormd", {
+            editor = editormd("div-editormd", {
                 width: "95%",
                 height: 740,
                 syncScrolling: "single",
@@ -160,14 +200,21 @@
                 path: "/static/editor.md/lib/",
                 //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
                 saveHTMLToTextarea: true
+                // imageUpload : true,
+                // imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                // imageUploadURL : "/smart-api/upload/editormdPic/",
             });
+              <#if article??&&article.content??>
+                  var text = '${article.content}';
+                  $("#textarea-text").val('${article.content}')
+              </#if>
             searchCategorys();
         }
 
         function searchCategorys() {
             $.ajax({
                 type: 'get',
-                url: '/admin/categorys',
+                url: '/admin/categorys/category-and-tag',
                 data: {
                     pageSize: 1000,
                     pageNumber: 1,
@@ -175,12 +222,26 @@
                     filters: ''
                 },
                 success: function (data) {
-                    for (var i = 0; i < data.rows.length; i++) {
-                        var o = data.rows[i];
-                        $("#sel_category_select").append('<option value="' + o.categoryName + '">' + o.categoryName + '</option>');
+                    var o = data.object;
+                    for (var i = 0; i < o.categories.length; i++) {
+                        var category = o.categories[i];
+                        $("#sel_category_select").append('<option value="' + category.categoryName + '">' + category.categoryName + '</option>');
                     }
-                    categorys = $('.selectpicker').selectpicker({});
-                    toastr.success('发布成功');
+
+                    for (var i = 0; i < o.tags.length; i++) {
+                        var tag = o.tags[i];
+                        $("#sel_tags").append('<option value="' + tag.name + '">' + tag.name + '</option>');
+                    }
+                    categorys = $('#sel_category_select').selectpicker({});
+                    seTags = $('.sel_tags').selectpicker({});
+                <#if article??&&article.typeNames??>
+                    var tnvs = '${article.typeNames}';
+                    $('#sel_category_select').selectpicker('val', tnvs.split(','));
+                </#if>
+                <#if article??&&article.tags??>
+                    var tgvs = '${article.tags}';
+                    $('.sel_tags').selectpicker('val', tgvs.split(','));
+                </#if>
                 },
                 error: function (data) {
                     console.log(data);
