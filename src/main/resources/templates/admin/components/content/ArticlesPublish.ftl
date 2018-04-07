@@ -128,22 +128,14 @@
             <textarea id="copy_text"></textarea>
         </div>
     </div>
-<#--<div>-->
-<#--<script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js" data-url="https://imgchr.com/upload"-->
-<#--data-auto-insert="bbcode-embed-medium"></script>-->
-<#--</div>-->
+    <div>
+        <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js" data-url="https://imgchr.com/upload"
+                data-auto-insert="bbcode-embed-medium"></script>
+    </div>
 </div>
 <script>
     toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
-        var asdf = null;
-          <#if article??>
-          <#--<#list article as roleItem>-->
-          <#--${article!}-->
-          <#--asdf =JSON.stringify("${article}")-->
-          <#--</#list>-->
-          </#if>
-
         var categorys = null;
         var seTags = null;
         var editor = null;

@@ -899,7 +899,7 @@
         size: 'auto',
         title: null,
         selectedTextFormat: 'values',
-        noneSelectedText: 'Nothing selected',
+        noneSelectedText: '下拉选择',
         noneResultsText: 'No results match',
         countSelectedText: '{0} of {1} selected',
         width: false,
