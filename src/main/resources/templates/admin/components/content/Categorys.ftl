@@ -74,6 +74,9 @@
                     field: 'categoryName',
                     title: '分类名称'
                 }, {
+                    field: 'number',
+                    title: '文章应用数'
+                }, {
                     field: 'operate',
                     title: '操作',
                     align: 'center',
@@ -119,6 +122,9 @@
                 }, {
                     field: 'categoryName',
                     title: '分类名称'
+                }, {
+                    field: 'number',
+                    title: '文章应用数'
                 }, {
                     field: 'operate',
                     title: '操作',

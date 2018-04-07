@@ -63,6 +63,7 @@ public class CategoryController extends BaseController {
         String mes = "添加成功";
         if (StringUtils.isEmpty(o.getId())) {
             o.setNumber(0);
+            o.setNumber(0);
             long number = categoryServer.countExtend("EQ_categoryName=" + o.getCategoryName());
             if (number > 0) {
                 return error("【 " + o.getCategoryName() + " 】类别已经存在");

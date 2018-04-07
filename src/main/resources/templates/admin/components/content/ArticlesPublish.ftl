@@ -115,17 +115,23 @@
                 </div>
             </div>
             <div class="editormd" id="div-editormd">
-                <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"
-                          id="textarea-text"></textarea>
+                <#if article?exists>
+                           <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"
+                                     id="textarea-text">${article.content}</textarea>
+                <#else>
+                        <textarea class="editormd-markdown-textarea" name="test-editormd-markdown-doc"
+                                  id="textarea-text"></textarea>
+                </#if>
                 <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
                 <textarea class="editormd-html-textarea" name="text"></textarea>
             </div>
+            <textarea id="copy_text"></textarea>
         </div>
     </div>
-    <div>123
-        <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js" data-url="https://imgchr.com/upload"
-                data-auto-insert="bbcode-embed-medium"></script>
-    </div>
+<#--<div>-->
+<#--<script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js" data-url="https://imgchr.com/upload"-->
+<#--data-auto-insert="bbcode-embed-medium"></script>-->
+<#--</div>-->
 </div>
 <script>
     toastr.options.positionClass = 'toast-top-center';
@@ -149,6 +155,10 @@
 
         $("#save_article_btn").click(function () {
             var titleName = $("#titleName").val();
+            var id = null;
+               <#if article??&&article.id??>
+                   id = '${article.id}';
+               </#if>
             if (isEmpty(titleName)) {
                 return toastr.error('文章名称不能为空');
             }
@@ -163,6 +173,7 @@
             var tags = seTags.val().join();
             var allowComment = $("#allowComment").val();
             var data = {
+                id: id,
                 titleName: titleName,
                 titleImage: titleImage,
                 contentTitle: contentTitle,
@@ -205,8 +216,8 @@
                 // imageUploadURL : "/smart-api/upload/editormdPic/",
             });
               <#if article??&&article.content??>
-                  var text = '${article.content}';
-                  $("#textarea-text").val('${article.content}')
+              <#--var text = '${article.content!}';-->
+                  // $("#textarea-text").val(text);
               </#if>
             searchCategorys();
         }
