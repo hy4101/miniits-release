@@ -1,4 +1,3 @@
-<#include "../common/TableFiles.ftl"/>
 <style>
     .div-page-component-title {
         border: 1px solid #c8c8c8;
@@ -7,9 +6,9 @@
         padding-left: 10px;
         margin-bottom: 10px;
     }
-
 </style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
+    <#include "../common/TableFiles.ftl"/>
     <div style="width: 20%;flex: 5">
         <div id="page_toolbar" class="btn-group">
             <button id="btn_add_show_page_dialog_click" type="button" class="btn"

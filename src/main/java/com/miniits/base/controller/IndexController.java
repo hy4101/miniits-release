@@ -33,4 +33,10 @@ public class IndexController {
             ModelMap modelMap) {
         return "default/Article-Detail";
     }
+
+    @GetMapping("test")
+    public String test() {
+        return "customize/fd";
+    }
+
 }
