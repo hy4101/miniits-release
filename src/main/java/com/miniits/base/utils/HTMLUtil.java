@@ -7,10 +7,12 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.Writer;
 import java.util.Map;
 
+import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
@@ -49,5 +51,24 @@ public class HTMLUtil {
             e.printStackTrace();
         }
         return path;
+    }
+
+    public static void createTemplateFile(String fileName, String fileContent) {
+        byte[] sourceByte = fileContent.getBytes();
+        if (null != sourceByte) {
+            try {
+                File file = new File(getPath("templates") + "/" + fileName);
+                if (!file.exists()) {
+                    File dir = new File(file.getParent());
+                    dir.mkdirs();
+                    file.createNewFile();
+                }
+                FileOutputStream outStream = new FileOutputStream(file);
+                outStream.write(sourceByte);
+                outStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

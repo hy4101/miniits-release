@@ -46,6 +46,11 @@ public class PageService extends BaseServiceImpl<Page, String> {
         super.setBaseDao(pageRepository);
     }
 
+
+    public Page getPage(String pageName, Integer pageStatus) {
+        return pageRepository.findByPageNameAndPageStatus(pageName, pageStatus);
+    }
+
     /**
      * 初始化页面，生成 title, body, footer 默认组件
      *
