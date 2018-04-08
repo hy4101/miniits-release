@@ -35,8 +35,12 @@ public class IndexController {
     }
 
     @GetMapping("test")
-    public String test() {
-        return "customize/fd";
+    public String tes(ModelMap modelMap) {
+        modelMap.put("title", "the is title");
+        modelMap.put("content", "HotArticles");
+        modelMap.put("description", "the is description");
+        modelMap.put("keywords", "the is keywords");
+        return "/fd";
     }
 
 }
