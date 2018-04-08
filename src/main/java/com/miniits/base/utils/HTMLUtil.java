@@ -57,7 +57,7 @@ public class HTMLUtil {
         byte[] sourceByte = fileContent.getBytes();
         if (null != sourceByte) {
             try {
-                File file = new File(getPath("templates") + "/" + fileName);
+                File file = new File(getPath("templates") + "/" + fileName + ".ftl");
                 if (!file.exists()) {
                     File dir = new File(file.getParent());
                     dir.mkdirs();

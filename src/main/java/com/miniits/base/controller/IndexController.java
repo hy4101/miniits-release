@@ -18,6 +18,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/16
@@ -73,6 +75,7 @@ public class IndexController {
                 continue;
             }
         }
+        createTemplateFile("index",doc.toString());
         return "fd";
     }
 }
