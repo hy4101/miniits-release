@@ -10,7 +10,6 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,27 +54,13 @@ public class IndexController {
         StringBuffer html = new StringBuffer();
         Page page = pageService.getPage("index", 100000001);
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream().sorted(Comparator.comparing(PageComponentAssociate::getSorts)).collect(Collectors.toList());
-
-//        final int[] i = {1};
-//        pageComponentAssociates.forEach(pca -> {
-//            ComponentImage componentImage = pca.getComponentImage();
-//            if (++i[0] != pca.getLevel()) {
-//                ++i[0];
-//            }
-//            html.append(pca.getComponentImage().getComponentBody());
-//
-//        });
-        int level = 1;
-        boolean bo = false;
+//        int level = 1;
         Document doc = null;
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
             ComponentImage componentImage = pageComponentAssociates.get(i).getComponentImage();
-            if (level != pageComponentAssociates.get(i).getLevel()) {
-                ++level;
-            }
-            if (1 != pageComponentAssociates.get(i).getLevel() && StringUtils.isEmpty(html)) {
-
-            }
+//            if (level != pageComponentAssociates.get(i).getLevel()) {
+//                ++level;
+//            }
             if (pageComponentAssociates.get(i).getLevel() == 1) {
                 html.append(componentImage.getComponentBody());
                 doc = Jsoup.parse(html.toString());
