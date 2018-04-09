@@ -95,7 +95,7 @@
                         pageSize: params.limit,                         //页面大小
                         pageNumber: (params.offset / params.limit) + 1,   //页码
                         sorts: '-createDate',      //排序列名
-                        filters: filters //排位命令（desc，asc）
+                        filters: filters + ';EQ_componentStatus=100002001' //排位命令（desc，asc）
                     };
                     return temp;
                 },

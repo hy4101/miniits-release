@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-4">
             <div class="input-group">
-                <span class="input-group-addon">链接名称：</span>
+                <span class="input-group-addon"> URL ：</span>
                 <input type="text" class="form-control" placeholder="请输入链接" id="url"
                        aria-describedby="basic-addon1">
             </div>
@@ -34,7 +34,6 @@
     <table id="table_links" style="background-color: #FFFFFF"></table>
 </div>
 <script>
-    toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
 
         function initLinks() {
@@ -54,10 +53,10 @@
             var linkName = $("#linkName").val();
             var url = $("#url").val();
             if (isEmpty(linkName)) {
-                return  toastr.error('请输入链接名称');
+                return toastr.error('请输入链接名称');
             }
             if (isEmpty(url)) {
-                return  toastr.error('请输入链接URL');
+                return toastr.error('请输入链接URL');
             }
             $.ajax({
                 type: 'post',
@@ -115,6 +114,9 @@
                 }, {
                     field: 'url',
                     title: '链接URL'
+                }, {
+                    field: 'createDate',
+                    title: '添加时间'
                 }, {
                     field: 'statusName',
                     title: '状态'

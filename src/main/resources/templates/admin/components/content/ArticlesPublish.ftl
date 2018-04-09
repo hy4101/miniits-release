@@ -134,7 +134,6 @@
     </div>
 </div>
 <script>
-    toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
         var categorys = null;
         var seTags = null;

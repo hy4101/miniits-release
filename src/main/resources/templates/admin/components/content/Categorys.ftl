@@ -31,7 +31,6 @@
     </div>
 </div>
 <script>
-    toastr.options.positionClass = 'toast-top-center';
     (function ($, win) {
 
         function categorysInit() {

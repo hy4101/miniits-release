@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -53,6 +50,20 @@ public class ComponentController extends BaseController {
     @ResponseBody
     public Result saveUser(Component component) {
         return success(componentService.save(component));
+    }
+
+    @DeleteMapping("{id}")
+    @ResponseBody
+    public Result pages(@PathVariable(value = "id") String id) {
+        componentService.delete(id);
+        return success("删除成功");
+    }
+
+    @PostMapping("/change/status")
+    @ResponseBody
+    public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "status") Integer status) {
+        componentService.changeStatus(id, status);
+        return success("更改成功");
     }
 
 }

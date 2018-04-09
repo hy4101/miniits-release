@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+import static com.miniits.base.utils.HTMLUtil.createHtml;
 import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
 
 /**
@@ -55,14 +58,10 @@ public class IndexController {
     public String index() {
         StringBuffer html = new StringBuffer();
         Page page = pageService.getPage("index", 100000001);
-        List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream().sorted(Comparator.comparing(PageComponentAssociate::getSorts)).collect(Collectors.toList());
-//        int level = 1;
+        List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream().filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001)).sorted(Comparator.comparing(PageComponentAssociate::getSorts)).collect(Collectors.toList());
         Document doc = null;
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
             ComponentImage componentImage = pageComponentAssociates.get(i).getComponentImage();
-//            if (level != pageComponentAssociates.get(i).getLevel()) {
-//                ++level;
-//            }
             if (pageComponentAssociates.get(i).getLevel() == 1) {
                 html.append(componentImage.getComponentBody());
                 doc = Jsoup.parse(html.toString());
@@ -75,7 +74,25 @@ public class IndexController {
                 continue;
             }
         }
-        createTemplateFile("index",doc.toString());
-        return "fd";
+        doc = perfectHtml(doc);
+        createTemplateFile("ftl-index", doc.toString());
+        String path = this.getClass().getResource("/templates/customize/").getPath();
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
+        map.put("templateName", "ftl-index.ftl");
+        map.put("fileName", "index.html");
+        map.put("test", "士大夫士大水水水水水水水水水水水");
+        createHtml(map);
+        return "index";
+    }
+
+    private Document perfectHtml(Document doc) {
+        doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
+        doc.getElementsByTag("head").append("<title>Title</title>");
+        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>");
+        doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" >");
+        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
+        doc.getElementsByTag("head").append("<link href=\"https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">");
+        return doc;
     }
 }

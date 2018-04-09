@@ -1,156 +1,5 @@
 <div style="padding: 10px 10px 10px 10px;">
     <#include "../common/TableFiles.ftl"/>
-    <div>
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <div class="btn-group btn-group-lg">
-                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-left"></em> 左
-                    </button>
-                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-center"></em> 中
-                    </button>
-                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-right"></em> 右
-                    </button>
-                    <button class="btn btn-default" type="button"><em class="glyphicon glyphicon-align-justify"></em> 全
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <div class="tabbable" id="tabs-938180">
-                    <ul class="nav nav-tabs">
-                        <li>
-                            <a href="#panel-152414" data-toggle="tab">Section 1</a>
-                        </li>
-                        <li class="active">
-                            <a href="#panel-535157" data-toggle="tab">Section 2</a>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane" id="panel-152414">
-                            <p>
-                                I'm in Section 1.
-                            </p>
-                        </div>
-                        <div class="tab-pane active" id="panel-535157">
-                            <p>
-                                Howdy, I'm in Section 2.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="row clearfix">
-            <div class="col-md-12 column">
-                <nav class="navbar navbar-default nofollow" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1"><span class="sr-only">切换导航</span><span
-                                class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                        </button>
-                        <a rel="nofollow" class="navbar-brand" href="#">导航</a>
-                    </div>
-
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav">
-                            <li class="active">
-                                <a rel="nofollow" href="#">链接</a>
-                            </li>
-                            <li>
-                                <a rel="nofollow" href="#">链接</a>
-                            </li>
-                            <li class="dropdown">
-                                <a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong
-                                        class="caret"></strong></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#">列表一</a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">列表二</a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">列表三</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">更多列表</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">更多列表</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                        <form class="navbar-form navbar-left" role="search">
-                            <div class="form-group">
-                                <input type="text" class="form-control"/>
-                            </div>
-                            <button type="submit" class="btn btn-default">搜索</button>
-                        </form>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li>
-                                <a rel="nofollow" href="#">链接</a>
-                            </li>
-                            <li class="dropdown">
-                                <a rel="nofollow" href="#" class="dropdown-toggle" data-toggle="dropdown">下拉菜单<strong
-                                        class="caret"></strong></a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a rel="nofollow" href="#">列表一</a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">列表二</a>
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">列表三</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">更多列表</a>
-                                    </li>
-                                    <li class="divider">
-                                    </li>
-                                    <li>
-                                        <a rel="nofollow" href="#">更多列表</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
-                </nav>
-            </div>
-        </div>
-    </div>
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="jumbotron well">
-                <h1>
-                    Hello, world!
-                </h1>
-                <p>
-                    This is a template for a simple marketing or informational website. It includes a large callout
-                    called the hero unit and three supporting pieces of content. Use it as a starting point to create
-                    something more unique.
-                </p>
-                <p>
-                    <a class="btn btn-primary btn-large" href="#">Learn more</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-
     <div id="components_toolbar" class="btn-group">
         <button type="button" class="btn"
                 style="background-color: #3c8dbc;color: #fff;">
@@ -160,22 +9,20 @@
     <div class="row">
         <div class="col-lg-4">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="请输入名称"
-                       aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="请输入名称" id="componentName">
             </div>
         </div>
         <div class="col-lg-4">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="请输入状态"
-                       aria-describedby="basic-addon1">
+                <input type="text" class="form-control" placeholder="请输入状态" id="componentStatusName">
             </div>
         </div>
         <div class="col-lg-4">
-            <button type="button" class="btn"
+            <button type="button" class="btn" id="btn_components_search"
                     style="background-color: #27AE60;color: #fff;">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
-            <button type="button" class="btn" style="background-color: #ff754e;color: #fff;">
+            <button type="button" class="btn" style="background-color: #ff754e;color: #fff;" id="btn_components_refresh">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
         </div>
@@ -187,46 +34,59 @@
         function initComponents() {
             searchComponents();
         }
+        $("#btn_components_search").click(function () {
+            $('#table_components').bootstrapTable('refresh');
+        });
+
+        $("#btn_components_refresh").click(function () {
+            $("#componentName").val(null);
+            $("#componentStatusName").val(null);
+        })
 
         function searchComponents() {
             $('#table_components').bootstrapTable({
-                toolbar: '#components_toolbar',
+                toolbar: '#articles_toolbar',
                 pagination: true,
-                // queryParams: function (params) {
-                //     var filters = '';
-                //     var searchPageName = $("#searchPageName").val();
-                //     var searchPageStatusName = $("#searchPageStatusName").val();
-                //     if (!isEmpty(searchPageName)) {
-                //         filters = 'LIKE_pageName=' + searchPageName;
-                //     }
-                //     if (!isEmpty(searchPageStatusName)) {
-                //         filters += ';LIKE_pageStatusName=' + searchPageStatusName;
-                //     }
-                //     var temp = {
-                //         pageSize: params.limit,                         //页面大小
-                //         pageNumber: (params.offset / params.limit) + 1,   //页码
-                //         sorts: '-createDate',      //排序列名
-                //         filters: filters //排位命令（desc，asc）
-                //     };
-                //     return temp;
-                // },
+                queryParams: function (params) {
+                    var filters = '';
+                    var componentName = $("#componentName").val();
+                    var componentStatusName = $("#componentStatusName").val();
+                    if (!isEmpty(componentName)) {
+                        filters = 'LIKE_componentName=' + componentName;
+                    }
+                    if (!isEmpty(componentStatusName)) {
+                        filters += ';LIKE_componentStatusName=' + componentStatusName;
+                    }
+                    var temp = {
+                        pageSize: params.limit,                         //页面大小
+                        pageNumber: (params.offset / params.limit) + 1,   //页码
+                        sorts: '-createDate',      //排序列名
+                        filters: filters //排位命令（desc，asc）
+                    };
+                    return temp;
+                },
                 sidePagination: 'server',//指定服务器端分页
                 pageNumber: 1,                       //初始化加载第一页，默认第一页
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../pages",//要请求数据的文件路径
+                url: "../components",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
                     visible: false
                 }, {
-                    field: 'pageName',
-                    title: '页面名称',
-                    width: 100
+                    field: 'componentName',
+                    title: '组件名称'
                 }, {
-                    field: 'pagePath',
-                    title: '页面路径'
+                    field: 'componentId',
+                    title: '组件ID'
+                }, {
+                    field: 'componentStatusName',
+                    title: '组件状态'
+                }, {
+                    field: 'componentBodyApi',
+                    title: '组件API'
                 }, {
                     field: 'operate',
                     title: '操作',
@@ -238,51 +98,71 @@
             });
         }
 
+        function operateFormatter(value, row, index) {
+            var editBtns = [
+                '<button type="button" class="components-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
+                '<a href="publish/init?id=' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>'
+            ];
+            var statusBtn = '<button type="button" class="components-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
+            if (row.componentStatus === 100002002) {
+                statusBtn = '<button type="button" class="components-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
+            }
+            editBtns.push(statusBtn);
+            return editBtns.join('');
+        }
+
         win.operateEvents = {
-            'click .user-delete': function (e, value, row, index) {
-                deletePage(row);
+            'click .components-delete': function (e, value, row, index) {
+                deleteArticle(row);
             },
-            'click .user-edit': function (e, value, row, index) {
-                $("#new_page_title").text("修改页面信息");
-                $('#page_modal').modal();
-                win.commitPage(row);
+            'click .components-status-disabled': function (e, value, row, index) {
+                changeStatus(row, 100002002, '【 禁用 】 成功<h4>提示:当该组件已被页面所应用时，你的禁用操作不影响页面的展示！</h4>');
             },
-            'click .user-status-disabled': function (e, value, row, index) {
-                changeStatus(row, 100000002, '【 禁用 】 成功');
-            },
-            'click .user-status-enable': function (e, value, row, index) {
-                changeStatus(row, 100000001, '【 启用 】 成功');
+            'click .components-status-enable': function (e, value, row, index) {
+                changeStatus(row, 100002001, '【 启用 】 成功');
             }
         };
 
-        function operateFormatter(value, row, index) {
-            var options = $('#table_page_components').bootstrapTable('getOptions');
-            var rowNumber = options.totalRows - 1;
+        function deleteArticle(row) {
+            Mini.confirm({
+                message: "您确认要删除 <b style='color: red'>" + row.componentName + "</b> ？",
+                btnok: '是的！确认删除'
+            }).on(function (e) {
+                if (!e) {
+                    return;
+                }
+                $.ajax({
+                    type: 'delete',
+                    url: row.id,
+                    success: function (data) {
+                        toastr.success(data.message);
+                        $('#table_components').bootstrapTable('refresh');
+                    },
+                    error: function (data) {
+                        console.log(data)
+                    }
+                });
+            });
+        }
 
-            var editBtns = [];
-            var deleteBtn = '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
-            if (row.componentImageVO.componentType === 100006002) {
-                editBtns.push(deleteBtn);
-            }
-            var revisionSortDownBtn = '<button type="button" class="page-component-down btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>';
-            var revisionSortUpBtn = '<button type="button" class="page-component-up btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-arrow-up" aria-hidden="true"></i></button>';
 
-            if (row.sorts !== 1 && index != 0) {
-                editBtns.push(revisionSortUpBtn);
-            }
-
-            if (rowNumber != index) {
-                editBtns.push(revisionSortDownBtn);
-            }
-
-            var statusBtn = '<button type="button" class="page-component-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
-            if (row.componentImageVO.componentStatus === 100000002) {
-                statusBtn = '<button type="button" class="page-component-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
-            }
-            var createHTMLBtn = '<button type="button" class="page-component-add-btn btn btn-warning btn-sm" style="margin-right:15px;">添加组件</button>';
-            editBtns.push(statusBtn);
-            editBtns.push(createHTMLBtn);
-            return editBtns.join('');
+        function changeStatus(row, status, message) {
+            $.ajax({
+                type: 'post',
+                url: 'change/status',
+                datatype: 'json',
+                data: {
+                    id: row.id,
+                    status: status
+                },
+                success: function (data) {
+                    toastr.success(message);
+                    $('#table_components').bootstrapTable('refresh');
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
         }
 
         initComponents();

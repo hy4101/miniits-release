@@ -43,13 +43,14 @@ public class HTMLUtil {
             Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
             isPackageExist(path);
             path = path + root.get("fileName").toString();
-            Writer file = new FileWriter(new File(path.substring(path.indexOf("/"))));
-            temp.process(root, file);
-            file.flush();
-            file.close();
+            Writer writer = new FileWriter(new File(path.substring(path.indexOf("/"))));
+            temp.process(root, writer);
+            writer.flush();
+            writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        deleteFile(new File(getPath("templates/") + root.get("fileName").toString().replaceAll(".html", ".ftl")));
         return path;
     }
 
@@ -57,7 +58,8 @@ public class HTMLUtil {
         byte[] sourceByte = fileContent.getBytes();
         if (null != sourceByte) {
             try {
-                File file = new File(getPath("templates") + "/" + fileName + ".ftl");
+                File file = new File(getPath("templates/") + "/" + fileName + ".ftl");
+                deleteFile(file);
                 if (!file.exists()) {
                     File dir = new File(file.getParent());
                     dir.mkdirs();
@@ -71,4 +73,17 @@ public class HTMLUtil {
             }
         }
     }
+
+    public static boolean deleteFile(File file) {
+        if (file.exists() && file.isFile()) {
+            if (file.delete()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
 }
