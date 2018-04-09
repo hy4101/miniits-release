@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.HTMLUtil.createHtml;
 import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
+import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -76,6 +77,7 @@ public class IndexController {
         }
         doc = perfectHtml(doc);
         createTemplateFile("ftl-index", doc.toString());
+        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/");
         String path = this.getClass().getResource("/templates/customize/").getPath();
         Map<String, Object> map = new HashMap<>();
         map.put("path", path);
