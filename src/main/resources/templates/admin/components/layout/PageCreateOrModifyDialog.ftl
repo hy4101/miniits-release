@@ -13,6 +13,10 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group div-form-group">
+                        <label for="txt_departmentname" class="label-form-group-title-item">首页 :</label>
+                        <input type="checkbox" id="index_btn" class="minimal">
+                    </div>
+                    <div class="form-group div-form-group">
                         <label for="txt_departmentname" class="label-form-group-title-item">页面(文件)名称 :
                             <br>
                             (提示：该属性为创建静态HTML文件的名称，
@@ -23,11 +27,14 @@
                                placeholder="请输入页面名称">
                     </div>
                     <div class="form-group div-form-group">
+                        <label for="txt_departmentname" class="label-form-group-title-item">页面别名 :</label>
+                        <input type="text" name="pageAliasName" class="form-control input-form-group-value-item"
+                               id="pageAliasName"
+                               placeholder="请输入页面别名">
+                    </div>
+                    <div class="form-group div-form-group">
                         <label for="txt_parentdepartment" class="label-form-group-title-item">页面访问路径 : (
                             miniits为固定路径，其余参数为自定义， 默认后缀 .html )</label>
-                    <#--<input type="text" name="pagePath" class="form-control input-form-group-value-item"-->
-                    <#--id="pagePath"-->
-                    <#--placeholder="输入页面访问路径">-->
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon3">https://www.url.com/miniits/</span>
                             <input type="text" class="form-control" id="pagePath" name="pagePath"
@@ -50,7 +57,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         关闭
                     </button>
-                    <button type="submit" id="btn_save_page" class="btn btn-primary" data-dismiss="modal">
+                    <button id="btn_save_page" class="btn btn-primary">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         保存
                     </button>
@@ -67,24 +74,53 @@
 
         }
 
+        $("#index_btn").click(function () {
+            var check = $("#index_btn")[0].checked;
+            if (check) {
+                $("#pageName").val('index');
+                $("#pageName").attr("disabled", "disabled");
+                $("#pagePath").attr("disabled", "disabled");
+            } else {
+                $("#pageName").val(null);
+                $("#pagePath").val(null);
+                $("#pagePath").removeAttr("disabled");
+                $("#pageName").removeAttr("disabled");
+            }
+        });
+
+        //Modal验证销毁重构
+        $('#page_modal').on('hidden.bs.modal', function () {
+            $("#page_form").data('bootstrapValidator').destroy();
+            $('#page_form').data('bootstrapValidator', null);
+            extracted();
+        });
+
         $("#btn_save_page").click(function () {
             var uf = $("#page_form");
-            if (uf.data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
+            uf.bootstrapValidator('validate');
+            if (uf.data('bootstrapValidator').isValid()) {
+                //获取验证结果，如果成功，执行下面代码
                 var pageName = $("#pageName").val();
                 var pagePath = $("#pagePath").val();
                 var pageStatus = $("#pageStatus").val();
+                var pageAliasName = $("#pageAliasName").val();
+                if (isEmpty(pageStatus)) {
+                    pageStatus = '100000002';
+                }
                 var pageData = null;
                 if (isEmpty(page)) {
                     pageData = {
                         pageName: pageName,
                         pagePath: pagePath,
                         pageStatus: pageStatus,
+                        pageAliasName: pageAliasName,
                         pageStatusName: pageStatus === '100000001' ? '启用' : '禁用'
                     };
                 } else {
                     page.pageName = pageName;
                     page.pageStatus = pageStatus;
                     page.pagePath = pagePath;
+                    page.pageAliasName = pageAliasName;
                     page.pageStatusName = pageStatus === '100000001' ? '启用' : '禁用';
                     pageData = page;
                 }
@@ -97,6 +133,7 @@
                     success: function (data) {
                         var ud = null;
                         if (data.success) {
+                            $('#page_modal').modal('hide');
                             ud = {type: 'success', message: '成功'};
                         } else {
                             ud = {type: 'error', message: data.message};
@@ -124,43 +161,47 @@
             }
         };
 
-        $("#page_form").bootstrapValidator({
-            live: 'enabled',//验证时机，enabled是内容有变化就验证（默认），disabled和submitted是提交再验证
-            excluded: [':disabled', ':hidden', ':not(:visible)'],//排除无需验证的控件，比如被禁用的或者被隐藏的
-            submitButtons: '#btn_save_user',//指定提交按钮，如果验证失败则变成disabled，但我没试成功，反而加了这句话非submit按钮也会提交到action指定页面
-            message: '输入错误信息，请重新输入',//好像从来没出现过
-            feedbackIcons: {//根据验证结果显示的各种图标
-                valid: 'fa fa-check',
-                invalid: 'fa fa-times',
-                validating: 'fa fa-magic'
-            },
-            fields: {
-                userName: {
-                    validators: {
-                        notEmpty: {//检测非空,radio也可用
-                            message: '文本框必须输入'
-                        },
-                        stringLength: {//检测长度
-                            min: 2,
-                            max: 20,
-                            message: '长度必须在6-20之间'
-                        },
-                    }
+        function extracted() {
+            $("#page_form").bootstrapValidator({
+                live: 'enabled',//验证时机，enabled是内容有变化就验证（默认），disabled和submitted是提交再验证
+                excluded: [':disabled', ':hidden', ':not(:visible)'],//排除无需验证的控件，比如被禁用的或者被隐藏的
+                submitButtons: '#btn_save_user',
+                message: '输入错误信息，请重新输入',
+                feedbackIcons: {//根据验证结果显示的各种图标
+                    valid: 'fa fa-check',
+                    invalid: 'fa fa-times',
+                    validating: 'fa fa-magic'
                 },
-                password: {
-                    validators: {
-                        notEmpty: {//检测非空,radio也可用
-                            message: '文本框必须输入'
-                        },
-                        stringLength: {//检测长度
-                            min: 8,
-                            max: 30,
-                            message: '长度必须在8-30之间'
-                        },
+                fields: {
+                    pageName: {
+                        validators: {
+                            notEmpty: {//检测非空,radio也可用
+                                message: '文本框必须输入'
+                            },
+                            stringLength: {//检测长度
+                                min: 1,
+                                max: 20,
+                                message: '长度必须在6-20之间'
+                            }
+                        }
+                    },
+                    pagePath: {
+                        validators: {
+                            notEmpty: {//检测非空,radio也可用
+                                message: '文本框必须输入'
+                            },
+                            stringLength: {//检测长度
+                                min: 1,
+                                max: 30,
+                                message: '长度必须在8-30之间'
+                            }
+                        }
                     }
                 }
-            }
-        });
+            });
+        }
+
+        extracted();
 
         userDialogInit();
     })(jQuery, window);

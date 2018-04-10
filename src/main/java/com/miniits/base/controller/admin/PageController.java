@@ -11,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -48,6 +51,9 @@ public class PageController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(com.miniits.base.model.entity.Page page) {
+        if (page.getPageStatus().equals(GLOBAL_STATUS_YES) && ObjectUtils.isEmpty(pageService.getPage(page.getPageName(), GLOBAL_STATUS_YES))) {
+            return error("你有一个【 " + page.getPageName() + " 】页面为启用状态，相同的页面文件只能有一个为启用状态，你可以选择禁用后重试！");
+        }
         return success(ConvertUtil.toVO(pageService.save(page), UserVO.class));
     }
 
@@ -60,7 +66,13 @@ public class PageController extends BaseController {
 
     @PostMapping("/change/status")
     @ResponseBody
-    public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "status") Integer status) {
+    public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "page_name") String pageName, @RequestParam(value = "status") Integer status) {
+        if (status.equals(GLOBAL_STATUS_YES)) {
+            com.miniits.base.model.entity.Page page = pageService.getPage(pageName, GLOBAL_STATUS_YES);
+            if (!ObjectUtils.isEmpty(page) && page.getPageStatus().equals(GLOBAL_STATUS_YES)) {
+                return error("你有一个【 " + page.getPageName() + " 】页面为启用状态，相同的页面文件只能有一个为启用状态，你可以选择禁用后重试！");
+            }
+        }
         pageService.changeStatus(id, status);
         return success("更改成功");
     }

@@ -27,6 +27,8 @@ public class Page extends BaseEntity {
 
     private String pageStatusName;
 
+    private String pageAliasName;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "page", cascade = {CascadeType.PERSIST})
     public List<PageComponentAssociate> getPageComponentAssociates() {
         return pageComponentAssociates;
@@ -66,5 +68,13 @@ public class Page extends BaseEntity {
 
     public void setPageStatusName(String pageStatusName) {
         this.pageStatusName = pageStatusName;
+    }
+
+    public String getPageAliasName() {
+        return pageAliasName;
+    }
+
+    public void setPageAliasName(String pageAliasName) {
+        this.pageAliasName = pageAliasName;
     }
 }

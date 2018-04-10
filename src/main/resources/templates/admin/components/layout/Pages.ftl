@@ -28,8 +28,13 @@
             </div>
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入状态" id="searchPageStatusName"
-                           aria-describedby="basic-addon1">
+                <#--<input type="text" class="form-control" placeholder="请输入状态" id="searchPageStatusName"-->
+                <#--aria-describedby="basic-addon1">-->
+                    <select class="form-control input-form-group-value-item" id="searchPageStatusName"
+                            name="pageStatus">
+                        <option value="100000001">启用</option>
+                        <option value="100000002">禁用</option>
+                    </select>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -63,7 +68,7 @@
             </div>
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入状态" id="componentStatusName"
+                    <input type="text" class="form-control" placeholder="请输入状态" id="componentStatus"
                            aria-describedby="basic-addon1">
                 </div>
             </div>
@@ -197,12 +202,12 @@
                 queryParams: function (params) {
                     var filters = '';
                     var searchPageName = $("#searchPageName").val();
-                    var searchPageStatusName = $("#searchPageStatusName").val();
+                    var pageStatus = $("#searchPageStatusName").val();
                     if (!isEmpty(searchPageName)) {
                         filters = 'LIKE_pageName=' + searchPageName;
                     }
-                    if (!isEmpty(searchPageStatusName)) {
-                        filters += ';LIKE_pageStatusName=' + searchPageStatusName;
+                    if (!isEmpty(pageStatus)) {
+                        filters += ';EQ_pageStatus=' + pageStatus;
                     }
                     var temp = {
                         pageSize: params.limit,                         //页面大小
@@ -472,10 +477,15 @@
                 datatype: 'json',
                 data: {
                     id: row.id,
+                    page_name: row.pageName,
                     status: status
                 },
                 success: function (data) {
-                    toastr.success(message);
+                    if (data.success) {
+                        toastr.success('成功');
+                    } else {
+                        toastr.error(data.message);
+                    }
                     searchPagesByFilters();
                 },
                 error: function (data) {
