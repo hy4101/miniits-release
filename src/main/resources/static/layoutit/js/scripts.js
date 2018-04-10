@@ -289,12 +289,14 @@ $(document).ready(function () {
     function saveComponent(element) {
         var componentBodyApi = $("#componentBodyApi").val();
         var componentName = $("#componentName").val();
+        var dataFilters = $("#dataFilters").val();
         if (componentName == null || componentName == '') {
             toastr.error('组件名称不能为空');
             return;
         }
         var component = {
             componentBodyApi: componentBodyApi,
+            dataFilters: dataFilters,
             componentName: componentName,
             componentBody: element
         };

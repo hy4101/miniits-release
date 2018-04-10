@@ -2,6 +2,7 @@ package com.miniits.base.utils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -84,6 +85,16 @@ public class HTMLUtil {
         } else {
             return false;
         }
+    }
+
+    public static Document perfectHtml(Document doc) {
+        doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
+        doc.getElementsByTag("head").append("<title>Title</title>");
+        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>");
+        doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" >");
+        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
+        doc.getElementsByTag("head").append("<link href=\"https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">");
+        return doc;
     }
 
 }

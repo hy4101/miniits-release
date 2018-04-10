@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.HTMLUtil.createHtml;
 import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
+import static com.miniits.base.utils.HTMLUtil.perfectHtml;
 import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
@@ -33,7 +34,7 @@ import static com.miniits.base.utils.SystemFile.isPackageExist;
  * WWW.MINIITS.COM
  */
 @Controller
-@RequestMapping("/fc")
+@RequestMapping()
 public class IndexController {
 
     @Autowired
@@ -45,7 +46,8 @@ public class IndexController {
         modelMap.put("content", "HotArticles");
         modelMap.put("description", "the is description");
         modelMap.put("keywords", "the is keywords");
-        return "default/Index";
+        return "redirect:/index";
+//        return "default/Index";
     }
 
     @GetMapping("/{path}")
@@ -55,8 +57,27 @@ public class IndexController {
         return "default/Article-Detail";
     }
 
-    @GetMapping("index")
+    @GetMapping(value = {"index", "index.html"})
     public String index() {
+        Document doc = mergePage();
+        createTemplateFile("ftl-index", doc.toString());
+        Map<String, Object> map = renderingPage();
+        createHtml(map);
+        return "index";
+    }
+
+    private Map<String, Object> renderingPage() {
+        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/");
+        String path = this.getClass().getResource("/templates/customize/").getPath();
+        Map<String, Object> map = new HashMap<>();
+        map.put("path", path);
+        map.put("templateName", "ftl-index.ftl");
+        map.put("fileName", "index.html");
+        map.put("test", "士大夫士大水水水水水水水水水水水");
+        return map;
+    }
+
+    private Document mergePage() {
         StringBuffer html = new StringBuffer();
         Page page = pageService.getPage("index", 100000001);
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream().filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001)).sorted(Comparator.comparing(PageComponentAssociate::getSorts)).collect(Collectors.toList());
@@ -76,25 +97,16 @@ public class IndexController {
             }
         }
         doc = perfectHtml(doc);
-        createTemplateFile("ftl-index", doc.toString());
-        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/");
-        String path = this.getClass().getResource("/templates/customize/").getPath();
-        Map<String, Object> map = new HashMap<>();
-        map.put("path", path);
-        map.put("templateName", "ftl-index.ftl");
-        map.put("fileName", "index.html");
-        map.put("test", "士大夫士大水水水水水水水水水水水");
-        createHtml(map);
-        return "index";
-    }
-
-    private Document perfectHtml(Document doc) {
-        doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
-        doc.getElementsByTag("head").append("<title>Title</title>");
-        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>");
-        doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" >");
-        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
-        doc.getElementsByTag("head").append("<link href=\"https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">");
         return doc;
     }
+
+//    private Document perfectHtml(Document doc) {
+//        doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
+//        doc.getElementsByTag("head").append("<title>Title</title>");
+//        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>");
+//        doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" >");
+//        doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");
+//        doc.getElementsByTag("head").append("<link href=\"https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css\" rel=\"stylesheet\">");
+//        return doc;
+//    }
 }

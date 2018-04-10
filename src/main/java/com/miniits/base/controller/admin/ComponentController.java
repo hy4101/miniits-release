@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/23
@@ -49,6 +51,9 @@ public class ComponentController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(Component component) {
+        component.setComponentId(System.currentTimeMillis() + "");
+        component.setComponentStatus(GLOBAL_STATUS_YES);
+        component.setComponentStatusName("启用");
         return success(componentService.save(component));
     }
 

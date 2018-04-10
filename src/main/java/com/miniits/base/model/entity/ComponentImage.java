@@ -45,6 +45,9 @@ public class ComponentImage extends BaseEntity {
     @Column(name = "component_body_api", nullable = false, length = 500)
     private String componentBodyApi;
 
+    @Column(name = "data_filters", length = 500)
+    private String dataFilters;
+
     public String getComponentName() {
         return componentName;
     }
@@ -115,5 +118,13 @@ public class ComponentImage extends BaseEntity {
 
     public void setComponentTypeName(String componentTypeName) {
         this.componentTypeName = componentTypeName;
+    }
+
+    public String getDataFilters() {
+        return dataFilters;
+    }
+
+    public void setDataFilters(String dataFilters) {
+        this.dataFilters = dataFilters;
     }
 }

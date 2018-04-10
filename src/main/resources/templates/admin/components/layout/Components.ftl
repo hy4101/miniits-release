@@ -1,12 +1,6 @@
 <div style="padding: 10px 10px 10px 10px;">
     <#include "../common/TableFiles.ftl"/>
-    <div id="components_toolbar" class="btn-group">
-        <button type="button" class="btn"
-                style="background-color: #3c8dbc;color: #fff;">
-            <i class="fa fa-plus" aria-hidden="true"></i>
-        </button>
-    </div>
-    <div class="row">
+    <div class="row" style="margin-bottom: 10px">
         <div class="col-lg-4">
             <div class="input-group">
                 <input type="text" class="form-control" placeholder="请输入名称" id="componentName">
@@ -45,7 +39,7 @@
 
         function searchComponents() {
             $('#table_components').bootstrapTable({
-                toolbar: '#articles_toolbar',
+                // toolbar: '#articles_toolbar',
                 pagination: true,
                 queryParams: function (params) {
                     var filters = '';

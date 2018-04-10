@@ -18,6 +18,16 @@ public class PageVO extends BaseEntityVO {
 
     private String pageStatusName;
 
+    private String pageAliasName;
+
+    public String getPageAliasName() {
+        return pageAliasName;
+    }
+
+    public void setPageAliasName(String pageAliasName) {
+        this.pageAliasName = pageAliasName;
+    }
+
     public String getPageName() {
         return pageName;
     }

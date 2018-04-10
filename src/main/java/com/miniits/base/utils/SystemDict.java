@@ -78,7 +78,7 @@ public final class SystemDict {
     public final static Integer MOVIE_SOURCE_BT1280 = 100005008;
 
     /**
-     * 全局状态
+     * 全局类型
      * 系统 = 100006001
      * 个人 = 100006002
      */
