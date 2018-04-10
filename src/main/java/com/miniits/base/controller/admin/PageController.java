@@ -51,8 +51,11 @@ public class PageController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(com.miniits.base.model.entity.Page page) {
-        if (page.getPageStatus().equals(GLOBAL_STATUS_YES) && ObjectUtils.isEmpty(pageService.getPage(page.getPageName(), GLOBAL_STATUS_YES))) {
-            return error("你有一个【 " + page.getPageName() + " 】页面为启用状态，相同的页面文件只能有一个为启用状态，你可以选择禁用后重试！");
+        if (page.getPageStatus().equals(GLOBAL_STATUS_YES)) {
+            com.miniits.base.model.entity.Page p = pageService.getPage(page.getPageName(), GLOBAL_STATUS_YES);
+            if (!ObjectUtils.isEmpty(p)) {
+                return error("你有一个【 " + page.getPageName() + " 】页面为启用状态，相同的页面文件只能有一个为启用状态，你可以选择禁用后重试！");
+            }
         }
         return success(ConvertUtil.toVO(pageService.save(page), UserVO.class));
     }

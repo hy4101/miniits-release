@@ -152,11 +152,13 @@
                 $("#pageName").val(null);
                 $("#pagePath").val(null);
                 $("#pageStatus").val(null);
+                $("#pageAliasName").val(null);
                 page = null;
             } else {
                 $("#pageName").val(data.pageName);
                 $("#pagePath").val(data.pagePath);
                 $("#pageStatus").val(data.pageStatus);
+                $("#pageAliasName").val(data.pageAliasName);
                 page = data;
             }
         };
