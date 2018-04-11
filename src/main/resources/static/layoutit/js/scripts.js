@@ -288,7 +288,6 @@ $(document).ready(function () {
         var componentBodyApi = $("#componentBodyApi").val();
         var componentName = $("#componentName").val();
         var dataFilters = $("#dataFilters").val();
-        debugger;
         if (componentName == null || componentName == '' || componentName == undefined) {
             return toastr.error('组件名称不能为空');
         }

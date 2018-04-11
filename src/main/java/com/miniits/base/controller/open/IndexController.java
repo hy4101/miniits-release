@@ -122,9 +122,12 @@ public class IndexController {
                 }
                 org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(), new Pageable(filters(componentImage.getDataFilters()), 15));
                 body = body.replaceAll("object\\.", str + ".");
-                if (componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
+                if (null != componentImage.getApiDataStructureType() && componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
                     body = "<#list " + str + "List as " + str + " >" + body + "</#list>";
                 }
+//                if (ObjectUtils.is){
+//
+//                }
                 modelMap.put(str + "List", o.getContent());
                 element.append(body);
                 continue;
