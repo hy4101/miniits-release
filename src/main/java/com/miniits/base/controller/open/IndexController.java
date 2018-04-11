@@ -120,7 +120,7 @@ public class IndexController {
                 while (modelMap.containsKey(str)) {
                     str = randomStr();
                 }
-                str = "uXppmcPtoMxFeweSdZnJK";
+//                str = "uXppmcPtoMxFeweSdZnJK";
                 org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(), new Pageable(filters(componentImage.getDataFilters()), 15));
                 body = body.replaceAll("o\\.", str + ".");
                 if (componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
