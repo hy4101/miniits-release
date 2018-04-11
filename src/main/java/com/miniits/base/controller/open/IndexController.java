@@ -1,4 +1,4 @@
-package com.miniits.base.controller;
+package com.miniits.base.controller.open;
 
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Page;
@@ -20,9 +20,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.miniits.base.utils.HTMLUtil.createHtml;
-import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
-import static com.miniits.base.utils.HTMLUtil.perfectHtml;
+import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
