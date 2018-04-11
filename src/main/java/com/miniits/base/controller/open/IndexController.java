@@ -68,20 +68,19 @@ public class IndexController {
                 .replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">"));
         modelMap = componentImageAndDocument.getModelMap();
-        Map<String, Object> map = renderingPage();
-        map.put("uXppmcPtoMxFeweSdZnJKList", modelMap.get("uXppmcPtoMxFeweSdZnJKList"));
-        createHtml(map);
+        modelMap = renderingPage(modelMap);
+//        map.put("uXppmcPtoMxFeweSdZnJKList", modelMap.get("uXppmcPtoMxFeweSdZnJKList"));
+        createHtml(modelMap);
         return "index";
     }
 
-    private Map<String, Object> renderingPage() {
+    private ModelMap renderingPage(ModelMap modelMap) {
         isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/");
         String path = this.getClass().getResource("/templates/customize/").getPath();
-        Map<String, Object> map = new HashMap<>();
-        map.put("path", path);
-        map.put("templateName", "ftl-index.ftl");
-        map.put("fileName", "index.html");
-        return map;
+        modelMap.put("path", path);
+        modelMap.put("templateName", "ftl-index.ftl");
+        modelMap.put("fileName", "index.html");
+        return modelMap;
     }
 
     /**
