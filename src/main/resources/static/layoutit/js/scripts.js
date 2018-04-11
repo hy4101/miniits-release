@@ -284,18 +284,19 @@ $(document).ready(function () {
     $("#save_component_click").click(function () {
         var componentElement = downloadLayoutSrc();
         saveComponent(componentElement);
-    })
+    });
 
     function saveComponent(element) {
         var componentBodyApi = $("#componentBodyApi").val();
         var componentName = $("#componentName").val();
         var dataFilters = $("#dataFilters").val();
-        if (componentName == null || componentName == '') {
+        if (componentName == null || componentName == '' || componentName == undefined) {
             toastr.error('组件名称不能为空');
             return;
         }
         var component = {
-            componentBodyApi: componentBodyApi,
+            componentBodyApi: componentBodyApi.split('=')[1],
+            apiDataStructureType: componentBodyApi.split('=')[0],
             dataFilters: dataFilters,
             componentName: componentName,
             componentBody: element

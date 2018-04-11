@@ -85,4 +85,13 @@ public final class SystemDict {
     public final static Integer GLOBAL_TYPE_SYSTEM = 100006001;
     public final static Integer GLOBAL_TYPE_DIY = 100006002;
 
+    /**
+     * API数据结构类型
+     * 数组对象 = 100007001
+     * 对象 = 100007002
+     */
+    public final static Integer API_DATA_STRUCTURE_TYPES = 100007001;
+    public final static Integer API_DATA_STRUCTURE_TYPE = 100007002;
+
+
 }

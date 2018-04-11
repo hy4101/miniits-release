@@ -51,7 +51,6 @@ public class HTMLUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        deleteFile(new File(getPath("templates/") + root.get("fileName").toString().replaceAll(".html", ".ftl")));
         return path;
     }
 

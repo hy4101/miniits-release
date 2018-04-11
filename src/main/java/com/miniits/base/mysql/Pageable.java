@@ -49,4 +49,12 @@ public class Pageable {
     public void setPageNumber(Integer pageNumber) {
         this.pageNumber = pageNumber;
     }
+
+    public Pageable() {
+    }
+
+    public Pageable(String filters, Integer pageSize) {
+        this.filters = filters;
+        this.pageSize = pageSize;
+    }
 }

@@ -28,9 +28,6 @@ public class Component extends BaseEntity {
     @Column(name = "component_status_name", length = 25)
     private String componentStatusName;
 
-    @Lob
-    @Basic(fetch = FetchType.LAZY)
-    @Column(name = "component_body", nullable = false, columnDefinition = "TEXT")
     private String componentBody;
 
     @Column(name = "component_body_api", nullable = false, length = 500)
@@ -38,6 +35,9 @@ public class Component extends BaseEntity {
 
     @Column(name = "data_filters", length = 500)
     private String dataFilters;
+
+    @Column(name = "api_data_structure_type")
+    private Integer apiDataStructureType;
 
     public String getComponentName() {
         return componentName;
@@ -71,6 +71,9 @@ public class Component extends BaseEntity {
         this.componentStatusName = componentStatusName;
     }
 
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "component_body", nullable = false, columnDefinition = "TEXT")
     public String getComponentBody() {
         return componentBody;
     }
@@ -93,5 +96,13 @@ public class Component extends BaseEntity {
 
     public void setDataFilters(String dataFilters) {
         this.dataFilters = dataFilters;
+    }
+
+    public Integer getApiDataStructureType() {
+        return apiDataStructureType;
+    }
+
+    public void setApiDataStructureType(Integer apiDataStructureType) {
+        this.apiDataStructureType = apiDataStructureType;
     }
 }
