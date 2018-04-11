@@ -17,15 +17,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.CommonUtil.randomStr;
 import static com.miniits.base.utils.DataUtil.filters;
 import static com.miniits.base.utils.DataUtil.getData;
-import static com.miniits.base.utils.HTMLUtil.createHtml;
-import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
-import static com.miniits.base.utils.HTMLUtil.perfectHtml;
+import static com.miniits.base.utils.FileUtil.fileExists;
+import static com.miniits.base.utils.HTMLUtil.*;
+import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPES;
 import static com.miniits.base.utils.SystemFile.isPackageExist;
 
@@ -46,10 +48,6 @@ public class IndexController {
 
     @GetMapping
     public String test(ModelMap modelMap) {
-        modelMap.put("title", "the is title");
-        modelMap.put("content", "HotArticles");
-        modelMap.put("description", "the is description");
-        modelMap.put("keywords", "the is keywords");
         return "redirect:/index";
     }
 
@@ -62,6 +60,9 @@ public class IndexController {
 
     @GetMapping(value = {"index", "index.html"})
     public String index(ModelMap modelMap) {
+        if (fileExists(getPath("templates/customize/") + "/index.html")) {
+            return "index";
+        }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap);
         createTemplateFile("ftl-index", componentImageAndDocument.getDocument().toString()
                 .replaceAll("<!--#list-->", "</#list>")
@@ -69,7 +70,6 @@ public class IndexController {
                 .replaceAll("&gt;", ">"));
         modelMap = componentImageAndDocument.getModelMap();
         modelMap = renderingPage(modelMap);
-//        map.put("uXppmcPtoMxFeweSdZnJKList", modelMap.get("uXppmcPtoMxFeweSdZnJKList"));
         createHtml(modelMap);
         return "index";
     }
@@ -120,9 +120,8 @@ public class IndexController {
                 while (modelMap.containsKey(str)) {
                     str = randomStr();
                 }
-//                str = "uXppmcPtoMxFeweSdZnJK";
                 org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(), new Pageable(filters(componentImage.getDataFilters()), 15));
-                body = body.replaceAll("o\\.", str + ".");
+                body = body.replaceAll("object\\.", str + ".");
                 if (componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
                     body = "<#list " + str + "List as " + str + " >" + body + "</#list>";
                 }

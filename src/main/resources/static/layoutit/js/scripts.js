@@ -1,5 +1,3 @@
-toastr.options.positionClass = 'toast-top-center';
-
 function handleSaveLayout() {
     var e = $(".demo").html();
     if (e != window.demoHtml) {
@@ -290,9 +288,12 @@ $(document).ready(function () {
         var componentBodyApi = $("#componentBodyApi").val();
         var componentName = $("#componentName").val();
         var dataFilters = $("#dataFilters").val();
+        debugger;
         if (componentName == null || componentName == '' || componentName == undefined) {
-            toastr.error('组件名称不能为空');
-            return;
+            return toastr.error('组件名称不能为空');
+        }
+        if ((componentBodyApi != null && componentBodyApi != '' && componentBodyApi != undefined) && (dataFilters == null || dataFilters == '' || dataFilters == undefined)) {
+            return toastr.error('选择了api，必须填写过滤条件');
         }
         var component = {
             componentBodyApi: componentBodyApi.split('=')[1],
@@ -307,7 +308,7 @@ $(document).ready(function () {
             datatype: 'json',
             data: component,
             success: function (data) {
-                debugger;
+                toastr.success('组件添加成功');
             },
             error: function (data) {
                 console.log(data)
