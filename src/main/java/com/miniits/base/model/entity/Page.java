@@ -29,6 +29,17 @@ public class Page extends BaseEntity {
 
     private String pageAliasName;
 
+    private Integer createStaticFile;
+
+    @Column(name = "create_static_file")
+    public Integer getCreateStaticFile() {
+        return createStaticFile;
+    }
+
+    public void setCreateStaticFile(Integer createStaticFile) {
+        this.createStaticFile = createStaticFile;
+    }
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "page", cascade = {CascadeType.PERSIST})
     public List<PageComponentAssociate> getPageComponentAssociates() {
         return pageComponentAssociates;

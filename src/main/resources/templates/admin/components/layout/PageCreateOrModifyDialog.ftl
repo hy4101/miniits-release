@@ -110,6 +110,7 @@
                 var pageData = null;
                 if (isEmpty(page)) {
                     pageData = {
+                        createStaticFile: 100000001,
                         pageName: pageName,
                         pagePath: pagePath,
                         pageStatus: pageStatus,

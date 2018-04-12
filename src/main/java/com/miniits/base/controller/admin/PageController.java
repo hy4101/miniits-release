@@ -80,4 +80,13 @@ public class PageController extends BaseController {
         return success("更改成功");
     }
 
+    @PostMapping("/setting-page-create-html")
+    @ResponseBody
+    public Result setCreateHtmlFile(
+            @RequestParam(value = "id") String id,
+            @RequestParam(value = "create_static_file") Integer createStaticFile) {
+        pageService.setCreateHtmlFile(id, createStaticFile);
+        return success("更改成功");
+    }
+
 }

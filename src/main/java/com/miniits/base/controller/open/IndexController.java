@@ -13,6 +13,7 @@ import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -125,10 +126,9 @@ public class IndexController {
                 if (null != componentImage.getApiDataStructureType() && componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
                     body = "<#list " + str + "List as " + str + " >" + body + "</#list>";
                 }
-//                if (ObjectUtils.is){
-//
-//                }
-                modelMap.put(str + "List", o.getContent());
+                if (!ObjectUtils.isEmpty(o)) {
+                    modelMap.put(str + "List", o.getContent());
+                }
                 element.append(body);
                 continue;
             }
@@ -136,5 +136,4 @@ public class IndexController {
         doc = perfectHtml(doc);
         return new ComponentImageAndDocument(doc, modelMap, componentImages);
     }
-
 }

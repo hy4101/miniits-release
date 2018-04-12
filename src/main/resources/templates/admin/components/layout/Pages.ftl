@@ -383,14 +383,19 @@
 
         function operateFormatter(value, row, index) {
             var editBtns = [
-                '<button type="button" class="user-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
-                '<button type="button" class="user-edit btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
+                '<button type="button" class="page-delete btn btn-delete btn-sm" style="margin-right:10px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
+                '<button type="button" class="page-edit btn btn-primary btn-sm" style="margin-right:10px;"><i class="fa fa-pencil" aria-hidden="true"></i></button>'
             ];
-            var statusBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
+            var statusBtn = '<button type="button" class="page-status-disabled btn btn-warning btn-sm" style="margin-right:10px;">禁用</button>';
             if (row.pageStatus === 100000002) {
-                statusBtn = '<button type="button" class="user-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
+                statusBtn = '<button type="button" class="page-status-enable btn btn-info btn-sm" style="margin-right:10px;">启用</button>';
             }
-            var createHTMLBtn = '<button type="button" class="user-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">生成页面</button>';
+
+            var createHTMLBtn = '<button type="button" class="page-create-html btn btn-sm" style="margin-right:10px;background-color: #27AE60;">生成HTML</button>';
+            if (row.createStaticFile === 100000001) {
+                createHTMLBtn = '<button type="button" class="page-create-html btn btn-warning btn-sm" style="margin-right:10px;">取消静态</button>';
+            }
+
             editBtns.push(statusBtn);
             editBtns.push(createHTMLBtn);
             return editBtns.join('');
@@ -427,19 +432,22 @@
         }
 
         win.operateEvents = {
-            'click .user-delete': function (e, value, row, index) {
+            'click .page-delete': function (e, value, row, index) {
                 deletePage(row);
             },
-            'click .user-edit': function (e, value, row, index) {
+            'click .page-edit': function (e, value, row, index) {
                 $("#new_page_title").text("修改页面信息");
                 $('#page_modal').modal();
                 win.commitPage(row);
             },
-            'click .user-status-disabled': function (e, value, row, index) {
+            'click .page-status-disabled': function (e, value, row, index) {
                 changeStatus(row, 100000002, '【 禁用 】 成功');
             },
-            'click .user-status-enable': function (e, value, row, index) {
+            'click .page-status-enable': function (e, value, row, index) {
                 changeStatus(row, 100000001, '【 启用 】 成功');
+            },
+            'click .page-create-html': function (e, value, row, index) {
+                createHtmlFile(row);
             }
         };
         win.operateEventsComponent = {
@@ -458,7 +466,7 @@
                 var data = {
                     componentImagePId: row,
                     page: thisClickPage
-                }
+                };
                 win.commitAddComponents(data);
             },
 
@@ -469,6 +477,29 @@
                 revisionSort(row, 'up');
             },
         };
+
+        function createHtmlFile(row) {
+            $.ajax({
+                type: 'post',
+                url: 'setting-page-create-html',
+                datatype: 'json',
+                data: {
+                    id: row.id,
+                    create_static_file: (isEmpty(row.createStaticFile) || row.createStaticFile == 100000001) ? 100000002 : 100000001
+                },
+                success: function (data) {
+                    if (data.success) {
+                        toastr.success('成功');
+                    } else {
+                        toastr.error(data.message);
+                    }
+                    searchPagesByFilters();
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
+        }
 
         function changeStatus(row, status, message) {
             $.ajax({

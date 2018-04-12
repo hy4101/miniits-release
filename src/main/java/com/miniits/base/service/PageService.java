@@ -115,6 +115,10 @@ public class PageService extends BaseServiceImpl<Page, String> {
         pageRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
     }
 
+    public void setCreateHtmlFile(String id, Integer createStaticFile) {
+        pageRepository.setCreateHtmlFile(id, createStaticFile);
+    }
+
     @Override
     public void delete(String id) {
         if (!ObjectUtils.isEmpty(pageComponentAssociateRepository.findByPage_Id(id))) {

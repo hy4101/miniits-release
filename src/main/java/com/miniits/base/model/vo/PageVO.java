@@ -20,6 +20,8 @@ public class PageVO extends BaseEntityVO {
 
     private String pageAliasName;
 
+    private Integer createStaticFile;
+
     public String getPageAliasName() {
         return pageAliasName;
     }
@@ -60,4 +62,11 @@ public class PageVO extends BaseEntityVO {
         this.pageStatusName = pageStatusName;
     }
 
+    public Integer getCreateStaticFile() {
+        return createStaticFile;
+    }
+
+    public void setCreateStaticFile(Integer createStaticFile) {
+        this.createStaticFile = createStaticFile;
+    }
 }
