@@ -1,6 +1,7 @@
 package com.miniits.base.utils;
 
 import com.miniits.base.model.entity.ComponentImage;
+import com.miniits.base.model.entity.Page;
 import org.jsoup.nodes.Document;
 import org.springframework.ui.ModelMap;
 
@@ -19,6 +20,8 @@ public class ComponentImageAndDocument {
     private Document document;
 
     private ModelMap modelMap;
+
+    private Page page;
 
     private List<ComponentImage> componentImage;
 
@@ -46,12 +49,21 @@ public class ComponentImageAndDocument {
         this.modelMap = modelMap;
     }
 
+    public Page getPage() {
+        return page;
+    }
+
+    public void setPage(Page page) {
+        this.page = page;
+    }
+
     public ComponentImageAndDocument() {
     }
 
-    public ComponentImageAndDocument(Document document, ModelMap modelMap, List<ComponentImage> componentImage) {
+    public ComponentImageAndDocument(Document document, ModelMap modelMap, List<ComponentImage> componentImage,Page page) {
         this.document = document;
         this.modelMap = modelMap;
         this.componentImage = componentImage;
+        this.page = page;
     }
 }

@@ -1,9 +1,7 @@
 package com.miniits.base.controller.open;
 
-import com.miniits.base.service.PageService;
 import com.miniits.base.utils.ComponentImageAndDocument;
 import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,57 +20,46 @@ import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
  * @author: WWW.MINIITS.COM
- * @Date: 2018/3/16
- * @Time: 22:13
+ * @Date: 2018/4/12
+ * @Time: 23:12
  * <p>
  * Description:
  * WWW.MINIITS.COM
  */
 @Controller
-@RequestMapping()
-public class IndexController {
-
-    @Autowired
-    private PageService pageService;
+@RequestMapping("${domain.path}")
+public class OrtherPageController {
 
     @GetMapping
-    public String test(ModelMap modelMap) {
+    public String index() {
         return "redirect:/index";
     }
 
-    @GetMapping("/{path}")
-    public String path(
-            @PathVariable(value = "path") String path,
-            ModelMap modelMap) {
-        return "default/Article-Detail";
-    }
-
-    @GetMapping(value = {"index", "index.html"})
-    public String index(ModelMap modelMap) throws IOException, TemplateException {
-        if (fileExists(getPath("templates/customize/") + "/index.html")) {
-            return "index";
+    @GetMapping("{page-name}")
+    public String test(ModelMap modelMap, @PathVariable(value = "page-name") String pageName) throws IOException, TemplateException {
+        if (fileExists(getPath("templates/customize/" + pageName + "/") + "/" + pageName + ".html")) {
+            return pageName;
         }
-        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index");
-        createTemplateFile("ftl-index", componentImageAndDocument.getDocument().toString()
+        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName);
+        createTemplateFile("ftl-" + pageName, componentImageAndDocument.getDocument().toString()
                 .replaceAll("<!--#list-->", "</#list>")
                 .replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">"));
         modelMap = componentImageAndDocument.getModelMap();
-        modelMap = renderingPage(modelMap);
+        modelMap = renderingPage(modelMap, pageName);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
             return modelMap.get("templateName").toString().split("\\.")[0];
         }
         createHtml(modelMap);
-        return "index";
+        return pageName;
     }
 
-    private ModelMap renderingPage(ModelMap modelMap) {
-        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/");
-        String path = this.getClass().getResource("/templates/customize/").getPath();
+    private ModelMap renderingPage(ModelMap modelMap, String pageName) {
+        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/" + pageName + "/");
+        String path = this.getClass().getResource("/templates/customize/" + pageName + "/").getPath();
         modelMap.put("path", path);
-        modelMap.put("templateName", "ftl-index.ftl");
-        modelMap.put("fileName", "index.html");
+        modelMap.put("templateName", "ftl-" + pageName + ".ftl");
+        modelMap.put("fileName", pageName + ".html");
         return modelMap;
     }
-
 }

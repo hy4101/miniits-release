@@ -31,7 +31,7 @@ public class Page extends BaseEntity {
 
     private Integer createStaticFile;
 
-    @Column(name = "create_static_file")
+    @Column(name = "create_static_file", nullable = false)
     public Integer getCreateStaticFile() {
         return createStaticFile;
     }

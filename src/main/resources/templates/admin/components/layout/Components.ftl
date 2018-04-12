@@ -98,7 +98,7 @@
                 '<a href="publish/init?id=' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>'
             ];
             var statusBtn = '<button type="button" class="components-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
-            if (row.componentStatus === 100002002) {
+            if (row.componentStatus === 100000002) {
                 statusBtn = '<button type="button" class="components-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
             }
             editBtns.push(statusBtn);
@@ -110,10 +110,10 @@
                 deleteArticle(row);
             },
             'click .components-status-disabled': function (e, value, row, index) {
-                changeStatus(row, 100002002, '【 禁用 】 成功<h4>提示:当该组件已被页面所应用时，你的禁用操作不影响页面的展示！</h4>');
+                changeStatus(row, 100000002, '【 禁用 】 成功<h4>提示:当该组件已被页面所应用时，你的禁用操作不影响页面的展示！</h4>');
             },
             'click .components-status-enable': function (e, value, row, index) {
-                changeStatus(row, 100002001, '【 启用 】 成功');
+                changeStatus(row, 100000001, '【 启用 】 成功');
             }
         };
 

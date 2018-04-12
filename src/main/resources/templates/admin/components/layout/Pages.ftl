@@ -485,6 +485,7 @@
                 datatype: 'json',
                 data: {
                     id: row.id,
+                    file_name: row.pageName,
                     create_static_file: (isEmpty(row.createStaticFile) || row.createStaticFile == 100000001) ? 100000002 : 100000001
                 },
                 success: function (data) {
