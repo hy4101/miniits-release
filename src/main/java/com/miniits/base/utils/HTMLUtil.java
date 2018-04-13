@@ -2,15 +2,13 @@ package com.miniits.base.utils;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.Writer;
+import java.io.*;
 import java.util.Map;
 
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -38,19 +36,19 @@ public class HTMLUtil {
         htmlUtil.configuration = this.configuration;
     }
 
-    public static String createHtml(Map<String, Object> root) {
+    public static String createHtml(Map<String, Object> root) throws IOException, TemplateException {
         String path = root.get("path").toString();
+        Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
+        isPackageExist(path);
+        path = path + root.get("fileName").toString();
+        Writer writer = new FileWriter(new File(path.substring(path.indexOf("/"))));
         try {
-            Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
-            isPackageExist(path);
-            path = path + root.get("fileName").toString();
-            Writer writer = new FileWriter(new File(path.substring(path.indexOf("/"))));
             temp.process(root, writer);
-            writer.flush();
-            writer.close();
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
+        writer.flush();
+        writer.close();
         return path;
     }
 
@@ -76,11 +74,18 @@ public class HTMLUtil {
 
     public static boolean deleteFile(File file) {
         if (file.exists() && file.isFile()) {
-            if (file.delete()) {
-                return true;
-            } else {
-                return false;
+            boolean result = file.delete();
+            int tryCount = 0;
+            while (!result && tryCount++ < 10) {
+                System.gc();
+                result = file.delete();
             }
+            return result;
+//            if (file.delete()) {
+//                return true;
+//            } else {
+//                return false;
+//            }
         } else {
             return false;
         }

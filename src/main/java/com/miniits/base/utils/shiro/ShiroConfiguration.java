@@ -43,7 +43,7 @@ public class ShiroConfiguration {
 //        filterChainDefinitionMap.put("/user/teser", "anon");
 //        filterChainDefinitionMap.put("/user/pct", "anon");
 //        filterChainDefinitionMap.put("/user/pct_new", "anon");
-        filterChainDefinitionMap.put("/fc/**", "anon");
+        filterChainDefinitionMap.put("/miniits/**", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
 //        todo 临时配置,上线移除下面一行

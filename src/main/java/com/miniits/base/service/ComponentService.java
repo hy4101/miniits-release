@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.miniits.base.utils.SystemDict.ARTICLES_STATUS_ENABLE;
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -31,6 +31,6 @@ public class ComponentService extends BaseServiceImpl<Component, String> {
     }
 
     public void changeStatus(String id, Integer status) {
-        componentRepository.changeStatus(id, status, status.equals(ARTICLES_STATUS_ENABLE) ? "启用" : "禁用");
+        componentRepository.changeStatus(id, status, status.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
     }
 }
