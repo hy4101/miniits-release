@@ -35,7 +35,13 @@ public class RequestUtil {
     }
 
     public static String getPath(String resourceName) {
-        return getRequest().getClass().getClassLoader().getResource(resourceName).getPath();
+        String path = null;
+        try {
+            path = getRequest().getClass().getClassLoader().getResource(resourceName).getPath();
+        } catch (Exception e) {
+
+        }
+        return path;
     }
 
     /**
@@ -59,7 +65,6 @@ public class RequestUtil {
     /**
      * 获取所有request请求参数key-value
      *
-     * @param request
      * @return
      */
     public static Map<String, String> getRequestParams() {

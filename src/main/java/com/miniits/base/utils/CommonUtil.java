@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.DataUtil.filters;
 import static com.miniits.base.utils.DataUtil.getData;
-import static com.miniits.base.utils.HTMLUtil.perfectHtml;
+import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPES;
 
 /**
@@ -95,7 +95,7 @@ public class CommonUtil {
                 continue;
             }
         }
-        doc = perfectHtml(doc);
+        doc = addHtmlDepend(doc, new SEO());
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }
 

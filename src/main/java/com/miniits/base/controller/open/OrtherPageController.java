@@ -38,7 +38,7 @@ public class OrtherPageController {
     @GetMapping("{page-name}")
     public String test(ModelMap modelMap, @PathVariable(value = "page-name") String pageName) throws IOException, TemplateException {
         if (fileExists(getPath("templates/customize/" + pageName + "/") + "/" + pageName + ".html")) {
-            return pageName;
+            return pageName + "/" + pageName;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName);
         createTemplateFile("ftl-" + pageName, componentImageAndDocument.getDocument().toString()
@@ -51,7 +51,7 @@ public class OrtherPageController {
             return modelMap.get("templateName").toString().split("\\.")[0];
         }
         createHtml(modelMap);
-        return pageName;
+        return pageName + "/" + pageName;
     }
 
     private ModelMap renderingPage(ModelMap modelMap, String pageName) {

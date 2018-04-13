@@ -11,6 +11,7 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.util.Map;
 
+import static com.miniits.base.utils.FileUtil.deleteFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemFile.isPackageExist;
 
@@ -36,6 +37,14 @@ public class HTMLUtil {
         htmlUtil.configuration = this.configuration;
     }
 
+    /**
+     * 生成 HTML 静态文件
+     *
+     * @param root
+     * @return
+     * @throws IOException
+     * @throws TemplateException
+     */
     public static String createHtml(Map<String, Object> root) throws IOException, TemplateException {
         String path = root.get("path").toString();
         Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
@@ -52,12 +61,19 @@ public class HTMLUtil {
         return path;
     }
 
+    /**
+     * 创建模板文件
+     *
+     * @param fileName
+     * @param fileContent
+     */
     public static void createTemplateFile(String fileName, String fileContent) {
         byte[] sourceByte = fileContent.getBytes();
         if (null != sourceByte) {
             try {
-                File file = new File(getPath("templates/") + "/" + fileName + ".ftl");
-                deleteFile(file);
+                String path = getPath("templates/") + "/" + fileName + ".ftl";
+                File file = new File(path);
+                deleteFile(path);
                 if (!file.exists()) {
                     File dir = new File(file.getParent());
                     dir.mkdirs();
@@ -72,28 +88,18 @@ public class HTMLUtil {
         }
     }
 
-    public static boolean deleteFile(File file) {
-        if (file.exists() && file.isFile()) {
-            boolean result = file.delete();
-            int tryCount = 0;
-            while (!result && tryCount++ < 10) {
-                System.gc();
-                result = file.delete();
-            }
-            return result;
-//            if (file.delete()) {
-//                return true;
-//            } else {
-//                return false;
-//            }
-        } else {
-            return false;
-        }
-    }
-
-    public static Document perfectHtml(Document doc) {
+    /**
+     * 添加 HTML 依赖
+     * 添加 SEO  属性
+     *
+     * @param doc
+     * @return
+     */
+    public static Document addHtmlDepend(Document doc, SEO seo) {
         doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
-        doc.getElementsByTag("head").append("<title>Title</title>");
+        doc.getElementsByTag("head").append("<title>" + seo.getTitle() + "</title>");
+        doc.getElementsByTag("head").append("<meta name=\"keywords\" content=\"" + seo.getKeys() + "\">");
+        doc.getElementsByTag("head").append("<meta name=\"description\" content=\"" + seo.getDescription() + "\">");
         doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js\"></script>");
         doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css\" >");
         doc.getElementsByTag("head").append("<script src=\"https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js\"></script>");

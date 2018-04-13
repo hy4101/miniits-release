@@ -14,10 +14,9 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
 import java.util.List;
 
-import static com.miniits.base.utils.HTMLUtil.deleteFile;
+import static com.miniits.base.utils.FileUtil.deletefile;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
@@ -91,7 +90,11 @@ public class PageController extends BaseController {
             @RequestParam(value = "file_name") String fileName,
             @RequestParam(value = "create_static_file") Integer createStaticFile) {
         if (createStaticFile.equals(GLOBAL_STATUS_NO)) {
-            deleteFile(new File(getPath("templates/") + "/customize/" + fileName + ".html"));
+            String path = getPath("templates") + "/customize/" + fileName + ".html";
+            if (!fileName.equals("index")) {
+                path = getPath("templates") + "/customize/" + fileName;
+            }
+            deletefile(path);
         }
         pageService.setCreateHtmlFile(id, createStaticFile);
         return success("更改成功");
