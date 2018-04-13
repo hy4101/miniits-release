@@ -198,6 +198,42 @@ function downloadLayoutSrc() {
     return formatSrc;
 }
 
+// 添加 edit 功能 start
+var currenteditor = null;
+
+function restoreData() {
+    if (supportstorage()) {
+        layouthistory = JSON.parse(localStorage.getItem("layoutdata"));
+        if (!layouthistory) return false;
+        window.demoHtml = layouthistory.list[layouthistory.count - 1];
+        if (window.demoHtml) $(".demo").html(window.demoHtml);
+    }
+}
+function supportstorage() {
+    if (typeof window.localStorage=='object')
+        return true;
+    else
+        return false;
+}
+function initContainer() {
+    $(".demo, .demo .column").sortable({
+        connectWith: ".column",
+        opacity: .35,
+        handle: ".drag",
+        start: function (e, t) {
+            if (!startdrag) stopsave++;
+            startdrag = 1;
+        },
+        stop: function (e, t) {
+            if (stopsave > 0) stopsave--;
+            startdrag = 0;
+        }
+    });
+    configurationElm();
+}
+
+// 添加 edit 功能 end
+
 var currentDocument = null;
 var timerSave = 2e3;
 var demoHtml = $(".demo").html();
@@ -206,6 +242,15 @@ $(window).resize(function () {
     $(".demo").css("min-height", $(window).height() - 160)
 });
 $(document).ready(function () {
+    // 添加 edit 功能 start
+    restoreData();
+    CKEDITOR.disableAutoInline = true;
+    var contenthandle = CKEDITOR.replace('contenteditor', {
+        language: 'zh-cn',
+        contentsCss: ['css/bootstrap-combined.min.css'],
+        allowedContent: true
+    });
+    // 添加 edit 功能 end
     $("body").css("min-height", $(window).height() - 90);
     $(".demo").css("min-height", $(window).height() - 160);
     $(".demo, .demo .column").sortable({
@@ -238,6 +283,15 @@ $(document).ready(function () {
             handleJsIds()
         }
     });
+    // 添加 edit 功能 start
+    // initContainer();
+    $('body.edit .demo').on("click", "[data-target=#editorModal]", function (e) {
+        e.preventDefault();
+        currenteditor = $(this).parent().parent().find('.view');
+        var eText = currenteditor.html();
+        contenthandle.setData(eText);
+    });
+    // 添加 edit 功能 end
     $("[data-target=#downloadModal]").click(function (e) {
         e.preventDefault();
         downloadLayoutSrc()
