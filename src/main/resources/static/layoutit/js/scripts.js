@@ -289,7 +289,12 @@ $(document).ready(function () {
         e.preventDefault();
         currenteditor = $(this).parent().parent().find('.view');
         var eText = currenteditor.html();
+        debugger;
         contenthandle.setData(eText);
+    });
+    $("#savecontent").click(function(e) {
+        e.preventDefault();
+        currenteditor.html(contenthandle.getData());
     });
     // 添加 edit 功能 end
     $("[data-target=#downloadModal]").click(function (e) {
