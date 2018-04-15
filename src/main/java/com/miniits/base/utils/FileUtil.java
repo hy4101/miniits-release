@@ -78,7 +78,7 @@ public class FileUtil {
                         deletefile(deletePath + "\\" + filelist[i]);
                     }
                 }
-                logger.info(file.getAbsolutePath() + "删除成功");
+                logger.info(file.getAbsolutePath() + "delete success");
                 file.delete();
             }
         } catch (Exception e) {
