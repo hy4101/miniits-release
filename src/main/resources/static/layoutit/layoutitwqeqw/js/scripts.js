@@ -267,6 +267,7 @@ function downloadLayoutSrc() {
 	if ($("#download-layout .container").length > 0) {
 		changeStructure("row-fluid", "row")
 	}
+	debugger;
 	formatSrc = $.htmlClean($("#download-layout").html(), {
 		format: true,
 		allowedAttributes: [

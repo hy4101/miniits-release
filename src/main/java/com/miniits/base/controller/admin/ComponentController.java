@@ -40,6 +40,12 @@ public class ComponentController extends BaseController {
         return "admin/views/layout/ComponentsDev";
     }
 
+    @GetMapping("init-development-code")
+    public String initDevelopmentCode(ModelMap modelMap) {
+        modelMap.put("active", "layout");
+        return "admin/views/layout/ComponentsDevCode";
+    }
+
     @GetMapping
     @ResponseBody
     public Result pages(Pageable pageable) {

@@ -4,23 +4,25 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
+    <title>ibootstrap - Bootstrap可视化布局系统</title>
     <meta name="keywords" content="bootstrap,ibootstrap,爱bootstrap,可视化,操作,布局">
     <meta name="description" content="LayoutIt! 可拖放排序在线编辑的Bootstrap可视化布局系统">
+
     <!-- Le styles -->
     <link href="lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
     <link href="css/layoutit.css" rel="stylesheet">
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <![endif]-->
+
     <script src="lib/jquery/dist/jquery.min.js"></script>
     <script src="js/jquery-ui.js"></script>
+    <script src="js/jquery.htmlClean.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <link href="/static/toastr/toastr.css" rel="stylesheet"/>
     <script src="/static/toastr/toastr.min.js"></script>
-    <script type="text/javascript" src="js/jquery.htmlClean.js"></script>
-    <script type="text/javascript" src="./ckeditor/ckeditor.js"></script>
-    <script type="text/javascript" src="./ckeditor/config.js"></script>
     <script src="js/scripts.js"></script>
 </head>
 
@@ -58,19 +60,24 @@
             </li>
         </ul>
     </div>
+    <!--/.navbar-collapse -->
 </div>
+<!--/.navbar-fixed-top -->
+
 <div class="container">
     <div class="row">
-        <!--布局菜单 start -->
         <div class="">
             <div class="sidebar-nav">
+
                 <ul class="nav nav-list accordion-group">
                     <li class="nav-header">
                         <div class="pull-right popover-info">
                             <i class="glyphicon glyphicon-question-sign"></i>
+
                             <div class="popover fade right">
                                 <div class="arrow"></div>
                                 <h3 class="popover-title">帮助</h3>
+
                                 <div class="popover-content">
                                     在这里设置你的栅格布局, 栅格总数默认为12, 用空格分割每列的栅格值, 如果您需要了解更多信息，请访问
                                     <a href="http://v3.bootcss.com/css/#grid">BOOTSTRAP栅格系统.</a>
@@ -185,6 +192,7 @@
 
                     </li>
                 </ul>
+
                 <ul class="nav nav-list accordion-group">
                     <li class="nav-header">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -748,6 +756,7 @@
                         </div>
                     </li>
                 </ul>
+
                 <ul class="nav nav-list accordion-group">
                     <li class="nav-header">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -1287,6 +1296,7 @@
                                             <a href="#" class="pull-left">
                                                 <img src="img/default_002.jpg"
                                                      class="media-object"></a>
+
                                             <div class="media-body" contenteditable="true">
                                                 <h4 class="media-heading">Nested media heading</h4>
                                                 Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
@@ -1313,6 +1323,7 @@
                             <div class="view">
                                 <div class="list-group" contenteditable="true">
                                     <a href="#" class="list-group-item active">Home</a>
+
                                     <div class="list-group-item">List header</div>
                                     <div class="list-group-item">
                                         <h4 class="list-group-item-heading">List group item heading</h4>
@@ -1366,7 +1377,9 @@
                                       </li>
                                     </ul>
 								</span>
+
 							</span>
+
                             <div class="preview">面板</div>
                             <div class="view">
                                 <div class="panel panel-default">
@@ -1378,8 +1391,10 @@
                                 </div>
                             </div>
                         </div>
+
                     </li>
                 </ul>
+
                 <ul class="nav nav-list accordion-group">
                     <li class="nav-header">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -1452,7 +1467,7 @@
                             </a>
                             <span class="drag label label-default">
 								<i class="glyphicon glyphicon-move"></i>
-								拖动1
+								拖动
 							</span>
                             <span class="configuration">
 								<span class="btn-group btn-group-xs">
@@ -1475,14 +1490,6 @@
                                       </li>
                                     </ul>
 								</span>
-                                <span class="configuration">
-                                     <button type="button"
-                                             class="btn btn-mini"
-                                             data-target="#editorModal"
-                                             role="button"
-                                             data-toggle="modal">编辑1
-                                    </button>
-                                </span>
 								<a class="btn btn-xs btn-default" href="#" rel="navbar-inverse">反转</a>
                                 <!--a class="btn btn-xs btn-default" href="#" rel="navbar-static-top">Static top</a>
                             <a class="btn btn-mini" href="#" rel="navbar-fixed-top">Navbar fixed top</a>
@@ -1491,6 +1498,7 @@
 
                             <div class="preview">导航栏</div>
                             <div class="view">
+
                                 <nav class="navbar navbar-default" role="navigation">
                                     <!-- Brand and toggle get grouped for better mobile display -->
                                     <div class="navbar-header">
@@ -1781,9 +1789,26 @@
                             <div class="input-group" style="width: 100%;">
                                 <select class="form-control input-form-group-value-item" id="componentBodyApi"
                                         name="pageStatus">
-                                    <option value="">请选择组件API（静态组件无需选择 API）</option>
+                                    <option value="">请选择组件API</option>
                                     <option value="100007001=article/search">查文章-多条</option>
                                     <option value="100007001=article/search-one">查文章-单条</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000001">启用启用启用启用启用启用启用启用启用启用</option>
+                                    <option value="100000002">禁用</option>
                                 </select>
                             </div>
                         </div>
@@ -1799,14 +1824,13 @@
                         <div class="col-lg-12">
                             <button class="btn btn-xs btn-primary" type="button" href="#clear" id="save_component_click"
                                     style="line-height: 30px;margin-top: 10px;width: 100%;">
-                                保存
+                                <label> 保存</label>
                             </button>
                         </div>
                     </div>
                 </ul>
             </div>
         </div>
-        <!--布局菜单 end -->
         <!--/span-->
         <div style="min-height: 754px;" class="demo ui-sortable">
             <div class="lyrow">
@@ -1818,158 +1842,160 @@
 				<i class="glyphicon glyphicon-move"></i>
 				拖动
 			</span>
+
                 <div class="preview">9 3</div>
                 <div class="view">
                     <div class="row clearfix">
                         <div class="col-md-12 column ui-sortable">
-                            <!--<div class="box box-element">-->
-                            <!--<a href="#close" class="remove label label-danger">-->
-                            <!--<i class="glyphicon glyphicon-remove"></i>-->
-                            <!--删除-->
-                            <!--</a>-->
-                            <!--<span class="drag label label-default">-->
-                            <!--<i class="glyphicon glyphicon-move"></i>-->
-                            <!--拖动-->
-                            <!--</span>-->
-                            <!--<span class="configuration">-->
-                            <!--<span class="btn-group btn-group-xs">-->
-                            <!--<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">-->
-                            <!--位置-->
-                            <!--<span class="caret"></span>-->
-                            <!--</a>-->
-                            <!--<ul class="dropdown-menu">-->
-                            <!--<li class="active">-->
-                            <!--<a href="#" rel="">默认</a>-->
-                            <!--</li>-->
-                            <!--<li class="">-->
-                            <!--<a href="#" rel="navbar-static-top">头部</a>-->
-                            <!--</li>-->
-                            <!--<li class="">-->
-                            <!--<a href="#" rel="navbar-fixed-top">固定在头部</a>-->
-                            <!--</li>-->
-                            <!--<li class="">-->
-                            <!--<a href="#" rel="navbar-fixed-bottom">固定在底部</a>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                            <!--</span>-->
-                            <!--<a class="btn btn-xs btn-default" href="#" rel="navbar-inverse">反转</a>-->
-                            <!--&lt;!&ndash;a class="btn btn-xs btn-default" href="#" rel="navbar-static-top">Static top</a>-->
-                            <!--<a class="btn btn-mini" href="#" rel="navbar-fixed-top">Navbar fixed top</a>-->
-                            <!--<a class="btn btn-mini" href="#" rel="navbar-fixed-bottom">Navbar fixed bottom</a&ndash;&gt;-->
-                            <!--</span>-->
-                            <!--<div class="preview">导航栏</div>-->
-                            <!--<div class="view">-->
-                            <!--<nav class="navbar navbar-default" role="navigation">-->
-                            <!--&lt;!&ndash; Brand and toggle get grouped for better mobile display &ndash;&gt;-->
-                            <!--<div class="navbar-header">-->
-                            <!--<button type="button" class="navbar-toggle" data-toggle="collapse"-->
-                            <!--data-target="#bs-example-navbar-collapse-1">-->
-                            <!--<span class="sr-only">Toggle navigation</span>-->
-                            <!--<span class="icon-bar"></span>-->
-                            <!--<span class="icon-bar"></span>-->
-                            <!--<span class="icon-bar"></span>-->
-                            <!--</button>-->
-                            <!--<a class="navbar-brand" href="#">Brand</a>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-                            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">-->
-                            <!--<ul class="nav navbar-nav">-->
-                            <!--<li class="active">-->
-                            <!--<a href="#">Link</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Link</a>-->
-                            <!--</li>-->
-                            <!--<li class="dropdown">-->
-                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-                            <!--Dropdown-->
-                            <!--<b class="caret"></b>-->
-                            <!--</a>-->
-                            <!--<ul class="dropdown-menu">-->
-                            <!--<li>-->
-                            <!--<a href="#">Action</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Another action</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Something else here</a>-->
-                            <!--</li>-->
-                            <!--<li class="divider"></li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Separated link</a>-->
-                            <!--</li>-->
-                            <!--<li class="divider"></li>-->
-                            <!--<li>-->
-                            <!--<a href="#">One more separated link</a>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                            <!--<form class="navbar-form navbar-left" role="search">-->
-                            <!--<div class="form-group">-->
-                            <!--<input class="form-control" placeholder="Search" type="text"></div>-->
-                            <!--<button type="submit" class="btn btn-default">Submit</button>-->
-                            <!--</form>-->
-                            <!--<ul class="nav navbar-nav navbar-right">-->
-                            <!--<li>-->
-                            <!--<a href="#">Link</a>-->
-                            <!--</li>-->
-                            <!--<li class="dropdown">-->
-                            <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown">-->
-                            <!--Dropdown-->
-                            <!--<b class="caret"></b>-->
-                            <!--</a>-->
-                            <!--<ul class="dropdown-menu">-->
-                            <!--<li>-->
-                            <!--<a href="#">Action</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Another action</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Something else here</a>-->
-                            <!--</li>-->
-                            <!--<li class="divider"></li>-->
-                            <!--<li>-->
-                            <!--<a href="#">Separated link</a>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                            <!--</li>-->
-                            <!--</ul>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-                            <!--</nav>-->
-
-                            <!--</div>-->
-                            <!--</div>-->
-
                             <div class="box box-element">
                                 <a href="#close" class="remove label label-danger">
                                     <i class="glyphicon glyphicon-remove"></i>
                                     删除
                                 </a>
                                 <span class="drag label label-default">
-                                    <i class="glyphicon glyphicon-move"></i>
-                                    拖动
-                                </span>
+								<i class="glyphicon glyphicon-move"></i>
+								拖动
+							</span>
                                 <span class="configuration">
-                                     <button type="button"
-                                             class="btn btn-mini"
-                                             data-target="#editorModal"
-                                             role="button"
-                                             data-toggle="modal">编辑1
-                                    </button>
-                                    <a class="btn btn-xs btn-default active" href="#" rel="well">嵌入</a>
-                                </span>
+								<span class="btn-group btn-group-xs">
+									<a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+                                      位置
+                                      <span class="caret"></span>
+                                    </a>
+									<ul class="dropdown-menu">
+                                      <li class="active">
+                                        <a href="#" rel="">默认</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="#" rel="navbar-static-top">头部</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="#" rel="navbar-fixed-top">固定在头部</a>
+                                      </li>
+                                      <li class="">
+                                        <a href="#" rel="navbar-fixed-bottom">固定在底部</a>
+                                      </li>
+                                    </ul>
+								</span>
+								<a class="btn btn-xs btn-default" href="#" rel="navbar-inverse">反转</a>
+                                    <!--a class="btn btn-xs btn-default" href="#" rel="navbar-static-top">Static top</a>
+                                <a class="btn btn-mini" href="#" rel="navbar-fixed-top">Navbar fixed top</a>
+                                <a class="btn btn-mini" href="#" rel="navbar-fixed-bottom">Navbar fixed bottom</a-->
+						</span>
+
+                                <div class="preview">导航栏</div>
+                                <div class="view">
+
+                                    <nav class="navbar navbar-default" role="navigation">
+                                        <!-- Brand and toggle get grouped for better mobile display -->
+                                        <div class="navbar-header">
+                                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                                    data-target="#bs-example-navbar-collapse-1">
+                                                <span class="sr-only">Toggle navigation</span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                                <span class="icon-bar"></span>
+                                            </button>
+                                            <a class="navbar-brand" href="#">Brand</a>
+                                        </div>
+
+                                        <!-- Collect the nav links, forms, and other content for toggling -->
+                                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                            <ul class="nav navbar-nav">
+                                                <li class="active">
+                                                    <a href="#">Link</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Link</a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        Dropdown
+                                                        <b class="caret"></b>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="#">Action</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Another action</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Something else here</a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li>
+                                                            <a href="#">Separated link</a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li>
+                                                            <a href="#">One more separated link</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <form class="navbar-form navbar-left" role="search">
+                                                <div class="form-group">
+                                                    <input class="form-control" placeholder="Search" type="text"></div>
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </form>
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li>
+                                                    <a href="#">Link</a>
+                                                </li>
+                                                <li class="dropdown">
+                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                                        Dropdown
+                                                        <b class="caret"></b>
+                                                    </a>
+                                                    <ul class="dropdown-menu">
+                                                        <li>
+                                                            <a href="#">Action</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Another action</a>
+                                                        </li>
+                                                        <li>
+                                                            <a href="#">Something else here</a>
+                                                        </li>
+                                                        <li class="divider"></li>
+                                                        <li>
+                                                            <a href="#">Separated link</a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <!-- /.navbar-collapse -->
+                                    </nav>
+
+                                </div>
+                            </div>
+                            <div class="box box-element">
+                                <a href="#close" class="remove label label-danger">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    删除
+                                </a>
+                                <span class="drag label label-default">
+							<i class="glyphicon glyphicon-move"></i>
+							拖动
+						</span>
+                                <span class="configuration">
+							<a class="btn btn-xs btn-default active" href="#" rel="well">嵌入</a>
+						</span>
+
                                 <div class="preview">Jumbotron</div>
                                 <div class="view">
                                     <div class="jumbotron well" contenteditable="true">
-                                        <h1>Hello, Mini Its!</h1>
+                                        <h1>Hello, world!</h1>
+
                                         <p>
-                                            欢迎使用 MiniIts 页面组件开发工具，
-                                            这是一个巨幕组件，你可以这样应用，比如：文章列表
+                                            This is a template for a simple marketing or informational
+                                            website. It includes a large callout called the hero unit and three
+                                            supporting pieces of content. Use it as a starting point to create
+                                            something more unique.
                                         </p>
+
                                         <p>
                                             <a class="btn btn-primary btn-large" href="#">Learn more</a>
                                         </p>
@@ -1980,20 +2006,259 @@
                     </div>
                 </div>
             </div>
+            <div class="lyrow" style="display: block;">
+                <a href="#close" class="remove label label-danger">
+                    <i class="glyphicon glyphicon-remove"></i>
+                    删除
+                </a>
+                <span class="drag label label-default">
+			<i class="glyphicon glyphicon-move"></i>
+			拖动
+		</span>
+
+                <div class="preview">4 4 4</div>
+                <div class="view">
+                    <div class="row clearfix">
+                        <div class="col-md-4 column ui-sortable" style="">
+                            <div class="box box-element">
+                                <a href="#close" class="remove label label-danger">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    删除
+                                </a>
+                                <span class="drag label label-default">
+							<i class="glyphicon glyphicon-move"></i>
+							拖动
+						</span>
+
+                                <div class="preview">Text</div>
+                                <div class="view">
+                                    <h2 contenteditable="true">Heading</h2>
+
+                                    <p contenteditable="true">
+                                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                                        tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                                        massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                                        euismod. Donec sed odio dui.
+                                    </p>
+
+                                    <p>
+                                        <a class="btn" href="#" contenteditable="true">View details »</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 column ui-sortable" style="">
+                            <div class="box box-element">
+                                <a href="#close" class="remove label label-danger">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    删除
+                                </a>
+                                <span class="drag label label-default">
+							<i class="glyphicon glyphicon-move"></i>
+							拖动
+						</span>
+
+                                <div class="preview">Text</div>
+                                <div class="view">
+                                    <h2 contenteditable="true">Heading</h2>
+
+                                    <p contenteditable="true">
+                                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                                        tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                                        massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                                        euismod. Donec sed odio dui.
+                                    </p>
+
+                                    <p>
+                                        <a class="btn" href="#" contenteditable="true">View details »</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 column ui-sortable" style="">
+                            <div class="box box-element">
+                                <a href="#close" class="remove label label-danger">
+                                    <i class="glyphicon glyphicon-remove"></i>
+                                    拖动
+                                </a>
+                                <span class="drag label label-default">
+							<i class="glyphicon glyphicon-move"></i>
+							拖动
+						</span>
+
+                                <div class="preview">Text</div>
+                                <div class="view">
+                                    <h2 contenteditable="true">Heading</h2>
+
+                                    <p contenteditable="true">
+                                        Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                                        tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                                        massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                                        euismod. Donec sed odio dui.
+                                    </p>
+
+                                    <p>
+                                        <a class="btn" href="#" contenteditable="true">View details »</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-    <div class="modal fade" role="dialog" id="editorModal">
-        <div class="modal-header"><a class="close" data-dismiss="modal">×</a>
-            <h3>编辑2</h3>
-        </div>
-        <div class="modal-body">
-            <p>
-                <textarea id="contenteditor"></textarea>
-            </p>
-        </div>
-        <div class="modal-footer">
-            <a id="savecontent" class="btn btn-primary" data-dismiss="modal">保存</a>
-            <a class="btn" data-dismiss="modal">关闭</a>
+        <!--/span-->
+        <div id="download-layout">
+            <div class="container">
+                <div class="row clearfix">
+                    <div class="col-md-12 column">
+                        <nav class="navbar navbar-default" role="navigation">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                        data-target="#bs-example-navbar-collapse-1"><span class="sr-only">Toggle navigation</span><span
+                                        class="icon-bar"></span><span class="icon-bar"></span><span
+                                        class="icon-bar"></span></button>
+                                <a class="navbar-brand" href="#">Brand</a>
+                            </div>
+
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li class="active">
+                                        <a href="#">Link</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">Link</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong
+                                                class="caret"></strong></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Action</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Another action</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Something else here</a>
+                                            </li>
+                                            <li class="divider">
+                                            </li>
+                                            <li>
+                                                <a href="#">Separated link</a>
+                                            </li>
+                                            <li class="divider">
+                                            </li>
+                                            <li>
+                                                <a href="#">One more separated link</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <form class="navbar-form navbar-left" role="search">
+                                    <div class="form-group">
+                                        <input class="form-control" type="text">
+                                    </div>
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </form>
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li>
+                                        <a href="#">Link</a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown<strong
+                                                class="caret"></strong></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a href="#">Action</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Another action</a>
+                                            </li>
+                                            <li>
+                                                <a href="#">Something else here</a>
+                                            </li>
+                                            <li class="divider">
+                                            </li>
+                                            <li>
+                                                <a href="#">Separated link</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </nav>
+                        <div class="jumbotron">
+                            <h1>
+                                Hello, world!
+                            </h1>
+
+                            <p>
+                                This is a template for a simple marketing or informational website.
+                                It includes a large callout called the hero unit and three supporting
+                                pieces of content. Use it as a starting point to create something more
+                                unique.
+                            </p>
+
+                            <p>
+                                <a class="btn btn-primary btn-large" href="#">Learn more</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-4 column">
+                        <h2>
+                            Heading
+                        </h2>
+
+                        <p>
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                            tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                            massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                            euismod. Donec sed odio dui.
+                        </p>
+
+                        <p>
+                            <a class="btn" href="#">View details »</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 column">
+                        <h2>
+                            Heading
+                        </h2>
+
+                        <p>
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                            tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                            massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                            euismod. Donec sed odio dui.
+                        </p>
+
+                        <p>
+                            <a class="btn" href="#">View details »</a>
+                        </p>
+                    </div>
+                    <div class="col-md-4 column">
+                        <h2>
+                            Heading
+                        </h2>
+
+                        <p>
+                            Donec id elit non mi porta gravida at eget metus. Fusce dapibus,
+                            tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
+                            massa justo sit amet risus. Etiam porta sem malesuada magna mollis
+                            euismod. Donec sed odio dui.
+                        </p>
+
+                        <p>
+                            <a class="btn" href="#">View details »</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!--/row-->
@@ -2087,6 +2352,7 @@
         $('#download-logged').show();
     });
 
+
 </script>
 
 <div style="display: none;" class="modal fade" id="downloadModal" tabindex="-1" role="dialog"
@@ -2098,6 +2364,7 @@
                 <h4 class="modal-title">下载</h4>
             </div>
             <div class="modal-body">
+
                 <div id="download-logged" class="">
                     <div class="alert alert-info">HTML
                     </div>
@@ -2146,11 +2413,42 @@
                     }
                 },
                 error: function (response) {
+
                 }
             });
+
             return false;
         });
     </script>
+
 </div>
+
+<div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="shareModalLabel"
+     aria-hidden="true"></div>
+<div style="display: none;" class="modal fade" id="feedbackModal" tabindex="-1" role="dialog"
+     aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">联系我们</h4>
+            </div>
+            <div class="modal-body">
+
+                <div id="download-logged" class="">
+                    <div class="alert alert-info">
+                        Github:
+                        <a href="https://github.com/savokiss/layoutit">https://github.com/savokiss/layoutit</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+
 </body>
 </html>
