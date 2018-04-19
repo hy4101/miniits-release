@@ -35,11 +35,10 @@
         $("#btn_components_refresh").click(function () {
             $("#componentName").val(null);
             $("#componentStatusName").val(null);
-        })
+        });
 
         function searchComponents() {
             $('#table_components').bootstrapTable({
-                // toolbar: '#articles_toolbar',
                 pagination: true,
                 queryParams: function (params) {
                     var filters = '';
@@ -95,7 +94,7 @@
         function operateFormatter(value, row, index) {
             var editBtns = [
                 '<button type="button" class="components-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
-                '<a href="publish/init?id=' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>'
+                '<a href="modify-development/' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>'
             ];
             var statusBtn = '<button type="button" class="components-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
             if (row.componentStatus === 100000002) {

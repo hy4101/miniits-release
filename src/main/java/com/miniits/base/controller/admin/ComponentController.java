@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
@@ -46,6 +47,17 @@ public class ComponentController extends BaseController {
         return "admin/views/layout/ComponentsDevCode";
     }
 
+    @GetMapping("modify-development/{id}")
+    public String modifyDevelopment(ModelMap modelMap, @PathVariable(value = "id") String id) {
+        modelMap.put("active", "layout");
+        if (!StringUtils.isEmpty(id)) {
+            Component component = componentService.findOne(id);
+            component.setFilters(component.getApiDataStructureType() + "=" + component.getComponentBodyApi());
+            modelMap.put("development", component);
+        }
+        return "admin/views/layout/ComponentsDevCode";
+    }
+
     @GetMapping
     @ResponseBody
     public Result pages(Pageable pageable) {
@@ -57,9 +69,19 @@ public class ComponentController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(Component component) {
-        component.setComponentId(System.currentTimeMillis() + "");
-        component.setComponentStatus(GLOBAL_STATUS_YES);
-        component.setComponentStatusName("启用");
+        if (!StringUtils.isEmpty(component.getId())) {
+            Component old = componentService.findOne(component.getId());
+            old.setComponentBodyApi(component.getComponentBodyApi());
+            old.setApiDataStructureType(component.getApiDataStructureType());
+            old.setDataFilters(component.getDataFilters());
+            old.setComponentName(component.getComponentName());
+            old.setComponentBody(component.getComponentBody());
+            component = old;
+        } else {
+            component.setComponentId(System.currentTimeMillis() + "");
+            component.setComponentStatus(GLOBAL_STATUS_YES);
+            component.setComponentStatusName("启用");
+        }
         return success(componentService.save(component));
     }
 

@@ -39,6 +39,9 @@ public class Component extends BaseEntity {
     @Column(name = "api_data_structure_type")
     private Integer apiDataStructureType;
 
+    @Transient
+    private String filters;
+
     public String getComponentName() {
         return componentName;
     }
@@ -104,5 +107,15 @@ public class Component extends BaseEntity {
 
     public void setApiDataStructureType(Integer apiDataStructureType) {
         this.apiDataStructureType = apiDataStructureType;
+    }
+
+    @Transient
+    public String getFilters() {
+        return filters;
+    }
+
+    @Transient
+    public void setFilters(String filters) {
+        this.filters = filters;
     }
 }
