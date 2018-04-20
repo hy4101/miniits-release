@@ -29,9 +29,26 @@
                     style="background-color: #ff754e;color: #fff;">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
-            <textarea placeholder="点击弹出窗口的 【上传】 按钮后会自动将值填充的这里，如果没有自动填充，请手动复制弹出窗口的图片url"></textarea>
-            <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js"
-                    data-url="https://imgchr.com/upload" data-auto-insert="bbcode-embed-medium"></script>
+            <button id="btn_image_upload" type="button" class="btn">
+                <i class="fa fa-upload" aria-hidden="true"></i>
+            </button>
         </div>
     </div>
+    <div>
+    <#include "ImageUploadDialog.ftl"/>
+    </div>
 </div>
+<script>
+    (function ($, win) {
+
+        $("#btn_image_upload").click(function () {
+            $('#image_upload_dialog_modal').modal();
+        });
+
+        function imageInit() {
+
+        }
+
+        imageInit();
+    })(jQuery, window)
+</script>
