@@ -19,8 +19,6 @@
             <div class="modal-header">
                 <h4 class="modal-title" style="font-size: xx-large;">
                     发布文章
-                    <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js"
-                            data-url="https://imgchr.com/upload" data-auto-insert="bbcode-embed-medium"></script>
                     <button id="save_article_btn" type="submit" class="btn btn-primary"
                             style="float: right">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
@@ -52,13 +50,13 @@
                                    style="flex: 1;line-height: 29px;">标题图片
                                 :</label>
                         <#if article?exists>
-                            <input type="text" class="form-control" id="titleImage" name="titleImage"
-                                   style="flex: 4;" value="${article.titleImage}"
-                                   aria-describedby="basic-addon3" placeholder="请使用图片外链">
+                            <textarea type="text" class="form-control" id="titleImage" name="titleImage"
+                                      style="flex: 4;" value="${article.titleImage}"
+                                      aria-describedby="basic-addon3" placeholder="请使用图片外链"></textarea>
                         <#else>
-                            <input type="text" class="form-control" id="titleImage" name="titleImage"
-                                   style="flex: 4;"
-                                   aria-describedby="basic-addon3" placeholder="请使用图片外链">
+                            <textarea type="text" class="form-control" id="titleImage" name="titleImage"
+                                      style="flex: 4;"
+                                      aria-describedby="basic-addon3" placeholder="请使用图片外链"></textarea>
                         </#if>
                         </div>
                     </div>
@@ -125,12 +123,7 @@
                 <!-- 第二个隐藏文本域，用来构造生成的HTML代码，方便表单POST提交，这里的name可以任意取，后台接受时以这个name键为准 -->
                 <textarea class="editormd-html-textarea" name="text"></textarea>
             </div>
-            <textarea id="copy_text"></textarea>
         </div>
-    </div>
-    <div>
-        <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js" data-url="https://imgchr.com/upload"
-                data-auto-insert="bbcode-embed-medium"></script>
     </div>
 </div>
 <script>

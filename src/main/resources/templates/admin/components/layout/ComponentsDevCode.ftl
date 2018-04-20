@@ -18,8 +18,6 @@
             <div class="modal-header">
                 <h4 class="modal-title" style="font-size: xx-large;">
                     <label style="font-weight: normal;float: left;">组件开发-编程式</label>
-                    <script async id="chevereto-pup-src" src="https://imgchr.com/"
-                            data-url="https://imgchr.com/upload" data-auto-insert="bbcode-embed-medium"></script>
                     <button id="save_article_btn" type="submit" class="btn btn-primary"
                             style="float: right;background-color: #3c8dbc;">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
