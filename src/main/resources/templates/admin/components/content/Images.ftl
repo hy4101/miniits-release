@@ -29,7 +29,7 @@
                     style="background-color: #ff754e;color: #fff;">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
-            <textarea></textarea>
+            <textarea placeholder="点击弹出窗口的 【上传】 按钮后会自动将值填充的这里，如果没有自动填充，请手动复制弹出窗口的图片url"></textarea>
             <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js"
                     data-url="https://imgchr.com/upload" data-auto-insert="bbcode-embed-medium"></script>
         </div>
