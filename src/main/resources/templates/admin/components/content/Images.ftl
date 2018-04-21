@@ -34,6 +34,32 @@
             </button>
         </div>
     </div>
+    <div style="    border: 1px solid;">
+        <div id="div_images">
+               <#list images as image>
+                   <img src="${image.url}">
+               </#list>
+        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="active"><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
     <div>
     <#include "ImageUploadDialog.ftl"/>
     </div>
@@ -46,7 +72,27 @@
         });
 
         function imageInit() {
+            // searchImages();
+        }
 
+        function searchImages(e) {
+            $.ajax({
+                type: 'get',
+                url: '../images',
+                datatype: 'json',
+                data: {
+                    pageSize: 1,                         //页面大小
+                    pageNumber: 1,   //页码
+                    sorts: '-createDate',      //排序列名
+                    filters: "" //排位命令（desc，asc）
+                },
+                success: function (data) {
+                    debugger;
+                },
+                error: function (data) {
+                    console.log(data)
+                }
+            });
         }
 
         imageInit();

@@ -16,7 +16,8 @@
                 </div>
                 <div style="margin-left: 5%;width: 90%;">
                     <h5>上传须知：你可以选择【单张】或者【多张】图片进行上传。上传（下框赋值成功）后请直接点击保存，</h5>
-                    <textarea id="tex-image-url" style="width: 100%;height: 300px;" placeholder="上传后会在框内赋值视为上传成功，上传成功后无需修改。"></textarea>
+                    <textarea id="tex-image-url" style="width: 100%;height: 300px;"
+                              placeholder="上传后会在框内赋值视为上传成功，上传成功后无需修改。"></textarea>
                     <script async id="chevereto-pup-src" src="https://imgchr.com/sdk/pup.js"
                             data-url="https://imgchr.com/upload" data-auto-insert="bbcode-embed-medium"></script>
                 </div>
@@ -30,19 +31,40 @@
                         保存
                     </button>
                 </div>
-                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
-                    <h3 style="color: red;">异常处理：图片在上传后没有在框内赋值视为上传失败</h3>
-                </div>
-                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
-                    <h5 style="color: red;">处理方法如下：(共两步)</h5>
-                </div>
-                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
-                    <h5 style="color: red;">1、选择【查看链接】，之后复制下边的链接：如下图</h5>
-                    <img src="https://s1.ax1x.com/2018/04/21/CKOyJf.png" width="100%">
-                </div>
-                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
-                    <h5 style="color: red;">2、复制成功后，鼠标移动在到框内，右键选择粘贴：如下图</h5>
-                    <img src="https://s1.ax1x.com/2018/04/21/CKOdLd.png" width="100%">
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                            <h4 class="panel-title">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                                   href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                    <div style="margin-left: 5%;width: 90%;">
+                                        <h4 style="color: red;">查看异常处理
+                                            <i class="fa fa-angle-double-down" style="margin-left: 10px"
+                                               aria-hidden="true"></i></h4>
+                                    </div>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="headingTwo">
+                            <div class="panel-body">
+                                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
+                                    <h4 style="color: red;">图片在上传后没有在框内赋值视为上传失败</h4>
+                                </div>
+                                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
+                                    <h5">处理方法如下：(共两步)</h5>
+                                </div>
+                                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
+                                    <h5>1、选择【查看链接】，之后复制下边的链接：如下图</h5>
+                                    <img src="https://s1.ax1x.com/2018/04/21/CKOyJf.png" width="100%">
+                                </div>
+                                <div class="row clearfix" style="margin-left: 5%;width: 90%;">
+                                    <h5>2、复制成功后，鼠标移动在到框内，右键选择粘贴：如下图</h5>
+                                    <img src="https://s1.ax1x.com/2018/04/21/CKOdLd.png" width="100%">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </form>
