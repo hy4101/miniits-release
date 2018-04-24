@@ -34,52 +34,37 @@
             </button>
         </div>
     </div>
-    <div style="    border: 1px solid;">
-        <div id="div_images">
+    <div>
+        <div id="div_images" style="display:flex;flex-wrap:wrap">
                <#list images as image>
-                   <img src="${image.url}" style="width: 400px">
+                   <div style="margin: 5px;border: 1px solid #c8c8c8;">
+                       <img src="${image.url}" style="width: 400px;height: 300px"><br>
+                       <i class="fa fa-trash-o" style="font-size: 30px; color: red;float: right;margin: 10px;" aria-hidden="true"></i>
+                   </div>
                </#list>
         </div>
         <nav aria-label="Page navigation">
-             <#assign username="/admin/images/init?pageSize=15&">
+             <#assign baseUrl="/admin/images/init?pageSize=16&">
             <ul class="pagination">
+                <#if (thisPageNumber>1)>
                 <li>
-                    <a href="#" aria-label="Previous">
+                    <a href="${baseUrl}pageNumber=${thisPageNumber-1}&sorts=-createDate&filters=" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-            <#list [1,2,3,4,5] as pn>
-                <#if pn==1&&(pageNumber>3)>
-                    <li class="${(pageNumber == pn)?string('active','')}">
-                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber-2}</a>
-                    </li>
                 </#if>
-                <#if pn==2&&(pageNumber>3)>
-                    <li class="${(pageNumber == pn)?string('active','')}">
-                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber-1}</a>
-                    </li>
-                </#if>
-                <#if pn==3>
-                    <li class="${(pageNumber == pn)?string('active','')}">
-                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber}</a>
-                    </li>
-                </#if>
-                <#if pn==4&&(pageNumber>3)>
-                    <li class="${(pageNumber == pn)?string('active','')}">
-                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber+1}</a>
-                    </li>
-                </#if>
-                <#if pn==5&&(pageNumber>3)>
-                    <li class="${(pageNumber == pn)?string('active','')}">
-                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber+2}</a>
-                    </li>
-                </#if>
+            <#list pageNumbers as pn>
+                <li class="${(pn == thisPageNumber)?string('active','')}">
+                    <a href="${baseUrl}pageNumber=${pn}&sorts=-createDate&filters=">${pn}</a>
+                </li>
             </#list>
+            <#if (thisPageNumber<totalPageNumber)>
                 <li>
-                    <a href="#" aria-label="Next">
+                    <a href="${baseUrl}pageNumber=${thisPageNumber+1}&sorts=-createDate&filters=" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
+            </#if>
             </ul>
         </nav>
     </div>

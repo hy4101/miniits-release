@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.miniits.base.utils.Result.getTotalPage;
@@ -29,6 +30,8 @@ import static com.miniits.base.utils.Result.getTotalPage;
 @RequestMapping("/admin/images")
 public class ImageController extends BaseController {
 
+    private Long totalPage = 0L;
+
     @Autowired
     private ImageServer imageServer;
 
@@ -36,8 +39,9 @@ public class ImageController extends BaseController {
     public String init(ModelMap modelMap, Pageable pageable) {
         Page<Image> images = imageServer.search(pageable);
         modelMap.put("active", "content");
-        modelMap.put("pageNumber", pageable.getPageNumber());
+        modelMap.put("thisPageNumber", pageable.getPageNumber());
         modelMap.put("pageNumbers", getPageNumber(images, pageable));
+        modelMap.put("totalPageNumber", totalPage);
         modelMap.put("images", images.getContent());
         return "admin/views/content/Images";
     }
@@ -53,11 +57,24 @@ public class ImageController extends BaseController {
     }
 
     public List<Long> getPageNumber(Page<Image> page, Pageable pageable) {
-        List<Long> pageNumber = new ArrayList<>();
         long thisPage = pageable.getPageNumber();
-        pageNumber.add(thisPage);
-        long totalPage = getTotalPage(page.getTotalElements(), pageable.getPageSize());
+        totalPage = getTotalPage(page.getTotalElements(), pageable.getPageSize());
 
-        return null;
+        if (totalPage < 5) {
+            List<Long> ls = new ArrayList<>();
+            for (long i = 0; i < totalPage; i++) {
+                ls.add(++i);
+                --i;
+            }
+            return ls;
+        }
+
+        if (thisPage <= 3 && totalPage >= 5) {
+            return Arrays.asList(1L, 2L, 3L, 4L, 5L);
+        }
+        if (thisPage > totalPage - 3) {
+            return Arrays.asList(totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1, totalPage);
+        }
+        return Arrays.asList(thisPage - 2, thisPage - 1, thisPage, thisPage + 1, thisPage + 2);
     }
 }
