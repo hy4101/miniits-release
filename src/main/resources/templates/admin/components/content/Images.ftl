@@ -37,21 +37,44 @@
     <div style="    border: 1px solid;">
         <div id="div_images">
                <#list images as image>
-                   <img src="${image.url}">
+                   <img src="${image.url}" style="width: 400px">
                </#list>
         </div>
         <nav aria-label="Page navigation">
+             <#assign username="/admin/images/init?pageSize=15&">
             <ul class="pagination">
                 <li>
                     <a href="#" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
-                <li class="active"><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
+            <#list [1,2,3,4,5] as pn>
+                <#if pn==1&&(pageNumber>3)>
+                    <li class="${(pageNumber == pn)?string('active','')}">
+                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber-2}</a>
+                    </li>
+                </#if>
+                <#if pn==2&&(pageNumber>3)>
+                    <li class="${(pageNumber == pn)?string('active','')}">
+                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber-1}</a>
+                    </li>
+                </#if>
+                <#if pn==3>
+                    <li class="${(pageNumber == pn)?string('active','')}">
+                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber}</a>
+                    </li>
+                </#if>
+                <#if pn==4&&(pageNumber>3)>
+                    <li class="${(pageNumber == pn)?string('active','')}">
+                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber+1}</a>
+                    </li>
+                </#if>
+                <#if pn==5&&(pageNumber>3)>
+                    <li class="${(pageNumber == pn)?string('active','')}">
+                        <a href="${username}pageNumber=1&sorts=-createDate&filters=">${pageNumber+2}</a>
+                    </li>
+                </#if>
+            </#list>
                 <li>
                     <a href="#" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>

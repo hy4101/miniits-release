@@ -14,8 +14,10 @@ public class Pageable {
 
     private String sorts = "-createDate";
 
+    //显示条数
     private Integer pageSize = 15;
 
+    //页码
     private Integer pageNumber = 1;
 
     public String getFilters() {

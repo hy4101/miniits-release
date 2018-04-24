@@ -80,7 +80,7 @@
                         <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip" aria-hidden="true"></i>文章管理</a></li>
                         <li class="menu-item"><a href="/admin/tags/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>云标签管理</a></li>
                         <li class="menu-item"><a href="/admin/categorys/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>分类管理</a></li>
-                        <li class="menu-item"><a href="/admin/images/init?pageSize=1&pageNumber=1&sorts=-createDate&filters="><i class="fa fa-puzzle-piece" aria-hidden="true"></i>图片管理</a></li>
+                        <li class="menu-item"><a href="/admin/images/init?pageSize=15&pageNumber=1&sorts=-createDate&filters="><i class="fa fa-puzzle-piece" aria-hidden="true"></i>图片管理</a></li>
                         <li class="menu-item"><a href="/admin/links/init"><i class="fa fa-puzzle-piece" aria-hidden="true"></i>友情链接</a></li>
                     </ul>
                 </li>

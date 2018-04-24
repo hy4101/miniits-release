@@ -1,5 +1,7 @@
 package com.miniits.base.utils;
 
+import org.springframework.util.ObjectUtils;
+
 import java.util.List;
 
 /**
@@ -141,6 +143,18 @@ public class Result {
     public Result total(long total) {
         this.total = total;
         return this;
+    }
+
+    public static long getTotalPage(long totalCount, Integer pageSize) {
+        long totalPage = 0;
+        if (!ObjectUtils.isEmpty(totalCount) && !ObjectUtils.isEmpty(pageSize)) {
+            if (totalCount % (long) pageSize == 0) {
+                totalPage = (int) totalCount / pageSize;
+            } else {
+                totalPage = (int) totalCount / pageSize + 1;
+            }
+        }
+        return totalPage;
     }
 
 }

@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.miniits.base.utils.Result.getTotalPage;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/4/20
@@ -31,10 +36,10 @@ public class ImageController extends BaseController {
     public String init(ModelMap modelMap, Pageable pageable) {
         Page<Image> images = imageServer.search(pageable);
         modelMap.put("active", "content");
+        modelMap.put("pageNumber", pageable.getPageNumber());
+        modelMap.put("pageNumbers", getPageNumber(images, pageable));
         modelMap.put("images", images.getContent());
         return "admin/views/content/Images";
-//        modelMap.put("active", "content");
-//        return "admin/views/content/Images";
     }
 
     @GetMapping
@@ -47,4 +52,12 @@ public class ImageController extends BaseController {
         return "admin/views/content/Images";
     }
 
+    public List<Long> getPageNumber(Page<Image> page, Pageable pageable) {
+        List<Long> pageNumber = new ArrayList<>();
+        long thisPage = pageable.getPageNumber();
+        pageNumber.add(thisPage);
+        long totalPage = getTotalPage(page.getTotalElements(), pageable.getPageSize());
+
+        return null;
+    }
 }
