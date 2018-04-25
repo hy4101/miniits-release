@@ -4,13 +4,12 @@ import com.miniits.base.model.entity.Image;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ImageServer;
 import com.miniits.base.utils.BaseController;
+import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,14 +45,17 @@ public class ImageController extends BaseController {
         return "admin/views/content/Images";
     }
 
-    @GetMapping
+    @GetMapping("/{id}")
     @ResponseBody
-    public String pages(ModelMap modelMap, Pageable pageable) {
-        Page<Image> images = imageServer.search(pageable);
-        modelMap.put("active", "content");
-        modelMap.put("images", page(images.getContent()).page(pageable.getPageSize()).size(pageable.getPageNumber()).
-                totalCount(images.getTotalElements()).total(images.getTotalElements()));
-        return "admin/views/content/Images";
+    public Result getImage(@PathVariable(value = "id") String id) {
+        return success(imageServer.findOne(id));
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public Result deleteImage(@PathVariable(value = "id") String id) {
+        imageServer.delete(id);
+        return success("删除成功");
     }
 
     public List<Long> getPageNumber(Page<Image> page, Pageable pageable) {
