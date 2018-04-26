@@ -26,7 +26,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         关闭
                     </button>
-                    <button type="submit" id="btn_save_category" class="btn btn-primary" data-dismiss="modal">
+                    <button type="submit" id="btn_save_image" class="btn btn-primary" data-dismiss="modal">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         保存
                     </button>
@@ -77,6 +77,8 @@
 
         }
 
+        $("#btn_save_image").click(function () {
+        });
         imageUploadInit();
     })(jQuery, window)
 </script>
