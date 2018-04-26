@@ -6,15 +6,16 @@
  * Description:
  *          ***
  */
-(function ($, win) {
-    window.get = function (params) {
-        $.ajax({
+(function ($) {
+    window.httpClient = function (params) {
+        return $.ajax({
             type: params.method,
             url: params.url,
             data: params.data,
-            async: isEmpty(params.async) ? true : params.async,
-            dataType: isEmpty(params.dataType) ? 'json' : params.dataType,
+            async: params.async || true,
+            dataType: params.dataType || 'json',
             success: function (data) {
+                httpClientSuccess({sessionId: params.sessionId, data: data});
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);
@@ -23,4 +24,4 @@
             }
         });
     };
-})(jQuery, window);
+})(jQuery);

@@ -78,6 +78,12 @@
         }
 
         $("#btn_save_image").click(function () {
+            var fileUrl = $("#tex-image-url").val();
+            var params = {sessionId: 'upload', method: 'post', url: 'upload', data: {fileUrl: fileUrl}};
+            httpClient(params);
+            win.httpClientSuccess = function (data) {
+                debugger;
+            }
         });
         imageUploadInit();
     })(jQuery, window)

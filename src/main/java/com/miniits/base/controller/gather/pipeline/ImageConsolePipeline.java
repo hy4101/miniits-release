@@ -1,5 +1,8 @@
 package com.miniits.base.controller.gather.pipeline;
 
+import com.miniits.base.model.entity.Image;
+import com.miniits.base.service.ImageServer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
@@ -17,10 +20,11 @@ import java.util.Map;
  * ***
  */
 @Service
-public class ConsolePipeline implements Pipeline {
+public class ImageConsolePipeline implements Pipeline {
 
-//    @Autowired
-//    private MoviesService moviesService;
+
+    @Autowired
+    private ImageServer imageServer;
 
     @Override
     public void process(ResultItems resultItems, Task task) {
@@ -29,8 +33,8 @@ public class ConsolePipeline implements Pipeline {
 
         while (var3.hasNext()) {
             Map.Entry<String, Object> entry = (Map.Entry) var3.next();
-//            Movies movies = (Movies) entry.getValue();
-//            moviesService.save(movies);
+            Image movies = (Image) entry.getValue();
+            imageServer.save(movies);
         }
     }
 }

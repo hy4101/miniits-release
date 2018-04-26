@@ -1,5 +1,6 @@
 package com.miniits.base.controller.admin;
 
+import com.miniits.base.controller.gather.service.ImageCrawlerService;
 import com.miniits.base.model.entity.Image;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ImageServer;
@@ -34,6 +35,9 @@ public class ImageController extends BaseController {
     @Autowired
     private ImageServer imageServer;
 
+    @Autowired
+    private ImageCrawlerService imageCrawlerService;
+
     @GetMapping("init")
     public String init(ModelMap modelMap, Pageable pageable) {
         Page<Image> images = imageServer.search(pageable);
@@ -56,6 +60,16 @@ public class ImageController extends BaseController {
     public Result deleteImage(@PathVariable(value = "id") String id) {
         imageServer.delete(id);
         return success("删除成功");
+    }
+
+    @PostMapping("/upload")
+    @ResponseBody
+    public Result sdf(@RequestParam(value = "fileUrl") String fileUrl) {
+        if (fileUrl.indexOf("][img]") != -1) {
+            fileUrl = fileUrl.split("\\]\\[img\\]")[0].substring(5);
+        }
+        imageCrawlerService.imagesUpload(fileUrl);
+        return success("保存成功");
     }
 
     public List<Long> getPageNumber(Page<Image> page, Pageable pageable) {
