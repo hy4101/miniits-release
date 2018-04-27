@@ -76,7 +76,7 @@ public class ImageController extends BaseController {
                 return url.split("\\]\\[img\\]")[0].substring(5);
             }).collect(Collectors.toList());
         } else {
-            urls.add(fileUrl);
+            urls = Arrays.asList(fileUrl.split("\n"));
         }
         imageCrawlerService.imagesUpload(urls);
         return success("保存成功");
