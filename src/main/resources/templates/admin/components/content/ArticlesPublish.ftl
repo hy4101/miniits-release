@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="/static/select-tree-search/bootstrap-select.css">
 
     <div style="width: 100%;">
-        <div class="modal-content">
+        <div class="modal-content" style="height: 100%;">
             <div class="modal-header">
                 <h4 class="modal-title" style="font-size: xx-large;">
                     发布文章
@@ -50,13 +50,13 @@
                                    style="flex: 1;line-height: 29px;">标题图片
                                 :</label>
                         <#if article?exists>
-                            <textarea type="text" class="form-control" id="titleImage" name="titleImage"
+                            <input type="text" class="form-control" id="titleImage" name="titleImage"
                                       style="flex: 4;" value="${article.titleImage}"
-                                      aria-describedby="basic-addon3" placeholder="请使用图片外链"></textarea>
+                                      aria-describedby="basic-addon3" placeholder="请使用图片外链">
                         <#else>
-                            <textarea type="text" class="form-control" id="titleImage" name="titleImage"
+                            <input type="text" class="form-control" id="titleImage" name="titleImage"
                                       style="flex: 4;"
-                                      aria-describedby="basic-addon3" placeholder="请使用图片外链"></textarea>
+                                      aria-describedby="basic-addon3" placeholder="请使用图片外链">
                         </#if>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
         function initArticlesPublish() {
             editor = editormd("div-editormd", {
                 width: "95%",
-                height: 740,
+                height: 1000,
                 syncScrolling: "single",
                 htmlDecode: "style,script,iframe",
                 emoji: true,

@@ -150,7 +150,6 @@
                     filters: "" //排位命令（desc，asc）
                 },
                 success: function (data) {
-                    debugger;
                 },
                 error: function (data) {
                     console.log(data)

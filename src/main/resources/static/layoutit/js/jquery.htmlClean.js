@@ -32,7 +32,6 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
 
     // clean the passed html
     $.htmlClean = function (html, options) {
-        debugger;
         options = $.extend({}, $.htmlClean.defaults, options);
 
         var tagsRE = /(<(\/)?(\w+:)?([\w]+)([^>]*)>)|<!--(.*?--)>/gi;
