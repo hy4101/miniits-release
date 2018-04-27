@@ -74,15 +74,16 @@
     (function ($, win) {
 
         function imageUploadInit() {
-
         }
 
         $("#btn_save_image").click(function () {
             var fileUrl = $("#tex-image-url").val();
-            var params = {sessionId: 'upload', method: 'post', url: 'upload', data: {fileUrl: fileUrl}};
+            var params = {sessionId: 'image-upload', method: 'post', url: 'upload', data: {fileUrl: fileUrl}};
             httpClient(params);
             win.httpClientSuccess = function (data) {
-                debugger;
+                if (data.sessionId == 'image-upload') {
+                    location.reload();
+                }
             }
         });
         imageUploadInit();

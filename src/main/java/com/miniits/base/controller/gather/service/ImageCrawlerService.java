@@ -13,6 +13,8 @@ import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 import us.codecraft.webmagic.selector.Selectable;
 
+import java.util.List;
+
 
 /**
  * @author: WWW.MINIITS.COM
@@ -32,11 +34,11 @@ public class ImageCrawlerService extends BaseController implements PageProcessor
     private ImageConsolePipeline consolePipeline;
 
     /**
-     * 高清网（http://gaoqing.la）
+     * 图片上传
      */
-    public void imagesUpload(String fileUrl) {
+    public void imagesUpload(List<String> fileUrls) {
         Spider.create(new ImageCrawlerService()).
-                addUrl(fileUrl).
+                addUrl(fileUrls.toArray(new String[fileUrls.size()])).
                 addPipeline(consolePipeline).thread(1).run();
     }
 
@@ -44,6 +46,11 @@ public class ImageCrawlerService extends BaseController implements PageProcessor
     public void process(Page page) {
         Selectable content = page.getHtml().xpath("//div[@id=tab-codes]/div/div[@class=panel-share-item]");
         if (content.get().length() <= 0) {
+            try {
+                throw new Exception("url错误");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return;
         }
         String name = page.getHtml().xpath("//div/h1[@class=viewer-title]/text()").get();

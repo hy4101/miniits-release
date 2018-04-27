@@ -6,6 +6,7 @@ import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ImageServer;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.Result;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.Result.getTotalPage;
 
@@ -65,10 +67,18 @@ public class ImageController extends BaseController {
     @PostMapping("/upload")
     @ResponseBody
     public Result sdf(@RequestParam(value = "fileUrl") String fileUrl) {
-        if (fileUrl.indexOf("][img]") != -1) {
-            fileUrl = fileUrl.split("\\]\\[img\\]")[0].substring(5);
+        if (StringUtils.isEmpty(fileUrl)) {
+            return error("url为空");
         }
-        imageCrawlerService.imagesUpload(fileUrl);
+        List<String> urls = new ArrayList<>();
+        if (fileUrl.indexOf("][img]") != -1) {
+            urls = Arrays.asList(fileUrl.split("\n")).stream().map(url -> {
+                return url.split("\\]\\[img\\]")[0].substring(5);
+            }).collect(Collectors.toList());
+        } else {
+            urls.add(fileUrl);
+        }
+        imageCrawlerService.imagesUpload(urls);
         return success("保存成功");
     }
 

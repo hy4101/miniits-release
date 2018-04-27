@@ -11,7 +11,7 @@
         return $.ajax({
             type: params.method,
             url: params.url,
-            data: params.data,
+            data: params.data || {},
             async: params.async || true,
             dataType: params.dataType || 'json',
             success: function (data) {
