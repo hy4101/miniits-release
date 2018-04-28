@@ -100,7 +100,9 @@ public class CommonUtil {
                 continue;
             }
         }
-        doc = addHtmlDepend(doc, new SEO());
+        if (!ObjectUtils.isEmpty(doc)) {
+            doc = addHtmlDepend(doc, new SEO());
+        }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }
 
