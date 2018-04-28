@@ -16,7 +16,8 @@
                     style="background-color: #27AE60;color: #fff;">
                 <i class="fa fa-search" aria-hidden="true"></i>
             </button>
-            <button type="button" class="btn" style="background-color: #ff754e;color: #fff;" id="btn_components_refresh">
+            <button type="button" class="btn" style="background-color: #ff754e;color: #fff;"
+                    id="btn_components_refresh">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
         </div>
@@ -28,6 +29,7 @@
         function initComponents() {
             searchComponents();
         }
+
         $("#btn_components_search").click(function () {
             $('#table_components').bootstrapTable('refresh');
         });
@@ -95,7 +97,7 @@
             var editBtns = [
                 '<button type="button" class="components-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
                 '<a href="modify-development/' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>',
-                '<a href="modify-development/' + row.id + '"><button type="button" class="btn btn-sm" style="margin-right:15px;">备份</button></a>'
+                '<button type="button" class="btn btn-sm copy-component-btn" style="margin-right:15px;">备份</button>'
             ];
             var statusBtn = '<button type="button" class="components-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
             if (row.componentStatus === 100000002) {
@@ -108,6 +110,14 @@
         win.operateEvents = {
             'click .components-delete': function (e, value, row, index) {
                 deleteArticle(row);
+            },
+            'click .copy-component-btn': function (e, value, row, index) {
+                var params = {url: 'copy-development/' + row.id, method: 'post', sessionId: 'copy-component'};
+                httpClient(params);
+                win.httpClientSuccess = function (data) {
+                    toastr.success(data.data.message);
+                    $('#table_components').bootstrapTable('refresh');
+                }
             },
             'click .components-status-disabled': function (e, value, row, index) {
                 changeStatus(row, 100000002, '【 禁用 】 成功<h4>提示:当该组件已被页面所应用时，你的禁用操作不影响页面的展示！</h4>');

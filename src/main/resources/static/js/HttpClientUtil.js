@@ -8,13 +8,14 @@
  */
 (function ($) {
     window.httpClient = function (params) {
-        return $.ajax({
+        $.ajax({
             type: params.method,
             url: params.url,
             data: params.data || {},
             async: params.async || true,
             dataType: params.dataType || 'json',
             success: function (data) {
+                data.message = params.message || data.message;
                 if (!isEmpty(params.sessionId)) {
                     httpClientSuccess({sessionId: params.sessionId, data: data});
                 }

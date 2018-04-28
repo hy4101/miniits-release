@@ -4,6 +4,7 @@ import com.miniits.base.model.entity.Component;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ComponentService;
 import com.miniits.base.utils.BaseController;
+import com.miniits.base.utils.ConvertUtil;
 import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 /**
@@ -85,18 +87,23 @@ public class ComponentController extends BaseController {
         return success(componentService.save(component));
     }
 
-    // TODO: 2018/4/28  
-    @GetMapping("copy-development/{id}")
-    public String copyDevelopment(ModelMap modelMap, @PathVariable(value = "id") String id) {
+    @PostMapping("copy-development/{id}")
+    @ResponseBody
+    public Result copyDevelopment(ModelMap modelMap, @PathVariable(value = "id") String id) {
         modelMap.put("active", "layout");
         if (!StringUtils.isEmpty(id)) {
             Component component = componentService.findOne(id);
-            component.setFilters(component.getApiDataStructureType() + "=" + component.getComponentBodyApi());
-            modelMap.put("development", component);
+            Component copy = ConvertUtil.toVO(component,Component.class);
+            copy.setId(null);
+            copy.setComponentId(System.currentTimeMillis() + "");
+            copy.setComponentName(component.getComponentName() + " -副本");
+            copy.setComponentStatus(GLOBAL_STATUS_NO);
+            copy.setComponentStatusName("禁用");
+            componentService.save(copy);
         }
-        return "admin/views/layout/ComponentsDevCode";
+        return success("复制成功");
     }
-    
+
     @DeleteMapping("{id}")
     @ResponseBody
     public Result pages(@PathVariable(value = "id") String id) {

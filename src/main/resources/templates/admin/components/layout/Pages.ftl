@@ -28,10 +28,9 @@
             </div>
             <div class="col-lg-4">
                 <div class="input-group">
-                <#--<input type="text" class="form-control" placeholder="请输入状态" id="searchPageStatusName"-->
-                <#--aria-describedby="basic-addon1">-->
                     <select class="form-control input-form-group-value-item" id="searchPageStatusName"
                             name="pageStatus">
+                        <option value=""></option>
                         <option value="100000001">启用</option>
                         <option value="100000002">禁用</option>
                     </select>
@@ -68,8 +67,12 @@
             </div>
             <div class="col-lg-4">
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入状态" id="componentStatus"
-                           aria-describedby="basic-addon1">
+                    <select class="form-control input-form-group-value-item" id="componentStatus"
+                            name="componentStatus">
+                        <option value=""></option>
+                        <option value="100000001">启用</option>
+                        <option value="100000002">禁用</option>
+                    </select>
                 </div>
             </div>
             <div class="col-lg-4">
@@ -105,7 +108,7 @@
             });
 
             $('#btn_search').click(function () {
-                searchPagesByFilters();
+                $('#table_pages').bootstrapTable('refresh');
             });
 
             $('#btn_page_component_search').click(function () {
@@ -125,7 +128,7 @@
 
         $('#btn_page_components_refresh').click(function () {
             $("#componentName").val(null);
-            $("#componentStatusName").val(null)
+            $("#componentStatus").val(null)
         });
 
         function deletePage(row) {
@@ -136,34 +139,21 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: 'delete/' + row.id,
-                    datatype: 'json',
-                    success: function (data) {
-                        toastr.success('删除成功');
-                        searchPagesByFilters()
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: 'delete/' + row.id,
+                    sessionId: 'change-status', message: '删除成功'
+                };
+                httpClient(param);
             });
         }
 
         function revisionSort(row, type) {
             console.log(row);
-            $.ajax({
-                type: 'post',
-                url: '../page-component-associate/revision-sort/' + row.id + '/' + type,
-                datatype: 'json',
-                success: function (data) {
-                    $('#table_page_components').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+            var param = {
+                method: 'post', url: '../page-component-associate/revision-sort/' + row.id + '/' + type,
+                sessionId: 'change-status-component'
+            };
+            httpClient(param);
         }
 
         function deletePageComponent(row) {
@@ -175,18 +165,11 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: '../page-component-associate/delete/' + row.id,
-                    datatype: 'json',
-                    success: function (data) {
-                        toastr.success('删除成功');
-                        searchPagesByFilters()
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: '../page-component-associate/delete/' + row.id,
+                    sessionId: 'change-status-component', message: '删除成功'
+                };
+                httpClient(param);
             });
         }
 
@@ -263,20 +246,19 @@
             $('#table_page_components').bootstrapTable({
                 toolbar: '#page_component_toolbar',
                 pagination: true,
-                detailView: true,//父子表
+                detailView: true,
                 onExpandRow: function (index, row, $detail) {
                     InitSubTable(index, row, $detail);
                 },
                 queryParams: function (params) {
-                    //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
                     var filters = basePageComponentAssociateFtilers + ';EQ_level=1';
                     var componentName = $("#componentName").val();
-                    var componentStatusName = $("#componentStatusName").val();
+                    var componentStatus = $("#componentStatus").val();
                     if (!isEmpty(componentName)) {
                         filters += ';LIKE_componentImage.componentName=' + componentName;
                     }
-                    if (!isEmpty(componentStatusName)) {
-                        filters += ';LIKE_componentImage.componentStatusName=' + componentStatusName;
+                    if (!isEmpty(componentStatus)) {
+                        filters += ';EQ_componentImage.componentStatus=' + componentStatus;
                     }
                     var temp = {
                         pageSize: params.limit,                         //页面大小
@@ -307,6 +289,9 @@
                 }, {
                     field: 'componentImageVO.componentName',
                     title: '组件名'
+                    // formatter: function (value, row, index) {
+                    //     return value + '<i class="select-component-content" style="color: #49a982;float: right;" >查看</i>';
+                    // }
                 }, {
                     field: 'componentImageVO.componentBodyApi',
                     title: '组件API'
@@ -376,10 +361,6 @@
                 }
             });
         };
-
-        function searchPagesByFilters() {
-            $('#table_pages').bootstrapTable('refresh');
-        }
 
         function operateFormatter(value, row, index) {
             var editBtns = [
@@ -475,74 +456,40 @@
             },
             'click .page-component-up': function (e, value, row, index) {
                 revisionSort(row, 'up');
-            },
+            }
         };
 
         function createHtmlFile(row) {
-            $.ajax({
-                type: 'post',
-                url: 'setting-page-create-html',
-                datatype: 'json',
+            var param = {
+                method: 'post', url: 'setting-page-create-html',
+                sessionId: 'change-status', message: '成功',
                 data: {
                     id: row.id,
                     file_name: row.pageName,
                     create_static_file: (isEmpty(row.createStaticFile) || row.createStaticFile == 100000001) ? 100000002 : 100000001
-                },
-                success: function (data) {
-                    if (data.success) {
-                        toastr.success('成功');
-                    } else {
-                        toastr.error(data.message);
-                    }
-                    searchPagesByFilters();
-                },
-                error: function (data) {
-                    console.log(data)
                 }
-            });
+            };
+            httpClient(param);
         }
 
         function changeStatus(row, status, message) {
-            $.ajax({
-                type: 'post',
+            var param = {
+                method: 'post',
                 url: 'change/status',
-                datatype: 'json',
-                data: {
-                    id: row.id,
-                    page_name: row.pageName,
-                    status: status
-                },
-                success: function (data) {
-                    if (data.success) {
-                        toastr.success('成功');
-                    } else {
-                        toastr.error(data.message);
-                    }
-                    searchPagesByFilters();
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+                data: {id: row.id, page_name: row.pageName, status: status},
+                sessionId: 'change-status'
+            };
+            httpClient(param);
         }
 
         function changeStatusComponent(row, status, message) {
-            $.ajax({
-                type: 'post',
+            var param = {
+                method: 'post',
                 url: '../componentImages/change/status',
-                datatype: 'json',
-                data: {
-                    id: row.componentImageVO.id,
-                    status: status
-                },
-                success: function (data) {
-                    toastr.success(message);
-                    $('#table_page_components').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+                data: {id: row.componentImageVO.id, status: status},
+                sessionId: 'change-status-component'
+            };
+            httpClient(param);
         }
 
         pageInit();
@@ -552,7 +499,7 @@
             } else {
                 toastr.error(data.message);
             }
-            searchPagesByFilters();
+            $('#table_pages').bootstrapTable('refresh');
         };
         win.refreshPageComponent = function (data) {
             if (data.type === 'success') {
@@ -561,6 +508,17 @@
                 toastr.error(data.message);
             }
             $('#table_page_components').bootstrapTable('refresh');
+        };
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'change-status-component':
+                    $('#table_page_components').bootstrapTable('refresh');
+                    break;
+                case 'change-status':
+                    $('#table_pages').bootstrapTable('refresh');
+                    break;
+            }
+            toastr.success(data.data.message);
         };
     })(jQuery, window)
 </script>

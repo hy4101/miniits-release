@@ -13,6 +13,7 @@
     <script src="/static/js/jquery.slimscroll.min.js"></script>
     <script src="/static/js/app.min.js"></script>
     <script src="/static/js/Util.js"></script>
+    <script src="/static/js/HttpClientUtil.js"></script>
 <#--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">-->
 <#--<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">-->
 
