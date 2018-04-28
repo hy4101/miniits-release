@@ -126,17 +126,11 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: imageId,
-                    datatype: 'json',
-                    success: function (data) {
-                        location.reload();
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: imageId
+                };
+                httpClient(param);
+                location.reload();
             });
         });
 
@@ -155,25 +149,6 @@
             if (!isEmpty(url)) {
                 $("#imageUrl").val(url);
             }
-        }
-
-        function searchImages(e) {
-            $.ajax({
-                type: 'get',
-                url: '../images',
-                datatype: 'json',
-                data: {
-                    pageSize: 1,                         //页面大小
-                    pageNumber: 1,   //页码
-                    sorts: '-createDate',      //排序列名
-                    filters: "" //排位命令（desc，asc）
-                },
-                success: function (data) {
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
         }
 
         imageInit();

@@ -152,28 +152,16 @@
             if (isEmpty(categoryName)) {
                 return;
             }
-            $.ajax({
-                type: 'post',
-                url: '../categorys',
-                data: {
+            var param = {
+                method: 'post', url: '../categorys', data: {
                     category: JSON.stringify({
                         categoryName: categoryName,
                         level: 1
                     })
                 },
-                datatype: 'json',
-                success: function (data) {
-                    if (!data.success) {
-                        toastr.error(data.message);
-                    } else {
-                        toastr.success(data.message);
-                    }
-                    $('#div_table_categorys').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    toastr.success(data.message);
-                }
-            });
+                sessionId: 'category-refresh'
+            };
+            httpClient(param);
         });
 
         win.cOperateEvents = {
@@ -208,22 +196,23 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: '../categorys/' + row.id,
-                    datatype: 'json',
-                    success: function (data) {
-                        toastr.success('删除成功');
-                        $('#div_table_categorys').bootstrapTable('refresh');
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: '../categorys/' + row.id, sessionId: 'category-refresh', message: '删除成功'
+                };
+                httpClient(param);
             });
         }
 
         categorysInit();
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'category-refresh':
+                    $('#div_table_categorys').bootstrapTable('refresh');
+                    break;
+            }
+            toastr.success(data.data.message);
+        };
 
     })(jQuery, window)
 </script>

@@ -145,22 +145,14 @@
         };
 
         function changeStatus(row, status, message) {
-            $.ajax({
-                type: 'post',
-                url: 'change/status',
-                datatype: 'json',
-                data: {
+            var param = {
+                method: 'post', url: 'change/status', data: {
                     id: row.id,
                     status: status
                 },
-                success: function (data) {
-                    toastr.success(message);
-                    searchUsersByFilters();
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+                sessionId: 'user-save', message: '更改成功！'
+            };
+            httpClient(param);
         }
 
         function isEmpty(str) {
@@ -183,18 +175,11 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: 'delete/' + row.id,
-                    datatype: 'json',
-                    success: function (data) {
-                        toastr.warning(row.userName + ' 删除成功！');
-                        searchUsersByFilters();
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: 'delete/' + row.id,
+                    sessionId: 'user-save', message: '删除成功！'
+                };
+                httpClient(param);
             });
         }
 
@@ -204,15 +189,16 @@
             win.commitUser(null);
         });
         userInit();
-        //对外曝光刷新方法
-        win.refreshUser = function (data) {
-            if (data.type === 'success') {
-                toastr.success(data.message);
-            } else {
-                toastr.error(data.message);
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'user-save':
+                    $('#table_users').bootstrapTable('refresh');
+                    break;
             }
-            return searchUsersByFilters();
+            toastr.success(data.data.message);
         };
+
     })(jQuery, window);
 
 </script>

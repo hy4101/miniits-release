@@ -51,12 +51,12 @@
                                 :</label>
                         <#if article?exists>
                             <input type="text" class="form-control" id="titleImage" name="titleImage"
-                                      style="flex: 4;" value="${article.titleImage}"
-                                      aria-describedby="basic-addon3" placeholder="请使用图片外链">
+                                   style="flex: 4;" value="${article.titleImage}"
+                                   aria-describedby="basic-addon3" placeholder="请使用图片外链">
                         <#else>
                             <input type="text" class="form-control" id="titleImage" name="titleImage"
-                                      style="flex: 4;"
-                                      aria-describedby="basic-addon3" placeholder="请使用图片外链">
+                                   style="flex: 4;"
+                                   aria-describedby="basic-addon3" placeholder="请使用图片外链">
                         </#if>
                         </div>
                     </div>
@@ -166,18 +166,12 @@
                 tags: tags,
                 allowComment: allowComment
             };
-            $.ajax({
-                type: 'post',
-                url: '/admin/contents/article/publish',
-                data: {article: JSON.stringify(data)},
-                datatype: 'json',
-                success: function (data) {
-                    toastr.success('发布成功');
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
+            var param = {
+                method: 'post', url: '/admin/contents/article/publish', data: {article: JSON.stringify(data)},
+                sessionId: 'articles-refresh'
+            };
+            httpClient(param);
+            toastr.success('发布成功');
         });
 
         function initArticlesPublish() {

@@ -127,22 +127,15 @@
 
         $("#btn_save_page_component").click(function () {
             var rows = $('#table_components').bootstrapTable('getSelections');
-            $.ajax({
-                type: 'post',
-                url: '../page-component-associate/save',
-                datatype: 'json',
+            var param = {
+                method: 'post', url: '../page-component-associate/save',
                 data: {
                     jsonPage: JSON.stringify(PData.page),
                     jsonComponentImagePId: JSON.stringify(PData.componentImagePId.componentImageVO),
                     jsonComponentImages: JSON.stringify(rows)
-                },
-                success: function (data) {
-                    win.refreshPageComponent({type: 'success', message: '组件添加成功'});
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+                }, sessionId: 'page-component-associate-save', message: '组件添加成功'
+            };
+            httpClient(param);
         });
 
         function isEmpty(str) {
@@ -165,6 +158,15 @@
         };
 
         componentDialogInit();
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'page-component-associate-save':
+                    win.refreshPageComponent({type: 'success', message: '组件添加成功'});
+                    break;
+            }
+        };
+
     })(jQuery, window);
 
 </script>

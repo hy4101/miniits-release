@@ -58,22 +58,13 @@
             if (isEmpty(url)) {
                 return toastr.error('请输入链接URL');
             }
-            $.ajax({
-                type: 'post',
-                url: '../links',
-                data: {
+            var param = {
+                method: 'post', url: '../links', sessionId: 'links-refresh', message: '链接添加成功', data: {
                     linkName: linkName,
                     url: url
                 },
-                datatype: 'json',
-                success: function (data) {
-                    toastr.success('链接添加成功');
-                    $('#table_links').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    toastr.success(data.message);
-                }
-            });
+            };
+            httpClient(param);
         });
 
         function searchLinks() {
@@ -131,7 +122,6 @@
             });
         }
 
-
         function operateFormatter(value, row, index) {
             var editBtns = [
                 '<button type="button" class="link-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
@@ -164,40 +154,34 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: row.id,
-                    success: function (data) {
-                        toastr.success(data.message);
-                        $('#table_links').bootstrapTable('refresh');
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+
+                var param = {
+                    method: 'delete', url: row.id, sessionId: 'links-refresh'
+                };
+                httpClient(param);
             });
         }
 
         function changeStatus(row, status, message) {
-            $.ajax({
-                type: 'post',
-                url: 'change/status',
-                datatype: 'json',
-                data: {
+            var param = {
+                method: 'post', url: 'change/status', sessionId: 'links-refresh', data: {
                     id: row.id,
                     status: status
-                },
-                success: function (data) {
-                    toastr.success(message);
-                    $('#table_links').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    console.log(data)
                 }
-            });
+            };
+            httpClient(param);
         }
 
         initLinks();
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'links-refresh':
+                    $('#table_links').bootstrapTable('refresh');
+                    break;
+            }
+            toastr.success(data.data.message);
+        };
 
     })(jQuery, window)
 </script>

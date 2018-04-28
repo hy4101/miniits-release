@@ -126,25 +126,12 @@
                     pageData = page;
                 }
                 pageData.createDate = isEmpty(pageData.createDate) ? new Date() : new Date(pageData.createDate);
-                $.ajax({
-                    type: 'post',
-                    url: 'save',
-                    data: pageData,
-                    datatype: 'json',
-                    success: function (data) {
-                        var ud = null;
-                        if (data.success) {
-                            $('#page_modal').modal('hide');
-                            ud = {type: 'success', message: '成功'};
-                        } else {
-                            ud = {type: 'error', message: data.message};
-                        }
-                        win.refreshPage(ud);
-                    },
-                    error: function (data) {
-                        console.log(data);
-                    }
-                });
+
+                var param = {
+                    method: 'post', url: 'save',
+                    data: pageData, sessionId: 'page-save', message: '保存成功'
+                };
+                httpClient(param);
             }
         });
 
@@ -207,6 +194,7 @@
         extracted();
 
         userDialogInit();
+
     })(jQuery, window);
 
 </script>

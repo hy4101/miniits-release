@@ -493,14 +493,6 @@
         }
 
         pageInit();
-        win.refreshPage = function (data) {
-            if (data.type === 'success') {
-                toastr.success(data.message);
-            } else {
-                toastr.error(data.message);
-            }
-            $('#table_pages').bootstrapTable('refresh');
-        };
         win.refreshPageComponent = function (data) {
             if (data.type === 'success') {
                 toastr.success(data.message);
@@ -515,6 +507,12 @@
                     $('#table_page_components').bootstrapTable('refresh');
                     break;
                 case 'change-status':
+                    $('#table_pages').bootstrapTable('refresh');
+                    break;
+                case 'page-save':
+                    if (data.data.success) {
+                        $('#page_modal').modal('hide');
+                    }
                     $('#table_pages').bootstrapTable('refresh');
                     break;
             }

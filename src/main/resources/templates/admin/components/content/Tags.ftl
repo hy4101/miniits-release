@@ -109,18 +109,12 @@
             if (!e) {
                 return;
             }
-            $.ajax({
-                type: 'delete',
-                url: id,
-                datatype: 'json',
-                success: function (data) {
-                    toastr.success('删除成功');
-                    location.replace(location.href);
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+
+            var param = {
+                method: 'delete', url: id
+            };
+            httpClient(param);
+            location.replace(location.href);
         });
     }
 

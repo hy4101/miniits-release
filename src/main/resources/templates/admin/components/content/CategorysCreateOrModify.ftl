@@ -48,33 +48,21 @@
                     pId: row.id,
                     level: ++row.level,
                     categoryName: categoryName
-                }
+                };
                 row = child;
             } else {
                 row.categoryName = categoryName;
             }
-            $.ajax({
-                type: 'POST',
-                url: '../categorys',
-                data: {
+
+            var param = {
+                method: 'POST', url: '../categorys', data: {
                     category: JSON.stringify(row)
-                },
-                dataType: 'json',
-                success: function (data) {
-                    categoryData = null;
-                    row = null;
-                    isChild = false;
-                    if (!data.success) {
-                        toastr.error(data.message);
-                    } else {
-                        toastr.success(data.message);
-                    }
-                    $('#div_table_categorys').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    toastr.success(data.message);
-                }
-            });
+                }, sessionId: 'category-refresh'
+            };
+            httpClient(param);
+            categoryData = null;
+            row = null;
+            isChild = false;
         });
 
         win.commitCategory = function (data) {

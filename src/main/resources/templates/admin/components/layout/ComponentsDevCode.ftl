@@ -11,7 +11,7 @@
     <link href="/static/toastr/toastr.css" rel="stylesheet"/>
     <script src="/static/toastr/toastr.min.js"></script>
     <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
-    <#--<link rel="stylesheet" href="/static/editor.md/examples/css/style.css"/>-->
+<#--<link rel="stylesheet" href="/static/editor.md/examples/css/style.css"/>-->
     <script src="/static/editor.md/editormd.js"></script>
     <div style="width: 100%;">
         <div class="modal-content" style="height: 100%;">
@@ -53,8 +53,12 @@
                                    style="flex: 4;"
                                    name="componentBodyApi">
                                <option value="">请选择组件API（静态组件无需选择 API）</option>
-                               <option value="100007001=article/search" ${(development?exists&&development.filters=='100007001=article/search')?string('selected', '')}>查文章-多条</option>
-                               <option value="100007001=article/search-one" ${(development?exists&&development.filters=='100007001=article/search-one')?string('selected', '')}>查文章-单条</option>
+                               <option value="100007001=article/search" ${(development?exists&&development.filters=='100007001=article/search')?string('selected', '')}>
+                                   查文章-多条
+                               </option>
+                               <option value="100007001=article/search-one" ${(development?exists&&development.filters=='100007001=article/search-one')?string('selected', '')}>
+                                   查文章-单条
+                               </option>
                            </select>
                         <#else>
                                <select class="form-control input-form-group-value-item" id="componentBodyApi"
@@ -81,7 +85,8 @@
                                    style="flex: 1;line-height: 29px;">查询条件
                                 :</label>
                              <#if development?exists>
-                               <textarea placeholder="这里可以编辑你查询数据的条件" style="flex: 4;" id="dataFilters">${development.dataFilters}</textarea>
+                               <textarea placeholder="这里可以编辑你查询数据的条件" style="flex: 4;"
+                                         id="dataFilters">${development.dataFilters}</textarea>
                              <#else>
                                  <textarea placeholder="这里可以编辑你查询数据的条件" style="flex: 4;" id="dataFilters"></textarea>
                              </#if>
@@ -136,18 +141,13 @@
                 componentName: componentName,
                 componentBody: element
             };
-            $.ajax({
-                type: 'post',
-                url: '/admin/components/save',
-                datatype: 'json',
-                data: component,
-                success: function (data) {
-                    toastr.success('组件添加成功');
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+
+            var param = {
+                method: 'post', url: '/admin/components/save',
+                data: component
+            };
+            httpClient(param);
+            toastr.success('组件添加成功');
         }
 
         function initArticlesPublish() {
@@ -164,11 +164,6 @@
                 theme: (localStorage.theme) ? localStorage.theme : "default",
                 mode: (localStorage.mode) ? localStorage.mode : "text/html"
             });
-            // debugger;
-        <#--<#if development??>-->
-        <#--debugger;-->
-        <#--editor.setValue(${development.componentBody});-->
-        <#--</#if>-->
         }
 
         function searchCategorys() {
@@ -210,5 +205,6 @@
         }
 
         initArticlesPublish();
+
     })(jQuery, window)
 </script>

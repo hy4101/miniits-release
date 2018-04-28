@@ -254,37 +254,23 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: row.id,
-                    success: function (data) {
-                        toastr.success(data.message);
-                        $('#table_articles').bootstrapTable('refresh');
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: row.id,
+                    sessionId: 'articles-refresh'
+                };
+                httpClient(param);
             });
         }
 
         function changeStatus(row, status, message) {
-            $.ajax({
-                type: 'post',
-                url: 'change/status',
-                datatype: 'json',
-                data: {
+            var param = {
+                method: 'post', url: 'change/status', data: {
                     id: row.id,
                     status: status
                 },
-                success: function (data) {
-                    toastr.success(message);
-                    $('#table_articles').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+                sessionId: 'articles-refresh'
+            };
+            httpClient(param);
         }
 
         function isEmpty(str) {
@@ -299,6 +285,15 @@
             return false;
         };
         articlesInit();
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'articles-refresh':
+                    $('#table_articles').bootstrapTable('refresh');
+                    break;
+            }
+            toastr.success(data.data.message);
+        };
 
     })(jQuery, window)
 </script>

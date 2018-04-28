@@ -54,36 +54,28 @@
 </div>
 <script>
     (function ($, win) {
-        function timestampToTime(timestamp) {
-            var date = new Date(timestamp * 1000);//时间戳为10位需*1000，时间戳为13位的话不需乘1000
-            Y = date.getFullYear() + '-';
-            M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-            D = date.getDate() + ' ';
-            h = date.getHours() + ':';
-            m = date.getMinutes() + ':';
-            s = date.getSeconds();
-            return Y + M + D + h + m + s;
+
+        function setImageInfo(o) {
+            var createDate = o.createDate;
+            $("#lab_name").val(o.name);
+            $("#lab_url").val(o.url);
+            $("#lab_html").val(o.html);
+            $("#lab_BBCode").val(o.bbcode);
+            $("#lab_markdown").val(o.markdown);
         }
 
         win.commitImage = function (params) {
-            $.ajax({
-                type: 'get',
-                url: params.imageId,
-                datatype: 'json',
-                success: function (data) {
-                    var o = data.object;
-                    var createDate = o.createDate;
-                    $("#lab_name").val(o.name);
-                    // $("#lab_createDate").html(createDate.getFullYear() + '-' + (createDate.getMonth() + 1) + '-' + createDate.getDate());
-                    $("#lab_url").val(o.url);
-                    $("#lab_html").val(o.html);
-                    $("#lab_BBCode").val(o.bbcode);
-                    $("#lab_markdown").val(o.markdown);
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+            var param = {
+                method: 'get', url: params.imageId,sessionId:'set-image-info'
+            };
+            httpClient(param);
+        };
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'set-image-info':
+                    setImageInfo(data.data.object);
+                    break;
+            }
         };
     })(jQuery, window)
 </script>

@@ -112,12 +112,8 @@
                 deleteArticle(row);
             },
             'click .copy-component-btn': function (e, value, row, index) {
-                var params = {url: 'copy-development/' + row.id, method: 'post', sessionId: 'copy-component'};
+                var params = {url: 'copy-development/' + row.id, method: 'post', sessionId: 'components'};
                 httpClient(params);
-                win.httpClientSuccess = function (data) {
-                    toastr.success(data.data.message);
-                    $('#table_components').bootstrapTable('refresh');
-                }
             },
             'click .components-status-disabled': function (e, value, row, index) {
                 changeStatus(row, 100000002, '【 禁用 】 成功<h4>提示:当该组件已被页面所应用时，你的禁用操作不影响页面的展示！</h4>');
@@ -135,41 +131,36 @@
                 if (!e) {
                     return;
                 }
-                $.ajax({
-                    type: 'delete',
-                    url: row.id,
-                    success: function (data) {
-                        toastr.success(data.message);
-                        $('#table_components').bootstrapTable('refresh');
-                    },
-                    error: function (data) {
-                        console.log(data)
-                    }
-                });
+                var param = {
+                    method: 'delete', url: row.id,
+                    sessionId: 'components', message: '删除成功'
+                };
+                httpClient(param);
             });
         }
 
 
         function changeStatus(row, status, message) {
-            $.ajax({
-                type: 'post',
-                url: 'change/status',
-                datatype: 'json',
-                data: {
+            var param = {
+                method: 'post', url: 'change/status', data: {
                     id: row.id,
                     status: status
                 },
-                success: function (data) {
-                    toastr.success(message);
-                    $('#table_components').bootstrapTable('refresh');
-                },
-                error: function (data) {
-                    console.log(data)
-                }
-            });
+                sessionId: 'components', message: '更改成功'
+            };
+            httpClient(param);
         }
 
         initComponents();
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'components':
+                    $('#table_components').bootstrapTable('refresh');
+                    break;
+            }
+            toastr.success(data.data.message);
+        };
 
     })(jQuery, window)
 </script>
