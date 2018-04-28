@@ -105,5 +105,4 @@ public class CommonUtil {
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }
-
 }
