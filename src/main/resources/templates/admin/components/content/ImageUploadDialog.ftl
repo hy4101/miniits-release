@@ -52,7 +52,8 @@
                                     <h4 style="color: red;">图片在上传后没有在框内赋值视为上传失败</h4>
                                 </div>
                                 <div class="row clearfix" style="margin-left: 5%;width: 90%;">
-                                    <h5">处理方法如下：(共两步)</h5>
+                                    <h5>处理方法如下：(共两步)</h5>
+                                    <h5>在你上传完毕后，可以看到如下界面</h5>
                                 </div>
                                 <div class="row clearfix" style="margin-left: 5%;width: 90%;">
                                     <h5>1、选择【查看链接】，之后复制下边的链接：如下图</h5>
