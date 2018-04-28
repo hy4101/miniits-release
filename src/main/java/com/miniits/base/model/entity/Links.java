@@ -13,6 +13,7 @@ import javax.persistence.Table;
  * <p>
  * Description:
  * WWW.MINIITS.COM
+ * 友情链接
  */
 @Entity
 @Table(name = "links")

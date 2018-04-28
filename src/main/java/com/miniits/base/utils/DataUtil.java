@@ -1,7 +1,7 @@
 package com.miniits.base.utils;
 
 import com.miniits.base.mysql.Pageable;
-import com.miniits.base.service.ArticleServer;
+import com.miniits.base.service.*;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
@@ -97,7 +97,7 @@ public class DataUtil {
      * @return
      */
     public static Object getData(String api, Pageable pageable) {
-        if (StringUtils.isEmpty(api)){
+        if (StringUtils.isEmpty(api)) {
             return null;
         }
         Map<String, Object> apis = new HashMap<>();
@@ -107,6 +107,30 @@ public class DataUtil {
                 break;
             case ApiNames.ARTICLE_SEARCH_ONE:
                 apis.put("article/search-one", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
+                break;
+            case ApiNames.IMAGE_SEARCH:
+                apis.put("image/search", SpringContextHolder.getBean(ImageServer.class).search(pageable));
+                break;
+            case ApiNames.IMAGE_SEARCH_ONE:
+                apis.put("image/search-one", SpringContextHolder.getBean(ImageServer.class).search(pageable));
+                break;
+            case ApiNames.CATEGORY_SEARCH:
+                apis.put("category/search", SpringContextHolder.getBean(CategoryServer.class).search(pageable));
+                break;
+            case ApiNames.CATEGORY_SEARCH_ONE:
+                apis.put("category/search-one", SpringContextHolder.getBean(CategoryServer.class).search(pageable));
+                break;
+            case ApiNames.LINKS_SEARCH:
+                apis.put("links/search", SpringContextHolder.getBean(LinksServer.class).search(pageable));
+                break;
+            case ApiNames.LINKS_SEARCH_ONE:
+                apis.put("links/search-one", SpringContextHolder.getBean(LinksServer.class).search(pageable));
+                break;
+            case ApiNames.TAG_SEARCH:
+                apis.put("tag/search", SpringContextHolder.getBean(TagServer.class).search(pageable));
+                break;
+            case ApiNames.TAG_SEARCH_ONE:
+                apis.put("tag/search-one", SpringContextHolder.getBean(TagServer.class).search(pageable));
                 break;
         }
         return apis.get(api);

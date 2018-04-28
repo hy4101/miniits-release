@@ -36,6 +36,7 @@ public class Component extends BaseEntity {
     @Column(name = "data_filters", length = 500)
     private String dataFilters;
 
+    //数据结构类型（对象/数组对象）
     @Column(name = "api_data_structure_type")
     private Integer apiDataStructureType;
 

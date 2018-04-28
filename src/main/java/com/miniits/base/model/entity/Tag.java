@@ -12,7 +12,8 @@ import javax.persistence.Table;
  * @Time: 17:55
  * <p>
  * Description:
- * ***
+ * WWW.MINIITS.COM
+ * 标签
  */
 @Entity
 @Table(name = "tag")

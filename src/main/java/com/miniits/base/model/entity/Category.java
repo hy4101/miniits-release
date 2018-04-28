@@ -13,6 +13,7 @@ import java.util.List;
  * <p>
  * Description:
  * WWW.MINIITS.COM
+ * 分类/类别
  */
 @Entity
 @Table(name = "category")

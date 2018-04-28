@@ -61,12 +61,16 @@
                                        style="flex: 4;"
                                        name="componentBodyApi">
                                    <option value="">请选择组件API（静态组件无需选择 API）</option>
-                                   <option value="100007001=article/search" >
-                                       查文章-多条
-                                   </option>
-                                   <option value="100007001=article/search-one">
-                                       查文章-单条
-                                   </option>
+                                   <option value="100007001=article/search">查文章-多条</option>
+                                   <option value="100007001=article/search-one">查文章-单条</option>
+                                   <option value="100007001=image/search">查图片-多条</option>
+                                   <option value="100007001=image/search-one">查图片-单条</option>
+                                   <option value="100007001=category/search">查分类-多条</option>
+                                   <option value="100007001=category/search-one">查分类-单条</option>
+                                   <option value="100007001=links/search">查友链-多条</option>
+                                   <option value="100007001=links/search-one">查友链-单条</option>
+                                   <option value="100007001=tag/search">查标签-多条</option>
+                                   <option value="100007001=tag/search-one">查标签-单条</option>
                                </select>
                         </#if>
                         </div>
