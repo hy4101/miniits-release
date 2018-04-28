@@ -85,6 +85,18 @@ public class ComponentController extends BaseController {
         return success(componentService.save(component));
     }
 
+    // TODO: 2018/4/28  
+    @GetMapping("copy-development/{id}")
+    public String copyDevelopment(ModelMap modelMap, @PathVariable(value = "id") String id) {
+        modelMap.put("active", "layout");
+        if (!StringUtils.isEmpty(id)) {
+            Component component = componentService.findOne(id);
+            component.setFilters(component.getApiDataStructureType() + "=" + component.getComponentBodyApi());
+            modelMap.put("development", component);
+        }
+        return "admin/views/layout/ComponentsDevCode";
+    }
+    
     @DeleteMapping("{id}")
     @ResponseBody
     public Result pages(@PathVariable(value = "id") String id) {

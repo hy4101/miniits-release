@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -38,10 +39,14 @@ public class ImageController extends BaseController {
     private ImageServer imageServer;
 
     @Autowired
+    private HttpSession httpSession;
+
+    @Autowired
     private ImageCrawlerService imageCrawlerService;
 
     @GetMapping("init")
     public String init(ModelMap modelMap, Pageable pageable) {
+        pageable = filterCache(pageable);
         Page<Image> images = imageServer.search(pageable);
         modelMap.put("active", "content");
         modelMap.put("thisPageNumber", pageable.getPageNumber());
@@ -49,6 +54,23 @@ public class ImageController extends BaseController {
         modelMap.put("totalPageNumber", totalPage);
         modelMap.put("images", images.getContent());
         return "admin/views/content/Images";
+    }
+
+    private Pageable filterCache(Pageable pageable) {
+        Object filters = httpSession.getAttribute("filters");
+        if (StringUtils.isNotEmpty(pageable.getFilters())) {
+            httpSession.setAttribute("filters", pageable.getFilters());
+        } else if (!org.springframework.util.ObjectUtils.isEmpty(filters)) {
+            pageable.setFilters(String.valueOf(filters));
+        }
+        return pageable;
+    }
+
+    @PostMapping("reset/filters-cache")
+    @ResponseBody
+    private Result resetFilterCache() {
+        httpSession.removeAttribute("filters");
+        return success("清除成功");
     }
 
     @GetMapping("/{id}")

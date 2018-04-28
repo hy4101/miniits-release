@@ -10,42 +10,37 @@
 <div class="modal fade" id="image_select_dialog_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <form>
-            <div class="modal-content">
+            <div class="modal-content" style="padding: 10px;">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title" style="font-size: xx-large;">查看图片信息</h4>
                 </div>
-                <div class="row div-row-item">
-                    <div class="col-md-4"><label class="label-image-item">图片名称：</label>
-                    </div>
-                    <div class="col-md-8" id="lab_name"></div>
+                <div class="form-group div-form-group">
+                    <label for="txt_departmentname" class="label-form-group-title-item">图片名称 :</label>
+                    <input type="text" class="form-control input-form-group-value-item" disabled
+                           id="lab_name">
                 </div>
-                <#--<div class="row div-row-item">-->
-                    <#--<div class="col-md-4"><label class="label-image-item">上传时间：</label></div>-->
-                    <#--<div class="col-md-8" id="lab_createDate">-->
-                    <#--</div>-->
-                <#--</div>-->
-                <div class="row div-row-item">
-                    <div class="col-md-2"><label class="label-image-item">图片URL：</label>
-                    </div>
-                    <div class="col-md-8" id="lab_url" style="word-wrap: break-word;line-height: 25px;">
-                    </div>
+                <div class="form-group div-form-group">
+                    <label for="txt_departmentname" class="label-form-group-title-item">图片URL :</label>
+                    <input type="text" class="form-control input-form-group-value-item" disabled
+                           id="lab_url">
                 </div>
-                <div class="row div-row-item">
-                    <div class="col-md-4"><label class="label-image-item">图片HTML：</label>
-                    </div>
-                    <div class="col-md-8" id="lab_html"></div>
+                <div class="form-group div-form-group">
+                    <label for="txt_departmentname" class="label-form-group-title-item">HTML格式 :</label>
+                    <input type="text" class="form-control input-form-group-value-item" disabled
+                           id="lab_html">
                 </div>
-                <div class="row div-row-item">
-                    <div class="col-md-4"><label class="label-image-item">图片BBCode：</label></div>
-                    <div class="col-md-8" id="lab_BBCode"></div>
+                <div class="form-group div-form-group">
+                    <label for="txt_departmentname" class="label-form-group-title-item">BBCode格式 :</label>
+                    <input type="text" class="form-control input-form-group-value-item" disabled
+                           id="lab_BBCode">
                 </div>
-                <div class="row div-row-item">
-                    <div class="col-md-4"><label class="label-image-item">图片markdown：</label>
-                    </div>
-                    <div class="col-md-8" id="lab_markdown"></div>
+                <div class="form-group div-form-group">
+                    <label for="txt_departmentname" class="label-form-group-title-item">Markdown格式 :</label>
+                    <input type="text" class="form-control input-form-group-value-item" disabled
+                           id="lab_markdown">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">
@@ -78,12 +73,12 @@
                 success: function (data) {
                     var o = data.object;
                     var createDate = o.createDate;
-                    $("#lab_name").html(o.name);
+                    $("#lab_name").val(o.name);
                     // $("#lab_createDate").html(createDate.getFullYear() + '-' + (createDate.getMonth() + 1) + '-' + createDate.getDate());
-                    $("#lab_url").html(o.url);
-                    $("#lab_html").html(o.html);
-                    $("#lab_BBCode").html(o.bbcode);
-                    $("#lab_markdown").html(o.markdown);
+                    $("#lab_url").val(o.url);
+                    $("#lab_html").val(o.html);
+                    $("#lab_BBCode").val(o.bbcode);
+                    $("#lab_markdown").val(o.markdown);
                 },
                 error: function (data) {
                     console.log(data)

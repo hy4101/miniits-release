@@ -89,10 +89,26 @@ public class DataUtil {
         SPECIFIED
     }
 
+    /**
+     * 为组建提供数据的 open API
+     *
+     * @param api
+     * @param pageable
+     * @return
+     */
     public static Object getData(String api, Pageable pageable) {
+        if (StringUtils.isEmpty(api)){
+            return null;
+        }
         Map<String, Object> apis = new HashMap<>();
-        apis.put("article/search", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
-        apis.put("article/search-one", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
+        switch (api) {
+            case ApiNames.ARTICLE_SEARCH:
+                apis.put("article/search", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
+                break;
+            case ApiNames.ARTICLE_SEARCH_ONE:
+                apis.put("article/search-one", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
+                break;
+        }
         return apis.get(api);
     }
 

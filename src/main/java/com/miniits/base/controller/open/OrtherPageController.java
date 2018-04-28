@@ -25,6 +25,7 @@ import static com.miniits.base.utils.SystemFile.isPackageExist;
  * <p>
  * Description:
  * WWW.MINIITS.COM
+ * 其余自定义页面的访问路径
  */
 @Controller
 @RequestMapping("${domain.path}")

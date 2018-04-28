@@ -50,11 +50,6 @@
                                        style="float: right;margin: 10px;">
                                    <i class="fa fa-trash-o" style="" aria-hidden="true"></i>
                                </button>
-                           <#--<button type="button" valueUrl="${image.url}"-->
-                           <#--class="btn btn-danger cope-btn"-->
-                           <#--style="float: right;margin: 10px;">-->
-                           <#--<i class="fa fa-trash-o" style="" aria-hidden="true"></i>-->
-                           <#--</button>-->
                            </div>
                        </div>
                    </div>
@@ -87,7 +82,7 @@
     </div>
     <div>
     <#include "ImageUploadDialog.ftl"/>
-    <#include "ImagesSelectDialog.ftl"/>
+    <#include "ImagesSelectInfoDialog.ftl"/>
     </div>
 </div>
 <script>
@@ -95,10 +90,25 @@
         $("#btn_images_refresh").click(function () {
             $("#imageName").val(null);
             $("#imageUrl").val(null);
+            localStorage.removeItem('filter_name');
+            localStorage.removeItem('filter_url');
+            var params = {method: 'post', url: 'reset/filters-cache'};
+            httpClient(params);
         });
 
         $("#btn_images_search").click(function () {
-
+            var name = $("#imageName").val();
+            var url = $("#imageUrl").val();
+            var filters = '';
+            if (!isEmpty(name)) {
+                localStorage.setItem('filter_name', name);
+                filters = 'LIKE_name=' + name
+            }
+            if (!isEmpty(url)) {
+                localStorage.setItem('filter_url', url);
+                filters += ';LIKE_url=' + url
+            }
+            win.location.href = "init?pageSize=16&pageNumber=1&sorts=-createDate&filters=" + filters;
         });
 
         $("#div_images").on('click', ".select-image-info", function () {
@@ -135,7 +145,16 @@
         });
 
         function imageInit() {
-            // searchImages();
+            $("#imageName").val(null);
+            $("#imageUrl").val(null);
+            var name = localStorage.getItem('filter_name');
+            var url = localStorage.getItem('filter_url');
+            if (!isEmpty(name)) {
+                $("#imageName").val(name);
+            }
+            if (!isEmpty(url)) {
+                $("#imageUrl").val(url);
+            }
         }
 
         function searchImages(e) {

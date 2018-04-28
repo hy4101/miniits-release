@@ -149,7 +149,7 @@
         function initArticlesPublish() {
             editor = editormd("div-editormd", {
                 width: "90%",
-                height: 720,
+                height: 1000,
                 watch: false,
                 toolbar: false,
                 codeFold: true,

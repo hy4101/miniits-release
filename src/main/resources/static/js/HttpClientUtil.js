@@ -15,7 +15,9 @@
             async: params.async || true,
             dataType: params.dataType || 'json',
             success: function (data) {
-                httpClientSuccess({sessionId: params.sessionId, data: data});
+                if (!isEmpty(params.sessionId)) {
+                    httpClientSuccess({sessionId: params.sessionId, data: data});
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR);

@@ -22,11 +22,22 @@ public class Image extends BaseEntity {
 
     private String url;
 
+    private String addressUrl;
+
     private String html;
 
     private String BBCode;
 
     private String markdown;
+
+    @Column(name = "address_url", length = 300, nullable = false)
+    public String getAddressUrl() {
+        return addressUrl;
+    }
+
+    public void setAddressUrl(String addressUrl) {
+        this.addressUrl = addressUrl;
+    }
 
     @Column(name = "name", length = 60, nullable = false)
     public String getName() {

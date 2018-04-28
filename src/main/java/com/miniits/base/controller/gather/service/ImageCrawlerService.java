@@ -5,6 +5,7 @@ import com.miniits.base.model.entity.Image;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.HTMLSpirit;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Jsoup;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import us.codecraft.webmagic.Page;
@@ -53,17 +54,19 @@ public class ImageCrawlerService extends BaseController implements PageProcessor
             }
             return;
         }
+        String addressUrl = page.getUrl().get();
         String name = page.getHtml().xpath("//div/h1[@class=viewer-title]/text()").get();
         String url = content.xpath("//div/input[@id=embed-code-2]").get();
         url = HTMLSpirit.match(url, "input", "value").get(0);
         String HTML = content.xpath("//div/input[@id=embed-code-3]").get();
-        HTML = HTMLSpirit.match(HTML, "input", "value").get(0);
+        HTML = Jsoup.parse(HTML).select("input").attr("value");
         String BBCode = content.xpath("//div/input[@id=embed-code-4]").get();
         BBCode = HTMLSpirit.match(BBCode, "input", "value").get(0);
         String Markdown = content.xpath("//div/input[@id=embed-code-5]").get();
         Markdown = HTMLSpirit.match(Markdown, "input", "value").get(0);
 
         Image image = new Image();
+        image.setAddressUrl(addressUrl);
         image.setName(name);
         image.setUrl(url);
         image.setHtml(HTML);

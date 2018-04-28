@@ -425,7 +425,7 @@
             if (row.componentImageVO.componentStatus === 100000002) {
                 statusBtn = '<button type="button" class="page-component-status-enable btn btn-info btn-sm" style="margin-right:15px;">启用</button>';
             }
-            var createHTMLBtn = '<button type="button" class="page-component-add-btn btn btn-warning btn-sm" style="margin-right:15px;">添加组件</button>';
+            var createHTMLBtn = '<button type="button" class="page-component-add-btn btn btn-sm" style="margin-right:15px;background-color: #5cb85c;color: #ffffff">添加组件</button>';
             editBtns.push(statusBtn);
             editBtns.push(createHTMLBtn);
             return editBtns.join('');
