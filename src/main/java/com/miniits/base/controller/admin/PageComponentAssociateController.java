@@ -20,7 +20,8 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.Collectors;
 
-import static com.miniits.base.utils.SystemDict.GLOBAL_TYPE_DIY;
+import static com.miniits.base.utils.SystemDict.Component.COMPONENT_SOURCE_DIY;
+
 
 /**
  * @author: WWW.MINIITS.COM
@@ -75,8 +76,8 @@ public class PageComponentAssociateController extends BaseController {
         List<PageComponentAssociate> pageComponentAssociates = new ArrayList<>();
         componentImages.forEach(componentImage -> {
             componentImage.setId(null);
-            componentImage.setComponentType(GLOBAL_TYPE_DIY);
-            componentImage.setComponentTypeName("DIY");
+            componentImage.setComponentSource(COMPONENT_SOURCE_DIY);
+            componentImage.setComponentSourceName("DIY");
             PageComponentAssociate pageComponentAssociate = new PageComponentAssociate();
             pageComponentAssociate.setPage(page);
             pageComponentAssociate.setComponentImagePId(componentImagePId);

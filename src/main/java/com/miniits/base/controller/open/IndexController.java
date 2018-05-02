@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
@@ -48,11 +49,11 @@ public class IndexController {
     }
 
     @GetMapping(value = {"index", "index.html"})
-    public String index(ModelMap modelMap) throws IOException, TemplateException {
+    public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         if (fileExists(getPath("templates/customize/") + "/index.html")) {
             return "index";
         }
-        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index");
+        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index",httpServletRequest);
         createTemplateFile("ftl-index", componentImageAndDocument.getDocument().toString()
                 .replaceAll("<!--#list-->", "</#list>")
                 .replaceAll("&lt;", "<")

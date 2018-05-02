@@ -22,6 +22,12 @@ public class Component extends BaseEntity {
     @Column(name = "component_id", nullable = false, unique = true, length = 45)
     private String componentId;
 
+    @Column(name = "component_Type", nullable = false, length = 9)
+    private Integer componentType;
+
+    @Column(name = "component_type_name", length = 25)
+    private String componentTypeName;
+
     @Column(name = "component_status", nullable = false, length = 9)
     private Integer componentStatus;
 
@@ -118,5 +124,21 @@ public class Component extends BaseEntity {
     @Transient
     public void setFilters(String filters) {
         this.filters = filters;
+    }
+
+    public Integer getComponentType() {
+        return componentType;
+    }
+
+    public void setComponentType(Integer componentType) {
+        this.componentType = componentType;
+    }
+
+    public String getComponentTypeName() {
+        return componentTypeName;
+    }
+
+    public void setComponentTypeName(String componentTypeName) {
+        this.componentTypeName = componentTypeName;
     }
 }

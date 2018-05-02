@@ -1,5 +1,7 @@
 package com.miniits.base.mysql;
 
+import org.springframework.util.ObjectUtils;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/1/7
@@ -55,8 +57,9 @@ public class Pageable {
     public Pageable() {
     }
 
-    public Pageable(String filters, Integer pageSize) {
-        this.filters = filters;
-        this.pageSize = pageSize;
+    public Pageable(Object filters, Object pageSize, Object pageNumber) {
+        this.filters = ObjectUtils.isEmpty(filters) ? "" : String.valueOf(filters);
+        this.pageSize = ObjectUtils.isEmpty(pageSize) ? 15 : Integer.valueOf(String.valueOf(pageSize));
+        this.pageNumber = ObjectUtils.isEmpty(pageNumber) ? 1 : Integer.valueOf(String.valueOf(pageNumber));
     }
 }

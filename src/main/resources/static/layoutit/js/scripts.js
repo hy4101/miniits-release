@@ -180,6 +180,8 @@ function downloadLayoutSrc() {
         format: true,
         allowedAttributes: [
             ["id"],
+            ["aria-label"],
+            ["component-type"],
             ["class"],
             ["data-toggle"],
             ["data-target"],
@@ -240,7 +242,7 @@ $(document).ready(function () {
     });
     $("[data-target=#downloadModal]").click(function (e) {
         e.preventDefault();
-        downloadLayoutSrc()
+        var text = downloadLayoutSrc();
     });
     $("#download").click(function () {
         downloadLayout();

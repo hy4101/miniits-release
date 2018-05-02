@@ -1,6 +1,5 @@
 package com.miniits.base.service;
 
-import com.miniits.base.dao.ComponentImageRepository;
 import com.miniits.base.dao.PageComponentAssociateRepository;
 import com.miniits.base.dao.PageRepository;
 import com.miniits.base.model.entity.ComponentImage;
@@ -17,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
-import static com.miniits.base.utils.SystemDict.GLOBAL_TYPE_SYSTEM;
+import static com.miniits.base.utils.SystemDict.Component.COMPONENT_SOURCE_SYSTEM;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -37,9 +36,6 @@ public class PageService extends BaseServiceImpl<Page, String> {
 
     @Autowired
     private PageComponentAssociateRepository pageComponentAssociateRepository;
-
-    @Autowired
-    private ComponentImageRepository componentImageReposiory;
 
     @Autowired
     public void setBaseDao(PageRepository pageRepository) {
@@ -63,8 +59,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         PageComponentAssociate pageComponentAssociate_1 = new PageComponentAssociate();
         componentImage_1.setComponentName(page.getPageName() + "_title");
         componentImage_1.setComponentId(++num + "");
-        componentImage_1.setComponentType(GLOBAL_TYPE_SYSTEM);
-        componentImage_1.setComponentTypeName("系统");
+        componentImage_1.setComponentSource(COMPONENT_SOURCE_SYSTEM);
+        componentImage_1.setComponentSourceName("系统");
         componentImage_1.setComponentStatus(100000002);
         componentImage_1.setComponentStatusName("禁用");
         componentImage_1.setComponentBody("<div componentId=" + componentImage_1.getComponentId() + " componentName=" + page.getPageName() + "_title style='width:100%;height:auto' >" +
@@ -77,8 +73,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         PageComponentAssociate pageComponentAssociate_2 = new PageComponentAssociate();
         componentImage_2.setComponentName(page.getPageName() + "_body");
         componentImage_2.setComponentId(++num + "");
-        componentImage_2.setComponentType(GLOBAL_TYPE_SYSTEM);
-        componentImage_2.setComponentTypeName("系统");
+        componentImage_2.setComponentSource(COMPONENT_SOURCE_SYSTEM);
+        componentImage_2.setComponentSourceName("系统");
         componentImage_2.setComponentStatus(100000002);
         componentImage_2.setComponentStatusName("禁用");
         componentImage_2.setComponentBody("<div componentId=" + componentImage_2.getComponentId() + " componentName=" + page.getPageName() + "_body style='width:100%;height:auto' >" +
@@ -91,8 +87,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         PageComponentAssociate pageComponentAssociate_3 = new PageComponentAssociate();
         componentImage_3.setComponentName(page.getPageName() + "_footer");
         componentImage_3.setComponentId(++num + "");
-        componentImage_3.setComponentType(GLOBAL_TYPE_SYSTEM);
-        componentImage_3.setComponentTypeName("系统");
+        componentImage_3.setComponentSource(COMPONENT_SOURCE_SYSTEM);
+        componentImage_3.setComponentSourceName("系统");
         componentImage_3.setComponentStatus(100000002);
         componentImage_3.setComponentStatusName("禁用");
         componentImage_3.setComponentBody("<div componentId=" + componentImage_3.getComponentId() + " componentName=" + page.getPageName() + "_footer style='width:100%;height:auto' >" +

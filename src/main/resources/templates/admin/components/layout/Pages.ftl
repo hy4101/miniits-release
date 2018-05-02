@@ -283,7 +283,7 @@
                     title: '排序',
                     width: 30
                 }, {
-                    field: 'componentImageVO.componentTypeName',
+                    field: 'componentImageVO.componentSourceName',
                     title: '组件类型',
                     width: 30
                 }, {
@@ -338,7 +338,7 @@
                     title: '排序',
                     width: 30
                 }, {
-                    field: 'componentImageVO.componentTypeName',
+                    field: 'componentImageVO.componentSourceName',
                     title: '组件类型',
                     width: 30
                 }, {
@@ -388,7 +388,7 @@
 
             var editBtns = [];
             var deleteBtn = '<button type="button" class="page-component-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
-            if (row.componentImageVO.componentType === 100006002) {
+            if (row.componentImageVO.componentSource === 100006002) {
                 editBtns.push(deleteBtn);
             }
             var revisionSortDownBtn = '<button type="button" class="page-component-down btn btn-default btn-sm" style="margin-right:15px;"><i class="fa fa-arrow-down" aria-hidden="true"></i></button>';

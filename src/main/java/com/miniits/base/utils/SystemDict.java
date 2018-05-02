@@ -78,12 +78,24 @@ public final class SystemDict {
     public final static Integer MOVIE_SOURCE_BT1280 = 100005008;
 
     /**
-     * 全局类型
-     * 系统 = 100006001
-     * 个人 = 100006002
+     * 组件
+     * 100
      */
-    public final static Integer GLOBAL_TYPE_SYSTEM = 100006001;
-    public final static Integer GLOBAL_TYPE_DIY = 100006002;
+    public static class Component {
+
+        /**
+         * 来源
+         * 系统 = 100006001
+         * 个人 = 100006002
+         */
+        public final static Integer COMPONENT_SOURCE_SYSTEM = 100006001;
+        public final static Integer COMPONENT_SOURCE_DIY = 100006002;
+        /**
+         * 类型
+         * 分页 = 101006001
+         */
+        public final static Integer COMPONENT_TYPE_PAGE = 101006001;
+    }
 
     /**
      * API数据结构类型

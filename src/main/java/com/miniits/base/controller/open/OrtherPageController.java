@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
@@ -37,11 +38,11 @@ public class OrtherPageController {
     }
 
     @GetMapping("{page-name}")
-    public String test(ModelMap modelMap, @PathVariable(value = "page-name") String pageName) throws IOException, TemplateException {
+    public String test(ModelMap modelMap, @PathVariable(value = "page-name") String pageName, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         if (fileExists(getPath("templates/customize/" + pageName + "/") + "/" + pageName + ".html")) {
             return pageName + "/" + pageName;
         }
-        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName);
+        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName,httpServletRequest);
         createTemplateFile("ftl-" + pageName, componentImageAndDocument.getDocument().toString()
                 .replaceAll("<!--#list-->", "</#list>")
                 .replaceAll("&lt;", "<")

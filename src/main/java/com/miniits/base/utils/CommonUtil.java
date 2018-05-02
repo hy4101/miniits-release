@@ -1,6 +1,7 @@
 package com.miniits.base.utils;
 
 import com.miniits.base.model.entity.ComponentImage;
+import com.miniits.base.model.entity.Image;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.mysql.Pageable;
@@ -8,19 +9,19 @@ import com.miniits.base.service.PageService;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Random;
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.miniits.base.utils.DataUtil.filters;
 import static com.miniits.base.utils.DataUtil.getData;
+import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
+import static com.miniits.base.utils.Result.getTotalPage;
 import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPES;
 
 /**
@@ -32,6 +33,9 @@ import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPES;
  * WWW.MINIITS.COM
  */
 public class CommonUtil {
+
+    private static Map<String, String> childElement = new HashMap<>();
+    private static Long totalPage = 0L;
 
     private static final char[] A_z = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'
             , 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm'
@@ -53,8 +57,10 @@ public class CommonUtil {
      *
      * @return 组件列表和结构页面
      */
-    public static ComponentImageAndDocument mergePage(ModelMap modelMap, String pageName) {
+    public static ComponentImageAndDocument mergePage(ModelMap modelMap, String pageName, HttpServletRequest httpServletRequest) {
         StringBuffer html = new StringBuffer();
+        Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
+        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 15 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
         Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001);
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream()
                 .filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001))
@@ -68,12 +74,14 @@ public class CommonUtil {
             if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
                 componentImages.add(componentImage);
             }
-            //默认的父组件
+
             if (pageComponentAssociates.get(i).getLevel() == 1) {
+                //组装默认的父组件
                 html.append(componentImage.getComponentBody());
                 doc = Jsoup.parse(html.toString());
                 continue;
             } else {
+                //组装父组件下的子组件
                 String pId = pageComponentAssociates.get(i).getComponentImagePId().getId();
                 String cId = pageComponentAssociates.stream().filter(pca -> pca.getComponentImage().getId().equals(pId)).collect(Collectors.toList()).get(0).getComponentImage().getComponentId();
                 Elements element = doc.getElementsByAttributeValue("componentId", cId);
@@ -87,10 +95,13 @@ public class CommonUtil {
                  * 根据 API 获取数据
                  */
                 if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
-                    org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(), new Pageable(filters(componentImage.getDataFilters()), 15));
+                    Map<String, Object> map = getPageData(componentImage.getDataFilters());
+                    org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
+                            new Pageable(map.get("filters"), pageNumber, pageSize));
                     body = body.replaceAll("object\\.", str + ".");
+                    body = judgmentComponentType(body);
                     if (null != componentImage.getApiDataStructureType() && componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
-                        body = "<#list " + str + "List as " + str + " >" + body + "</#list>";
+                        body = interactiveComponent(body, str, o, pageNumber);
                     }
                     if (!ObjectUtils.isEmpty(o)) {
                         modelMap.put(str + "List", o.getContent());
@@ -105,4 +116,63 @@ public class CommonUtil {
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }
+
+    //组件交互
+    private static String interactiveComponent(String body, String str, org.springframework.data.domain.Page page, Integer pageNumber) {
+        String key = childElement.get("p-miniits-page-component");
+        childElement.remove(key);
+        if (!ObjectUtils.isEmpty(key)) {
+            Document document = Jsoup.parse(key);
+            Element li = document.select("li").get(0);
+            document.select("li").remove();
+
+            List<Long> ps = getPageNumber(page, new Pageable());
+            for (int i = 0; i < ps.size(); i++) {
+                li.select("a").attr("href", "/index?page=" + ps.get(i) + "$size=" + page.getSize()).html(ps.get(i).toString());
+                document.select("ul").append(li.toString());
+            }
+            body = "<div><#list " + str + "List as " + str + " >" + body + "</#list>" + document.select("nav.miniits-page-component") + "</div>";
+        } else {
+            body = "<#list " + str + "List as " + str + " >" + body + "</#list>";
+        }
+        return body;
+    }
+
+    public static String judgmentComponentType(String ele) {
+        Document document = Jsoup.parse(ele);
+        //处理分页组件
+        if (!document.select("nav.miniits-page-component").toString().isEmpty()) {
+            return pageComponent(document);
+        }
+        return ele;
+    }
+
+    private static String pageComponent(Document document) {
+        childElement.put("p-miniits-page-component", document.select("nav.miniits-page-component").toString());
+        document.select("nav.miniits-page-component").remove();
+        return document.toString();
+    }
+
+    public static List<Long> getPageNumber(org.springframework.data.domain.Page<Image> page, Pageable pageable) {
+        long thisPage = pageable.getPageNumber();
+        totalPage = getTotalPage(page.getTotalElements(), pageable.getPageSize());
+
+        if (totalPage < 5) {
+            List<Long> ls = new ArrayList<>();
+            for (long i = 0; i < totalPage; i++) {
+                ls.add(++i);
+                --i;
+            }
+            return ls;
+        }
+
+        if (thisPage <= 3 && totalPage >= 5) {
+            return Arrays.asList(1L, 2L, 3L, 4L, 5L);
+        }
+        if (thisPage > totalPage - 3) {
+            return Arrays.asList(totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1, totalPage);
+        }
+        return Arrays.asList(thisPage - 2, thisPage - 1, thisPage, thisPage + 1, thisPage + 2);
+    }
+
 }

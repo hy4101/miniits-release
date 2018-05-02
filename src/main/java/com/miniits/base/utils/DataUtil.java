@@ -18,6 +18,9 @@ import java.util.stream.Collectors;
 public class DataUtil {
 
     private static String apply(String filter) {
+        if (filter.indexOf("pageSize") >= 0) {
+            return "";
+        }
         if (filter.indexOf("=") > 0) {
             return "EQ_" + filter;
         }
@@ -136,9 +139,18 @@ public class DataUtil {
         return apis.get(api);
     }
 
-    public static String filters(String filters) {
-        filters = Arrays.stream(filters.split(";")).map(DataUtil::apply).filter(StringUtils::isNotEmpty).collect(Collectors.joining(";"));
-        return filters;
+    public static String pageFilter(String filters) {
+        return Arrays.stream(filters.split(";")).filter(filter -> filter.indexOf("pageSize") > 0 && StringUtils.isNotEmpty(filter)).collect(Collectors.joining(";"));
     }
 
+    public static String dataFilter(String filters) {
+        return Arrays.stream(filters.split(";")).map(DataUtil::apply).filter(StringUtils::isNotEmpty).collect(Collectors.joining(";"));
+    }
+
+    public static Map<String, Object> getPageData(String filters) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("filters", dataFilter(filters));
+        map.put("page", StringUtils.isNotEmpty(pageFilter(filters)) ? pageFilter(filters).split("=")[1] : "");
+        return map;
+    }
 }

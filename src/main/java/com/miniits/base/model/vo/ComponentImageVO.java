@@ -26,6 +26,10 @@ public class ComponentImageVO extends BaseEntityVO {
 
     private String componentBodyApi;
 
+    private Integer componentSource;
+
+    private String componentSourceName;
+
     public String getComponentName() {
         return componentName;
     }
@@ -88,5 +92,21 @@ public class ComponentImageVO extends BaseEntityVO {
 
     public void setComponentTypeName(String componentTypeName) {
         this.componentTypeName = componentTypeName;
+    }
+
+    public Integer getComponentSource() {
+        return componentSource;
+    }
+
+    public void setComponentSource(Integer componentSource) {
+        this.componentSource = componentSource;
+    }
+
+    public String getComponentSourceName() {
+        return componentSourceName;
+    }
+
+    public void setComponentSourceName(String componentSourceName) {
+        this.componentSourceName = componentSourceName;
     }
 }

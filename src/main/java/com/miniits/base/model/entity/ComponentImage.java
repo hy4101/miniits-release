@@ -25,17 +25,23 @@ public class ComponentImage extends BaseEntity {
     @Column(name = "component_id", nullable = false, unique = true, length = 45)
     private String componentId;
 
+    @Column(name = "component_type", nullable = false, length = 9)
+    private Integer componentType;
+
+    @Column(name = "component_type_name", length = 25)
+    private String componentTypeName;
+
     @Column(name = "component_status", nullable = false, length = 9)
     private Integer componentStatus;
 
     @Column(name = "component_status_name", length = 25)
     private String componentStatusName;
 
-    @Column(name = "component_type", nullable = false, length = 9)
-    private Integer componentType;
+    @Column(name = "component_source", nullable = false, length = 9)
+    private Integer componentSource;
 
-    @Column(name = "component_type_name", length = 25)
-    private String componentTypeName;
+    @Column(name = "component_source_name", length = 25)
+    private String componentSourceName;
 
     private String componentBody;
 
@@ -137,5 +143,21 @@ public class ComponentImage extends BaseEntity {
 
     public void setApiDataStructureType(Integer apiDataStructureType) {
         this.apiDataStructureType = apiDataStructureType;
+    }
+
+    public Integer getComponentSource() {
+        return componentSource;
+    }
+
+    public void setComponentSource(Integer componentSource) {
+        this.componentSource = componentSource;
+    }
+
+    public String getComponentSourceName() {
+        return componentSourceName;
+    }
+
+    public void setComponentSourceName(String componentSourceName) {
+        this.componentSourceName = componentSourceName;
     }
 }
