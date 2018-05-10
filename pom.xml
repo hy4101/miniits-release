@@ -6,7 +6,7 @@
 
     <groupId>miniits.release</groupId>
     <artifactId>miniits-release</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
