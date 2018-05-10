@@ -62,4 +62,9 @@ public class Pageable {
         this.pageSize = ObjectUtils.isEmpty(pageSize) ? 15 : Integer.valueOf(String.valueOf(pageSize));
         this.pageNumber = ObjectUtils.isEmpty(pageNumber) ? 1 : Integer.valueOf(String.valueOf(pageNumber));
     }
+
+    public Pageable(Integer pageSize, Integer pageNumber) {
+        this.pageSize = pageSize;
+        this.pageNumber = pageNumber;
+    }
 }
