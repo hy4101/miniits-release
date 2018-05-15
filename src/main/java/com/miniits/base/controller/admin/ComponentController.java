@@ -6,6 +6,8 @@ import com.miniits.base.service.ComponentService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
 import com.miniits.base.utils.Result;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -13,8 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
-import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
-import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
+import static com.miniits.base.utils.SystemDict.*;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -72,6 +73,7 @@ public class ComponentController extends BaseController {
     @ResponseBody
     public Result saveUser(Component component) {
         if (!StringUtils.isEmpty(component.getId())) {
+            //修改
             Component old = componentService.findOne(component.getId());
             old.setComponentBodyApi(component.getComponentBodyApi());
             old.setApiDataStructureType(component.getApiDataStructureType());
@@ -80,9 +82,18 @@ public class ComponentController extends BaseController {
             old.setComponentBody(component.getComponentBody());
             component = old;
         } else {
+            //新增
             component.setComponentId(System.currentTimeMillis() + "");
             component.setComponentStatus(GLOBAL_STATUS_YES);
             component.setComponentStatusName("启用");
+            //处理分页组件
+            Document document = Jsoup.parse(component.getComponentBody());
+            if (component.getDataFilters().indexOf("pageSize=") >= 0 && !document.select("nav.miniits-page-component").toString().isEmpty()) {
+                component.setApiDataStructureType(API_DATA_STRUCTURE_TYPE_PAGE);
+            }
+            if (component.getDataFilters().indexOf("pageSize=") >= 0 && document.select("nav.miniits-page-component").toString().isEmpty()) {
+                component.setApiDataStructureType(API_DATA_STRUCTURE_TYPE_NO_PAGE);
+            }
         }
         return success(componentService.save(component));
     }
@@ -93,7 +104,7 @@ public class ComponentController extends BaseController {
         modelMap.put("active", "layout");
         if (!StringUtils.isEmpty(id)) {
             Component component = componentService.findOne(id);
-            Component copy = ConvertUtil.toVO(component,Component.class);
+            Component copy = ConvertUtil.toVO(component, Component.class);
             copy.setId(null);
             copy.setComponentId(System.currentTimeMillis() + "");
             copy.setComponentName(component.getComponentName() + " -副本");

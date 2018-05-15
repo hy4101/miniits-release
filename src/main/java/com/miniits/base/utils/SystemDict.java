@@ -99,11 +99,12 @@ public final class SystemDict {
 
     /**
      * API数据结构类型
-     * 数组对象 = 100007001
+     * 数组对象-分页 = 100007001
      * 对象 = 100007002
+     * 数组对象-不分页 = 100007003
      */
-    public final static Integer API_DATA_STRUCTURE_TYPES = 100007001;
+    public final static Integer API_DATA_STRUCTURE_TYPE_PAGE = 100007001;
     public final static Integer API_DATA_STRUCTURE_TYPE = 100007002;
-
+    public final static Integer API_DATA_STRUCTURE_TYPE_NO_PAGE = 100007003;
 
 }

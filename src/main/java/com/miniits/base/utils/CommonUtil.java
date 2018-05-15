@@ -22,7 +22,8 @@ import static com.miniits.base.utils.DataUtil.getData;
 import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.Result.getTotalPage;
-import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPES;
+import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_NO_PAGE;
+import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_PAGE;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -60,8 +61,9 @@ public class CommonUtil {
      */
     public static ComponentImageAndDocument mergePage(ModelMap modelMap, String pageName, HttpServletRequest httpServletRequest) {
         StringBuffer html = new StringBuffer();
+        String requestURI = httpServletRequest.getRequestURI();
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
-        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 15 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
+        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
         Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001);
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream()
                 .filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001))
@@ -72,6 +74,7 @@ public class CommonUtil {
         List<ComponentImage> componentImages = new ArrayList<>();
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
             ComponentImage componentImage = pageComponentAssociates.get(i).getComponentImage();
+
             if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
                 componentImages.add(componentImage);
             }
@@ -97,12 +100,14 @@ public class CommonUtil {
                  */
                 if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
                     Map<String, Object> map = getPageData(componentImage.getDataFilters());
+
                     org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
-                            new Pageable(map.get("filters"), pageSize, pageNumber));
+                            new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));
+
                     body = body.replaceAll("object\\.", str + ".");
                     body = judgmentComponentType(body);
-                    if (null != componentImage.getApiDataStructureType() && componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPES)) {
-                        body = interactiveComponent(body, str, o, pageNumber, pageSize);
+                    if (null != componentImage.getApiDataStructureType() && Arrays.asList(API_DATA_STRUCTURE_TYPE_PAGE, API_DATA_STRUCTURE_TYPE_NO_PAGE).contains(componentImage.getApiDataStructureType())) {
+                        body = interactiveComponent(body, str, o, pageNumber, pageSize, requestURI);
                     }
                     if (!ObjectUtils.isEmpty(o)) {
                         modelMap.put(str + "List", o.getContent());
@@ -119,7 +124,7 @@ public class CommonUtil {
     }
 
     //组件交互
-    private static String interactiveComponent(String body, String str, org.springframework.data.domain.Page page, Integer pageNumber, Integer pageSize) {
+    private static String interactiveComponent(String body, String str, org.springframework.data.domain.Page page, Integer pageNumber, Integer pageSize, String requestURI) {
         String key = childElement.get("p-miniits-page-component");
         childElement.remove("p-miniits-page-component");
         if (!ObjectUtils.isEmpty(key)) {
@@ -134,7 +139,7 @@ public class CommonUtil {
                     active = "active";
                 }
                 li.attr("class", active);
-                li.select("a").attr("href", "/index?pageNumber=" + ps.get(i) + "&pageSize=" + page.getSize()).html(ps.get(i).toString());
+                li.select("a").attr("href", requestURI + "?pageNumber=" + ps.get(i) + "&pageSize=" + page.getSize()).html(ps.get(i).toString());
                 document.select("ul").append(li.toString());
             }
             Document documentBody = Jsoup.parse(body);
