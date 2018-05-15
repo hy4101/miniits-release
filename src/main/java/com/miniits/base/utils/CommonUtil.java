@@ -61,7 +61,7 @@ public class CommonUtil {
     public static ComponentImageAndDocument mergePage(ModelMap modelMap, String pageName, HttpServletRequest httpServletRequest) {
         StringBuffer html = new StringBuffer();
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
-        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
+        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 15 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
         Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001);
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream()
                 .filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001))
@@ -137,7 +137,14 @@ public class CommonUtil {
                 li.select("a").attr("href", "/index?pageNumber=" + ps.get(i) + "&pageSize=" + page.getSize()).html(ps.get(i).toString());
                 document.select("ul").append(li.toString());
             }
-            body = "<div><#list " + str + "List as " + str + " >" + body + "</#list>" + document.select("nav.miniits-page-component") + "</div>";
+            Document documentBody = Jsoup.parse(body);
+            String baseList = documentBody.select(".p-miniits-component").get(0).children().toString();
+            documentBody.select(".p-miniits-component").get(0).children().remove();
+
+            String listBody = "<#list " + str + "List as " + str + " >" + baseList + "</#list>";
+            documentBody.select(".p-miniits-component").append(listBody);
+            documentBody.select(".p-miniits-component").append(document.select("nav.miniits-page-component").toString());
+            body = documentBody.toString();
         } else {
             body = "<#list " + str + "List as " + str + " >" + body + "</#list>";
         }
@@ -155,6 +162,7 @@ public class CommonUtil {
 
     private static String pageComponent(Document document) {
         childElement.put("p-miniits-page-component", document.select("nav.miniits-page-component").toString());
+        document.select("nav.miniits-page-component").parents().get(0).addClass("p-miniits-component");
         document.select("nav.miniits-page-component").remove();
         return document.toString();
     }

@@ -214,7 +214,7 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 270,
+                    width: 270
                     // events: operateEventsComponent,
                     // formatter: operateFormatterComponent
                 }]
