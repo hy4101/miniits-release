@@ -23,6 +23,9 @@
         </div>
     </div>
     <table id="table_components" style="background-color: #FFFFFF"></table>
+    <div class="user-dialog">
+        <#include "ComponentPushDialog.ftl"/>
+    </div>
 </div>
 <script>
     (function ($, win) {
@@ -86,7 +89,7 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 260,
+                    width: 300,
                     events: operateEvents,
                     formatter: operateFormatter
                 }]
@@ -97,6 +100,7 @@
             var editBtns = [
                 '<button type="button" class="components-delete btn btn-delete btn-sm" style="margin-right:15px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
                 '<a href="modify-development/' + row.id + '"><button type="button" class="btn btn-primary btn-sm" style="margin-right:15px;"><i class="fa fa-pencil" aria-hidden="true"></i></button></a>',
+                '<button type="button" class="btn btn-sm push-component-btn" style="margin-right:15px;background-color: #51A351"><i class="fa fa-cloud-upload" aria-hidden="true"></i></button>',
                 '<button type="button" class="btn btn-sm copy-component-btn" style="margin-right:15px;">备份</button>'
             ];
             var statusBtn = '<button type="button" class="components-status-disabled btn btn-warning btn-sm" style="margin-right:15px;">禁用</button>';
@@ -108,6 +112,10 @@
         }
 
         win.operateEvents = {
+            'click .push-component-btn': function (e, value, row, index) {
+                $('#push_component_modal').modal();
+                $("#push_component_form_title").text("发布组件");
+            },
             'click .components-delete': function (e, value, row, index) {
                 deleteArticle(row);
             },
