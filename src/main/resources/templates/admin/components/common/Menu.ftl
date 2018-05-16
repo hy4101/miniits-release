@@ -73,8 +73,12 @@
                         </li>
                         <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-cubes"
                                                                                   aria-hidden="true"></i>系统页面</a></li>
-                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-file-code-o"
-                                                                                  aria-hidden="true"></i>系统组件</a></li>
+                        <li class="menu-item">
+                            <a href="/admin/components/init">
+                                <i class="fa fa-file-code-o" aria-hidden="true"></i>
+                                系统组件
+                            </a>
+                        </li>
                         <li class="menu-item">
                             <a href="/admin/components/init">
                                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
