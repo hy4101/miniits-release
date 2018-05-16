@@ -75,6 +75,12 @@
                                                                                   aria-hidden="true"></i>系统页面</a></li>
                         <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-file-code-o"
                                                                                   aria-hidden="true"></i>系统组件</a></li>
+                        <li class="menu-item">
+                            <a href="/admin/components/init">
+                                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                                DIY市场
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li class="${(active == 'content')?string('active', '')} treeview">
@@ -102,7 +108,7 @@
                                                                              aria-hidden="true"></i>友情链接</a></li>
                     </ul>
                 </li>
-                    <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a>
+                <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a>
                 </li>
             </ul>
         </section>

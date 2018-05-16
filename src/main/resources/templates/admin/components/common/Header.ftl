@@ -2,7 +2,7 @@
     <header class="main-header">
         <a href="index2.html" class="logo">
             <span class="logo-mini"><b>MINI</b></span>
-            <span class="logo-lg"><b>MiniIts</b></span>
+            <span class="logo-lg"><b>MiniIts-Official</b></span>
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
