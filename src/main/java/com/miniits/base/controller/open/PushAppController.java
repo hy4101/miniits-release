@@ -9,6 +9,8 @@ import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 import static com.miniits.base.utils.SystemDict.AppStatus.APP_STATUS_ONLINE;
 
 /**
@@ -31,6 +33,7 @@ public class PushAppController extends BaseController {
         AppStore appStore = toEntity(appPushDto, AppStore.class);
         appStore.setAppStatus(APP_STATUS_ONLINE);
         appStore.setAppStatusName("在线");
+        appStore.setUpTime(new Date());
         appStoreServer.save(appStore);
         return success("应用发布成功");
     }
