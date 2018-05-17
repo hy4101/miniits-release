@@ -4,7 +4,7 @@
  * @Time: 17:40
  * <p>
  * Description:
- *          ***
+ *          http 工具
  */
 (function ($) {
     window.httpClient = function (params) {

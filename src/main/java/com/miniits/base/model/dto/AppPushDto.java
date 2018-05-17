@@ -1,7 +1,5 @@
 package com.miniits.base.model.dto;
 
-import com.miniits.base.model.entity.AppContent;
-
 /**
  * @author: wq
  * @Date: 2018/5/16
@@ -12,7 +10,7 @@ import com.miniits.base.model.entity.AppContent;
  */
 public class AppPushDto {
 
-    private AppContent component;
+    private Component component;
 
     private String authorId;
 
@@ -24,11 +22,11 @@ public class AppPushDto {
 
     private String remark;
 
-    public AppContent getComponent() {
+    public Component getComponent() {
         return component;
     }
 
-    public void setComponent(AppContent component) {
+    public void setComponent(Component component) {
         this.component = component;
     }
 
