@@ -1,8 +1,8 @@
 package com.miniits.base.dao;
 
 
+import com.miniits.base.model.entity.AppStore;
 import com.miniits.base.mysql.BaseRepository;
-import us.codecraft.webmagic.example.AppStore;
 
 /**
  * @author: wq
