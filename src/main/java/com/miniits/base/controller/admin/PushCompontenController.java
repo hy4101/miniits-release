@@ -62,6 +62,7 @@ public class PushCompontenController extends BaseController {
         appPushDto.setAppType(APP_TYPE_COMPONENT);
         appPushDto.setAppTypeName("组件");
         appPushDto.setRemark(remark);
+        appPushDto.setUpTime(new Date());
         params.add("app", toJson(appPushDto));
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(params, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8001/miniits/app/push", requestEntity, String.class);
