@@ -120,5 +120,18 @@ public final class SystemDict {
         public final static Integer APP_TYPE_COMPONENT = 101001001;
         public final static Integer APP_TYPE_PAGE = 101001002;
     }
+    /**
+     * 应用状态
+     * 102
+     */
+    public static class AppStatus {
+
+        /**
+         * 在线 = 102001001
+         * 下架 = 102001002
+         */
+        public final static Integer APP_STATUS_ONLINE= 102001001;
+        public final static Integer APP_STATUS_DOWN = 102001002;
+    }
 
 }

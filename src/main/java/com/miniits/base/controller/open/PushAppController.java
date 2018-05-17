@@ -9,6 +9,8 @@ import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import static com.miniits.base.utils.SystemDict.AppStatus.APP_STATUS_ONLINE;
+
 /**
  * @author: wq
  * @Date: 2018/5/16
@@ -27,7 +29,8 @@ public class PushAppController extends BaseController {
     @PostMapping("/push")
     public Result push(@RequestParam(name = "app") String appPushDto) throws Exception {
         AppStore appStore = toEntity(appPushDto, AppStore.class);
-        appStore.setAppStatus();
+        appStore.setAppStatus(APP_STATUS_ONLINE);
+        appStore.setAppStatusName("在线");
         appStoreServer.save(appStore);
         return success("应用发布成功");
     }

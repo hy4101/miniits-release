@@ -1,5 +1,7 @@
 package com.miniits.base.model.dto;
 
+import com.miniits.base.model.entity.Component;
+
 /**
  * @author: wq
  * @Date: 2018/5/16
