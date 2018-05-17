@@ -19,6 +19,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Date;
+
 import static com.miniits.base.utils.SystemDict.AppType.APP_TYPE_COMPONENT;
 
 /**
@@ -53,11 +55,10 @@ public class PushCompontenController extends BaseController {
 //        params.add("appType", APP_TYPE_COMPONENT.toString());
 //        params.add("appTypeName", "组件");
 
-
         AppPushDto appPushDto = new AppPushDto();
         appPushDto.setComponent(component);
-        appPushDto.setAuthorId(ObjectUtils.isEmpty(currentUser) ? null : currentUser.getId());
-        appPushDto.setAuthorName(ObjectUtils.isEmpty(currentUser) ? null : currentUser.getUserName());
+        appPushDto.setAuthorId(ObjectUtils.isEmpty(currentUser) ? "AuthorId" : currentUser.getId());
+        appPushDto.setAuthorName(ObjectUtils.isEmpty(currentUser) ? "AuthorName" : currentUser.getUserName());
         appPushDto.setAppType(APP_TYPE_COMPONENT);
         appPushDto.setAppTypeName("组件");
         appPushDto.setRemark(remark);

@@ -2,6 +2,8 @@ package com.miniits.base.model.dto;
 
 import com.miniits.base.model.entity.Component;
 
+import java.util.Date;
+
 /**
  * @author: wq
  * @Date: 2018/5/16
@@ -23,6 +25,8 @@ public class AppPushDto {
     private String appTypeName;
 
     private String remark;
+
+    private Date upTime;
 
     public Component getComponent() {
         return component;
@@ -70,5 +74,13 @@ public class AppPushDto {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Date getUpTime() {
+        return upTime;
+    }
+
+    public void setUpTime(Date upTime) {
+        this.upTime = upTime;
     }
 }
