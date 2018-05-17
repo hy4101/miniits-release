@@ -1,6 +1,5 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.model.entity.AppStore;
 import com.miniits.base.model.entity.Component;
 import com.miniits.base.model.entity.User;
 import com.miniits.base.service.ComponentService;
@@ -53,7 +52,7 @@ public class PushCompontenController extends BaseController {
         params.add("appTypeName", "组件");
         params.add("remark", remark);
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(params, headers);
-        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8001/admin/app/push", requestEntity, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8001/miniits/app/push", requestEntity, String.class);
         return null;
     }
 }
