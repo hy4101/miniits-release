@@ -1,5 +1,6 @@
 package com.miniits.base.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.miniits.base.model.entity.Component;
 import com.miniits.base.model.entity.User;
 import com.miniits.base.service.ComponentService;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -44,14 +46,14 @@ public class PushCompontenController extends BaseController {
         User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, Object> params = new LinkedMultiValueMap<String, Object>();
         params.add("appContent", toJson(component));
-        params.add("authorId", currentUser.getId());
-        params.add("authorName", currentUser.getUserName());
+        params.add("authorId", ObjectUtils.isEmpty(currentUser) ? null : currentUser.getId());
+        params.add("authorName", ObjectUtils.isEmpty(currentUser) ? null : currentUser.getUserName());
         params.add("appType", APP_TYPE_COMPONENT.toString());
         params.add("appTypeName", "组件");
         params.add("remark", remark);
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<MultiValueMap<String, String>>(params, headers);
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<MultiValueMap<String, Object>>(params, headers);
         ResponseEntity<String> response = restTemplate.postForEntity("http://localhost:8001/miniits/app/push", requestEntity, String.class);
         return null;
     }
