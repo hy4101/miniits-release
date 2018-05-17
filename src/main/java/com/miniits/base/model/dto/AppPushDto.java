@@ -1,5 +1,7 @@
 package com.miniits.base.model.dto;
 
+import com.miniits.base.model.entity.AppContent;
+
 /**
  * @author: wq
  * @Date: 2018/5/16
@@ -9,4 +11,64 @@ package com.miniits.base.model.dto;
  * ***
  */
 public class AppPushDto {
+
+    private AppContent component;
+
+    private String authorId;
+
+    private String authorName;
+
+    private Integer appType;
+
+    private String appTypeName;
+
+    private String remark;
+
+    public AppContent getComponent() {
+        return component;
+    }
+
+    public void setComponent(AppContent component) {
+        this.component = component;
+    }
+
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public void setAuthorId(String authorId) {
+        this.authorId = authorId;
+    }
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
+
+    public Integer getAppType() {
+        return appType;
+    }
+
+    public void setAppType(Integer appType) {
+        this.appType = appType;
+    }
+
+    public String getAppTypeName() {
+        return appTypeName;
+    }
+
+    public void setAppTypeName(String appTypeName) {
+        this.appTypeName = appTypeName;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 }
