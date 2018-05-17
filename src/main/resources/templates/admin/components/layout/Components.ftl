@@ -115,6 +115,7 @@
             'click .push-component-btn': function (e, value, row, index) {
                 $('#push_component_modal').modal();
                 $("#push_component_form_title").text("发布组件");
+                commitComponent({row: row});
             },
             'click .components-delete': function (e, value, row, index) {
                 deleteArticle(row);

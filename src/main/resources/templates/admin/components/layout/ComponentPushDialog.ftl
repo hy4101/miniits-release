@@ -12,7 +12,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group div-form-group">
-                        <label for="txt_departmentname" class="label-form-group-title-item">页面别名 :</label>
+                        <label class="label-form-group-title-item">页面别名 :</label>
                         <input type="text" name="pageAliasName" class="form-control input-form-group-value-item"
                                id="pageAliasName"
                                placeholder="请输入页面别名">
@@ -23,7 +23,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                         关闭
                     </button>
-                    <button id="btn_save_page" class="btn btn-primary">
+                    <button id="btn_push_component" class="btn btn-primary">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         发布
                     </button>
@@ -40,29 +40,15 @@
 
         }
 
-        $("#index_btn").click(function () {
-            var check = $("#index_btn")[0].checked;
-            if (check) {
-                $("#pageName").val('index');
-                $("#pageName").attr("disabled", "disabled");
-                $("#pagePath").attr("disabled", "disabled");
-            } else {
-                $("#pageName").val(null);
-                $("#pagePath").val(null);
-                $("#pagePath").removeAttr("disabled");
-                $("#pageName").removeAttr("disabled");
-            }
-        });
-
         //Modal验证销毁重构
         $('#page_modal').on('hidden.bs.modal', function () {
-            $("#page_form").data('bootstrapValidator').destroy();
-            $('#page_form').data('bootstrapValidator', null);
+            $("#push_component_form").data('bootstrapValidator').destroy();
+            $('#push_component_form').data('bootstrapValidator', null);
             extracted();
         });
 
-        $("#btn_save_page").click(function () {
-            var uf = $("#page_form");
+        $("#btn_push_component").click(function () {
+            var uf = $("#push_component_form");
             uf.bootstrapValidator('validate');
             if (uf.data('bootstrapValidator').isValid()) {
                 //获取验证结果，如果成功，执行下面代码
@@ -101,20 +87,8 @@
             }
         });
 
-        win.commitPage = function (data) {
-            if (isEmpty(data)) {
-                $("#pageName").val(null);
-                $("#pagePath").val(null);
-                $("#pageStatus").val(null);
-                $("#pageAliasName").val(null);
-                page = null;
-            } else {
-                $("#pageName").val(data.pageName);
-                $("#pagePath").val(data.pagePath);
-                $("#pageStatus").val(data.pageStatus);
-                $("#pageAliasName").val(data.pageAliasName);
-                page = data;
-            }
+        win.commitComponent = function (data) {
+
         };
 
         function extracted() {
@@ -158,7 +132,6 @@
         }
 
         extracted();
-
         userDialogInit();
 
     })(jQuery, window);
