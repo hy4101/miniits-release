@@ -10,7 +10,6 @@ package com.miniits.base.utils;
  */
 public final class SystemDict {
 
-
     /**
      * 全局状态
      * 是 = 100000001

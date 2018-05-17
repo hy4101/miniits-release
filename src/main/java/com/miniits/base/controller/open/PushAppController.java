@@ -26,7 +26,9 @@ public class PushAppController extends BaseController {
 
     @PostMapping("/push")
     public Result push(@RequestParam(name = "app") String appPushDto) throws Exception {
-        appStoreServer.save(toEntity(appPushDto, AppStore.class));
+        AppStore appStore = toEntity(appPushDto, AppStore.class);
+        appStore.setAppStatus();
+        appStoreServer.save(appStore);
         return success("应用发布成功");
     }
 
