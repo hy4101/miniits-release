@@ -107,4 +107,19 @@ public final class SystemDict {
     public final static Integer API_DATA_STRUCTURE_TYPE = 100007002;
     public final static Integer API_DATA_STRUCTURE_TYPE_NO_PAGE = 100007003;
 
+
+    /**
+     * 应用类型
+     * 101
+     */
+    public static class AppType {
+
+        /**
+         * 组件 = 101001001
+         * 页面 = 101001002
+         */
+        public final static Integer APP_TYPE_COMPONENT = 101001001;
+        public final static Integer APP_TYPE_PAGE = 101001002;
+    }
+
 }
