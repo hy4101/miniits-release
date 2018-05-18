@@ -95,6 +95,10 @@ public class ComponentController extends BaseController {
                 component.setApiDataStructureType(API_DATA_STRUCTURE_TYPE_NO_PAGE);
             }
         }
+
+        if (component.getSaveType().equals("save_article_update_page_btn")){
+
+        }
         return success(componentService.save(component));
     }
 

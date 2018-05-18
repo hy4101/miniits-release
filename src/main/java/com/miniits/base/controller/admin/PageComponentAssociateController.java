@@ -75,6 +75,7 @@ public class PageComponentAssociateController extends BaseController {
         List<ComponentImage> componentImages = (List<ComponentImage>) toEntitys(jsonComponentImages, ComponentImage.class);
         List<PageComponentAssociate> pageComponentAssociates = new ArrayList<>();
         componentImages.forEach(componentImage -> {
+            componentImage.setComponentReferenceId(componentImage.getId());
             componentImage.setId(null);
             componentImage.setComponentSource(COMPONENT_SOURCE_DIY);
             componentImage.setComponentSourceName("DIY");

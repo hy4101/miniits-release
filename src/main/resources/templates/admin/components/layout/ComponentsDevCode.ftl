@@ -18,11 +18,24 @@
             <div class="modal-header">
                 <h4 class="modal-title" style="font-size: xx-large;">
                     <label style="font-weight: normal;float: left;">组件开发-编程式</label>
-                    <button id="save_article_btn" type="submit" class="btn btn-primary"
-                            style="float: right;background-color: #3c8dbc;">
-                        <i class="fa fa-floppy-o" aria-hidden="true"></i>
-                        保存
-                    </button>
+                      <#if development?exists>
+                       <button id="save_article_btn" type="submit" class="btn btn-primary"
+                               style="float: right;background-color: #3c8dbc;">
+                           <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                           保存
+                       </button>
+                        <button id="save_article_update_page_btn" type="submit" class="btn btn-primary f-mr10"
+                                style="float: right;background-color: #3c8dbc;">
+                            <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                            保存并更新页面
+                        </button>
+                      <#else>
+                         <button id="save_article_btn" type="submit" class="btn btn-primary"
+                                 style="float: right;background-color: #3c8dbc;">
+                             <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                             保存
+                         </button>
+                      </#if>
                 </h4>
             </div>
             <div class="modal-body">
@@ -111,17 +124,21 @@
         var editor = null;
 
         $("#save_article_btn").click(function () {
+            saveComponent('save_article_btn');
+        });
+        $("#save_article_update_page_btn").click(function () {
+            saveComponent('save_article_update_page_btn');
+        });
+
+        function saveComponent(type) {
+            var html = editor.getValue();
             if (isEmpty($("#componentName").val())) {
                 return toastr.error('组件名称不能为空');
             }
-            var html = editor.getValue();
             if (isEmpty(html)) {
                 return toastr.error('组件内容不能为空');
             }
-            saveComponent(html);
-        });
 
-        function saveComponent(element) {
             var componentBodyApi = $("#componentBodyApi").val();
             var componentName = $("#componentName").val();
             var dataFilters = $("#dataFilters").val();
@@ -139,7 +156,8 @@
                 apiDataStructureType: componentBodyApi.split('=')[0],
                 dataFilters: dataFilters,
                 componentName: componentName,
-                componentBody: element
+                componentBody: html,
+                saveType:type
             };
 
             var param = {

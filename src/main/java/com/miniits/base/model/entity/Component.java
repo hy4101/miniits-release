@@ -36,7 +36,7 @@ public class Component extends BaseEntity {
 
     private String componentBody;
 
-    @Column(name = "component_body_api", nullable = false, length = 500)
+    @Column(name = "component_body_api", length = 500)
     private String componentBodyApi;
 
     @Column(name = "data_filters", length = 500)
@@ -48,6 +48,9 @@ public class Component extends BaseEntity {
 
     @Transient
     private String filters;
+
+    @Transient
+    private String saveType;
 
     public String getComponentName() {
         return componentName;
@@ -116,16 +119,6 @@ public class Component extends BaseEntity {
         this.apiDataStructureType = apiDataStructureType;
     }
 
-    @Transient
-    public String getFilters() {
-        return filters;
-    }
-
-    @Transient
-    public void setFilters(String filters) {
-        this.filters = filters;
-    }
-
     public Integer getComponentType() {
         return componentType;
     }
@@ -140,5 +133,26 @@ public class Component extends BaseEntity {
 
     public void setComponentTypeName(String componentTypeName) {
         this.componentTypeName = componentTypeName;
+    }
+
+
+    @Transient
+    public String getFilters() {
+        return filters;
+    }
+
+    @Transient
+    public void setFilters(String filters) {
+        this.filters = filters;
+    }
+
+    @Transient
+    public String getSaveType() {
+        return saveType;
+    }
+
+    @Transient
+    public void setSaveType(String saveType) {
+        this.saveType = saveType;
     }
 }

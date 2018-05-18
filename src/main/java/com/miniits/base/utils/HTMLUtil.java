@@ -104,6 +104,7 @@ public class HTMLUtil {
         doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"/static/bootstrap-3.3.7-dist/css/bootstrap.css\" >");
         doc.getElementsByTag("head").append("<script src=\"/static/bootstrap-3.3.7-dist/js/bootstrap.js\"></script>");
         doc.getElementsByTag("head").append("<link href=\"/static/css/font-awesome/font-awesome.min.css\" rel=\"stylesheet\">");
+        doc.getElementsByTag("head").append("<link href=\"/static/css/Miniits_Common.css\" rel=\"stylesheet\">");
         return doc;
     }
 

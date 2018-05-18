@@ -190,7 +190,7 @@ public class AppStore extends BaseEntity {
         this.remark = remark;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "app_content_id")
     public AppContent getAppContent() {
         return appContent;

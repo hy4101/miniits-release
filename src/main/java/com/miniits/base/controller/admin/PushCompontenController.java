@@ -1,6 +1,6 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.model.dto.AppPushDto;
+import com.miniits.base.model.entity.AppContent;
 import com.miniits.base.model.entity.AppStore;
 import com.miniits.base.model.entity.Component;
 import com.miniits.base.model.entity.User;
@@ -15,6 +15,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
+import static com.miniits.base.utils.SystemDict.AppStatus.APP_STATUS_ONLINE;
 import static com.miniits.base.utils.SystemDict.AppType.APP_TYPE_COMPONENT;
 
 /**
@@ -37,18 +40,22 @@ public class PushCompontenController extends BaseController {
 
     @PostMapping("/{id}")
     @ResponseBody
-    public Result push(@PathVariable(name = "id") String id, @RequestParam(name = "remark") String remark) throws Exception {
+    public Result push(@PathVariable(name = "id") String id, @RequestParam(name = "remark") String remark) {
         Component component = componentService.findOne(id);
         User currentUser = (User) SecurityUtils.getSubject().getPrincipal();
-        AppPushDto appPushDto = new AppPushDto();
-        appPushDto.setComponent(component);
-        appPushDto.setAuthorId(ObjectUtils.isEmpty(currentUser) ? null : currentUser.getId());
-        appPushDto.setAuthorName(ObjectUtils.isEmpty(currentUser) ? null : currentUser.getUserName());
-        appPushDto.setAppType(APP_TYPE_COMPONENT);
-        appPushDto.setAppTypeName("组件");
-        appPushDto.setRemark(remark);
+        AppStore appStore = new AppStore();
+        appStore.setAppContent(ConvertUtil.toVO(component, AppContent.class));
+        appStore.getAppContent().setId(null);
+        appStore.setAuthorId(ObjectUtils.isEmpty(currentUser) ? "" : currentUser.getId());
+        appStore.setAuthorName(ObjectUtils.isEmpty(currentUser) ? "" : currentUser.getUserName());
+        appStore.setAppType(APP_TYPE_COMPONENT);
+        appStore.setAppTypeName("组件");
+        appStore.setRemark(remark);
+        appStore.setAppStatus(APP_STATUS_ONLINE);
+        appStore.setAppStatusName("在线");
+        appStore.setUpTime(new Date());
 
-        AppStore appStore = appStoreServer.save(ConvertUtil.toVO(appPushDto, AppStore.class));
+        appStore = appStoreServer.save(appStore);
 
         return success(appStore);
     }

@@ -31,7 +31,6 @@ public class PushAppController extends BaseController {
     @PostMapping("/push")
     public Result push(@RequestParam(name = "app") String appPushDto) throws Exception {
         AppStore appStore = toEntity(appPushDto, AppStore.class);
-        appStore.getAppContent().setAppStore(appStore);
         appStore.setAppStatus(APP_STATUS_ONLINE);
         appStore.setAppStatusName("在线");
         appStore.setUpTime(new Date());

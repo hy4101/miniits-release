@@ -16,8 +16,6 @@ import javax.persistence.*;
 @Table(name = "app_content")
 public class AppContent extends BaseEntity {
 
-    private AppStore appStore;
-
     private String componentName;
 
     private String componentId;
@@ -48,7 +46,7 @@ public class AppContent extends BaseEntity {
         this.componentName = componentName;
     }
 
-    @Column(name = "component_id", nullable = false, unique = true, length = 45)
+    @Column(name = "component_id", nullable = false, length = 45)
     public String getComponentId() {
         return componentId;
     }
@@ -86,7 +84,7 @@ public class AppContent extends BaseEntity {
         this.componentBody = componentBody;
     }
 
-    @Column(name = "component_body_api", nullable = false, length = 500)
+    @Column(name = "component_body_api", length = 500)
     public String getComponentBodyApi() {
         return componentBodyApi;
     }
@@ -113,7 +111,7 @@ public class AppContent extends BaseEntity {
         this.apiDataStructureType = apiDataStructureType;
     }
 
-    @Column(name = "component_Type", nullable = false, length = 9)
+    @Column(name = "component_Type", length = 9)
     public Integer getComponentType() {
         return componentType;
     }
@@ -129,14 +127,5 @@ public class AppContent extends BaseEntity {
 
     public void setComponentTypeName(String componentTypeName) {
         this.componentTypeName = componentTypeName;
-    }
-
-    @OneToOne(fetch = FetchType.LAZY)
-    public AppStore getAppStore() {
-        return appStore;
-    }
-
-    public void setAppStore(AppStore appStore) {
-        this.appStore = appStore;
     }
 }
