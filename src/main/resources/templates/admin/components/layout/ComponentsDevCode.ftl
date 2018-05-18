@@ -127,7 +127,13 @@
             saveComponent('save_article_btn');
         });
         $("#save_article_update_page_btn").click(function () {
-            saveComponent('save_article_update_page_btn');
+            Mini.alert({
+                message: "此操作会更新你引用了该组件的所有页面",
+                btnok: '是的！确认更新',
+                font: 'fa fa-exclamation-triangle'
+            }).on(function (e) {
+                saveComponent('save_article_update_page_btn');
+            });
         });
 
         function saveComponent(type) {
@@ -157,7 +163,7 @@
                 dataFilters: dataFilters,
                 componentName: componentName,
                 componentBody: html,
-                saveType:type
+                saveType: type
             };
 
             var param = {

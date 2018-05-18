@@ -1,7 +1,9 @@
 package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.entity.Component;
+import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.mysql.Pageable;
+import com.miniits.base.service.ComponentImageServer;
 import com.miniits.base.service.ComponentService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.miniits.base.utils.SystemDict.*;
 
@@ -31,6 +35,9 @@ public class ComponentController extends BaseController {
 
     @Autowired
     private ComponentService componentService;
+
+    @Autowired
+    private ComponentImageServer componentImageServer;
 
     @GetMapping("init")
     public String init(ModelMap modelMap) {
@@ -72,6 +79,7 @@ public class ComponentController extends BaseController {
     @PostMapping("/save")
     @ResponseBody
     public Result saveUser(Component component) {
+        String type = component.getSaveType();
         if (!StringUtils.isEmpty(component.getId())) {
             //修改
             Component old = componentService.findOne(component.getId());
@@ -96,8 +104,16 @@ public class ComponentController extends BaseController {
             }
         }
 
-        if (component.getSaveType().equals("save_article_update_page_btn")){
-
+        if (!StringUtils.isEmpty(type) && type.equals("save_article_update_page_btn")) {
+            List<ComponentImage> componentImageList = componentImageServer.findByComponentReferenceId(component.getId());
+            for (ComponentImage componentImage : componentImageList) {
+                componentImage.setComponentBodyApi(component.getComponentBodyApi());
+                componentImage.setApiDataStructureType(component.getApiDataStructureType());
+                componentImage.setDataFilters(component.getDataFilters());
+                componentImage.setComponentName(component.getComponentName());
+                componentImage.setComponentBody(component.getComponentBody());
+                componentImageServer.save(componentImage);
+            }
         }
         return success(componentService.save(component));
     }
