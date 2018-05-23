@@ -71,6 +71,7 @@ public class CommonUtil {
                 .sorted(Comparator.comparing(PageComponentAssociate::getSorts))
                 .collect(Collectors.toList());
 
+        SeoDTO seoDTO = new SeoDTO(page.getId(), page.getKeywords(), page.getDescription(), page.getTitle());
         Document doc = null;
         List<ComponentImage> componentImages = new ArrayList<>();
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
@@ -119,7 +120,7 @@ public class CommonUtil {
             }
         }
         if (!ObjectUtils.isEmpty(doc)) {
-            doc = addHtmlDepend(doc, new SeoDTO());
+            doc = addHtmlDepend(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }

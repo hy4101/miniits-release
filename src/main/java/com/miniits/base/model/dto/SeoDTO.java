@@ -52,4 +52,14 @@ public class SeoDTO {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public SeoDTO() {
+    }
+
+    public SeoDTO(String id, String keywords, String description, String title) {
+        this.id = id;
+        this.keywords = keywords;
+        this.description = description;
+        this.title = title;
+    }
 }

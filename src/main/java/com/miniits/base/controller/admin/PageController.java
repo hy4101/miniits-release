@@ -104,6 +104,7 @@ public class PageController extends BaseController {
     @PostMapping("/setting/seo")
     @ResponseBody
     public Result setSeo(SeoDTO seoDTO) {
+        seoDTO.setKeywords(seoDTO.getKeywords().replaceAll("，", ","));
         pageService.setPageSeo(seoDTO);
         return success("设置成功");
     }
