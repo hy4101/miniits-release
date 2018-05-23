@@ -10,7 +10,7 @@ import com.miniits.base.model.entity.Component;
  * Description:
  * ***
  */
-public class AppPushDto {
+public class AppPushDTO {
 
     private Component component;
 

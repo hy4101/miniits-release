@@ -31,6 +31,12 @@ public class Page extends BaseEntity {
 
     private Integer createStaticFile;
 
+    private String keywords;
+
+    private String description;
+
+    private String title;
+
     @Column(name = "create_static_file", nullable = false)
     public Integer getCreateStaticFile() {
         return createStaticFile;
@@ -87,5 +93,32 @@ public class Page extends BaseEntity {
 
     public void setPageAliasName(String pageAliasName) {
         this.pageAliasName = pageAliasName;
+    }
+
+    @Column(name = "key_word",length = 500)
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
+    @Column(name = "description",length = 2000)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @Column(name = "title",length = 500)
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

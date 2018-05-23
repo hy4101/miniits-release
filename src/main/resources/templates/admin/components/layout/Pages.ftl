@@ -222,7 +222,7 @@
                     field: 'operate',
                     title: '操作',
                     align: 'center',
-                    width: 260,
+                    width: 300,
                     events: operateEvents,
                     formatter: operateFormatter
                 }],
@@ -367,7 +367,7 @@
             var editBtns = [
                 '<button type="button" class="page-delete btn btn-delete btn-sm" style="margin-right:10px;"><i class="fa fa-trash-o" aria-hidden="true"></i></button>',
                 '<button type="button" class="page-edit btn btn-primary btn-sm" style="margin-right:10px;"><i class="fa fa-pencil" aria-hidden="true"></i></button>',
-                '<button type="button" class="page-setting btn btn-primary btn-sm" style="margin-right:10px;"><i class="fa fa-cogs" aria-hidden="true"></i></button>'
+                '<button type="button" class="page-setting btn btn-primary btn-sm" style="margin-right:10px;background-color: #5cb85c;"><i class="fa fa-cogs" aria-hidden="true"></i></button>'
             ];
             var statusBtn = '<button type="button" class="page-status-disabled btn btn-warning btn-sm" style="margin-right:10px;">禁用</button>';
             if (row.pageStatus === 100000002) {
@@ -424,7 +424,7 @@
                 win.commitPage(row);
             },
             'click .page-setting': function (e, value, row, index) {
-                $("#page_setting_title").text("页面设置");
+                $("#page_setting_title").text("SEO设置");
                 $('#page_setting_modal').modal();
                 win.commitPageSetting(row);
             },

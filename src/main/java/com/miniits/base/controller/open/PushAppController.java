@@ -1,6 +1,6 @@
 package com.miniits.base.controller.open;
 
-import com.miniits.base.model.dto.AppPushDto;
+import com.miniits.base.model.dto.AppPushDTO;
 import com.miniits.base.model.entity.AppStore;
 import com.miniits.base.service.AppStoreServer;
 import com.miniits.base.utils.BaseController;
@@ -39,7 +39,7 @@ public class PushAppController extends BaseController {
     }
 
     @GetMapping("/apps")
-    public Result apps(@RequestBody AppPushDto appPushDto) {
+    public Result apps(@RequestBody AppPushDTO appPushDto) {
         appStoreServer.save(ConvertUtil.toVO(appPushDto, AppStore.class));
         return success("应用发布成功");
     }

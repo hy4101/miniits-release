@@ -1,5 +1,6 @@
 package com.miniits.base.utils;
 
+import com.miniits.base.model.dto.SeoDTO;
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Image;
 import com.miniits.base.model.entity.Page;
@@ -118,7 +119,7 @@ public class CommonUtil {
             }
         }
         if (!ObjectUtils.isEmpty(doc)) {
-            doc = addHtmlDepend(doc, new SEO());
+            doc = addHtmlDepend(doc, new SeoDTO());
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }

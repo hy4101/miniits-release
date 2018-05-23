@@ -2,6 +2,7 @@ package com.miniits.base.service;
 
 import com.miniits.base.dao.PageComponentAssociateRepository;
 import com.miniits.base.dao.PageRepository;
+import com.miniits.base.model.dto.SeoDTO;
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
@@ -15,8 +16,8 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 import static com.miniits.base.utils.SystemDict.Component.COMPONENT_SOURCE_SYSTEM;
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -107,14 +108,6 @@ public class PageService extends BaseServiceImpl<Page, String> {
         return pageComponentAssociate;
     }
 
-    public void changeStatus(String id, Integer userStatusCode) {
-        pageRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
-    }
-
-    public void setCreateHtmlFile(String id, Integer createStaticFile) {
-        pageRepository.setCreateHtmlFile(id, createStaticFile);
-    }
-
     @Override
     public void delete(String id) {
         if (!ObjectUtils.isEmpty(pageComponentAssociateRepository.findByPage_Id(id))) {
@@ -133,6 +126,18 @@ public class PageService extends BaseServiceImpl<Page, String> {
             page.setPageComponentAssociates(initPage(page));
         }
         return pageRepository.save(page);
+    }
+
+    public void changeStatus(String id, Integer userStatusCode) {
+        pageRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
+    }
+
+    public void setCreateHtmlFile(String id, Integer createStaticFile) {
+        pageRepository.setCreateHtmlFile(id, createStaticFile);
+    }
+
+    public void setPageSeo(SeoDTO seoDTO) {
+        pageRepository.setPageSeo(seoDTO.getId(), seoDTO.getKeywords(), seoDTO.getTitle(), seoDTO.getDescription());
     }
 
 }
