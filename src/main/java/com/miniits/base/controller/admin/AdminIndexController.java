@@ -19,7 +19,8 @@ public class AdminIndexController {
 
     @GetMapping
     public String index(ModelMap modelMap) {
-        return "admin/Index";
+        modelMap.put("active", "dashboard");
+        return "admin/views/content/Articles";
     }
 
 }
