@@ -1,6 +1,6 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.model.dto.AppPushDto;
+import com.miniits.base.model.dto.AppPushDTO;
 import com.miniits.base.model.entity.Component;
 import com.miniits.base.model.entity.User;
 import com.miniits.base.service.ComponentService;
@@ -55,7 +55,7 @@ public class PushCompontenController extends BaseController {
 //        params.add("appType", APP_TYPE_COMPONENT.toString());
 //        params.add("appTypeName", "组件");
 
-        AppPushDto appPushDto = new AppPushDto();
+        AppPushDTO appPushDto = new AppPushDTO();
         appPushDto.setComponent(component);
         appPushDto.setAuthorId(ObjectUtils.isEmpty(currentUser) ? "AuthorId" : currentUser.getId());
         appPushDto.setAuthorName(ObjectUtils.isEmpty(currentUser) ? "AuthorName" : currentUser.getUserName());
