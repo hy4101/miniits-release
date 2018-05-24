@@ -49,11 +49,6 @@ public class PushCompontenController extends BaseController {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
-//        params.add("app", toJson(component));
-//        params.add("authorId", ObjectUtils.isEmpty(currentUser) ? null : currentUser.getId());
-//        params.add("authorName", ObjectUtils.isEmpty(currentUser) ? null : currentUser.getUserName());
-//        params.add("appType", APP_TYPE_COMPONENT.toString());
-//        params.add("appTypeName", "组件");
 
         AppPushDTO appPushDto = new AppPushDTO();
         appPushDto.setComponent(component);

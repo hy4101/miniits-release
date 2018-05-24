@@ -27,8 +27,6 @@
                 <div class="modal-body">
                     <div class="form-group div-form-group">
                         <label for="txt_departmentname" class="label-form-group-title-item">页面描述 :</label>
-                    <#--<input type="textarea" class="form-control input-form-group-value-item"-->
-                    <#--placeholder="提示：页面描述">-->
                         <textarea placeholder="提示：页面描述" style="width: 100%;" id="description"></textarea>
                     </div>
                 </div>
