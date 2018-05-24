@@ -1,5 +1,6 @@
 package com.miniits.base.utils;
 
+import com.miniits.base.model.dto.SeoDTO;
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Image;
 import com.miniits.base.model.entity.Page;
@@ -70,6 +71,7 @@ public class CommonUtil {
                 .sorted(Comparator.comparing(PageComponentAssociate::getSorts))
                 .collect(Collectors.toList());
 
+        SeoDTO seoDTO = new SeoDTO(page.getId(), page.getKeywords(), page.getDescription(), page.getTitle());
         Document doc = null;
         List<ComponentImage> componentImages = new ArrayList<>();
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
@@ -118,7 +120,7 @@ public class CommonUtil {
             }
         }
         if (!ObjectUtils.isEmpty(doc)) {
-            doc = addHtmlDepend(doc, new SEO());
+            doc = addHtmlDepend(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }

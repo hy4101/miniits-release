@@ -1,5 +1,6 @@
 package com.miniits.base.controller.admin;
 
+import com.miniits.base.model.dto.SeoDTO;
 import com.miniits.base.model.vo.PageVO;
 import com.miniits.base.model.vo.UserVO;
 import com.miniits.base.mysql.Pageable;
@@ -98,6 +99,14 @@ public class PageController extends BaseController {
         }
         pageService.setCreateHtmlFile(id, createStaticFile);
         return success("更改成功");
+    }
+
+    @PostMapping("/setting/seo")
+    @ResponseBody
+    public Result setSeo(SeoDTO seoDTO) {
+        seoDTO.setKeywords(seoDTO.getKeywords().replaceAll("，", ","));
+        pageService.setPageSeo(seoDTO);
+        return success("设置成功");
     }
 
 }

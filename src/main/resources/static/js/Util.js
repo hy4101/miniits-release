@@ -28,7 +28,7 @@
             '<div class="modal-header" style="border-bottom: 0">' +
             '<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>' +
             '</div>' +
-            '<div class="modal-body" style="text-align: center; color: red;font-size: 94px;"><i class="fa fa-trash-o fa-6" aria-hidden="true"></i></div>' +
+            '<div class="modal-body" style="text-align: center; color: red;font-size: 94px;"><i class="[Font]" aria-hidden="true"></i></div>' +
             '<h4 class="modal-title" style="text-align: center;" id="modalLabel">[Title]</h4>' +
             '<div class="modal-body" style="text-align: center;"><p>[Message]</p></div>' +
             '<div class="modal-footer" style="text-align: center;">' +
@@ -70,6 +70,7 @@
             var content = html.replace(reg, function (node, key) {
                 return {
                     Id: modalId,
+                    Font: options.font || 'fa fa-trash-o fa-6',
                     Title: options.title,
                     Message: options.message,
                     BtnOk: options.btnok,

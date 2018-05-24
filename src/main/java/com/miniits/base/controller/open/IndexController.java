@@ -1,13 +1,10 @@
 package com.miniits.base.controller.open;
 
-import com.miniits.base.service.PageService;
 import com.miniits.base.utils.ComponentImageAndDocument;
 import freemarker.template.TemplateException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,30 +27,15 @@ import static com.miniits.base.utils.SystemFile.isPackageExist;
  * WWW.MINIITS.COM
  */
 @Controller
-@RequestMapping()
+@RequestMapping("/")
 public class IndexController {
-
-    @Autowired
-    private PageService pageService;
-
-    @GetMapping
-    public String test(ModelMap modelMap) {
-        return "redirect:/index";
-    }
-
-    @GetMapping("/{path}")
-    public String path(
-            @PathVariable(value = "path") String path,
-            ModelMap modelMap) {
-        return "default/Article-Detail";
-    }
 
     @GetMapping(value = {"index", "index.html"})
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         if (fileExists(getPath("templates/customize/") + "/index.html")) {
             return "index";
         }
-        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index",httpServletRequest);
+        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
         createTemplateFile("ftl-index", componentImageAndDocument.getDocument().toString()
                 .replaceAll("<!--#list-->", "</#list>")
                 .replaceAll("&lt;", "<")

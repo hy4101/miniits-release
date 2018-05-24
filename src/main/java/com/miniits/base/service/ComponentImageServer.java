@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 /**
@@ -31,5 +33,9 @@ public class ComponentImageServer extends BaseServiceImpl<ComponentImage, String
 
     public void changeStatus(String id, Integer userStatusCode) {
         componentImageReposiory.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
+    }
+
+    public List<ComponentImage> findByComponentReferenceId(String componentReferenceId) {
+        return componentImageReposiory.findByComponentReferenceId(componentReferenceId);
     }
 }

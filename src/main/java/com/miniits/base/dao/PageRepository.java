@@ -24,6 +24,10 @@ public interface PageRepository extends BaseRepository<Page, String> {
     @Query("update Page set createStaticFile =:createStaticFile where id =:id")
     void setCreateHtmlFile(@Param("id") String id, @Param("createStaticFile") Integer createStaticFile);
 
+    @Modifying
+    @Query("update Page set keywords =:keywords,title =:title,description =:description where id =:id")
+    void setPageSeo(@Param("id") String id, @Param("keywords") String keywords, @Param("title") String title, @Param("description") String description);
+
     Page findByPageNameAndPageStatus(@Param("pageName") String pageName, @Param("pageStatus") Integer pageStatus);
 
 }

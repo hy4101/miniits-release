@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/static/css/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="/static/css/Miniits.min.css">
     <link rel="stylesheet" href="/static/css/all-skins.min.css">
+    <link rel="stylesheet" href="/static/css/Miniits_Common.css">
 
     <script src="/static/js/jQuery-3.3.1.min.js"></script>
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

@@ -12,7 +12,7 @@ import java.util.Date;
  * Description:
  * ***
  */
-public class AppPushDto {
+public class AppPushDTO {
 
     private Component component;
 

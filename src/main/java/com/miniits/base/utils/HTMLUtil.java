@@ -1,5 +1,6 @@
 package com.miniits.base.utils;
 
+import com.miniits.base.model.dto.SeoDTO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -95,15 +96,16 @@ public class HTMLUtil {
      * @param doc
      * @return
      */
-    public static Document addHtmlDepend(Document doc, SEO seo) {
+    public static Document addHtmlDepend(Document doc, SeoDTO seo) {
         doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
         doc.getElementsByTag("head").append("<title>" + seo.getTitle() + "</title>");
-        doc.getElementsByTag("head").append("<meta name=\"keywords\" content=\"" + seo.getKeys() + "\">");
+        doc.getElementsByTag("head").append("<meta name=\"keywords\" content=\"" + seo.getKeywords() + "\">");
         doc.getElementsByTag("head").append("<meta name=\"description\" content=\"" + seo.getDescription() + "\">");
         doc.getElementsByTag("head").append("<script src=\"/static/js/jQuery-3.3.1.min.js\"></script>");
         doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"/static/bootstrap-3.3.7-dist/css/bootstrap.css\" >");
         doc.getElementsByTag("head").append("<script src=\"/static/bootstrap-3.3.7-dist/js/bootstrap.js\"></script>");
         doc.getElementsByTag("head").append("<link href=\"/static/css/font-awesome/font-awesome.min.css\" rel=\"stylesheet\">");
+        doc.getElementsByTag("head").append("<link href=\"/static/css/Miniits_Common.css\" rel=\"stylesheet\">");
         return doc;
     }
 
