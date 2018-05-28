@@ -12,6 +12,7 @@ import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.FileUtil.fileExists;
+import static com.miniits.base.utils.HTMLUtil.convertFreemarkerFormat;
 import static com.miniits.base.utils.HTMLUtil.createHtml;
 import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -30,16 +31,13 @@ import static com.miniits.base.utils.SystemFile.isPackageExist;
 @RequestMapping("/")
 public class IndexController {
 
-    @GetMapping(value = {"index", "index.html"})
+    @GetMapping(value = {"/", "index", "index.html"})
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         if (fileExists(getPath("templates/customize/") + "/index.html")) {
             return "index";
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
-        createTemplateFile("ftl-index", componentImageAndDocument.getDocument().toString()
-                .replaceAll("<!--#list-->", "</#list>")
-                .replaceAll("&lt;", "<")
-                .replaceAll("&gt;", ">"));
+        createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         modelMap = componentImageAndDocument.getModelMap();
         modelMap = renderingPage(modelMap);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {

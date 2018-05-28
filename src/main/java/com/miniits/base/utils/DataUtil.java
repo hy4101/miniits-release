@@ -1,11 +1,18 @@
 package com.miniits.base.utils;
 
+
+import com.miniits.base.model.entity.Article;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.*;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.domain.Page;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.stream.Collectors;
+
+import static com.miniits.base.utils.HTMLUtil.markdownToHtml;
 
 /**
  * @author: wq
@@ -17,6 +24,10 @@ import java.util.stream.Collectors;
  */
 public class DataUtil {
 
+    /**
+     * markdown解析器
+     */
+//    private static Parser parser = Parser.builder().build();
     private static String apply(String filter) {
         if (filter.indexOf("pageSize") >= 0) {
             return "";
@@ -106,10 +117,18 @@ public class DataUtil {
         Map<String, Object> apis = new HashMap<>();
         switch (api) {
             case ApiNames.ARTICLE_SEARCH:
-                apis.put("article/search", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
+                Page<Article> articlePage = SpringContextHolder.getBean(ArticleServer.class).search(pageable);
+                articlePage.forEach(article -> {
+                    article.setContent(markdownToHtml(article.getContent()));
+                });
+                apis.put("article/search", articlePage);
                 break;
             case ApiNames.ARTICLE_SEARCH_ONE:
-                apis.put("article/search-one", SpringContextHolder.getBean(ArticleServer.class).search(pageable));
+                Page<Article> page = SpringContextHolder.getBean(ArticleServer.class).search(pageable);
+                page.forEach(article -> {
+                    article.setContent(markdownToHtml(article.getContent()));
+                });
+                apis.put("article/search-one", page);
                 break;
             case ApiNames.IMAGE_SEARCH:
                 apis.put("image/search", SpringContextHolder.getBean(ImageServer.class).search(pageable));
@@ -153,4 +172,5 @@ public class DataUtil {
         map.put("page", StringUtils.isNotEmpty(pageFilter(filters)) ? pageFilter(filters).split("=")[1] : "");
         return map;
     }
+
 }

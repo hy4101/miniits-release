@@ -57,11 +57,13 @@ public class CommonUtil {
      * 获取该页面的所有组件
      * 组件在父组件内的排序
      * 组件合并页面
+     * 数据渲染页面
      *
      * @return 组件列表和结构页面
      */
     public static ComponentImageAndDocument mergePage(ModelMap modelMap, String pageName, HttpServletRequest httpServletRequest) {
         StringBuffer html = new StringBuffer();
+        String urlFilters = httpServletRequest.getParameter("filters");
         String requestURI = httpServletRequest.getRequestURI();
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
         Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
@@ -76,6 +78,7 @@ public class CommonUtil {
         List<ComponentImage> componentImages = new ArrayList<>();
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
             ComponentImage componentImage = pageComponentAssociates.get(i).getComponentImage();
+            String filters = org.springframework.util.StringUtils.isEmpty(urlFilters) ? urlFilters : componentImage.getDataFilters();
 
             if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
                 componentImages.add(componentImage);
@@ -100,8 +103,8 @@ public class CommonUtil {
                 /**
                  * 根据 API 获取数据
                  */
-                if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
-                    Map<String, Object> map = getPageData(componentImage.getDataFilters());
+                if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi()) && !org.springframework.util.StringUtils.isEmpty(filters)) {
+                    Map<String, Object> map = getPageData(filters);
 
                     org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
                             new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));

@@ -1,6 +1,12 @@
 package com.miniits.base.utils;
 
 import com.miniits.base.model.dto.SeoDTO;
+import com.vladsch.flexmark.ast.Node;
+import com.vladsch.flexmark.ext.tables.TablesExtension;
+import com.vladsch.flexmark.html.HtmlRenderer;
+import com.vladsch.flexmark.parser.Parser;
+import com.vladsch.flexmark.parser.ParserEmulationProfile;
+import com.vladsch.flexmark.util.options.MutableDataSet;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -10,6 +16,7 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.*;
+import java.util.Arrays;
 import java.util.Map;
 
 import static com.miniits.base.utils.FileUtil.deleteFile;
@@ -60,6 +67,39 @@ public class HTMLUtil {
         writer.flush();
         writer.close();
         return path;
+    }
+
+    /**
+     * 将 markdown 文本内容转成 html 格式
+     *
+     * @param markdown
+     * @return
+     */
+    public static String markdownToHtml(String markdown) {
+        MutableDataSet options = new MutableDataSet();
+        options.setFrom(ParserEmulationProfile.MARKDOWN);
+        options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create()));
+
+        Parser parser = Parser.builder(options).build();
+        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+        Node document = parser.parse(markdown);
+        renderer.render(document);
+        return renderer.render(document);
+    }
+
+    /**
+     * 将 html 转化成 freemarker 格式
+     *
+     * @param document
+     * @return
+     */
+    public static String convertFreemarkerFormat(String document) {
+        document = document
+                .replaceAll("<!--#list-->", "</#list>")
+                .replaceAll("<!--#if--> ", "</#if>")
+                .replaceAll("&lt;", "<")
+                .replaceAll("&gt;", ">");
+        return document;
     }
 
     /**

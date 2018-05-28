@@ -13,6 +13,7 @@ import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.FileUtil.fileExists;
+import static com.miniits.base.utils.HTMLUtil.convertFreemarkerFormat;
 import static com.miniits.base.utils.HTMLUtil.createHtml;
 import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -43,10 +44,7 @@ public class OrtherPageController {
             return pageName + "/" + pageName;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName,httpServletRequest);
-        createTemplateFile("ftl-" + pageName, componentImageAndDocument.getDocument().toString()
-                .replaceAll("<!--#list-->", "</#list>")
-                .replaceAll("&lt;", "<")
-                .replaceAll("&gt;", ">"));
+        createTemplateFile("ftl-" + pageName, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         modelMap = componentImageAndDocument.getModelMap();
         modelMap = renderingPage(modelMap, pageName);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
