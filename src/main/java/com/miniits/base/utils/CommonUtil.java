@@ -149,18 +149,22 @@ public class CommonUtil {
 
     @Test
     public void sdf() {
-        String regex = "\\{object\\.[a-zA-Z]*\\}";
+        String regex = "\\$\\{object\\.[a-zA-Z]*\\}";
         Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher("{object.s7},{object.ews}");
-        String asdf = "{object.s},{object.ase}".replaceAll(regex, "test");
-        System.out.println("62:" + asdf);
+        Matcher m = p.matcher("${object.s},${object.ews}");
+
 //        System.out.println("1:" + m.groupCount());
 //        System.out.println("2:" + m.matches());
 //        System.out.println("3:" + m.find());
 //        System.out.println("4:" + m.find(8));
 //        StringBuffer sb = new StringBuffer();
         while (m.find()) {
-            System.out.println("8:" + m.group());
+            String par = m.group();
+            System.out.println("8:" + par);
+            String ip = par.substring(2, par.length() - 1);
+            System.out.println("8:" + par);
+            String asdf = m.replaceAll("<#if (" + ip + ")??>" + par + "</#if>");
+            System.out.println("62:" + asdf);
         }
 //        m.appendTail(sb);
 //        System.out.println("5:" + sb.toString());
