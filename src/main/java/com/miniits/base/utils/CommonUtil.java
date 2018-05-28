@@ -163,7 +163,7 @@ public class CommonUtil {
             System.out.println("8:" + par);
             String ip = par.substring(2, par.length() - 1);
             System.out.println("8:" + par);
-            String asdf = m.replaceAll("<#if (" + ip + ")??>" + par + "</#if>");
+            String asdf = m.quoteReplacement("<#if (" + ip + ")??>" + par + "</#if>");
             System.out.println("62:" + asdf);
         }
 //        m.appendTail(sb);
