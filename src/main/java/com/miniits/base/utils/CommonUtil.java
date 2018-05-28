@@ -12,19 +12,17 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.junit.jupiter.api.Test;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.DataUtil.getData;
 import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
+import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
 import static com.miniits.base.utils.Result.getTotalPage;
 import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_NO_PAGE;
 import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_PAGE;
@@ -81,7 +79,7 @@ public class CommonUtil {
         List<ComponentImage> componentImages = new ArrayList<>();
         for (int i = 0; i < pageComponentAssociates.size(); i++) {
             ComponentImage componentImage = pageComponentAssociates.get(i).getComponentImage();
-            String filters = org.springframework.util.StringUtils.isEmpty(urlFilters) ? urlFilters : componentImage.getDataFilters();
+            String filters = !org.springframework.util.StringUtils.isEmpty(urlFilters) ? urlFilters : componentImage.getDataFilters();
 
             if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi())) {
                 componentImages.add(componentImage);
@@ -111,7 +109,7 @@ public class CommonUtil {
 
                     org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
                             new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));
-
+                    body = freemarkerIsNull(body);
                     body = body.replaceAll("object\\.", str + ".");
                     body = judgmentComponentType(body);
                     if (null != componentImage.getApiDataStructureType() && Arrays.asList(API_DATA_STRUCTURE_TYPE_PAGE, API_DATA_STRUCTURE_TYPE_NO_PAGE).contains(componentImage.getApiDataStructureType())) {
@@ -129,79 +127,6 @@ public class CommonUtil {
             doc = addHtmlDepend(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
-    }
-
-    public void renderStringwq() {
-        String content = "3";
-//        Set<Map.Entry<String, String>> sets = map.entrySet();
-//        for (Map.Entry<String, String> entry : sets) {
-        String regex = "3";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(content);
-        boolean a = content.matches(regex);
-        content = matcher.replaceAll("格式");
-//        }
-//        return content;
-        System.out.println(matcher.replaceAll("哈"));
-        System.out.println(content);
-    }
-
-
-    @Test
-    public void sdf() {
-        String regex = "\\$\\{object\\.[a-zA-Z]*\\}";
-        Pattern p = Pattern.compile(regex);
-        Matcher m = p.matcher("${object.s},${object.ews}");
-
-//        System.out.println("1:" + m.groupCount());
-//        System.out.println("2:" + m.matches());
-//        System.out.println("3:" + m.find());
-//        System.out.println("4:" + m.find(8));
-//        StringBuffer sb = new StringBuffer();
-        while (m.find()) {
-            String par = m.group();
-            System.out.println("8:" + par);
-            String ip = par.substring(2, par.length() - 1);
-            System.out.println("8:" + par);
-            String asdf = m.quoteReplacement("<#if (" + ip + ")??>" + par + "</#if>");
-            System.out.println("62:" + asdf);
-        }
-//        m.appendTail(sb);
-//        System.out.println("5:" + sb.toString());
-
-//        System.out.println("6:" + m.replaceAll("per"));
-//        System.out.println("7:" + m.replaceFirst("per"));
-
-//        while (m.find()) {
-//            System.out.println("8:" + m.group());
-//        }
-    }
-
-//    private static Test monitor = new Test();
-
-    public static void main(String[] args) {
-        Matcher m = Pattern.compile("//w+").matcher("Evening is full of the linnet's wings");
-        while (m.find())
-            System.out.println(m.group());
-        int i = 0;
-        while (m.find(i)) {
-            System.out.print(m.group() + " ");
-            i++;
-        }
-
-//        monitor.expect(new String[]{
-//                "Evening",
-//                "is",
-//                "full",
-//                "of",
-//                "the",
-//                "linnet",
-//                "s",
-//                "wings",
-//                "Evening vening ening ning ing ng g is is s full " +
-//                        "full ull ll l of of f the the he e linnet linnet " +
-//                        "innet nnet net et t s s wings wings ings ngs gs s "
-//        });
     }
 
     //组件交互

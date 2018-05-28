@@ -10,6 +10,7 @@ import com.vladsch.flexmark.util.options.MutableDataSet;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Component;
 
@@ -18,6 +19,8 @@ import javax.annotation.Resource;
 import java.io.*;
 import java.util.Arrays;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.miniits.base.utils.FileUtil.deleteFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -100,6 +103,33 @@ public class HTMLUtil {
                 .replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">");
         return document;
+    }
+
+
+    public static String freemarkerIsNull(String content) {
+        String regex = "\\$\\{object\\.[a-zA-Z]*\\}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(content);
+        while (m.find()) {
+            String par = m.group();
+            par = escapeExprSpecialWord(par);
+            String ip = par.substring(4, par.length() - 1);
+            content = content.replaceAll(par, "<#if (" + ip + ")??>" + par + "</#if>");
+        }
+        System.out.println(content);
+        return content;
+    }
+
+    public static String escapeExprSpecialWord(String keyword) {
+        if (StringUtils.isNotBlank(keyword)) {
+            String[] fbsArr = {"$", "{", "}"};
+            for (String key : fbsArr) {
+                if (keyword.contains(key)) {
+                    keyword = keyword.replace(key, "\\" + key);
+                }
+            }
+        }
+        return keyword;
     }
 
     /**
