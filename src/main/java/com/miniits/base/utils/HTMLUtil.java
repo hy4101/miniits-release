@@ -139,7 +139,7 @@ public class HTMLUtil {
      * @param fileContent
      */
     public static void createTemplateFile(String fileName, String fileContent) {
-        byte[] sourceByte = fileContent.getBytes();
+        byte[] sourceByte = ("<@compress single_line=true>" + fileContent + "</@compress>").getBytes();
         if (null != sourceByte) {
             try {
                 String path = getPath("templates/") + "/" + fileName + ".ftl";
