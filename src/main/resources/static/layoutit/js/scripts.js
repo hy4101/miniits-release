@@ -293,9 +293,9 @@ $(document).ready(function () {
         if (componentName == null || componentName == '' || componentName == undefined) {
             return toastr.error('组件名称不能为空');
         }
-        if ((componentBodyApi != null && componentBodyApi != '' && componentBodyApi != undefined) && (dataFilters == null || dataFilters == '' || dataFilters == undefined)) {
-            return toastr.error('选择了api，必须填写过滤条件');
-        }
+        // if ((componentBodyApi != null && componentBodyApi != '' && componentBodyApi != undefined) && (dataFilters == null || dataFilters == '' || dataFilters == undefined)) {
+        //     return toastr.error('选择了api，必须填写过滤条件');
+        // }
         var component = {
             componentBodyApi: componentBodyApi.split('=')[1],
             apiDataStructureType: componentBodyApi.split('=')[0],

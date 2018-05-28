@@ -12,11 +12,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.junit.jupiter.api.Test;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.DataUtil.getData;
@@ -126,6 +129,75 @@ public class CommonUtil {
             doc = addHtmlDepend(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
+    }
+
+    public void renderStringwq() {
+        String content = "3";
+//        Set<Map.Entry<String, String>> sets = map.entrySet();
+//        for (Map.Entry<String, String> entry : sets) {
+        String regex = "3";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(content);
+        boolean a = content.matches(regex);
+        content = matcher.replaceAll("格式");
+//        }
+//        return content;
+        System.out.println(matcher.replaceAll("哈"));
+        System.out.println(content);
+    }
+
+
+    @Test
+    public void sdf() {
+        String regex = "\\{object\\.[a-zA-Z]*\\}";
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher("{object.s7},{object.ews}");
+        String asdf = "{object.s},{object.ase}".replaceAll(regex, "test");
+        System.out.println("62:" + asdf);
+//        System.out.println("1:" + m.groupCount());
+//        System.out.println("2:" + m.matches());
+//        System.out.println("3:" + m.find());
+//        System.out.println("4:" + m.find(8));
+//        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            System.out.println("8:" + m.group());
+        }
+//        m.appendTail(sb);
+//        System.out.println("5:" + sb.toString());
+
+//        System.out.println("6:" + m.replaceAll("per"));
+//        System.out.println("7:" + m.replaceFirst("per"));
+
+//        while (m.find()) {
+//            System.out.println("8:" + m.group());
+//        }
+    }
+
+//    private static Test monitor = new Test();
+
+    public static void main(String[] args) {
+        Matcher m = Pattern.compile("//w+").matcher("Evening is full of the linnet's wings");
+        while (m.find())
+            System.out.println(m.group());
+        int i = 0;
+        while (m.find(i)) {
+            System.out.print(m.group() + " ");
+            i++;
+        }
+
+//        monitor.expect(new String[]{
+//                "Evening",
+//                "is",
+//                "full",
+//                "of",
+//                "the",
+//                "linnet",
+//                "s",
+//                "wings",
+//                "Evening vening ening ning ing ng g is is s full " +
+//                        "full ull ll l of of f the the he e linnet linnet " +
+//                        "innet nnet net et t s s wings wings ings ngs gs s "
+//        });
     }
 
     //组件交互

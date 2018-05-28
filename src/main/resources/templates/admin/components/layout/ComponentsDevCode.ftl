@@ -148,9 +148,9 @@
             var componentBodyApi = $("#componentBodyApi").val();
             var componentName = $("#componentName").val();
             var dataFilters = $("#dataFilters").val();
-            if ((!isEmpty(componentBodyApi)) && (isEmpty(dataFilters))) {
-                return toastr.error('选择了api，必须填写过滤条件');
-            }
+            // if ((!isEmpty(componentBodyApi)) && (isEmpty(dataFilters))) {
+            //     return toastr.error('选择了api，必须填写过滤条件');
+            // }
             var id = null;
                <#if development??&&development.id??>
                    id = '${development.id}';
