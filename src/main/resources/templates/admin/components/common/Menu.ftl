@@ -95,9 +95,6 @@
                         <li class="menu-item"><a href="/admin/contents/article/publish/init?id="><i
                                 class="fa fa-paperclip" aria-hidden="true"></i>发布文章</a></li>
                         <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip"
-                                                                                        aria-hidden="true"></i>采集文章</a>
-                        </li>
-                        <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip"
                                                                                         aria-hidden="true"></i>文章管理</a>
                         </li>
                         <li class="menu-item"><a href="/admin/tags/init"><i class="fa fa-puzzle-piece"

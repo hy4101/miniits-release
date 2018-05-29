@@ -99,7 +99,7 @@ public class HTMLUtil {
     public static String convertFreemarkerFormat(String document) {
         document = document
                 .replaceAll("<!--#list-->", "</#list>")
-                .replaceAll("<!--#if--> ", "</#if>")
+                .replaceAll("<!--#if-->", "</#if>")
                 .replaceAll("&lt;", "<")
                 .replaceAll("&gt;", ">");
         return document;
@@ -113,8 +113,8 @@ public class HTMLUtil {
         while (m.find()) {
             String par = m.group();
             par = escapeExprSpecialWord(par);
-            String ip = par.substring(4, par.length() - 1);
-            content = content.replaceAll(par, "<#if (" + ip + ")??>" + par + "</#if>");
+            String condition = par.substring(4, par.length() - 1);
+            content = content.replaceAll(par, "<#if (" + condition + ")??>" + par + "</#if>");
         }
         System.out.println(content);
         return content;

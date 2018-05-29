@@ -37,23 +37,23 @@ public class DataUtil {
         }
         if (filter.indexOf("?") > 0) {
             filter.replaceAll("\\?", "=");
-            return "LIKE_" + filter;
+            return "LIKE_" + filter.replaceAll("\\?", "=");
         }
         if (filter.indexOf(">") > 0) {
             filter.replaceAll(">", "=");
-            return "GT_" + filter;
+            return "GT_" + filter.replaceAll(">", "=");
         }
         if (filter.indexOf("<") > 0) {
             filter.replaceAll("<", "=");
-            return "LT_" + filter;
+            return "LT_" + filter.replaceAll("<", "=");
         }
         if (filter.indexOf(">=") > 0) {
             filter.replaceAll(">=", "=");
-            return "GTE_" + filter;
+            return "GTE_" + filter.replaceAll(">=", "=");
         }
         if (filter.indexOf("<=") > 0) {
             filter.replaceAll("<=", "=");
-            return "LTE_" + filter;
+            return "LTE_" + filter.replaceAll("<=", "=");
         }
         return null;
     }
