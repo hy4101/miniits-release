@@ -125,6 +125,7 @@
             </div>
         </div>
     </div>
+<#include "ImagesDialog.ftl"/>
 </div>
 <script>
     (function ($, win) {
@@ -177,6 +178,31 @@
         function initArticlesPublish() {
             editor = editormd("div-editormd", {
                 width: "95%",
+                // toolbarIcons: function () {
+                //     // Or return editormd.toolbarModes[name]; // full, simple, mini
+                //     // Using "||" set icons align right.
+                //     return ["undo", "redo", "|", "bold", "hr", "h1", "|", "preview", "watch", "|", "fullscreen", "info", "testIcon", "testIcon2", "file", "faicon", "||", "watch", "fullscreen", "preview", "imageUpload"]
+                // },
+                toolbarIconsClass: {
+                    imageUpload: "fa-cloud-upload"  // 指定一个FontAawsome的图标类
+                },
+                // 自定义工具栏按钮的事件处理
+                toolbarHandlers: {
+                    /**
+                     * @param {Object}      cm         CodeMirror对象
+                     * @param {Object}      icon       图标按钮jQuery元素对象
+                     * @param {Object}      cursor     CodeMirror的光标对象，可获取光标所在行和位置
+                     * @param {String}      selection  编辑器选中的文本
+                     */
+                    imageUpload: function (cm, icon, cursor, selection) {
+                        $('#div_select_image_modal').modal();
+                    },
+
+                    testIcon2: function (cm, icon, cursor, selection) {
+                        cm.replaceSelection("[" + selection + ":testIcon2](" + icon.html() + ")");
+                        console.log("testIcon2 =>", this, icon.html());
+                    }
+                },
                 height: 1000,
                 syncScrolling: "single",
                 htmlDecode: "style,script,iframe",

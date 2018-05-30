@@ -96,7 +96,7 @@ public class CommonUtil {
                 String cId = pageComponentAssociates.stream().filter(pca -> pca.getComponentImage().getId().equals(pId)).collect(Collectors.toList()).get(0).getComponentImage().getComponentId();
                 Elements element = doc.getElementsByAttributeValue("componentId", cId);
                 String body = componentImage.getComponentBody();
-
+                body = freemarkerIsNull(body);
                 String str = randomStr();
                 while (modelMap.containsKey(str)) {
                     str = randomStr();
@@ -109,7 +109,7 @@ public class CommonUtil {
 
                     org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
                             new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));
-                    body = freemarkerIsNull(body);
+
                     body = body.replaceAll("object\\.", str + ".");
                     body = judgmentComponentType(body);
                     if (null != componentImage.getApiDataStructureType() && Arrays.asList(API_DATA_STRUCTURE_TYPE_PAGE, API_DATA_STRUCTURE_TYPE_NO_PAGE).contains(componentImage.getApiDataStructureType())) {

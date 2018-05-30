@@ -1,8 +1,8 @@
 <div>
     <header class="main-header">
-        <a href="index2.html" class="logo">
-            <span class="logo-mini"><b>MINI</b></span>
-            <span class="logo-lg"><b>MiniIts-Official</b></span>
+        <a href="/admin" class="logo">
+            <span class="logo-mini"><b>M+</b></span>
+            <span class="logo-lg"><b>MiniIts</b></span>
         </a>
         <nav class="navbar navbar-static-top" role="navigation">
             <!-- Sidebar toggle button-->
@@ -25,8 +25,8 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="/static/images/user2-160x160.jpg" class="img-circle"
-                                                     alt="User Image">
+                                                <i class="fa fa-xing" aria-hidden="true"></i>
+                                                <#--<img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">-->
                                             </div>
                                             <h4>
                                                 Support Team
