@@ -1,4 +1,4 @@
-package com.miniits.base.utils.shiro;
+package com.miniits.base.config.shiro;
 
 import com.miniits.base.model.entity.User;
 import com.miniits.base.service.UserService;

@@ -1,4 +1,4 @@
-package com.miniits.base.utils.shiro;
+package com.miniits.base.config.shiro;
 
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
