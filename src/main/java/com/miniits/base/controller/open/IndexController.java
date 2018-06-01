@@ -2,6 +2,8 @@ package com.miniits.base.controller.open;
 
 import com.miniits.base.utils.ComponentImageAndDocument;
 import freemarker.template.TemplateException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +33,8 @@ import static com.miniits.base.utils.SystemFile.isPackageExist;
 @RequestMapping("/")
 public class IndexController {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
+
     @GetMapping(value = {"/", "index", "index.html"})
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         if (fileExists(getPath("templates/customize/") + "/index.html")) {
@@ -48,8 +52,13 @@ public class IndexController {
     }
 
     private ModelMap renderingPage(ModelMap modelMap) {
-        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/");
-        String path = this.getClass().getResource("/templates/customize/").getPath();
+        Class c = this.getClass();
+//        file:/usr/local/java/m-plus.jar!/BOOT-INF/classes!/templates/
+        LOGGER.info("111111111111111111111111111111111111111");
+        LOGGER.info(c.toString());
+
+        isPackageExist(c.getResource("/templates/").getPath() + "customize/");
+        String path = c.getResource("/templates/customize/").getPath();
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-index.ftl");
         modelMap.put("fileName", "index.html");

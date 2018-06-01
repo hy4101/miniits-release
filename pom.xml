@@ -124,7 +124,7 @@
 
     </dependencies>
     <build>
-        <finalName>mini-base-service</finalName>
+        <finalName>m-plus</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

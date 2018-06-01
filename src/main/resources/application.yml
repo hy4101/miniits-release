@@ -10,7 +10,7 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${datasource.url}:3306/ms?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
+    url: jdbc:mysql://${datasource.url}:3306/${datasource.dataName}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
     username: ${datasource.username}
     password: ${datasource.password}
     druid:

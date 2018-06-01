@@ -1,5 +1,8 @@
 package com.miniits.base.utils;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 
 /**
@@ -12,6 +15,8 @@ import java.io.File;
  */
 public class SystemFile {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(SystemFile.class);
+
     /**
      * 判断文件夹是否存在
      * 不存在,则新建
@@ -20,8 +25,11 @@ public class SystemFile {
      */
     public static void isPackageExist(String path) {
         File file = new File(path);
+        LOGGER.info("qqqqqqqqqqqqqqq" + path);
+        LOGGER.info("wwwwwwwwwwwwww" + file.exists());
         if (!file.exists()) {
-            file.mkdir();
+            LOGGER.info("cccccccccccccccccccccccccccccccccccccc：" + path);
+            file.mkdirs();
         }
     }
 }
