@@ -53,6 +53,7 @@ public class IndexController {
 
     private ModelMap renderingPage(ModelMap modelMap) {
         Class c = this.getClass();
+        String pathFile = "/usr/local/m-plus/customize";
 //        file:/usr/local/java/m-plus.jar!/BOOT-INF/classes!/templates/
         LOGGER.info("111111111111111111111111111111111111111");
         LOGGER.info(c.toString());
