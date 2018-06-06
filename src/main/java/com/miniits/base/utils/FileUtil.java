@@ -18,6 +18,36 @@ public class FileUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
+    private static final String LINUX_PATH = "/data/idnum/";
+
+    private static final String WINDOWS_PATH = "c:\\m-plus\\";
+
+    /**
+     * 创建模板和html文件夹
+     *
+     * @param str
+     * @return
+     */
+    public static String createTemplateFolderAndHtmlFolder(String str) {
+        String path = null;
+        if (OsUtil.isLinux()) {
+            path = LINUX_PATH + str + "/";
+            File uploadDir = new File(path);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+        }
+
+        if (OsUtil.isWindows()) {
+            path = WINDOWS_PATH + str + "\\";
+            File uploadDir = new File(path);
+            if (!uploadDir.exists()) {
+                uploadDir.mkdirs();
+            }
+        }
+        return path;
+    }
+
     /**
      * 判断文件/文件夹是否存在
      *
@@ -28,6 +58,7 @@ public class FileUtil {
         if (StringUtils.isEmpty(path)) {
             return false;
         }
+
         File file = new File(path);
         if (file.exists() && file.isFile()) {
             return true;

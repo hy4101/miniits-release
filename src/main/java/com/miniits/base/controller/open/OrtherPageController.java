@@ -12,13 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
+import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
 import static com.miniits.base.utils.FileUtil.fileExists;
-import static com.miniits.base.utils.HTMLUtil.convertFreemarkerFormat;
-import static com.miniits.base.utils.HTMLUtil.createHtml;
-import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
+import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
-import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -54,12 +52,20 @@ public class OrtherPageController {
         return pageName + "/" + pageName;
     }
 
+
     private ModelMap renderingPage(ModelMap modelMap, String pageName) {
-        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/" + pageName + "/");
-        String path = this.getClass().getResource("/templates/customize/" + pageName + "/").getPath();
+        String path = createTemplateFolderAndHtmlFolder("customize");
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-" + pageName + ".ftl");
         modelMap.put("fileName", pageName + ".html");
         return modelMap;
     }
+//    private ModelMap renderingPage(ModelMap modelMap, String pageName) {
+//        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/" + pageName + "/");
+//        String path = this.getClass().getResource("/templates/customize/" + pageName + "/").getPath();
+//        modelMap.put("path", path);
+//        modelMap.put("templateName", "ftl-" + pageName + ".ftl");
+//        modelMap.put("fileName", pageName + ".html");
+//        return modelMap;
+//    }
 }

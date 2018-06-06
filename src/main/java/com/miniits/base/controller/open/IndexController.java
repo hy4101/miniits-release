@@ -13,13 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
+import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
 import static com.miniits.base.utils.FileUtil.fileExists;
-import static com.miniits.base.utils.HTMLUtil.convertFreemarkerFormat;
-import static com.miniits.base.utils.HTMLUtil.createHtml;
-import static com.miniits.base.utils.HTMLUtil.createTemplateFile;
+import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
-import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -52,18 +50,26 @@ public class IndexController {
     }
 
     private ModelMap renderingPage(ModelMap modelMap) {
-        Class c = this.getClass();
-        String pathFile = "/usr/local/m-plus/customize";
-//        file:/usr/local/java/m-plus.jar!/BOOT-INF/classes!/templates/
-        LOGGER.info("111111111111111111111111111111111111111");
-        LOGGER.info(c.toString());
-
-        isPackageExist(c.getResource("/templates/").getPath() + "customize/");
-        String path = c.getResource("/templates/customize/").getPath();
+        String path = createTemplateFolderAndHtmlFolder("customize");
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-index.ftl");
         modelMap.put("fileName", "index.html");
         return modelMap;
     }
+
+//    private ModelMap renderingPage(ModelMap modelMap) {
+//        Class c = this.getClass();
+//        String pathFile = "/usr/local/m-plus/customize";
+////        file:/usr/local/java/m-plus.jar!/BOOT-INF/classes!/templates/
+//        LOGGER.info("111111111111111111111111111111111111111");
+//        LOGGER.info(c.toString());
+//
+//        isPackageExist(c.getResource("/templates/").getPath() + "customize/");
+//        String path = c.getResource("/templates/customize/").getPath();
+//        modelMap.put("path", path);
+//        modelMap.put("templateName", "ftl-index.ftl");
+//        modelMap.put("fileName", "index.html");
+//        return modelMap;
+//    }
 
 }

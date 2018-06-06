@@ -22,9 +22,9 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
 import static com.miniits.base.utils.FileUtil.deleteFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
-import static com.miniits.base.utils.SystemFile.isPackageExist;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -59,9 +59,9 @@ public class HTMLUtil {
     public static String createHtml(Map<String, Object> root) throws IOException, TemplateException {
         String path = root.get("path").toString();
         Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
-        isPackageExist(path);
+        createTemplateFolderAndHtmlFolder(path);
         path = path + root.get("fileName").toString();
-        Writer writer = new FileWriter(new File(path.substring(path.indexOf("/"))));
+        Writer writer = new FileWriter(new File(path));
         try {
             temp.process(root, writer);
         } catch (Exception e) {
