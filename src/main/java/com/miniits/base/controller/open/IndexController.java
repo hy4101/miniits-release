@@ -2,6 +2,7 @@ package com.miniits.base.controller.open;
 
 import com.miniits.base.utils.ComponentImageAndDocument;
 import freemarker.template.TemplateException;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -13,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
-import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
+import static com.miniits.base.utils.CommonUtil.renderingPage;
 import static com.miniits.base.utils.FileUtil.fileExists;
 import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -33,43 +34,33 @@ public class IndexController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 
+    /**
+     * 访问 首页 index 接口
+     * 设置了页面静态化，则优先访问静态文件
+     * 否则页面动态显示
+     * @param modelMap
+     * @param httpServletRequest
+     * @return
+     * @throws IOException
+     * @throws TemplateException
+     */
     @GetMapping(value = {"/", "index", "index.html"})
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
+        Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
+        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
+
         if (fileExists(getPath("templates/customize/") + "/index.html")) {
             return "index";
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
         createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         modelMap = componentImageAndDocument.getModelMap();
-        modelMap = renderingPage(modelMap);
+        modelMap = renderingPage(modelMap, "index", httpServletRequest);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
             return modelMap.get("templateName").toString().split("\\.")[0];
         }
         createHtml(modelMap);
         return "index";
     }
-
-    private ModelMap renderingPage(ModelMap modelMap) {
-        String path = createTemplateFolderAndHtmlFolder("customize");
-        modelMap.put("path", path);
-        modelMap.put("templateName", "ftl-index.ftl");
-        modelMap.put("fileName", "index.html");
-        return modelMap;
-    }
-
-//    private ModelMap renderingPage(ModelMap modelMap) {
-//        Class c = this.getClass();
-//        String pathFile = "/usr/local/m-plus/customize";
-////        file:/usr/local/java/m-plus.jar!/BOOT-INF/classes!/templates/
-//        LOGGER.info("111111111111111111111111111111111111111");
-//        LOGGER.info(c.toString());
-//
-//        isPackageExist(c.getResource("/templates/").getPath() + "customize/");
-//        String path = c.getResource("/templates/customize/").getPath();
-//        modelMap.put("path", path);
-//        modelMap.put("templateName", "ftl-index.ftl");
-//        modelMap.put("fileName", "index.html");
-//        return modelMap;
-//    }
 
 }

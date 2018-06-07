@@ -6,8 +6,18 @@
  * Description:
  *          http 工具
  */
-(function ($) {
+(function ($, win) {
     window.httpClient = function (params) {
+        var doc = win.document;
+        var metas = doc.head.getElementsByTagName("meta");
+        var htmlMapping = '';
+        for (var i = 0; i < metas.length; i++) {
+            var arrt = metas[i].getAttribute("mPlusHtmlMapping");
+            if (!isEmpty(arrt)) {
+                htmlMapping = arrt;
+                break;
+            }
+        }
         $.ajax({
             type: params.method,
             url: params.url,
@@ -27,4 +37,4 @@
             }
         });
     };
-})(jQuery);
+})(jQuery, window);

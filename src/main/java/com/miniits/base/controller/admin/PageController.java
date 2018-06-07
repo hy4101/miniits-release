@@ -84,6 +84,14 @@ public class PageController extends BaseController {
         return success("更改成功");
     }
 
+    /**
+     * 设置是否生成今天文件
+     * html
+     * @param id
+     * @param fileName
+     * @param createStaticFile
+     * @return
+     */
     @PostMapping("/setting-page-create-html")
     @ResponseBody
     public Result setCreateHtmlFile(

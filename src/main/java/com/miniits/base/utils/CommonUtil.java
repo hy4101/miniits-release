@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import static com.miniits.base.utils.DataUtil.getData;
 import static com.miniits.base.utils.DataUtil.getPageData;
+import static com.miniits.base.utils.FileUtil.isPackageExist;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
 import static com.miniits.base.utils.Result.getTotalPage;
@@ -198,6 +199,15 @@ public class CommonUtil {
             return Arrays.asList(totalPage - 4, totalPage - 3, totalPage - 2, totalPage - 1, totalPage);
         }
         return Arrays.asList(thisPage - 2, thisPage - 1, thisPage, thisPage + 1, thisPage + 2);
+    }
+
+    public static ModelMap renderingPage(ModelMap modelMap, String pageName, HttpServletRequest httpServletRequest) {
+        String path = httpServletRequest.getSession().getServletContext().getClassLoader().getClass().getResource("/templates/customize/").getPath();
+        isPackageExist(path);
+        modelMap.put("path", path);
+        modelMap.put("templateName", "ftl-" + pageName + ".ftl");
+        modelMap.put("fileName", pageName + ".html");
+        return modelMap;
     }
 
 }

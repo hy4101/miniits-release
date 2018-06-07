@@ -49,6 +49,19 @@ public class FileUtil {
     }
 
     /**
+     * 判断文件夹是否存在
+     * 不存在,则新建
+     *
+     * @param path
+     */
+    public static void isPackageExist(String path) {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+    }
+
+    /**
      * 判断文件/文件夹是否存在
      *
      * @param path

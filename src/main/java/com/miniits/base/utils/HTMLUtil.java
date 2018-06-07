@@ -168,6 +168,7 @@ public class HTMLUtil {
      */
     public static Document addHtmlDepend(Document doc, SeoDTO seo) {
         doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
+        doc.getElementsByTag("head").append("<meta mPlusHtmlMapping=\"2018\">");
         doc.getElementsByTag("head").append("<title>" + seo.getTitle() + "</title>");
         doc.getElementsByTag("head").append("<meta name=\"keywords\" content=\"" + seo.getKeywords() + "\">");
         doc.getElementsByTag("head").append("<meta name=\"description\" content=\"" + seo.getDescription() + "\">");

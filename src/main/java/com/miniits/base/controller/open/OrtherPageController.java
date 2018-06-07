@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
-import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
+import static com.miniits.base.utils.CommonUtil.renderingPage;
 import static com.miniits.base.utils.FileUtil.fileExists;
 import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -41,10 +41,10 @@ public class OrtherPageController {
         if (fileExists(getPath("templates/customize/" + pageName + "/") + "/" + pageName + ".html")) {
             return pageName + "/" + pageName;
         }
-        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName,httpServletRequest);
+        ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName, httpServletRequest);
         createTemplateFile("ftl-" + pageName, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         modelMap = componentImageAndDocument.getModelMap();
-        modelMap = renderingPage(modelMap, pageName);
+        modelMap = renderingPage(modelMap, pageName, httpServletRequest);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
             return modelMap.get("templateName").toString().split("\\.")[0];
         }
@@ -52,20 +52,12 @@ public class OrtherPageController {
         return pageName + "/" + pageName;
     }
 
-
-    private ModelMap renderingPage(ModelMap modelMap, String pageName) {
-        String path = createTemplateFolderAndHtmlFolder("customize");
-        modelMap.put("path", path);
-        modelMap.put("templateName", "ftl-" + pageName + ".ftl");
-        modelMap.put("fileName", pageName + ".html");
-        return modelMap;
-    }
 //    private ModelMap renderingPage(ModelMap modelMap, String pageName) {
-//        isPackageExist(this.getClass().getResource("/templates/").getPath() + "customize/" + pageName + "/");
-//        String path = this.getClass().getResource("/templates/customize/" + pageName + "/").getPath();
+//        String path = createTemplateFolderAndHtmlFolder("customize");
 //        modelMap.put("path", path);
 //        modelMap.put("templateName", "ftl-" + pageName + ".ftl");
 //        modelMap.put("fileName", pageName + ".html");
 //        return modelMap;
 //    }
+
 }
