@@ -201,12 +201,14 @@ public class CommonUtil {
         return Arrays.asList(thisPage - 2, thisPage - 1, thisPage, thisPage + 1, thisPage + 2);
     }
 
-    public static ModelMap renderingPage(ModelMap modelMap, String pageName, HttpServletRequest httpServletRequest) {
-        String path = httpServletRequest.getSession().getServletContext().getClassLoader().getClass().getResource("/templates/customize/").getPath();
+    public static ModelMap renderingPage(ModelMap modelMap, String pageName, String fileName, HttpServletRequest httpServletRequest) {
+        String base = "/templates/customize/";
+        String path = httpServletRequest.getSession().getServletContext().getClassLoader().getClass().getResource(base).getPath();
+        path = path + pageName + "/";
         isPackageExist(path);
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-" + pageName + ".ftl");
-        modelMap.put("fileName", pageName + ".html");
+        modelMap.put("fileName", pageName + "_" + fileName + ".html");
         return modelMap;
     }
 

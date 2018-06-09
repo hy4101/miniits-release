@@ -79,6 +79,17 @@ public class RequestUtil {
         return params;
     }
 
+    public static String getFilters(HttpServletRequest request) {
+        String filters = "";
+        if (null != request) {
+            Set<String> paramsKey = request.getParameterMap().keySet();
+            for (String key : paramsKey) {
+                filters += key + "_" + request.getParameter(key);
+            }
+        }
+        return filters;
+    }
+
     /**
      * 获取请求参数中所有的信息
      *

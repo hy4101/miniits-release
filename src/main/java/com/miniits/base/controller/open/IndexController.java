@@ -38,6 +38,7 @@ public class IndexController {
      * 访问 首页 index 接口
      * 设置了页面静态化，则优先访问静态文件
      * 否则页面动态显示
+     *
      * @param modelMap
      * @param httpServletRequest
      * @return
@@ -49,18 +50,18 @@ public class IndexController {
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
         Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
 
-        if (fileExists(getPath("templates/customize/") + "/index.html")) {
-            return "index";
+        if (fileExists(getPath("templates/customize/index/") + "/index_" + pageNumber + ".html")) {
+            return "index/index_" + pageNumber;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
         createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         modelMap = componentImageAndDocument.getModelMap();
-        modelMap = renderingPage(modelMap, "index", httpServletRequest);
+        modelMap = renderingPage(modelMap, "index", pageNumber.toString(), httpServletRequest);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
             return modelMap.get("templateName").toString().split("\\.")[0];
         }
         createHtml(modelMap);
-        return "index";
+        return "index/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
     }
 
 }

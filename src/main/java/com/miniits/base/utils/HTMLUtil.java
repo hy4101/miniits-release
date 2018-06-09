@@ -65,7 +65,6 @@ public class HTMLUtil {
         try {
             temp.process(root, writer);
         } catch (Exception e) {
-
         }
         writer.flush();
         writer.close();
