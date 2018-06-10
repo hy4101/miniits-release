@@ -39,7 +39,6 @@ public class Page extends BaseEntity {
 
     private Integer templateCaching;
 
-
     @Column(name = "create_static_file", nullable = false)
     public Integer getCreateStaticFile() {
         return createStaticFile;
