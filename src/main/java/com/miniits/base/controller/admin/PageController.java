@@ -85,8 +85,9 @@ public class PageController extends BaseController {
     }
 
     /**
-     * 设置是否生成今天文件
+     * 设置是否生成静态文件
      * html
+     *
      * @param id
      * @param fileName
      * @param createStaticFile
@@ -99,7 +100,7 @@ public class PageController extends BaseController {
             @RequestParam(value = "file_name") String fileName,
             @RequestParam(value = "create_static_file") Integer createStaticFile) {
         if (createStaticFile.equals(GLOBAL_STATUS_NO)) {
-            String path = getPath("templates") + "/customize/" + fileName + ".html";
+            String path = getPath("templates") + "/customize/" + fileName + "/";
             if (!fileName.equals("index")) {
                 path = getPath("templates") + "/customize/" + fileName;
             }

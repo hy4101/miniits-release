@@ -62,8 +62,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         componentImage_1.setComponentId(++num + "");
         componentImage_1.setComponentSource(COMPONENT_SOURCE_SYSTEM);
         componentImage_1.setComponentSourceName("系统");
-        componentImage_1.setComponentStatus(100000002);
-        componentImage_1.setComponentStatusName("禁用");
+        componentImage_1.setComponentStatus(GLOBAL_STATUS_YES);
+        componentImage_1.setComponentStatusName("启用");
         componentImage_1.setComponentBody("<div componentId=" + componentImage_1.getComponentId() + " componentName=" + page.getPageName() + "_title style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_1.setSorts(1);
@@ -76,8 +76,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         componentImage_2.setComponentId(++num + "");
         componentImage_2.setComponentSource(COMPONENT_SOURCE_SYSTEM);
         componentImage_2.setComponentSourceName("系统");
-        componentImage_2.setComponentStatus(100000002);
-        componentImage_2.setComponentStatusName("禁用");
+        componentImage_2.setComponentStatus(GLOBAL_STATUS_YES);
+        componentImage_2.setComponentStatusName("启用");
         componentImage_2.setComponentBody("<div componentId=" + componentImage_2.getComponentId() + " componentName=" + page.getPageName() + "_body style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_2.setSorts(2);
@@ -90,8 +90,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         componentImage_3.setComponentId(++num + "");
         componentImage_3.setComponentSource(COMPONENT_SOURCE_SYSTEM);
         componentImage_3.setComponentSourceName("系统");
-        componentImage_3.setComponentStatus(100000002);
-        componentImage_3.setComponentStatusName("禁用");
+        componentImage_3.setComponentStatus(GLOBAL_STATUS_YES);
+        componentImage_3.setComponentStatusName("启用");
         componentImage_3.setComponentBody("<div componentId=" + componentImage_3.getComponentId() + " componentName=" + page.getPageName() + "_footer style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_3.setSorts(3);

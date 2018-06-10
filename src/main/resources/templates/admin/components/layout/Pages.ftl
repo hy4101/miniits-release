@@ -216,9 +216,6 @@
                     title: '页面名称',
                     width: 100
                 }, {
-                    field: 'pagePath',
-                    title: '页面路径'
-                }, {
                     field: 'operate',
                     title: '操作',
                     align: 'center',

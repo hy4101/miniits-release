@@ -37,7 +37,7 @@
                             miniits为固定路径，其余参数为自定义， 默认后缀 .html )</label>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon3">https://www.url.com/miniits/</span>
-                            <input type="text" class="form-control" id="pagePath" name="pagePath"
+                            <input type="text" class="form-control" id="pagePath" name="pagePath" disabled
                                    aria-describedby="basic-addon3" placeholder="输入页面访问路径">
                             <span class="input-group-addon">.html</span>
                         </div>
