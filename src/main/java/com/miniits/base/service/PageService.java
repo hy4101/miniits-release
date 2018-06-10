@@ -140,4 +140,8 @@ public class PageService extends BaseServiceImpl<Page, String> {
         pageRepository.setPageSeo(seoDTO.getId(), seoDTO.getKeywords(), seoDTO.getTitle(), seoDTO.getDescription());
     }
 
+    public void changeTemplateCaching(String id, Integer templateCaching) {
+        pageRepository.changeTemplateCaching(id, templateCaching);
+    }
+
 }

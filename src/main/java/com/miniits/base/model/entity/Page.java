@@ -37,6 +37,9 @@ public class Page extends BaseEntity {
 
     private String title;
 
+    private Integer templateCaching;
+
+
     @Column(name = "create_static_file", nullable = false)
     public Integer getCreateStaticFile() {
         return createStaticFile;
@@ -120,5 +123,14 @@ public class Page extends BaseEntity {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Column(name = "template_caching",length = 9)
+    public Integer getTemplateCaching() {
+        return templateCaching;
+    }
+
+    public void setTemplateCaching(Integer templateCaching) {
+        this.templateCaching = templateCaching;
     }
 }

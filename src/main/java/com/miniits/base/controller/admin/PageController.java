@@ -118,4 +118,15 @@ public class PageController extends BaseController {
         return success("设置成功");
     }
 
+    @PostMapping("/setting/templates-caching")
+    @ResponseBody
+    public Result setSeo(@RequestParam("id") String id, @RequestParam("caching") Integer caching, @RequestParam("pageName") String pageName) {
+        if (caching == 100000002) {
+            String path = getPath("templates/") + "ftl-" + pageName + ".ftl";
+            deletefile(path);
+        }
+        pageService.changeTemplateCaching(id, caching);
+        return success("设置成功");
+    }
+
 }

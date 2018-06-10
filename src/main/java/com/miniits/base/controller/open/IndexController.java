@@ -54,7 +54,9 @@ public class IndexController {
             return "index/index_" + pageNumber;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
-        createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
+        if (componentImageAndDocument.getPage().getTemplateCaching() == 100000002) {
+            createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
+        }
         modelMap = componentImageAndDocument.getModelMap();
         modelMap = renderingPage(modelMap, "index", pageNumber.toString(), httpServletRequest);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {

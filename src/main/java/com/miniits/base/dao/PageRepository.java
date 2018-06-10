@@ -30,4 +30,8 @@ public interface PageRepository extends BaseRepository<Page, String> {
 
     Page findByPageNameAndPageStatus(@Param("pageName") String pageName, @Param("pageStatus") Integer pageStatus);
 
+    @Modifying
+    @Query("update Page set templateCaching =:templateCaching where id=:id")
+    void changeTemplateCaching(@Param("id") String id, @Param("templateCaching") Integer templateCaching);
+
 }
