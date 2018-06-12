@@ -32,11 +32,6 @@
             </div>
         </div>
         <table id="table_users" style="background-color: #FFFFFF"></table>
-        <div>
-            <nav aria-label="...">
-                <ul class="pagination pagination-sm">...</ul>
-            </nav>
-        </div>
     </div>
     <div class="user-dialog">
         <#include "UserCreateOrModifyDialog.ftl"/>

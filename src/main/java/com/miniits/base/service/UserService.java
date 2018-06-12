@@ -34,6 +34,10 @@ public class UserService extends BaseServiceImpl<User, String> {
         return userRepository.findByUserName(userName);
     }
 
+    public long count() {
+        return userRepository.count();
+    }
+
     public void changeStatus(String id, Integer userStatusCode) {
         userRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
     }
