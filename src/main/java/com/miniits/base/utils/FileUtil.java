@@ -5,6 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -22,12 +24,21 @@ public class FileUtil {
 
     private static final String WINDOWS_PATH = "c:\\m-plus\\";
 
+    private static String regEx = "[ `~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+
+    public static String validateFileName(String fileName) {
+        Pattern pattern = Pattern.compile(regEx);
+        Matcher matcher = pattern.matcher(fileName);
+        return matcher.replaceAll("_");
+    }
+
     /**
      * 创建模板和html文件夹
      *
      * @param str
      * @return
      */
+
     public static String createTemplateFolderAndHtmlFolder(String str) {
         String path = null;
         if (OsUtil.isLinux()) {

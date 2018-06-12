@@ -35,9 +35,8 @@
                 <h4 class="modal-title" id="page_setting_title" style="font-size: xx-large;">其他</h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">
-                    <i class="fa fa-internet-explorer" aria-hidden="true" style="color: #27AE60"></i>
-                </button>
+            <#--<button type="button" id="access_page_btn" class="btn btn-default" data-dismiss="modal">-->
+            <#--</button>-->
                 <button id="btn_setting_page_caching" class="btn btn-info">
                     <i class="fa fa-level-down" aria-hidden="true"></i>
                     设置模板缓存
@@ -67,18 +66,21 @@
         function pageSettingDialogInit() {
             $("#btn_setting_page_seo").click(function () {
                 var seoData = {
-                    id: $("#id").val(),
+                    id: pageData.id,
                     keywords: $("#keywords").val(),
                     description: $("#description").val(),
                     title: $("#title").val()
                 };
-                var param = {url: 'setting/seo', method: 'post', data: seoData};
+                var param = {
+                    url: 'setting/seo', method: 'post', data: seoData, sessionId: 'caching',
+                    message: 'SEO设置成功'
+                };
                 httpClient(param)
             });
 
             $("#btn_setting_page_caching").click(function () {
                 var caching = {
-                    id: $("#id").val(),
+                    id: pageData.id,
                     caching: 100000001,
                     pageName: pageData.pageName
                 };
@@ -91,7 +93,7 @@
 
             $("#btn_setting_page_delete_caching").click(function () {
                 var caching = {
-                    id: $("#id").val(),
+                    id: pageData.id,
                     caching: 100000002,
                     pageName: pageData.pageName
                 };

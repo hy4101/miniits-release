@@ -15,6 +15,7 @@ import java.io.IOException;
 import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.CommonUtil.renderingPage;
 import static com.miniits.base.utils.FileUtil.fileExists;
+import static com.miniits.base.utils.FileUtil.validateFileName;
 import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.RequestUtil.getFilters;
 import static com.miniits.base.utils.RequestUtil.getPath;
@@ -40,7 +41,7 @@ public class OrtherPageController {
 
     @GetMapping("{page-name}")
     public String test(ModelMap modelMap, @PathVariable(value = "page-name") String pageName, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
-        String filters = pageName + "_" + getFilters(httpServletRequest);
+        String filters = validateFileName(pageName + "_" + getFilters(httpServletRequest));
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
         Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
 
@@ -48,22 +49,17 @@ public class OrtherPageController {
             return pageName + "/" + pageName + "_" + pageNumber + "_" + filters;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName, httpServletRequest);
-        createTemplateFile("ftl-" + pageName, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         modelMap = componentImageAndDocument.getModelMap();
         modelMap = renderingPage(modelMap, pageName, pageNumber + "_" + filters, httpServletRequest);
+        String path = modelMap.get("templateName").toString().split("\\.")[0];
+        if (!fileExists(path) || componentImageAndDocument.getPage().getTemplateCaching().equals(GLOBAL_STATUS_NO)) {
+            createTemplateFile("ftl-" + pageName, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
+        }
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
-            return modelMap.get("templateName").toString().split("\\.")[0];
+            return path;
         }
         createHtml(modelMap);
         return pageName + "/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
     }
-
-//    private ModelMap renderingPage(ModelMap modelMap, String pageName) {
-//        String path = createTemplateFolderAndHtmlFolder("customize");
-//        modelMap.put("path", path);
-//        modelMap.put("templateName", "ftl-" + pageName + ".ftl");
-//        modelMap.put("fileName", pageName + ".html");
-//        return modelMap;
-//    }
 
 }

@@ -54,6 +54,8 @@ public class ComponentImage extends BaseEntity {
     @Column(name = "data_filters", length = 500)
     private String dataFilters;
 
+    private String objectKey;
+
     public String getComponentName() {
         return componentName;
     }
@@ -159,5 +161,14 @@ public class ComponentImage extends BaseEntity {
 
     public void setComponentSourceName(String componentSourceName) {
         this.componentSourceName = componentSourceName;
+    }
+
+    @Column(name = "object_key", length = 100)
+    public String getObjectKey() {
+        return objectKey;
+    }
+
+    public void setObjectKey(String objectKey) {
+        this.objectKey = objectKey;
     }
 }

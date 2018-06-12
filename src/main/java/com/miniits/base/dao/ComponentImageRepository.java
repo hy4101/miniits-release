@@ -24,4 +24,6 @@ public interface ComponentImageRepository extends BaseRepository<ComponentImage,
 
     List<ComponentImage> findByComponentReferenceId(String componentReferenceId);
 
+    ComponentImage findById(String id);
+
 }

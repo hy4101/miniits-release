@@ -9,6 +9,7 @@ import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
 import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,6 +34,9 @@ import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 @Controller
 @RequestMapping("/admin/pages")
 public class PageController extends BaseController {
+
+    @Value("${domain.path}")
+    private String rootPath;
 
     @Autowired
     private PageService pageService;
@@ -121,12 +125,17 @@ public class PageController extends BaseController {
     @PostMapping("/setting/templates-caching")
     @ResponseBody
     public Result setSeo(@RequestParam("id") String id, @RequestParam("caching") Integer caching, @RequestParam("pageName") String pageName) {
-        if (caching == 100000002) {
+        if (caching.equals(GLOBAL_STATUS_NO)) {
             String path = getPath("templates/") + "ftl-" + pageName + ".ftl";
             deletefile(path);
         }
         pageService.changeTemplateCaching(id, caching);
         return success("设置成功");
+    }
+
+    @GetMapping("/access-page/{pathName}")
+    public String redirect(@PathVariable(value = "pathName") String pathName) {
+        return "redirect:/" + rootPath + "/" + pathName;
     }
 
 }

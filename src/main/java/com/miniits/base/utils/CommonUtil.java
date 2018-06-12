@@ -6,15 +6,19 @@ import com.miniits.base.model.entity.Image;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.mysql.Pageable;
+import com.miniits.base.service.ComponentImageServer;
 import com.miniits.base.service.PageService;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -25,8 +29,7 @@ import static com.miniits.base.utils.FileUtil.isPackageExist;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
 import static com.miniits.base.utils.Result.getTotalPage;
-import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_NO_PAGE;
-import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_PAGE;
+import static com.miniits.base.utils.SystemDict.*;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -36,7 +39,19 @@ import static com.miniits.base.utils.SystemDict.API_DATA_STRUCTURE_TYPE_PAGE;
  * Description:
  * WWW.MINIITS.COM
  */
+@Component
 public class CommonUtil {
+
+    @Autowired
+    private ComponentImageServer componentImageServer;
+
+    private static CommonUtil commonUtil;
+
+    @PostConstruct
+    private void init() {
+        commonUtil = this;
+        commonUtil.componentImageServer = this.componentImageServer;
+    }
 
     private static Map<String, String> childElement = new HashMap<>();
 
@@ -102,6 +117,9 @@ public class CommonUtil {
                 while (modelMap.containsKey(str)) {
                     str = randomStr();
                 }
+                if (page.getTemplateCaching().equals(GLOBAL_STATUS_YES)) {
+                    str = componentImageKey(componentImage, str).getObjectKey();
+                }
                 /**
                  * 根据 API 获取数据
                  */
@@ -128,6 +146,10 @@ public class CommonUtil {
             doc = addHtmlDepend(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
+    }
+
+    private static ComponentImage componentImageKey(ComponentImage componentImage, String str) {
+        return commonUtil.componentImageServer.getObjectKey(componentImage.getId(), str);
     }
 
     //组件交互

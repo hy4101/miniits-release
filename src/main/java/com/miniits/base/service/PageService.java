@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.miniits.base.utils.SystemDict.Component.COMPONENT_SOURCE_SYSTEM;
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 /**
@@ -141,6 +142,12 @@ public class PageService extends BaseServiceImpl<Page, String> {
     }
 
     public void changeTemplateCaching(String id, Integer templateCaching) {
+        if (templateCaching.equals(GLOBAL_STATUS_NO)) {
+            Page page = pageRepository.findOne(id);
+            page.getPageComponentAssociates().forEach(co -> {
+                co.getComponentImage().setObjectKey(null);
+            });
+        }
         pageRepository.changeTemplateCaching(id, templateCaching);
     }
 
