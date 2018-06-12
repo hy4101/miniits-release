@@ -43,7 +43,6 @@ public class OrtherPageController {
     public String test(ModelMap modelMap, @PathVariable(value = "page-name") String pageName, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         String filters = validateFileName(pageName + "_" + getFilters(httpServletRequest));
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
-        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
 
         if (fileExists(getPath("templates/customize/" + pageName + "/") + pageName + "_" + pageNumber + "_" + filters + ".html")) {
             return pageName + "/" + pageName + "_" + pageNumber + "_" + filters;

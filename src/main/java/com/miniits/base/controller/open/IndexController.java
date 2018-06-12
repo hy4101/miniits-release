@@ -16,9 +16,7 @@ import java.io.IOException;
 import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.CommonUtil.renderingPage;
 import static com.miniits.base.utils.FileUtil.fileExists;
-import static com.miniits.base.utils.FileUtil.validateFileName;
 import static com.miniits.base.utils.HTMLUtil.*;
-import static com.miniits.base.utils.RequestUtil.getFilters;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 
@@ -49,9 +47,7 @@ public class IndexController {
      */
     @GetMapping(value = {"/", "index", "index.html"})
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
-        String filters = validateFileName("index_" + getFilters(httpServletRequest));
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
-        Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
 
         if (fileExists(getPath("templates/customize/index/") + "/index_" + pageNumber + ".html")) {
             return "index/index_" + pageNumber;
