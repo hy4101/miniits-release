@@ -26,7 +26,7 @@
                                         <a href="#">
                                             <div class="pull-left">
                                                 <i class="fa fa-xing" aria-hidden="true"></i>
-                                                <#--<img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+                                            <#--<img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">-->
                                             </div>
                                             <h4>
                                                 Support Team
@@ -223,7 +223,7 @@
                             <li class="user-header">
                                 <img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 <p>
-                                    Alexander Pierce - Web Developer
+                                    ${user.userName}
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
@@ -242,10 +242,12 @@
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <#--<a href="#" class="btn btn-default btn-flat">Profile</a>-->
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <form action="/admin/login/logout" method="post">
+                                        <button type="submit" class="btn btn-link">注 销</button>
+                                    </form>
                                 </div>
                             </li>
                         </ul>
