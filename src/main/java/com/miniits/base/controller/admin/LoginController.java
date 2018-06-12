@@ -46,7 +46,8 @@ public class LoginController extends BaseController {
         } catch (AuthenticationException e) {
         }
         modelMap.put("user", user);
-        return "redirect:/admin/pages/init";
+        modelMap.put("active", "layout");
+        return "admin/views/layout/Pages";
     }
 
     @PostMapping("logout")

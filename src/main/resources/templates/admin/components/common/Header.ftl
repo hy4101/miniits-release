@@ -223,7 +223,7 @@
                             <li class="user-header">
                                 <img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">
                                 <p>
-                                    ${user.userName}
+                                    <#--${user.userName}-->
                                     <small>Member since Nov. 2012</small>
                                 </p>
                             </li>
