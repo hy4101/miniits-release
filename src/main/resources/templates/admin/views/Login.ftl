@@ -40,13 +40,15 @@
                     </div>
                     <div class="input-group f-mt5 f-mb10">
                         <div class="row">
-                            <div class="col-md-8"><input type="text" id="inp_code" name="verificationCode"
-                                                         class="form-control"
-                                                         placeholder="验证码"
-                                                         aria-describedby="basic-addon1"></div>
-                            <div class="col-md-4"><input type="text" id="code" class="form-control"
-                                                         placeholder="验证码" disabled
-                                                         aria-describedby="basic-addon1"></div>
+                            <div class="col-md-6">
+                                <input type="text" id="inp_code" name="verificationCode" class="form-control" placeholder="验证码" aria-describedby="basic-addon1">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" id="code" class="form-control" placeholder="验证码" disabled aria-describedby="basic-addon1">
+                            </div>
+                            <div class="col-md-2">
+                                <i style="line-height: 34px;cursor: pointer;" class="fa fa-refresh" id="i_refresh_code" aria-hidden="true"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="input-group f-mt5 f-mb10">
@@ -75,6 +77,10 @@
             $("#f_login").submit();
         });
 
+        $("#i_refresh_code").click(function () {
+            code = "";
+            getCode();
+        });
         function getCode(n, m) {
             for (var i = 0; i <= 5; i++) {
                 var ds = rnd();
