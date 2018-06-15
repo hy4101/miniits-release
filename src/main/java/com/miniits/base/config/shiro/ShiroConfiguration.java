@@ -22,7 +22,7 @@ public class ShiroConfiguration {
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(shiroRealm());
         return securityManager;
     }
 
@@ -31,10 +31,15 @@ public class ShiroConfiguration {
         System.out.println("ShiroConfiguration.shirFilter()");
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
+
+//        Map<String, Filter> filterMap = shiroFilterFactoryBean.getFilters();
+
+//        filterMap.put("authc", customAuthenticationFilter());
+//        shiroFilterFactoryBean.setFilters(filterMap);
+
         //配置登录的url和登录成功的url
-        shiroFilterFactoryBean.setLoginUrl("/admin/user/login");
-        shiroFilterFactoryBean.setSuccessUrl("/admin/user/get");
-        shiroFilterFactoryBean.setSecurityManager(securityManager);
+        shiroFilterFactoryBean.setLoginUrl("/admin/login");
+        shiroFilterFactoryBean.setSuccessUrl("/admin/get");
         //拦截器.
         Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
         // 配置不会被拦截的链接 顺序判断
@@ -45,10 +50,10 @@ public class ShiroConfiguration {
 //        filterChainDefinitionMap.put("/user/pct", "anon");
 //        filterChainDefinitionMap.put("/user/pct_new", "anon");
         filterChainDefinitionMap.put("/miniits/**", "anon");
-        filterChainDefinitionMap.put("/", "anon");
+//        filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
 //        todo 临时配置,上线移除下面一行
-        filterChainDefinitionMap.put("/admin/**", "anon");
+//        filterChainDefinitionMap.put("/admin/**", "anon");
         //配置退出 过滤器,其中的具体的退出代码Shiro已经替我们实现了
         filterChainDefinitionMap.put("/logout", "logout");
         //<!-- 过滤链定义，从上向下顺序执行，一般将/**放在最为下边 -->:这是一个坑呢，一不小心代码就不好使了;
@@ -62,9 +67,16 @@ public class ShiroConfiguration {
     }
 
     @Bean
-    public ShiroRealm myShiroRealm() {
-        ShiroRealm myShiroRealm = new ShiroRealm();
-        return myShiroRealm;
+    public ShiroRealm shiroRealm() {
+        ShiroRealm shiroRealm = new ShiroRealm();
+        return shiroRealm;
     }
+//
+//    @Bean
+//    public CustomAuthenticationFilter customAuthenticationFilter() {
+//        CustomAuthenticationFilter authenticationFilter = new CustomAuthenticationFilter();
+//        authenticationFilter.addIgnorePath("/admin/login");
+//        return authenticationFilter;
+//    }
 
 }
