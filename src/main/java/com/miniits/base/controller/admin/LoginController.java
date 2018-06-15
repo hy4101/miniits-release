@@ -44,9 +44,9 @@ public class LoginController extends BaseController {
         User user = null;
         try {
             subject.login(token);
-            user = userService.findByUserName(userName);
         } catch (AuthenticationException e) {
         }
+        user = (User) subject.getPrincipal();
         modelMap.put("user", user);
         modelMap.put("active", "layout");
         return "admin/views/layout/Pages";
