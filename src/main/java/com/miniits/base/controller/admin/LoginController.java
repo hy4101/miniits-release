@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static com.miniits.base.utils.MD5Util.hashStr;
+
 /**
  * @author: wq
  * @Date: 2018/6/12
@@ -38,13 +40,13 @@ public class LoginController extends BaseController {
     @PostMapping()
     public String login(ModelMap modelMap, @RequestParam(value = "userName") String userName, @RequestParam(value = "password") String password) {
         Subject subject = SecurityUtils.getSubject();
-        UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
+        UsernamePasswordToken token = new UsernamePasswordToken(userName, hashStr(password));
         User user = null;
         try {
             subject.login(token);
-            user = userService.findByUserName(userName);
         } catch (AuthenticationException e) {
         }
+        user = (User) subject.getPrincipal();
         modelMap.put("user", user);
         modelMap.put("active", "layout");
         return "admin/views/layout/Pages";

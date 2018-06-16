@@ -1,6 +1,7 @@
 package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.dto.SeoDTO;
+import com.miniits.base.model.entity.User;
 import com.miniits.base.model.vo.PageVO;
 import com.miniits.base.model.vo.UserVO;
 import com.miniits.base.mysql.Pageable;
@@ -8,6 +9,7 @@ import com.miniits.base.service.PageService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
 import com.miniits.base.utils.Result;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -43,6 +45,7 @@ public class PageController extends BaseController {
 
     @GetMapping("init")
     public String init(ModelMap modelMap) {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
         modelMap.put("active", "layout");
         return "admin/views/layout/Pages";
     }
