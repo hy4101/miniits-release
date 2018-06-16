@@ -82,7 +82,7 @@
             getCode();
         });
         function getCode(n, m) {
-            for (var i = 0; i <= 5; i++) {
+            for (var i = 0; i < 4; i++) {
                 var ds = rnd();
                 var b = baseStr[ds];
                 code = code + b;
