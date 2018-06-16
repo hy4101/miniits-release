@@ -9,11 +9,13 @@ import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by yjj on 2017/3/2.
  */
 @Aspect
+@Component
 public class LogAspect {
 
     @Autowired
@@ -21,7 +23,7 @@ public class LogAspect {
 
     private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
-    @Before("execution(* com.miniits.base..controller.*.*(..))")
+    @Before("execution(* com.miniits.base.controller..*(..))")
     public void anyOperation(JoinPoint point) {
         Log log = new Log();
         log.setMethod(RequestUtil.getRequest().getMethod());

@@ -1,5 +1,7 @@
 package com.miniits.base.config;
 
+import com.jagregory.shiro.freemarker.ShiroTags;
+import freemarker.template.TemplateException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -10,6 +12,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
+
+import java.io.IOException;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -22,6 +27,30 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @Configuration
 @EnableWebMvc
 public class WebConfigurer extends WebMvcConfigurerAdapter {
+
+//    @Bean
+//    public FreeMarkerConfigExtend freeMarkerConfigExtend(FreeMarkerConfigExtend freeMarkerConfigExtend) {
+//        freeMarkerConfigExtend.setTemplateLoaderPath("/templates");
+//        freeMarkerConfigExtend.setDefaultEncoding("UTF-8");
+//        Properties properties = new Properties();
+//        properties.setProperty("template_update_delay", "0");
+//        properties.setProperty("locale", "zh_CN");
+//        properties.setProperty("default_encoding", "UTF");
+//        freeMarkerConfigExtend.setFreemarkerSettings(properties);
+//        return freeMarkerConfigExtend;
+//    }
+
+    @Bean
+    public FreeMarkerConfigurer freeMarkerConfigurer() throws IOException, TemplateException {
+        FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
+        freeMarkerConfigurer.setTemplateLoaderPath("classpath:/templates");
+        freemarker.template.Configuration configuration = freeMarkerConfigurer.createConfiguration();
+        configuration.setDefaultEncoding("UTF-8");
+        //这里可以添加其他共享变量 比如sso登录地址
+        configuration.setSharedVariable("shiro", new ShiroTags());
+        freeMarkerConfigurer.setConfiguration(configuration);
+        return freeMarkerConfigurer;
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
