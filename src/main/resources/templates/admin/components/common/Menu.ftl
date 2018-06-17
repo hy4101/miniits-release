@@ -34,13 +34,13 @@
             <ul class="sidebar-menu">
                 <li class="header txt-align-center txt-color-ffffff" style="background-color: #27AE60">
                     Welcome To M+ Admin</li>
-                <li class="${(active == 'Dashboard')?string('active', '')} treeview">
+                <li class="${(active == 'dashboard')?string('active', '')} treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i
                             class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="${(active == 'dashboard')?string('active', '')} treeview-menu">
-                        <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i>控制面板</a></li>
+                        <li class="active"><a href="/admin/dashboard/init"><i class="fa fa-circle-o"></i>控制面板</a></li>
                     </ul>
                 </li>
                 <li class="${(active == 'users')?string('active', '')} treeview">
