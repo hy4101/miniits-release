@@ -1,6 +1,7 @@
 <script src="/static/js/echarts.js"></script>
 <script type="text/javascript" src="/static/js/china.js"></script>
-<div id="body_dashboard" style="padding: 10px 10px 10px 10px;display: flex;width: 100%;height: 100%">
+<div id="body_dashboard"
+     style="padding: 10px 10px 10px 10px;display: flex;width: 100%;height: 100%;flex-direction: column;">
     <!-- Main content -->
     <div class="row f-mr0 f-ml0 f-w100">
         <div class="col-md-6">
@@ -22,7 +23,81 @@
         <div class="col-md-6">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">内容数据统计</h3>
+                    <h3 class="box-title">内容访问统计</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="chart">
+                        <div class="row" style="display: flex;flex-direction: column;">
+                            <div class="col-lg-3 col-xs-6">
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3>1510</h3>
+                                        <p>New Orders</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                        <p>Bounce Rate</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-stats-bars"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div><!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        <h3>44</h3>
+                                        <p>User Registrations</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person-add"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div><!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-red">
+                                    <div class="inner">
+                                        <h3>65</h3>
+                                        <p>Unique Visitors</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-pie-graph"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i
+                                            class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row f-mr0 f-ml0 f-w100">
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">内容访问统计</h3>
                     <div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                         <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -31,6 +106,22 @@
                 <div class="box-body">
                     <div class="chart">
                         <div id="line_mian" style="width: 750px;height:500px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">内容数据统计</h3>
+                    <div class="box-tools pull-right">
+                        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="chart">
+                        <div id="pie_mian" style="width: 750px;height:500px;"></div>
                     </div>
                 </div>
             </div>
@@ -2637,7 +2728,7 @@
                 legend: {
                     right: 20,
                     orient: 'vertical',
-                    data: ['今日', '昨日','昨日1','昨日2', '昨日3', '昨日4', '昨日5']
+                    data: ['今日', '昨日']
                 },
                 xAxis: {
                     type: 'category',
@@ -2709,151 +2800,6 @@
                     itemStyle: {
                         normal: {
                             color: '#f7b851'
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            width: 3
-                        }
-                    }
-                }, {
-                    name: '昨日5',
-                    type: 'line',
-                    smooth: true,
-                    showSymbol: false,
-                    symbol: 'circle',
-                    symbolSize: 6,
-                    data: ['1200', '1400', '808', '811', '626', '488', '1600', '1100', '500', '300', '1998', '822'],
-                    areaStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(216, 244, 247,1)'
-                            }, {
-                                offset: 1,
-                                color: 'rgba(216, 244, 247,1)'
-                            }], false)
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#58c8da'
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            width: 3
-                        }
-                    }
-                }, {
-                    name: '昨日4',
-                    type: 'line',
-                    smooth: true,
-                    showSymbol: false,
-                    symbol: 'circle',
-                    symbolSize: 6,
-                    data: ['1200', '1400', '808', '811', '626', '488', '1600', '1100', '500', '300', '1998', '822'],
-                    areaStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(216, 244, 247,1)'
-                            }, {
-                                offset: 1,
-                                color: 'rgba(216, 244, 247,1)'
-                            }], false)
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#58c8da'
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            width: 3
-                        }
-                    }
-                }, {
-                    name: '昨日3',
-                    type: 'line',
-                    smooth: true,
-                    showSymbol: false,
-                    symbol: 'circle',
-                    symbolSize: 6,
-                    data: ['1200', '1400', '808', '811', '626', '488', '1600', '1100', '500', '300', '1998', '822'],
-                    areaStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(216, 244, 247,1)'
-                            }, {
-                                offset: 1,
-                                color: 'rgba(216, 244, 247,1)'
-                            }], false)
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#58c8da'
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            width: 3
-                        }
-                    }
-                }, {
-                    name: '昨日2',
-                    type: 'line',
-                    smooth: true,
-                    showSymbol: false,
-                    symbol: 'circle',
-                    symbolSize: 6,
-                    data: ['1200', '1400', '808', '811', '626', '488', '1600', '1100', '500', '300', '1998', '822'],
-                    areaStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(216, 244, 247,1)'
-                            }, {
-                                offset: 1,
-                                color: 'rgba(216, 244, 247,1)'
-                            }], false)
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#58c8da'
-                        }
-                    },
-                    lineStyle: {
-                        normal: {
-                            width: 3
-                        }
-                    }
-                }, {
-                    name: '昨日1',
-                    type: 'line',
-                    smooth: true,
-                    showSymbol: false,
-                    symbol: 'circle',
-                    symbolSize: 6,
-                    data: ['1200', '1400', '808', '811', '626', '488', '1600', '1100', '500', '300', '1998', '822'],
-                    areaStyle: {
-                        normal: {
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: 'rgba(216, 244, 247,1)'
-                            }, {
-                                offset: 1,
-                                color: 'rgba(216, 244, 247,1)'
-                            }], false)
-                        }
-                    },
-                    itemStyle: {
-                        normal: {
-                            color: '#58c8da'
                         }
                     },
                     lineStyle: {
