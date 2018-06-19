@@ -49,7 +49,7 @@ public class LoginController extends BaseController {
         user = (User) subject.getPrincipal();
         modelMap.put("user", user);
         modelMap.put("active", "layout");
-        return "admin/views/layout/Pages";
+        return "redirect:/admin/dashboard/init";
     }
 
     @PostMapping("logout")

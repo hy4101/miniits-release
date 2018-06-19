@@ -19,13 +19,13 @@
                             <div class="col-lg-3 col-xs-6">
                                 <div class="small-box bg-aqua">
                                     <div class="inner">
-                                        <h3>1510</h3>
+                                        <h3>${articleNum}</h3>
                                         <p>文章</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-bag"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">More info <i
+                                    <a href="#" class="small-box-footer"><i
                                             class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
@@ -33,13 +33,13 @@
                                 <!-- small box -->
                                 <div class="small-box bg-green">
                                     <div class="inner">
-                                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                                        <h3>${imageNum}</h3>
                                         <p>图片</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-stats-bars"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">More info <i
+                                    <a href="#" class="small-box-footer"><i
                                             class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div><!-- ./col -->
@@ -47,13 +47,13 @@
                                 <!-- small box -->
                                 <div class="small-box bg-yellow">
                                     <div class="inner">
-                                        <h3>44</h3>
+                                        <h3>${userNum}</h3>
                                         <p>用户</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-person-add"></i>
                                     </div>
-                                    <a href="#" class="small-box-footer">More info <i
+                                    <a href="#" class="small-box-footer"><i
                                             class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div><!-- ./col -->
@@ -61,14 +61,14 @@
                                 <!-- small box -->
                                 <div class="small-box bg-red">
                                     <div class="inner">
-                                        <h3>65</h3>
+                                        <h3>${articleNum}</h3>
                                         <p>在线ip</p>
                                     </div>
                                     <div class="icon">
                                         <i class="ion ion-pie-graph"></i>
                                     </div>
                                     <a href="#" class="small-box-footer">
-                                        More info <i class="fa fa-arrow-circle-right"></i>
+                                        <i class="fa fa-arrow-circle-right"></i>
                                     </a>
                                 </div>
                             </div><!-- ./col -->
@@ -2687,8 +2687,7 @@
             myChart.setOption(option);
         };
 
-
-        function dashboardLineInit() {
+        function dashboardLineInit(todayData) {
             var lineChart = echarts.init(document.getElementById('line_mian'));
             var option = {
                 title: {
@@ -2713,11 +2712,11 @@
                 legend: {
                     right: 20,
                     orient: 'vertical',
-                    data: ['今日', '昨日']
+                    data: ['文章', '图片']
                 },
                 xAxis: {
                     type: 'category',
-                    data: ['00:00', '2:00', '4:00', '6:00', '8:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', "22:00"],
+                    data: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"],
                     boundaryGap: false,
                     splitLine: {
                         show: true,
@@ -2764,7 +2763,36 @@
                     }
                 },
                 series: [{
-                    name: '今日',
+                    name: '文章',
+                    type: 'line',
+                    smooth: true,
+                    showSymbol: false,
+                    symbol: 'circle',
+                    symbolSize: 6,
+                    data: ['12001', '1400', '1008', '1411', '1026', '1288', '1300', '800', '1100', '1000', '1118', '2322'],
+                    areaStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: 'rgba(199, 237, 250,0.5)'
+                            }, {
+                                offset: 1,
+                                color: 'rgba(199, 237, 250,0.2)'
+                            }], false)
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#f7b851'
+                        }
+                    },
+                    lineStyle: {
+                        normal: {
+                            width: 3
+                        }
+                    }
+                }, {
+                    name: '图片',
                     type: 'line',
                     smooth: true,
                     showSymbol: false,
@@ -2797,8 +2825,24 @@
             lineChart.setOption(option);
         };
 
+        function todayDataInit() {
+            var param = {
+                method: 'delete', url: 'delete/' + row.id,
+                data: {filters: ""},
+                sessionId: 'today-data'
+            };
+            httpClient(params);
+        }
+
+        win.httpClientSuccess = function (data) {
+            switch (data.sessionId) {
+                case 'today-data':
+                    dashboardLineInit(data);
+                    break;
+            }
+        }
+        todayDataInit();
         dashboardInit();
-        dashboardLineInit();
 
     })(jQuery, window);
 

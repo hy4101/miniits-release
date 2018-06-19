@@ -41,4 +41,8 @@ public class UserService extends BaseServiceImpl<User, String> {
     public void changeStatus(String id, Integer userStatusCode) {
         userRepository.changeStatus(id, userStatusCode, userStatusCode.equals(GLOBAL_STATUS_YES) ? "启用" : "禁用");
     }
+
+    public long counts(String filters) {
+        return this.count(filters);
+    }
 }

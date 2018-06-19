@@ -33,4 +33,8 @@ public class ArticleServer extends BaseServiceImpl<Article, String> {
         articleRepository.changeStatus(id, status, status.equals(ARTICLES_STATUS_ENABLE) ? "显示" : "隐藏");
     }
 
+    public long counts(String filters) {
+        return this.count(filters);
+    }
+
 }

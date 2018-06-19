@@ -27,4 +27,8 @@ public class ImageServer  extends BaseServiceImpl<Image, String> {
         super.setBaseDao(imageRepository);
     }
 
+    public long counts(String filters) {
+        return this.count(filters);
+    }
+
 }
