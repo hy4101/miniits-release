@@ -61,7 +61,7 @@
                                 <!-- small box -->
                                 <div class="small-box bg-red">
                                     <div class="inner">
-                                        <h3>${articleNum}</h3>
+                                        <h3>...</h3>
                                         <p>在线ip</p>
                                     </div>
                                     <div class="icon">
