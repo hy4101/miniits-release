@@ -11,6 +11,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * Created by yjj on 2017/3/2.
  */
@@ -29,6 +31,11 @@ public class LogAspect {
         log.setMethod(RequestUtil.getRequest().getMethod());
         log.setMethodName(point.getSignature().getName());
         log.setIp(RequestUtil.getRequest().getRemoteAddr());
+        String json = AddressUtils.getAddresses(log.getIp());
+        Map<String, String> address = AddressUtils.getAddress(json);
+        log.setCountry(address.get("country"));
+        log.setRegion(address.get("region"));
+        log.setCity(address.get("city"));
         log.setUri(RequestUtil.getRequest().getRequestURI());
         String params = Joiner.on(",").withKeyValueSeparator("=").join(RequestUtil.getRequestParams());
         log.setParams(params);

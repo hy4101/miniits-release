@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @author: wq
  * @Date: 2018/2/2
@@ -26,4 +28,10 @@ public class LogService extends BaseServiceImpl<Log, String> {
 
     @Autowired
     private LogRepository logRepository;
+
+    public List<List<String>> counts() {
+        return logRepository.counts();
+    }
+
+
 }

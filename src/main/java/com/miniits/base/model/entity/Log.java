@@ -31,6 +31,42 @@ public class Log extends BaseEntity {
     @Column(name = "module_name", length = 500)
     private String moduleName;
 
+
+    private String country;
+
+
+    private String region;
+
+
+    private String city;
+
+    @Column(name = "country", length = 100)
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @Column(name = "region", length = 100)
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    @Column(name = "city", length = 100)
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     public String getIp() {
         return ip;
     }

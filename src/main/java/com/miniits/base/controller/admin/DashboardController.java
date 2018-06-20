@@ -1,8 +1,8 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.model.vo.TodayDataVO;
 import com.miniits.base.service.ArticleServer;
 import com.miniits.base.service.ImageServer;
+import com.miniits.base.service.LogService;
 import com.miniits.base.service.UserService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.Result;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -38,6 +39,9 @@ public class DashboardController extends BaseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LogService logService;
+
     @GetMapping("init")
     public String init(ModelMap modelMap) {
         String filters = "GTE_createDate=" + getStringDate() + " 00:00:00;LTE_createDate=" + getStringDate() + " 23:59:59";
@@ -51,13 +55,11 @@ public class DashboardController extends BaseController {
         return "admin/views/system/Dashboard";
     }
 
-    @GetMapping("line-data")
+    @GetMapping("map-data")
     @ResponseBody
-    public Result lineData(@RequestParam(value = "filters") String filters) {
-        long article = articleServer.count(filters);
-        long image = imageServer.count(filters);
-        long user = userService.count(filters);
-        return success(new TodayDataVO(article, image, user));
+    public Result map(@RequestParam(value = "filters") String filters) {
+        List<List<String>> map = logService.counts();
+        return success(map);
     }
 
     public String getStringDate() {

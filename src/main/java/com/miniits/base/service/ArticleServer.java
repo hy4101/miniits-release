@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static com.miniits.base.utils.SystemDict.ARTICLES_STATUS_ENABLE;
 
 /**
@@ -33,8 +35,8 @@ public class ArticleServer extends BaseServiceImpl<Article, String> {
         articleRepository.changeStatus(id, status, status.equals(ARTICLES_STATUS_ENABLE) ? "显示" : "隐藏");
     }
 
-    public long counts(String filters) {
-        return this.count(filters);
+    public List<Object> counts(String filters) {
+        return articleRepository.count(filters);
     }
 
 }
