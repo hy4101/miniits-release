@@ -14,6 +14,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.util.StringUtils;
 
 import static com.miniits.base.utils.MD5Util.hashStr;
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 
 
 /**
@@ -46,7 +47,6 @@ public class MiniitsApplication implements ApplicationListener {
 
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
-        // 在这里可以监听到Spring Boot的生命周期
         if (event instanceof ApplicationReadyEvent) {
             long count = userService.count();
             if (count > 0) {
@@ -70,7 +70,7 @@ public class MiniitsApplication implements ApplicationListener {
             User user = new User();
             user.setUserName(un);
             user.setPassword(hashStr(pw));
-            user.setUserStatusCode(100000001);
+            user.setUserStatusCode(GLOBAL_STATUS_YES);
             user.setUserStatusName("启用");
             userService.save(user);
             LOGGER.info("initialization success");
