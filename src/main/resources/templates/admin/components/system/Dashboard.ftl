@@ -90,7 +90,7 @@
                 </div>
                 <div class="box-body">
                     <div class="chart" style="display: flex;">
-                        <div id="main" style="width: 1300px;height:500px;"></div>
+                        <div id="main" style="width: 1300px;height:600px;"></div>
                         <div>
                             <h2 id="div_ip_total"></h2>
                         </div>

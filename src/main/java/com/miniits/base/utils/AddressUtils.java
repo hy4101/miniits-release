@@ -151,7 +151,6 @@ public class AddressUtils {
     }
 
     public static Map<String, String> getAddress(String address) {
-        String ip = "211.162.238.156";
         JSONObject json = JSON.parseObject(address);
         address = json.get("data").toString();
         String country = JSONObject.parseObject(address).get("country").toString();

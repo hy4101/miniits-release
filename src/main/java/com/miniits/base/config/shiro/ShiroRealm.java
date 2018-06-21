@@ -12,6 +12,8 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ObjectUtils;
 
+import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/1/3
@@ -37,7 +39,7 @@ public class ShiroRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         System.out.println(authenticationToken.getCredentials());
         User user = userService.findByUserName(username);
-        if (ObjectUtils.isEmpty(user)) {
+        if (ObjectUtils.isEmpty(user) || user.getUserStatusCode().equals(GLOBAL_STATUS_NO)) {
             return null;
         }
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(user, user.getPassword(), getName());

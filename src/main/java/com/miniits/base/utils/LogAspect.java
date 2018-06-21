@@ -31,11 +31,14 @@ public class LogAspect {
         log.setMethod(RequestUtil.getRequest().getMethod());
         log.setMethodName(point.getSignature().getName());
         log.setIp(RequestUtil.getRequest().getRemoteAddr());
-        String json = AddressUtils.getAddresses(log.getIp());
-        Map<String, String> address = AddressUtils.getAddress(json);
-        log.setCountry(address.get("country"));
-        log.setRegion(address.get("region"));
-        log.setCity(address.get("city"));
+        try {
+            String json = AddressUtils.getAddresses(log.getIp());
+            Map<String, String> address = AddressUtils.getAddress(json);
+            log.setCountry(address.get("country"));
+            log.setRegion(address.get("region"));
+            log.setCity(address.get("city"));
+        } catch (Exception e) {
+        }
         log.setUri(RequestUtil.getRequest().getRequestURI());
         String params = Joiner.on(",").withKeyValueSeparator("=").join(RequestUtil.getRequestParams());
         log.setParams(params);

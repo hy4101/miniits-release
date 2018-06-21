@@ -35,7 +35,7 @@
                                aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group f-mt5 f-mb10">
-                        <input type="text" name="password" class="form-control" placeholder="密 码"
+                        <input type="password" name="password" class="form-control" placeholder="密 码"
                                aria-describedby="basic-addon1">
                     </div>
                     <div class="input-group f-mt5 f-mb10">

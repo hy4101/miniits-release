@@ -1,6 +1,6 @@
 <div>
     <header class="main-header">
-        <a href="/admin" class="logo">
+        <a href="/admin/dashboard/init" class="logo">
             <span class="logo-mini"><b>M+</b></span>
             <span class="logo-lg"><b>MiniIts</b></span>
         </a>
