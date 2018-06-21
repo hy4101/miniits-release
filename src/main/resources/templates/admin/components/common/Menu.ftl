@@ -14,26 +14,27 @@
             <!-- Sidebar user panel -->
             <div class="user-panel">
                 <div class="pull-left image">
-                    <#--<img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">-->
+                <#--<img src="/static/images/user2-160x160.jpg" class="img-circle" alt="User Image">-->
                 </div>
                 <div class="pull-left info">
-                    <#--<p>Alexander Pierce</p>-->
-                    <#--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
+                <#--<p>Alexander Pierce</p>-->
+                <#--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
                 </div>
             </div>
             <!-- search form -->
-            <#--<form action="#" method="get" class="sidebar-form">-->
-                <#--<div class="input-group">-->
-                    <#--<input type="text" name="q" class="form-control" placeholder="Search...">-->
-                    <#--<span class="input-group-btn">-->
-                <#--<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i-->
-                        <#--class="fa fa-search"></i></button>-->
-              <#--</span>-->
-                <#--</div>-->
-            <#--</form>-->
+        <#--<form action="#" method="get" class="sidebar-form">-->
+        <#--<div class="input-group">-->
+        <#--<input type="text" name="q" class="form-control" placeholder="Search...">-->
+        <#--<span class="input-group-btn">-->
+        <#--<button type="submit" name="search" id="search-btn" class="btn btn-flat"><i-->
+        <#--class="fa fa-search"></i></button>-->
+        <#--</span>-->
+        <#--</div>-->
+        <#--</form>-->
             <ul class="sidebar-menu">
                 <li class="header txt-align-center txt-color-ffffff" style="background-color: #27AE60">
-                    Welcome To M+ Admin</li>
+                    Welcome To M+ Admin
+                </li>
                 <li class="${(active == 'dashboard')?string('active', '')} treeview">
                     <a href="#">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i
@@ -59,24 +60,31 @@
                         <i class="fa fa-files-o"></i>
                         <span>布局管理</span>
                         <i class="fa fa-angle-left pull-right"></i>
-                        <#--<span class="label label-primary pull-right">4</span>-->
+                    <#--<span class="label label-primary pull-right">4</span>-->
                     </a>
                     <ul class="treeview-menu">
-                        <li class="menu-item"><a href="/admin/pages/init"><i class="fa fa-paperclip"
-                                                                             aria-hidden="true"></i>页面管理</a></li>
-                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-puzzle-piece"
-                                                                                  aria-hidden="true"></i>组件管理</a></li>
-                        <li class="menu-item"><a href="/admin/components/init-development-code"><i
-                                class="fa fa-puzzle-piece" aria-hidden="true"></i>组件开发-编程式</a></li>
-                        <li class="menu-item"><a href="/admin/components/init-development"><i class="fa fa-puzzle-piece"
-                                                                                              aria-hidden="true"></i>组件开发-拖拽式</a>
+                        <li class="menu-item">
+                            <a href="/admin/pages/init">
+                                <i class="fa fa-columns" aria-hidden="true"></i>
+                                页面管理
+                            </a>
                         </li>
-                        <li class="menu-item"><a href="/admin/components/init"><i class="fa fa-cubes"
-                                                                                  aria-hidden="true"></i>系统页面</a></li>
                         <li class="menu-item">
                             <a href="/admin/components/init">
-                                <i class="fa fa-file-code-o" aria-hidden="true"></i>
-                                系统组件
+                                <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
+                                组件管理
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/components/init-development-code">
+                                <i class="fa fa-desktop" aria-hidden="true"></i>
+                                组件开发-编程式
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/components/init-development">
+                                <i class="fa fa-compress" aria-hidden="true"></i>
+                                组件开发-拖拽式
                             </a>
                         </li>
                         <li class="menu-item">
@@ -93,20 +101,39 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="menu-item"><a href="/admin/contents/article/publish/init?id="><i
-                                class="fa fa-paperclip" aria-hidden="true"></i>发布文章</a></li>
-                        <li class="menu-item"><a href="/admin/contents/article/init"><i class="fa fa-paperclip"
-                                                                                        aria-hidden="true"></i>文章管理</a>
+                        <li class="menu-item">
+                            <a href="/admin/contents/article/publish/init?id=">
+                                <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                发布文章
+                            </a>
                         </li>
-                        <li class="menu-item"><a href="/admin/tags/init"><i class="fa fa-puzzle-piece"
-                                                                            aria-hidden="true"></i>云标签管理</a></li>
-                        <li class="menu-item"><a href="/admin/categorys/init"><i class="fa fa-puzzle-piece"
-                                                                                 aria-hidden="true"></i>分类管理</a></li>
-                        <li class="menu-item"><a
-                                href="/admin/images/init?pageSize=16&pageNumber=1&sorts=-createDate&filters="><i
-                                class="fa fa-puzzle-piece" aria-hidden="true"></i>图片管理</a></li>
-                        <li class="menu-item"><a href="/admin/links/init"><i class="fa fa-puzzle-piece"
-                                                                             aria-hidden="true"></i>友情链接</a></li>
+                        <li class="menu-item"><a href="/admin/contents/article/init">
+                            <i class="fa fa-paperclip" aria-hidden="true"></i>
+                            文章管理
+                        </a>
+                        </li>
+                        <li class="menu-item"><a href="/admin/tags/init">
+                            <i class="fa fa-tags" aria-hidden="true"></i>
+                            云标签管理
+                        </a>
+                        </li>
+                        <li class="menu-item"><a href="/admin/categorys/init">
+                            <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
+                            分类管理
+                        </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/images/init?pageSize=16&pageNumber=1&sorts=-createDate&filters=">
+                                <i class="fa fa-picture-o" aria-hidden="true"></i>
+                                图片管理
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="/admin/links/init">
+                                <i class="fa fa-link" aria-hidden="true"></i>
+                                友情链接
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a>
