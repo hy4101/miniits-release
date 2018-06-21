@@ -41,7 +41,7 @@ public class MiniitsApplication implements ApplicationListener {
 
     public static void main(String[] args) {
         SpringApplication.run(MiniitsApplication.class, args);
-        LOGGER.info("启动成功!!!");
+        LOGGER.info("started!!!");
     }
 
     @Override
