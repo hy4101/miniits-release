@@ -12,10 +12,21 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group div-form-group">
+                        <label class="label-form-group-title-item">作者 :</label>
+                        <input type="text" name="remark" class="form-control input-form-group-value-item" placeholder="作者">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group div-form-group">
+                        <label class="label-form-group-title-item">预览图片 :</label>
+                        <input type="text" name="remark" class="form-control input-form-group-value-item" placeholder="为了更直观的展示您的组件，请输入图片url">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group div-form-group">
                         <label class="label-form-group-title-item">备注 :</label>
-                        <input type="text" name="remark" class="form-control input-form-group-value-item"
-                               id="remark"
-                               placeholder="请输入页面别名">
+                        <textarea type="text" name="remark" class="form-control input-form-group-value-item" id="remark"
+                                  placeholder="请输入页面别名"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
