@@ -55,7 +55,7 @@
                    </div>
                </#list>
         </div>
-        <nav aria-label="Page navigation">
+        <nav aria-label="Page navigation" style="display: flex; justify-content: flex-end;">
              <#assign baseUrl="/admin/images/init?pageSize=16&">
             <ul class="pagination">
                 <#if (thisPageNumber>1)>

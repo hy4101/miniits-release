@@ -1,4 +1,4 @@
-package com.miniits.base.controller.gather.pipeline;
+package com.miniits.base.utils.gather.pipeline;
 
 import com.miniits.base.model.entity.Image;
 import com.miniits.base.service.ImageServer;

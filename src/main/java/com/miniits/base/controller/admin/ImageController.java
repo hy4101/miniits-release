@@ -1,6 +1,6 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.controller.gather.service.ImageCrawlerService;
+import com.miniits.base.utils.gather.service.ImageCrawlerService;
 import com.miniits.base.model.entity.Image;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ImageServer;

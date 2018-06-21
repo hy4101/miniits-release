@@ -1,6 +1,6 @@
-package com.miniits.base.controller.gather.service;
+package com.miniits.base.utils.gather.service;
 
-import com.miniits.base.controller.gather.pipeline.ImageConsolePipeline;
+import com.miniits.base.utils.gather.pipeline.ImageConsolePipeline;
 import com.miniits.base.model.entity.Image;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.HTMLSpirit;
