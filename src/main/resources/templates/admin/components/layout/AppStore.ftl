@@ -81,8 +81,6 @@
         </nav>
     </div>
     <div>
-    <#include "ImageUploadDialog.ftl"/>
-    <#include "ImagesSelectInfoDialog.ftl"/>
     </div>
 </div>
 <script>

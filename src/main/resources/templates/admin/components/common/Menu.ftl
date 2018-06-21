@@ -88,7 +88,7 @@
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/components/init">
+                            <a href="/admin/app-store/init">
                                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                                 DIY市场
                             </a>

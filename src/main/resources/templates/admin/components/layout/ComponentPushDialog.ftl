@@ -19,7 +19,13 @@
                 <div class="modal-body">
                     <div class="form-group div-form-group">
                         <label class="label-form-group-title-item">预览图片 :</label>
-                        <input type="text" name="remark" class="form-control input-form-group-value-item" placeholder="为了更直观的展示您的组件，请输入图片url">
+                        <input type="text" name="remark" class="form-control input-form-group-value-item" placeholder="应用市场可以更直观的展示您的应用，请输入图片url">
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group div-form-group">
+                        <label class="label-form-group-title-item">标签 :</label>
+                        <input type="text" name="remark" class="form-control input-form-group-value-item" placeholder="应用市场可以快速通过标签查找您的应用，请输入标签（多个逗号隔开）">
                     </div>
                 </div>
                 <div class="modal-body">
@@ -30,6 +36,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button  type="button" class="btn btn-link">
+                        如何发布
+                    </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">
                         <i class="fa fa-times" aria-hidden="true"></i>
                         关闭
