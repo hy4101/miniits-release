@@ -23,6 +23,16 @@ public class AppStore extends BaseEntity {
     private AppContent appContent;
 
     /**
+     * 编号，唯一标识(m_001)
+     */
+    private String number;
+
+    /**
+     * 应用图片url
+     */
+    private String appImageUrl;
+
+    /**
      * 作者id
      */
     private String authorId;
@@ -198,5 +208,23 @@ public class AppStore extends BaseEntity {
 
     public void setAppContent(AppContent appContent) {
         this.appContent = appContent;
+    }
+
+    @Column(name = "number", length = 100, unique = true, nullable = false)
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    @Column(name = "app_image_url", length = 1000, nullable = false)
+    public String getAppImageUrl() {
+        return appImageUrl;
+    }
+
+    public void setAppImageUrl(String appImageUrl) {
+        this.appImageUrl = appImageUrl;
     }
 }

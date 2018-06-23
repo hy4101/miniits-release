@@ -50,7 +50,7 @@ public class ImageController extends BaseController {
         Page<Image> images = imageServer.search(pageable);
         modelMap.put("active", "content");
         modelMap.put("thisPageNumber", pageable.getPageNumber());
-        modelMap.put("pageNumbers", getPageNumber(images, pageable));
+        modelMap.put("pageNumbers", getPageNumber(images.getTotalElements(), pageable));
         modelMap.put("totalPageNumber", totalPage);
         modelMap.put("images", images.getContent());
         return "admin/views/content/Images";

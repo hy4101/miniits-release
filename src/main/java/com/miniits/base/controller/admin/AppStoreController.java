@@ -1,11 +1,10 @@
 package com.miniits.base.controller.admin;
 
-import com.miniits.base.model.entity.Image;
 import com.miniits.base.mysql.Pageable;
-import com.miniits.base.service.ImageServer;
 import com.miniits.base.utils.BaseController;
+import com.miniits.base.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,20 +27,19 @@ public class AppStoreController extends BaseController {
 
     private Long totalPage = 0L;
 
-    @Autowired
-    private ImageServer imageServer;
-
+    @Qualifier("restTemplate")
     @Autowired
     private RestTemplate restTemplate;
 
     @GetMapping("init")
     public String init(ModelMap modelMap, Pageable pageable) {
+        Result appStoresVOResult = restTemplate.getForObject("http://localhost:8000/miniits/apps/apps?filters={filters}&sorts={sorts}&pageSize={pageSize}&pageNumber={pageNumber}",
+                Result.class, pageable.getFilters(), pageable.getSorts(), pageable.getPageSize(), pageable.getPageNumber());
         modelMap.put("active", "layout");
-        Page<Image> images = imageServer.search(pageable);
         modelMap.put("thisPageNumber", pageable.getPageNumber());
-        modelMap.put("pageNumbers", getPageNumber(images, pageable));
+        modelMap.put("pageNumbers", getPageNumber(appStoresVOResult.getTotal(), pageable));
         modelMap.put("totalPageNumber", totalPage);
-        modelMap.put("images", images.getContent());
+        modelMap.put("apps", appStoresVOResult.getRows());
         return "admin/views/layout/AppStore";
     }
 

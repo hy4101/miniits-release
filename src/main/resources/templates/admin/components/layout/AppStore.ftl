@@ -3,7 +3,7 @@
         <div class="col-md-4 column">
             <div class="input-group" style="display: flex">
                 <label for="txt_parentdepartment" class="label-form-group-title-item"
-                       style="flex: 1;line-height: 29px;">图片名称
+                       style="flex: 1;line-height: 29px;">应用名称
                     :</label>
                 <input type="text" class="form-control" id="imageName" name="imageName"
                        style="flex: 4;"
@@ -13,7 +13,7 @@
         <div class="col-md-4 column">
             <div class="input-group" style="display: flex">
                 <label for="txt_parentdepartment" class="label-form-group-title-item"
-                       style="flex: 1;line-height: 29px;">图片URL
+                       style="flex: 1;line-height: 29px;">应用URL
                     :</label>
                 <input type="text" class="form-control" id="imageUrl" name="imageUrl"
                        style="flex: 4;"
@@ -29,26 +29,24 @@
                     style="background-color: #ff754e;color: #fff;">
                 <i class="fa fa-refresh" aria-hidden="true"></i>
             </button>
-            <button id="btn_image_upload" type="button" class="btn">
-                <i class="fa fa-upload" aria-hidden="true"></i>
-            </button>
         </div>
     </div>
     <div>
-        <div id="div_images" style="display:flex;flex-wrap:wrap">
-               <#list images as image>
+        <div id="div_apps" style="display:flex;flex-wrap:wrap">
+               <#list apps as app>
                    <div style="margin: 5px;border: 1px solid #c8c8c8;">
-                       <a class="select-image-info" valueId="${image.id}">
-                           <img src="${image.url}" style="width: 400px;height: 300px">
+                       <a class="select-app-info" valueId="${app.number}" appName="${app.appTypeName}">
+                           <img src="${app.appImageUrl}" style="width: 400px;height: 300px;cursor: pointer">
                        </a>
                        <div class="row">
                            <div class="col-md-8" style="line-height: 54px;"><label
-                                   style="margin-left: 10px;">${image.name}</label></div>
+                                   style="margin-left: 10px;">${app.appTypeName}</label></div>
                            <div class="col-md-4">
-                               <button type="button" valueId="${image.id}" valueName="${image.name}"
-                                       class="btn btn-danger btn-delete"
-                                       style="float: right;margin: 10px;">
-                                   <i class="fa fa-trash-o" style="" aria-hidden="true"></i>
+                           <#--下载量：  ${app.downloadNumber}-->
+                               <button type="button" valueId="${app.number}" valueName="${app.appTypeName}"
+                                       class="btn btn-link" style="float: right;margin: 10px;">
+                                   ${app.downloadNumber}
+                                   <i class="fa fa-star" aria-hidden="true"></i>
                                </button>
                            </div>
                        </div>
@@ -56,7 +54,7 @@
                </#list>
         </div>
         <nav aria-label="Page navigation" style="display: flex; justify-content: flex-end;">
-             <#assign baseUrl="/admin/images/init?pageSize=16&">
+             <#assign baseUrl="/admin/app-store/init?pageSize=16&">
             <ul class="pagination">
                 <#if (thisPageNumber>1)>
                 <li>
@@ -81,6 +79,7 @@
         </nav>
     </div>
     <div>
+    <#include "AppStoreDetailDialog.ftl"/>
     </div>
 </div>
 <script>
@@ -109,31 +108,12 @@
             win.location.href = "init?pageSize=16&pageNumber=1&sorts=-createDate&filters=" + filters;
         });
 
-        $("#div_images").on('click', ".select-image-info", function () {
-            var imageId = $(this).attr('valueId');
-            $('#image_select_dialog_modal').modal();
-            commitImage({imageId: imageId});
-        })
-        $('#div_images').on("click", ".btn-delete", function () {
-            var imageId = $(this).attr('valueId');
-            var imageName = $(this).attr('valueName');
-            Mini.confirm({
-                message: "您确认要删除 <b style='color: red'>" + imageName + "</b> ？",
-                btnok: '是的！确认删除'
-            }).on(function (e) {
-                if (!e) {
-                    return;
-                }
-                var param = {
-                    method: 'delete', url: imageId
-                };
-                httpClient(param);
-                location.reload();
-            });
-        });
-
-        $("#btn_image_upload").click(function () {
-            $('#image_upload_dialog_modal').modal();
+        $("#div_apps").on('click', ".select-app-info", function () {
+            var appId = $(this).attr('valueId');
+            var appName = $(this).attr('appName');
+            $('#app_select_dialog_modal').modal();
+            $('#app_name').text(appName);
+            commitApp({appId: appId});
         });
 
         function imageInit() {

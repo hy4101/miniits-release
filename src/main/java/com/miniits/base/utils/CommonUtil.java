@@ -2,7 +2,6 @@ package com.miniits.base.utils;
 
 import com.miniits.base.model.dto.SeoDTO;
 import com.miniits.base.model.entity.ComponentImage;
-import com.miniits.base.model.entity.Image;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.mysql.Pageable;
@@ -161,7 +160,7 @@ public class CommonUtil {
             Element li = document.select("li").get(0);
             document.select("li").remove();
 
-            List<Long> ps = getPageNumber(page, new Pageable(pageSize, pageNumber));
+            List<Long> ps = getPageNumber(page.getTotalElements(), new Pageable(pageSize, pageNumber));
             for (int i = 0; i < ps.size(); i++) {
                 String active = "";
                 if (Integer.valueOf(ps.get(i).toString()) == pageNumber) {
@@ -201,9 +200,9 @@ public class CommonUtil {
         return document.toString();
     }
 
-    public static List<Long> getPageNumber(org.springframework.data.domain.Page<Image> page, Pageable pageable) {
+    public static List<Long> getPageNumber(long totalElements, Pageable pageable) {
         long thisPage = pageable.getPageNumber();
-        totalPage = getTotalPage(page.getTotalElements(), pageable.getPageSize());
+        totalPage = getTotalPage(totalElements, pageable.getPageSize());
 
         if (totalPage < 5) {
             List<Long> ls = new ArrayList<>();
