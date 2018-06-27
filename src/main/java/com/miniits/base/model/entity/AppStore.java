@@ -88,6 +88,11 @@ public class AppStore extends BaseEntity {
     private Integer starNumber;
 
     /**
+     * 标签
+     */
+    private String tags;
+
+    /**
      * 备注
      */
     private String remark;
