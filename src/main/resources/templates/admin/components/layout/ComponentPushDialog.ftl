@@ -59,17 +59,26 @@
 <script>
     (function ($, win) {
         var userName = '';
+        var component = '';
 <@shiro.authenticated>
     userName = '<@shiro.principal property="userName"/>';
 </@shiro.authenticated>
-        var component = '';
         $("#authorName").val(userName);
         $("#btn_push_component").click(function () {
+            var number = component.componentId;
             var authorName = $("#authorName").val();
             var appImageUrl = $("#appImageUrl").val();
             var tags = $("#tags").val();
             var remark = $("#remark").val();
-            var pushData = {tags: tags, appImageUrl: appImageUrl, authorName: authorName, remark: remark};
+            var pushData = {
+                tags: tags,
+                appImageUrl: appImageUrl,
+                authorName: authorName,
+                remark: remark,
+                appType: '101001001',
+                appTypeName: '组件',
+                number: number
+            };
             var url = 'http://localhost:8000/miniits/app/push';
             var param = {
                 method: 'post',

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-import static com.miniits.base.utils.SystemDict.AppStatus.APP_STATUS_ONLINE;
+import static com.miniits.base.utils.SystemDict.AppStatus.APP_STATUS_PENDING;
 
 /**
  * @author: wq
@@ -31,11 +31,11 @@ public class PushAppController extends BaseController {
     @PostMapping("/push")
     public Result push(@RequestParam(name = "app") String appPushDto) throws Exception {
         AppStore appStore = toEntity(appPushDto, AppStore.class);
-        appStore.setAppStatus(APP_STATUS_ONLINE);
-        appStore.setAppStatusName("在线");
+        appStore.setAppStatus(APP_STATUS_PENDING);
+        appStore.setAppStatusName("待审核");
         appStore.setUpTime(new Date());
         appStoreServer.save(appStore);
-        return success("应用发布成功");
+        return success("应用推送成功");
     }
 
     @GetMapping("/apps")

@@ -35,7 +35,7 @@ public class AppStore extends BaseEntity {
     /**
      * 作者id
      */
-    private String authorId;
+//    private String authorId;
 
     /**
      * 作者名称
@@ -97,14 +97,14 @@ public class AppStore extends BaseEntity {
      */
     private String remark;
 
-    @Column(name = "author_id", nullable = false, length = 36)
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public void setAuthorId(String authorId) {
-        this.authorId = authorId;
-    }
+//    @Column(name = "author_id", nullable = false, length = 36)
+//    public String getAuthorId() {
+//        return authorId;
+//    }
+//
+//    public void setAuthorId(String authorId) {
+//        this.authorId = authorId;
+//    }
 
     @Column(name = "author_name", length = 50)
     public String getAuthorName() {
@@ -231,5 +231,14 @@ public class AppStore extends BaseEntity {
 
     public void setAppImageUrl(String appImageUrl) {
         this.appImageUrl = appImageUrl;
+    }
+
+    @Column(name = "tags", length = 500)
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 }

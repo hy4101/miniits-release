@@ -27,5 +27,8 @@ public class AppStoreServer extends BaseServiceImpl<AppStore, String> {
         super.setBaseDao(appStoreRepository);
     }
 
+    public AppStore getAppStore(String number) {
+        return appStoreRepository.findByNumber(number);
+    }
 
 }

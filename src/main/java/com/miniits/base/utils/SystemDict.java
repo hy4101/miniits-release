@@ -127,11 +127,13 @@ public final class SystemDict {
     public static class AppStatus {
 
         /**
-         * 在线 = 102001001
-         * 下架 = 102001002
+         * 待审核 = 102001001
+         * 在线 = 102001002
+         * 下架 = 102001003
          */
-        public final static Integer APP_STATUS_ONLINE= 102001001;
-        public final static Integer APP_STATUS_DOWN = 102001002;
+        public final static Integer APP_STATUS_PENDING= 102001001;
+        public final static Integer APP_STATUS_ONLINE= 102001002;
+        public final static Integer APP_STATUS_DOWN = 102001003;
     }
 
 }

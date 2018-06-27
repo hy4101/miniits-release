@@ -46,7 +46,7 @@ public class PushCompontenController extends BaseController {
         AppStore appStore = new AppStore();
         appStore.setAppContent(ConvertUtil.toVO(component, AppContent.class));
         appStore.getAppContent().setId(null);
-        appStore.setAuthorId(ObjectUtils.isEmpty(currentUser) ? "" : currentUser.getId());
+//        appStore.setAuthorId(ObjectUtils.isEmpty(currentUser) ? "" : currentUser.getId());
         appStore.setAuthorName(ObjectUtils.isEmpty(currentUser) ? "" : currentUser.getUserName());
         appStore.setAppType(APP_TYPE_COMPONENT);
         appStore.setAppTypeName("组件");

@@ -14,4 +14,6 @@ import com.miniits.base.mysql.BaseRepository;
  */
 public interface AppStoreRepository extends BaseRepository<AppStore, String> {
 
+    AppStore findByNumber(String number);
+
 }
