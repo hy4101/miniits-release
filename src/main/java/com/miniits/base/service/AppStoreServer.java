@@ -6,6 +6,9 @@ import com.miniits.base.mysql.BaseServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.ObjectUtils;
+
+import java.util.List;
 
 /**
  * @author: wq
@@ -27,8 +30,14 @@ public class AppStoreServer extends BaseServiceImpl<AppStore, String> {
         super.setBaseDao(appStoreRepository);
     }
 
-    public AppStore getAppStore(String number) {
-        return appStoreRepository.findByNumber(number);
+    public AppStore findBySystemNumberAndAscriptionNumber(String ascriptionNumber, String systemNumber) {
+        List<AppStore> appStores = appStoreRepository.findBySystemNumberAndAscriptionNumber(systemNumber, ascriptionNumber);
+        AppStore appStore = null;
+        if (!ObjectUtils.isEmpty(appStores)) {
+            appStore = appStores.get(0);
+            appStore.setDownloadNumber(appStore.getDownloadNumber() + 1);
+        }
+        return appStore;
     }
 
 }

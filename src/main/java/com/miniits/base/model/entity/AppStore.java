@@ -23,9 +23,14 @@ public class AppStore extends BaseEntity {
     private AppContent appContent;
 
     /**
-     * 编号，唯一标识(m_001)
+     * 系统编号，系统生成，唯一标识(m_001)
      */
-    private String number;
+    private String systemNumber;
+
+    /**
+     * 归属编号，开发者提供，唯一标识(m_001)
+     */
+    private String ascriptionNumber;
 
     /**
      * 应用图片url
@@ -215,13 +220,22 @@ public class AppStore extends BaseEntity {
         this.appContent = appContent;
     }
 
-    @Column(name = "number", length = 100, unique = true, nullable = false)
-    public String getNumber() {
-        return number;
+    @Column(name = "system_number", length = 100, unique = true, nullable = false)
+    public String getSystemNumber() {
+        return systemNumber;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setSystemNumber(String systemNumber) {
+        this.systemNumber = systemNumber;
+    }
+
+    @Column(name = "ascription_number", length = 100, unique = true, nullable = false)
+    public String getAscriptionNumber() {
+        return ascriptionNumber;
+    }
+
+    public void setAscriptionNumber(String ascriptionNumber) {
+        this.ascriptionNumber = ascriptionNumber;
     }
 
     @Column(name = "app_image_url", length = 1000, nullable = false)

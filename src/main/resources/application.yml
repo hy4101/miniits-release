@@ -51,3 +51,8 @@ spring:
         content:
           enabled: true
           paths: /**
+
+m-plus:
+  url:
+    apps: http://localhost:8000/miniits/apps/apps?filters={filters}&sorts={sorts}&pageSize={pageSize}&pageNumber={pageNumber}
+    app: http://localhost:8000/miniits/apps/app?app-am={am}&app-sm={sm}

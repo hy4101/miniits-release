@@ -1,7 +1,5 @@
 package com.miniits.base.model.vo;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/6/21
@@ -10,19 +8,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Description:
  * WWW.MINIITS.COM
  */
-public class AppStoresVO {
+public class AppStoreVO {
 
     /**
-     * 系统编号，系统生成，唯一标识(m_001)
+     * 应用内容
      */
-    @JsonProperty(value = "sm")
-    private String systemNumber;
+    private AppVO appContentVO;
 
     /**
-     * 归属编号，开发者提供，唯一标识(m_001)
+     * 编号，唯一标识(m_001)
      */
-    @JsonProperty(value = "am")
-    private String ascriptionNumber;
+    private String number;
 
     /**
      * 应用图片url
@@ -81,20 +77,12 @@ public class AppStoresVO {
         this.downloadNumber = downloadNumber;
     }
 
-    public String getSystemNumber() {
-        return systemNumber;
+    public String getNumber() {
+        return number;
     }
 
-    public void setSystemNumber(String systemNumber) {
-        this.systemNumber = systemNumber;
-    }
-
-    public String getAscriptionNumber() {
-        return ascriptionNumber;
-    }
-
-    public void setAscriptionNumber(String ascriptionNumber) {
-        this.ascriptionNumber = ascriptionNumber;
+    public void setNumber(String number) {
+        this.number = number;
     }
 
     public String getAppImageUrl() {
