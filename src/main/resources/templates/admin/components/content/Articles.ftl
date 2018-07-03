@@ -40,36 +40,36 @@
         </div>
         <table id="table_articles" style="background-color: #FFFFFF"></table>
     </div>
-    <div style="padding-left: 10px;flex: 5">
-        <div class="div-articles-component-title">
-            评论管理
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入名称" id="titleName"
-                           aria-describedby="basic-addon1">
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="请输入状态" id="statusName"
-                           aria-describedby="basic-addon1">
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <button id="btn_articles_search" type="button" class="btn"
-                        style="background-color: #27AE60;color: #fff;">
-                    <i class="fa fa-search" aria-hidden="true"></i>
-                </button>
-                <button id="btn_articles_refresh" type="button" class="btn"
-                        style="background-color: #ff754e;color: #fff;">
-                    <i class="fa fa-refresh" aria-hidden="true"></i>
-                </button>
-            </div>
-        </div>
-        <table id="table_comments" style="background-color: #FFFFFF"></table>
-    </div>
+    <#--<div style="padding-left: 10px;flex: 5">-->
+        <#--<div class="div-articles-component-title">-->
+            <#--评论管理-->
+        <#--</div>-->
+        <#--<div class="row">-->
+            <#--<div class="col-lg-4">-->
+                <#--<div class="input-group">-->
+                    <#--<input type="text" class="form-control" placeholder="请输入名称" id="titleName"-->
+                           <#--aria-describedby="basic-addon1">-->
+                <#--</div>-->
+            <#--</div>-->
+            <#--<div class="col-lg-4">-->
+                <#--<div class="input-group">-->
+                    <#--<input type="text" class="form-control" placeholder="请输入状态" id="statusName"-->
+                           <#--aria-describedby="basic-addon1">-->
+                <#--</div>-->
+            <#--</div>-->
+            <#--<div class="col-lg-4">-->
+                <#--<button id="btn_articles_search" type="button" class="btn"-->
+                        <#--style="background-color: #27AE60;color: #fff;">-->
+                    <#--<i class="fa fa-search" aria-hidden="true"></i>-->
+                <#--</button>-->
+                <#--<button id="btn_articles_refresh" type="button" class="btn"-->
+                        <#--style="background-color: #ff754e;color: #fff;">-->
+                    <#--<i class="fa fa-refresh" aria-hidden="true"></i>-->
+                <#--</button>-->
+            <#--</div>-->
+        <#--</div>-->
+        <#--<table id="table_comments" style="background-color: #FFFFFF"></table>-->
+    <#--</div>-->
 </div>
 <script>
     (function ($, win) {

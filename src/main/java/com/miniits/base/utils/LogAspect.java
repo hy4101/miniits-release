@@ -28,16 +28,19 @@ public class LogAspect {
     @Before("execution(* com.miniits.base.controller..*(..))")
     public void anyOperation(JoinPoint point) {
         Log log = new Log();
+        String uri = RequestUtil.getRequest().getRequestURI();
         log.setMethod(RequestUtil.getRequest().getMethod());
         log.setMethodName(point.getSignature().getName());
         log.setIp(RequestUtil.getRequest().getRemoteAddr());
-        try {
-            String json = AddressUtils.getAddresses(log.getIp());
-            Map<String, String> address = AddressUtils.getAddress(json);
-            log.setCountry(address.get("country"));
-            log.setRegion(address.get("region"));
-            log.setCity(address.get("city"));
-        } catch (Exception e) {
+        if (uri.indexOf("admin") == -1) {
+            try {
+                String json = AddressUtils.getAddresses(log.getIp());
+                Map<String, String> address = AddressUtils.getAddress(json);
+                log.setCountry(address.get("country"));
+                log.setRegion(address.get("region"));
+                log.setCity(address.get("city"));
+            } catch (Exception e) {
+            }
         }
         log.setUri(RequestUtil.getRequest().getRequestURI());
         String params = Joiner.on(",").withKeyValueSeparator("=").join(RequestUtil.getRequestParams());
