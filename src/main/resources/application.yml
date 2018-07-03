@@ -54,5 +54,7 @@ spring:
 
 m-plus:
   url:
-    apps: http://localhost:8000/miniits/apps/apps?filters={filters}&sorts={sorts}&pageSize={pageSize}&pageNumber={pageNumber}
-    app: http://localhost:8000/miniits/apps/app?app-am={am}&app-sm={sm}
+    base: http://localhost:8000/miniits/apps
+    apps: ${m-plus.url.base}/apps?filters={filters}&sorts={sorts}&pageSize={pageSize}&pageNumber={pageNumber}
+    app: ${m-plus.url.base}/app?app-am={am}&app-sm={sm}
+    push: ${m-plus.url.base}/push

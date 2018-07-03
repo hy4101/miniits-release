@@ -25,7 +25,7 @@ public class Log extends BaseEntity {
     @Column(name = "method_name", length = 500)
     private String methodName;
 
-    @Column(name = "params", length = 500)
+    @Column(name = "params", length = 1000)
     private String params;
 
     @Column(name = "module_name", length = 500)

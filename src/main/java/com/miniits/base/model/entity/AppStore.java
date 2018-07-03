@@ -23,6 +23,11 @@ public class AppStore extends BaseEntity {
     private AppContent appContent;
 
     /**
+     * 应用名称
+     */
+    private String appName;
+
+    /**
      * 系统编号，系统生成，唯一标识(m_001)
      */
     private String systemNumber;
@@ -254,5 +259,14 @@ public class AppStore extends BaseEntity {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    @Column(name = "app_name", length = 100)
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

@@ -1,5 +1,6 @@
 package com.miniits.base.model.vo;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
@@ -10,7 +11,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * Description:
  * WWW.MINIITS.COM
  */
+@JsonIgnoreProperties(ignoreUnknown = true, value = "id")
 public class AppStoresVO {
+
+    private String appName;
 
     /**
      * 系统编号，系统生成，唯一标识(m_001)
@@ -103,5 +107,13 @@ public class AppStoresVO {
 
     public void setAppImageUrl(String appImageUrl) {
         this.appImageUrl = appImageUrl;
+    }
+
+    public String getAppName() {
+        return appName;
+    }
+
+    public void setAppName(String appName) {
+        this.appName = appName;
     }
 }

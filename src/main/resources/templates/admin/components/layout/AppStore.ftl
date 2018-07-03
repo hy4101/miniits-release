@@ -28,15 +28,17 @@
                <#list apps as app>
                    <div style="margin: 5px;border: 1px solid #c8c8c8;">
                        <a class="select-app-info" valueId="${app.am}" appName="${app.appTypeName}">
-                           <img src="${app.appImageUrl}" style="width: 400px;height: 300px;cursor: pointer">
+                           <img src="${app.appImageUrl}"
+                                style="width: 400px;height: 300px;cursor: pointer;padding: 5px;">
                        </a>
                        <div class="row">
                            <div class="col-md-8" style="line-height: 54px;">
                                <label style="margin-left: 10px;">${app.appTypeName}</label>
-                               <label style="margin-left: 10px;">下载：${app.downloadNumber}</label>
+                               <label style="margin-left: 10px;font-size: 10px;font-weight: 100;">下载：${app.downloadNumber}</label>
                            </div>
                            <div class="col-md-4">
                                <button type="button" am="${app.am}" sm="${app.sm}" valueName="${app.appTypeName}"
+                                       data-loading-text="正在获取。。。"
                                        class="btn btn-link btn-get" style="float: right;margin: 10px;">
                                    获取
                                </button>
@@ -76,6 +78,7 @@
 </div>
 <script>
     (function ($, win) {
+        var getApp = null;
         $("#btn_images_refresh").click(function () {
             $("#appName").val(null);
             localStorage.removeItem('filter_name');
@@ -102,8 +105,13 @@
             commitApp({appId: appId});
         });
         $('#div_apps').on("click", ".btn-get", function () {
+            getApp = $(this).button('loading');
             var am = $(this).attr('am');
             var sm = $(this).attr('sm');
+            if (isEmpty(am) || isEmpty(sm)) {
+                getApp.button('reset');
+                return toastr.error('获取异常，您可以刷新后重试');
+            }
             var param = {
                 method: 'get', url: 'get-app', data: {am: am, sm: sm}, sessionId: 'get-app'
             };
@@ -120,6 +128,7 @@
 
         win.httpClientSuccess = function (data) {
             if (data.sessionId === 'get-app') {
+                getApp.button('reset');
                 var d = data.data;
                 if (d.success) {
                     toastr.success(d.message);

@@ -27,101 +27,6 @@
         <#include "ComponentPushDialog.ftl"/>
     </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 </div>
 <script>
     (function ($, win) {
@@ -262,9 +167,12 @@
             switch (data.sessionId) {
                 case 'components':
                     $('#table_components').bootstrapTable('refresh');
+                    toastr.success(data.data.message);
+                    break;
+                case 'push-component':
+                    ps(data);
                     break;
             }
-            toastr.success(data.data.message);
         };
 
     })(jQuery, window)

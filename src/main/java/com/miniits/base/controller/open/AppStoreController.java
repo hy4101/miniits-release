@@ -12,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
+
+import static com.miniits.base.utils.SystemDict.AppStatus.APP_STATUS_PENDING;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -25,7 +25,7 @@ import java.util.List;
  * @Time: 15:01
  * <p>
  * Description:
- * WWW.MINIITS.COM
+ * 官方对外提供的api
  */
 @RestController(value = "open-app-store")
 @RequestMapping("/miniits/apps")
@@ -41,7 +41,8 @@ public class AppStoreController extends BaseController {
         }
         pageable.setPageSize(16);
         Page<AppStore> appStores = appStoreServer.search(pageable);
-        return page((List<AppStoresVO>) ConvertUtil.toVOS(appStores.getContent(), AppStoresVO.class)).page(pageable.getPageSize()).size(pageable.getPageNumber()).
+        List<AppStoresVO> appStoresVOS = (List<AppStoresVO>) ConvertUtil.toVOS(appStores.getContent(), AppStoresVO.class);
+        return page(appStoresVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).
                 totalCount(appStores.getTotalElements()).total(appStores.getTotalElements());
     }
 
@@ -49,12 +50,35 @@ public class AppStoreController extends BaseController {
     public Result app(
             @RequestParam(value = "app-am") String ascriptionNumber,
             @RequestParam(value = "app-sm") String systemNumber) {
+        if (StringUtils.isEmpty(ascriptionNumber) || StringUtils.isEmpty(systemNumber)) {
+            return error("非法请求");
+        }
         AppStore appStore = appStoreServer.findBySystemNumberAndAscriptionNumber(ascriptionNumber, systemNumber);
         if (ObjectUtils.isEmpty(appStore)) {
             return error("查无此应用");
         }
         AppVO appVO = ConvertUtil.toVO(appStore.getAppContent(), AppVO.class);
         return success(appVO);
+    }
+
+    @PostMapping("/push")
+    public Result push(@RequestBody String appStore) throws Exception {
+        AppStore store = toEntity(appStore, AppStore.class);
+        String[] an = store.getAscriptionNumber().split("_N");
+        if (an.length < 2) {
+            return error("非法推送，您的归属编号错误");
+        }
+        if (StringUtils.isEmpty(store.getAppImageUrl())) {
+            return error("请添加应用的预览图片");
+        }
+        store.setSystemNumber(an[0] + "_S" + System.currentTimeMillis());
+        store.setAppStatus(APP_STATUS_PENDING);
+        store.setAppName(store.getAppContent().getComponentName());
+        store.setAppStatusName("待审核");
+        store.setUpTime(new Date());
+        store.setDownloadNumber(0);
+        appStoreServer.save(store);
+        return success("应用推送成功");
     }
 
 }

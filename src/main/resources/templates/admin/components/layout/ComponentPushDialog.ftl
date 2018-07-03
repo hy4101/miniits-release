@@ -41,14 +41,14 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-link">
-                    如何发布
-                </button>
+            <#--<button type="button" class="btn btn-link">-->
+            <#--如何发布-->
+            <#--</button>-->
                 <button type="button" class="btn btn-default" data-dismiss="modal">
                     <i class="fa fa-times" aria-hidden="true"></i>
                     关闭
                 </button>
-                <button id="btn_push_component" class="btn btn-primary">
+                <button id="btn_push_component" class="btn btn-primary" data-loading-text="正在推送。。。">
                     <i class="fa fa-floppy-o" aria-hidden="true"></i>
                     发布
                 </button>
@@ -63,9 +63,12 @@
 <@shiro.authenticated>
     userName = '<@shiro.principal property="userName"/>';
 </@shiro.authenticated>
+
+        var pushBtn = null;
         $("#authorName").val(userName);
         $("#btn_push_component").click(function () {
-            var number = component.componentId;
+            pushBtn = $(this).button('loading');
+            var number = component.id;
             var authorName = $("#authorName").val();
             var appImageUrl = $("#appImageUrl").val();
             var tags = $("#tags").val();
@@ -79,11 +82,11 @@
                 appTypeName: '组件',
                 number: number
             };
-            var url = 'http://localhost:8000/miniits/app/push';
+            var url = '/admin/push/' + number;
             var param = {
                 method: 'post',
                 url: url,
-                data: {app: JSON.stringify(pushData)},
+                data: pushData,
                 sessionId: 'push-component',
                 message: '推送成功，等待审核'
             };
@@ -94,8 +97,12 @@
             component = data.row;
         };
 
-        win.httpClientSuccess = function (data) {
-            toastr.success(data.message);
+        win.ps = function (data) {
+            if (data.sessionId === 'push-component') {
+                toastr.success(data.data.message);
+                pushBtn.button('reset');
+                $('#push_component_modal').modal('hide');
+            }
         }
 
     })(jQuery, window);

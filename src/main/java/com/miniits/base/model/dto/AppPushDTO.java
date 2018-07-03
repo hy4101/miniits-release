@@ -22,6 +22,10 @@ public class AppPushDTO {
 
     private String appTypeName;
 
+    private String tags;
+
+    private String appImageUrl;
+
     private String remark;
 
     public Component getComponent() {
@@ -70,5 +74,21 @@ public class AppPushDTO {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
+    public String getAppImageUrl() {
+        return appImageUrl;
+    }
+
+    public void setAppImageUrl(String appImageUrl) {
+        this.appImageUrl = appImageUrl;
     }
 }
