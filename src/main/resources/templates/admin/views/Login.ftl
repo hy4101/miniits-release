@@ -72,7 +72,7 @@
             var iCode = $("#inp_code").val();
             if (iCode !== code) {
                 toastr.error('请输入正确的验证码,区分大小写');
-                return;
+                // return;
             }
             $("#f_login").submit();
         });

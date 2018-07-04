@@ -45,7 +45,10 @@ public class LogAspect {
         log.setUri(RequestUtil.getRequest().getRequestURI());
         String params = Joiner.on(",").withKeyValueSeparator("=").join(RequestUtil.getRequestParams());
         log.setParams(params);
-        logRepository.save(log);
+        try {
+            logRepository.save(log);
+        } catch (Exception e) {
+        }
         logger.info("{}", log);
     }
 }

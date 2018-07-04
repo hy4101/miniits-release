@@ -36,7 +36,7 @@ public class PageComponentAssociate extends BaseEntity {
         this.page = page;
     }
 
-    @Column(name = "sorts", unique = true, length = 10)
+    @Column(name = "sorts", length = 10)
     public Integer getSorts() {
         return sorts;
     }

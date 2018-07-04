@@ -20,10 +20,6 @@ public class FileUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
-    private static final String LINUX_PATH = "/data/idnum/";
-
-    private static final String WINDOWS_PATH = "c:\\m-plus\\";
-
     private static String regEx = "[ `~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
 
     public static String validateFileName(String fileName) {
@@ -35,28 +31,26 @@ public class FileUtil {
     /**
      * 创建模板和html文件夹
      *
-     * @param str
      * @return
      */
 
-    public static String createTemplateFolderAndHtmlFolder(String str) {
-        String path = null;
+    public static String createTemplateFolderAndHtmlFolder(String lp, String sp) {
         if (OsUtil.isLinux()) {
-            path = LINUX_PATH + str + "/";
-            File uploadDir = new File(path);
+            File uploadDir = new File(lp);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
+            return lp;
         }
 
         if (OsUtil.isWindows()) {
-            path = WINDOWS_PATH + str + "\\";
-            File uploadDir = new File(path);
+            File uploadDir = new File(sp);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
+            return sp;
         }
-        return path;
+        return null;
     }
 
     /**

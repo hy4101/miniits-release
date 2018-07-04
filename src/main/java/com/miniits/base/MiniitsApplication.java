@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.util.StringUtils;
@@ -27,6 +28,7 @@ import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
  */
 
 @SpringBootApplication
+@ServletComponentScan
 public class MiniitsApplication implements ApplicationListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MiniitsApplication.class);

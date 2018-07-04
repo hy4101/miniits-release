@@ -94,7 +94,7 @@ public class Log extends BaseEntity {
         this.methodName = methodName;
     }
 
-    @Column(name = "params", length = 1000)
+    @Column(name = "params", length = 2000)
     public String getParams() {
         return params;
     }

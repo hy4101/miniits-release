@@ -117,7 +117,7 @@ public class Component extends BaseEntity {
         this.apiDataStructureType = apiDataStructureType;
     }
 
-    @Column(name = "component_Type", nullable = false, length = 9)
+    @Column(name = "component_Type", length = 9)
     public Integer getComponentType() {
         return componentType;
     }

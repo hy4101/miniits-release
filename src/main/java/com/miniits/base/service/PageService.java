@@ -124,6 +124,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
             page.setPageStatusName("禁用");
         }
         if (StringUtils.isEmpty(page.getId())) {
+            page.setTemplateCaching(GLOBAL_STATUS_YES);
             page.setPageComponentAssociates(initPage(page));
         }
         return pageRepository.save(page);

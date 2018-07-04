@@ -61,7 +61,7 @@ public class PageController extends BaseController {
 
     @PostMapping("/save")
     @ResponseBody
-    public Result saveUser(com.miniits.base.model.entity.Page page) {
+    public Result save(com.miniits.base.model.entity.Page page) {
         if (page.getPageStatus().equals(GLOBAL_STATUS_YES)) {
             com.miniits.base.model.entity.Page p = pageService.getPage(page.getPageName(), GLOBAL_STATUS_YES);
             if (!ObjectUtils.isEmpty(p)) {

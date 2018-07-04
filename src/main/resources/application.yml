@@ -37,6 +37,8 @@ spring:
     defaultPath: classpath:/html
     defaultFileName: index.html
     prefer-file-system-access: false
+    settings:
+      classic_compatible: true
   thymeleaf:
     prefix: classpath:/templates
     suffix: .ftl

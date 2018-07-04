@@ -12,6 +12,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -25,6 +27,7 @@ import java.util.regex.Pattern;
 import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
 import static com.miniits.base.utils.FileUtil.deleteFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
+import static com.miniits.base.utils.RequestUtil.getRequest;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -36,6 +39,12 @@ import static com.miniits.base.utils.RequestUtil.getPath;
  */
 @Component
 public class HTMLUtil {
+
+    private static Logger logger = LoggerFactory.getLogger(HTMLUtil.class);
+
+    private static final String LINUX_TEMPLATE_PATH = "/home/user/m-plus/template/";
+
+    private static final String WINDOWS_TEMPLATE_PATH = "c:\\user\\m-plus\\template\\";
 
     @Resource
     private Configuration configuration;
@@ -58,8 +67,16 @@ public class HTMLUtil {
      */
     public static String createHtml(Map<String, Object> root) throws IOException, TemplateException {
         String path = root.get("path").toString();
+        logger.warn("path---：{}", path);
+        logger.warn("templateName---：{}", root.get("templateName").toString());
+
+        String tp = createTemplateFolderAndHtmlFolder(LINUX_TEMPLATE_PATH, WINDOWS_TEMPLATE_PATH);
+        htmlUtil.configuration.setServletContextForTemplateLoading(getRequest().getServletContext(),"/templates");
+//        htmlUtil.configuration.setDirectoryForTemplateLoading(new File(tp));
+
         Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
-        createTemplateFolderAndHtmlFolder(path);
+//        Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
+        logger.warn("templateName get success");
         path = path + root.get("fileName").toString();
         Writer writer = new FileWriter(new File(path));
         try {
@@ -70,6 +87,7 @@ public class HTMLUtil {
         writer.close();
         return path;
     }
+
 
     /**
      * 将 markdown 文本内容转成 html 格式
