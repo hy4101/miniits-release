@@ -96,7 +96,7 @@
                     </ul>
                 </li>
                 <li class="${(active == 'content')?string('active', '')} treeview">
-                    <a href="pages/widgets.html">
+                    <a href="#">
                         <i class="fa fa-th"></i> <span>内容管理</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>

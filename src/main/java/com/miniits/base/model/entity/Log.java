@@ -7,36 +7,27 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Created by yjj on 2017/3/2.
+ * Created by wq on 2017/3/2.
  */
 @Entity
 @Table(name = "logs")
 public class Log extends BaseEntity {
 
-    @Column(name = "ip", length = 20)
     private String ip;
 
-    @Column(name = "uri", length = 500)
     private String uri;
 
-    @Column(name = "method", length = 500)
     private String method;
 
-    @Column(name = "method_name", length = 500)
     private String methodName;
 
-    @Column(name = "params", length = 1000)
     private String params;
 
-    @Column(name = "module_name", length = 500)
     private String moduleName;
-
 
     private String country;
 
-
     private String region;
-
 
     private String city;
 
@@ -67,6 +58,7 @@ public class Log extends BaseEntity {
         this.city = city;
     }
 
+    @Column(name = "ip", length = 20)
     public String getIp() {
         return ip;
     }
@@ -75,6 +67,7 @@ public class Log extends BaseEntity {
         this.ip = ip;
     }
 
+    @Column(name = "uri", length = 500)
     public String getUri() {
         return uri;
     }
@@ -83,6 +76,7 @@ public class Log extends BaseEntity {
         this.uri = uri;
     }
 
+    @Column(name = "method", length = 500)
     public String getMethod() {
         return method;
     }
@@ -91,6 +85,7 @@ public class Log extends BaseEntity {
         this.method = method;
     }
 
+    @Column(name = "method_name", length = 500)
     public String getMethodName() {
         return methodName;
     }
@@ -99,6 +94,7 @@ public class Log extends BaseEntity {
         this.methodName = methodName;
     }
 
+    @Column(name = "params", length = 1000)
     public String getParams() {
         return params;
     }
@@ -107,6 +103,7 @@ public class Log extends BaseEntity {
         this.params = params;
     }
 
+    @Column(name = "module_name", length = 500)
     public String getModuleName() {
         return moduleName;
     }

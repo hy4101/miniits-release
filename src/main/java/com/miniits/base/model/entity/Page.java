@@ -57,6 +57,7 @@ public class Page extends BaseEntity {
         this.pageComponentAssociates = pageComponentAssociates;
     }
 
+    @Column(name = "page_name", nullable = false)
     public String getPageName() {
         return pageName;
     }
@@ -65,6 +66,7 @@ public class Page extends BaseEntity {
         this.pageName = pageName;
     }
 
+    @Column(name = "page_path")
     public String getPagePath() {
         return pagePath;
     }
@@ -73,6 +75,7 @@ public class Page extends BaseEntity {
         this.pagePath = pagePath;
     }
 
+    @Column(name = "page_status", nullable = false)
     public Integer getPageStatus() {
         return pageStatus;
     }
@@ -81,6 +84,7 @@ public class Page extends BaseEntity {
         this.pageStatus = pageStatus;
     }
 
+    @Column(name = "page_status_name")
     public String getPageStatusName() {
         return pageStatusName;
     }
@@ -89,6 +93,7 @@ public class Page extends BaseEntity {
         this.pageStatusName = pageStatusName;
     }
 
+    @Column(name = "page_alias_name")
     public String getPageAliasName() {
         return pageAliasName;
     }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 /**
- * Created by yjj on 2017/3/2.
+ * Created by wq on 2017/3/2.
  */
 @Aspect
 @Component

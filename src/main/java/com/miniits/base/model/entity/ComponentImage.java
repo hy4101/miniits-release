@@ -16,46 +16,35 @@ import javax.persistence.*;
 @Table(name = "component_image")
 public class ComponentImage extends BaseEntity {
 
-    @Column(name = "component_reference_id", length = 32)
     private String componentReferenceId;
 
-    @Column(name = "component_name", nullable = false, length = 30)
     private String componentName;
 
-    @Column(name = "component_id", nullable = false, unique = true, length = 45)
     private String componentId;
 
-    @Column(name = "component_type", nullable = false, length = 9)
     private Integer componentType;
 
-    @Column(name = "component_type_name", length = 25)
     private String componentTypeName;
 
-    @Column(name = "component_status", nullable = false, length = 9)
     private Integer componentStatus;
 
-    @Column(name = "component_status_name", length = 25)
     private String componentStatusName;
 
-    @Column(name = "component_source", nullable = false, length = 9)
     private Integer componentSource;
 
-    @Column(name = "component_source_name", length = 25)
     private String componentSourceName;
 
     private String componentBody;
 
-    @Column(name = "component_body_api", nullable = false, length = 500)
     private String componentBodyApi;
 
-    @Column(name = "api_data_structure_type")
     private Integer apiDataStructureType;
 
-    @Column(name = "data_filters", length = 500)
     private String dataFilters;
 
     private String objectKey;
 
+    @Column(name = "component_name", nullable = false, length = 30)
     public String getComponentName() {
         return componentName;
     }
@@ -64,6 +53,7 @@ public class ComponentImage extends BaseEntity {
         this.componentName = componentName;
     }
 
+    @Column(name = "component_id", nullable = false, unique = true, length = 45)
     public String getComponentId() {
         return componentId;
     }
@@ -72,6 +62,7 @@ public class ComponentImage extends BaseEntity {
         this.componentId = componentId;
     }
 
+    @Column(name = "component_status", nullable = false, length = 9)
     public Integer getComponentStatus() {
         return componentStatus;
     }
@@ -80,6 +71,7 @@ public class ComponentImage extends BaseEntity {
         this.componentStatus = componentStatus;
     }
 
+    @Column(name = "component_status_name", length = 25)
     public String getComponentStatusName() {
         return componentStatusName;
     }
@@ -99,6 +91,7 @@ public class ComponentImage extends BaseEntity {
         this.componentBody = componentBody;
     }
 
+    @Column(name = "component_body_api", length = 500)
     public String getComponentBodyApi() {
         return componentBodyApi;
     }
@@ -107,6 +100,7 @@ public class ComponentImage extends BaseEntity {
         this.componentBodyApi = componentBodyApi;
     }
 
+    @Column(name = "component_reference_id", length = 32)
     public String getComponentReferenceId() {
         return componentReferenceId;
     }
@@ -115,6 +109,7 @@ public class ComponentImage extends BaseEntity {
         this.componentReferenceId = componentReferenceId;
     }
 
+    @Column(name = "component_type", length = 9)
     public Integer getComponentType() {
         return componentType;
     }
@@ -123,6 +118,7 @@ public class ComponentImage extends BaseEntity {
         this.componentType = componentType;
     }
 
+    @Column(name = "component_type_name", length = 25)
     public String getComponentTypeName() {
         return componentTypeName;
     }
@@ -131,6 +127,7 @@ public class ComponentImage extends BaseEntity {
         this.componentTypeName = componentTypeName;
     }
 
+    @Column(name = "data_filters", length = 500)
     public String getDataFilters() {
         return dataFilters;
     }
@@ -139,6 +136,7 @@ public class ComponentImage extends BaseEntity {
         this.dataFilters = dataFilters;
     }
 
+    @Column(name = "api_data_structure_type")
     public Integer getApiDataStructureType() {
         return apiDataStructureType;
     }
@@ -147,6 +145,7 @@ public class ComponentImage extends BaseEntity {
         this.apiDataStructureType = apiDataStructureType;
     }
 
+    @Column(name = "component_source", nullable = false, length = 9)
     public Integer getComponentSource() {
         return componentSource;
     }
@@ -155,6 +154,7 @@ public class ComponentImage extends BaseEntity {
         this.componentSource = componentSource;
     }
 
+    @Column(name = "component_source_name", length = 25)
     public String getComponentSourceName() {
         return componentSourceName;
     }

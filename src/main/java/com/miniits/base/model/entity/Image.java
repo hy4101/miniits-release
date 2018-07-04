@@ -66,7 +66,6 @@ public class Image extends BaseEntity {
         this.html = html;
     }
 
-
     @Column(name = "bb_code", length = 500)
     public String getBBCode() {
         return BBCode;

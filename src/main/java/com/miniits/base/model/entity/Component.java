@@ -16,34 +16,25 @@ import javax.persistence.*;
 @Table(name = "component")
 public class Component extends BaseEntity {
 
-    @Column(name = "component_name", nullable = false, length = 30)
     private String componentName;
 
-    @Column(name = "component_id", nullable = false, unique = true, length = 45)
     private String componentId;
 
-    @Column(name = "component_Type", nullable = false, length = 9)
     private Integer componentType;
 
-    @Column(name = "component_type_name", length = 25)
     private String componentTypeName;
 
-    @Column(name = "component_status", nullable = false, length = 9)
     private Integer componentStatus;
 
-    @Column(name = "component_status_name", length = 25)
     private String componentStatusName;
 
     private String componentBody;
 
-    @Column(name = "component_body_api", length = 500)
     private String componentBodyApi;
 
-    @Column(name = "data_filters", length = 500)
     private String dataFilters;
 
     //数据结构类型（对象/数组对象）
-    @Column(name = "api_data_structure_type")
     private Integer apiDataStructureType;
 
     @Transient
@@ -52,6 +43,7 @@ public class Component extends BaseEntity {
     @Transient
     private String saveType;
 
+    @Column(name = "component_name", nullable = false, length = 30)
     public String getComponentName() {
         return componentName;
     }
@@ -60,6 +52,7 @@ public class Component extends BaseEntity {
         this.componentName = componentName;
     }
 
+    @Column(name = "component_id", nullable = false, unique = true, length = 45)
     public String getComponentId() {
         return componentId;
     }
@@ -68,6 +61,7 @@ public class Component extends BaseEntity {
         this.componentId = componentId;
     }
 
+    @Column(name = "component_status", nullable = false, length = 9)
     public Integer getComponentStatus() {
         return componentStatus;
     }
@@ -76,6 +70,7 @@ public class Component extends BaseEntity {
         this.componentStatus = componentStatus;
     }
 
+    @Column(name = "component_status_name", length = 25)
     public String getComponentStatusName() {
         return componentStatusName;
     }
@@ -95,6 +90,7 @@ public class Component extends BaseEntity {
         this.componentBody = componentBody;
     }
 
+    @Column(name = "component_body_api", length = 500)
     public String getComponentBodyApi() {
         return componentBodyApi;
     }
@@ -103,6 +99,7 @@ public class Component extends BaseEntity {
         this.componentBodyApi = componentBodyApi;
     }
 
+    @Column(name = "data_filters", length = 500)
     public String getDataFilters() {
         return dataFilters;
     }
@@ -111,6 +108,7 @@ public class Component extends BaseEntity {
         this.dataFilters = dataFilters;
     }
 
+    @Column(name = "api_data_structure_type")
     public Integer getApiDataStructureType() {
         return apiDataStructureType;
     }
@@ -119,6 +117,7 @@ public class Component extends BaseEntity {
         this.apiDataStructureType = apiDataStructureType;
     }
 
+    @Column(name = "component_Type", nullable = false, length = 9)
     public Integer getComponentType() {
         return componentType;
     }
@@ -127,6 +126,7 @@ public class Component extends BaseEntity {
         this.componentType = componentType;
     }
 
+    @Column(name = "component_type_name", length = 25)
     public String getComponentTypeName() {
         return componentTypeName;
     }

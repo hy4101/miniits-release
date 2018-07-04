@@ -20,10 +20,8 @@ public class PageComponentAssociate extends BaseEntity {
 
     private ComponentImage componentImage;
 
-    @Column(name = "sorts", unique = true, length = 10)
     private Integer sorts;
 
-    @Column(name = "level", length = 10)
     private Integer level;
 
     private ComponentImage componentImagePId;
@@ -38,6 +36,7 @@ public class PageComponentAssociate extends BaseEntity {
         this.page = page;
     }
 
+    @Column(name = "sorts", unique = true, length = 10)
     public Integer getSorts() {
         return sorts;
     }
@@ -66,6 +65,7 @@ public class PageComponentAssociate extends BaseEntity {
         this.componentImagePId = componentImagePId;
     }
 
+    @Column(name = "level", length = 10)
     public Integer getLevel() {
         return level;
     }

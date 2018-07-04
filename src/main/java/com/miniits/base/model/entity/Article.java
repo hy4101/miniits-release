@@ -23,102 +23,85 @@ public class Article extends BaseEntity {
     /**
      * 路径
      */
-    @Column(name = "path")
     private Long path = System.currentTimeMillis();
 
     /**
      * 内容状态
      */
-    @Column(name = "status", length = 9, nullable = false)
     private Integer status;
 
     /**
      * 内容状态名称
      */
-    @Column(name = "status_name", length = 30)
     private String statusName;
 
     /**
      * 内容来源
      */
-    @Column(name = "source", length = 9, nullable = false)
     private Integer source;
 
     /**
      * 内容来源名称
      */
-    @Column(name = "source_name", length = 30)
     private String sourceName;
 
     /**
      * 内容来源URL
      */
-    @Column(name = "source_url", length = 1000)
     private String sourceURL;
 
     /**
      * 内容标题名称
      */
-    @Column(name = "title_name", length = 125, nullable = false)
     private String titleName;
 
     /**
      * 内容标题图片
      */
-    @Column(name = "title_image", length = 1000)
     private String titleImage;
 
     /**
      * 内容作者id
      */
-    @Column(name = "author_id", length = 50)
     private String authorId;
 
     /**
      * 内容作者名
      */
-    @Column(name = "author_name", length = 50)
     private String authorName;
 
     /**
      * 内容类别
      */
-    @Column(name = "types", length = 150)
     private String types;
 
     /**
      * 内容类别名称
      */
-    @Column(name = "type_names", length = 225)
     private String typeNames;
     /**
      * 排序
      */
-    @Column(name = "sort")
     private Integer sort;
 
     /**
      * 标签列表
      */
-    @Column(name = "tags")
     private String tags;
 
     /**
      * 点击次数
      */
-    @Column(name = "hits")
     private Integer hits;
 
     /**
      * 内容所属评论数
      */
-    @Column(name = "comments_num")
     private Integer commentsNum;
 
     /**
      * 是否允许评论
      */
-    @Column(name = "allow_comment")
     private Integer allowComment;
 
     /**
@@ -130,9 +113,9 @@ public class Article extends BaseEntity {
      * 内容文字
      * 用于列表展示的一部分
      */
-    @Column(name = "content_title", length = 125)
     private String contentTitle;
 
+    @Column(name = "path")
     public Long getPath() {
         return path;
     }
@@ -141,6 +124,7 @@ public class Article extends BaseEntity {
         this.path = path;
     }
 
+    @Column(name = "status", length = 9, nullable = false)
     public Integer getStatus() {
         return status;
     }
@@ -149,6 +133,7 @@ public class Article extends BaseEntity {
         this.status = status;
     }
 
+    @Column(name = "status_name", length = 30)
     public String getStatusName() {
         return statusName;
     }
@@ -157,6 +142,7 @@ public class Article extends BaseEntity {
         this.statusName = statusName;
     }
 
+    @Column(name = "source", length = 9, nullable = false)
     public Integer getSource() {
         return source;
     }
@@ -165,6 +151,7 @@ public class Article extends BaseEntity {
         this.source = source;
     }
 
+    @Column(name = "source_name", length = 30)
     public String getSourceName() {
         return sourceName;
     }
@@ -173,6 +160,7 @@ public class Article extends BaseEntity {
         this.sourceName = sourceName;
     }
 
+    @Column(name = "source_url", length = 1000)
     public String getSourceURL() {
         return sourceURL;
     }
@@ -181,6 +169,7 @@ public class Article extends BaseEntity {
         this.sourceURL = sourceURL;
     }
 
+    @Column(name = "title_name", length = 125, nullable = false)
     public String getTitleName() {
         return titleName;
     }
@@ -189,6 +178,7 @@ public class Article extends BaseEntity {
         this.titleName = titleName;
     }
 
+    @Column(name = "title_image", length = 1000)
     public String getTitleImage() {
         return titleImage;
     }
@@ -197,6 +187,7 @@ public class Article extends BaseEntity {
         this.titleImage = titleImage;
     }
 
+    @Column(name = "author_id", length = 50)
     public String getAuthorId() {
         return authorId;
     }
@@ -205,6 +196,7 @@ public class Article extends BaseEntity {
         this.authorId = authorId;
     }
 
+    @Column(name = "author_name", length = 50)
     public String getAuthorName() {
         return authorName;
     }
@@ -213,6 +205,7 @@ public class Article extends BaseEntity {
         this.authorName = authorName;
     }
 
+    @Column(name = "types", length = 150)
     public String getTypes() {
         return types;
     }
@@ -221,6 +214,7 @@ public class Article extends BaseEntity {
         this.types = types;
     }
 
+    @Column(name = "type_names", length = 225)
     public String getTypeNames() {
         return typeNames;
     }
@@ -229,6 +223,7 @@ public class Article extends BaseEntity {
         this.typeNames = typeNames;
     }
 
+    @Column(name = "sort")
     public Integer getSort() {
         return sort;
     }
@@ -237,6 +232,7 @@ public class Article extends BaseEntity {
         this.sort = sort;
     }
 
+    @Column(name = "tags")
     public String getTags() {
         return tags;
     }
@@ -245,6 +241,7 @@ public class Article extends BaseEntity {
         this.tags = tags;
     }
 
+    @Column(name = "hits")
     public Integer getHits() {
         return hits;
     }
@@ -253,6 +250,7 @@ public class Article extends BaseEntity {
         this.hits = hits;
     }
 
+    @Column(name = "comments_num")
     public Integer getCommentsNum() {
         return commentsNum;
     }
@@ -261,6 +259,7 @@ public class Article extends BaseEntity {
         this.commentsNum = commentsNum;
     }
 
+    @Column(name = "allow_comment")
     public Integer getAllowComment() {
         return allowComment;
     }
@@ -279,6 +278,7 @@ public class Article extends BaseEntity {
         this.content = content;
     }
 
+    @Column(name = "content_title", length = 125)
     public String getContentTitle() {
         return contentTitle;
     }

@@ -23,41 +23,31 @@ public class User extends BaseEntity {
     /**
      * 用户类型码
      */
-    @Column(name = "user_type_code", nullable = false)
     private Integer userTypeCode;
 
     /**
      * 用户类型
      */
-    @Size(max = 10)
-    @Column(name = "user_type_name", nullable = false)
     private String userTypeName;
 
     /**
      * 用户状态码
      */
-    @Column(name = "user_status_code", nullable = false)
     private Integer userStatusCode;
 
     /**
      * 用户状态
      */
-    @Size(max = 10)
-    @Column(name = "user_status_name", nullable = false)
     private String userStatusName;
+
+    private String userName;
+
+    private String email;
+
+    private String password;
 
     @Size(max = 60)
     @Column(name = "user_name", nullable = false, unique = true)
-    private String userName;
-
-    @Size(max = 60)
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Size(max = 120)
-    @Column(name = "pass_word", nullable = false)
-    private String password;
-
     public String getUserName() {
         return userName;
     }
@@ -66,6 +56,8 @@ public class User extends BaseEntity {
         this.userName = userName;
     }
 
+    @Size(max = 120)
+    @Column(name = "pass_word", nullable = false)
     public String getPassword() {
         return password;
     }
@@ -74,6 +66,8 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
+    @Size(max = 60)
+    @Column(name = "email")
     public String getEmail() {
         return email;
     }
@@ -82,6 +76,7 @@ public class User extends BaseEntity {
         this.email = email;
     }
 
+    @Column(name = "user_type_code")
     public Integer getUserTypeCode() {
         return userTypeCode;
     }
@@ -90,6 +85,8 @@ public class User extends BaseEntity {
         this.userTypeCode = userTypeCode;
     }
 
+    @Size(max = 10)
+    @Column(name = "user_type_name")
     public String getUserTypeName() {
         return userTypeName;
     }
@@ -98,6 +95,7 @@ public class User extends BaseEntity {
         this.userTypeName = userTypeName;
     }
 
+    @Column(name = "user_status_code", nullable = false)
     public Integer getUserStatusCode() {
         return userStatusCode;
     }
@@ -106,6 +104,8 @@ public class User extends BaseEntity {
         this.userStatusCode = userStatusCode;
     }
 
+    @Size(max = 10)
+    @Column(name = "user_status_name")
     public String getUserStatusName() {
         return userStatusName;
     }
