@@ -1,7 +1,6 @@
 package com.miniits.base.config;
 
 import com.jagregory.shiro.freemarker.ShiroTags;
-import com.miniits.base.utils.OsUtil;
 import freemarker.template.TemplateException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,8 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.IOException;
 
+import static com.miniits.base.utils.RequestUtil.getPath;
+
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/17
@@ -28,10 +29,6 @@ import java.io.IOException;
 @Configuration
 @EnableWebMvc
 public class WebConfigurer extends WebMvcConfigurerAdapter {
-
-    private static final String LINUX_TEMPLATE_PATH = "/home/user/m-plus/template/";
-
-    private static final String WINDOWS_TEMPLATE_PATH = "c:\\user\\m-plus\\template\\";
 
 //    @Bean
 //    public FreeMarkerConfigExtend freeMarkerConfigExtend(FreeMarkerConfigExtend freeMarkerConfigExtend) {
@@ -49,16 +46,7 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
     public FreeMarkerConfigurer freeMarkerConfigurer() throws IOException, TemplateException {
         FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
 
-        String path = null;
-        if (OsUtil.isLinux()) {
-            path = LINUX_TEMPLATE_PATH;
-        }
-
-        if (OsUtil.isWindows()) {
-            path = WINDOWS_TEMPLATE_PATH;
-        }
-
-        freeMarkerConfigurer.setTemplateLoaderPaths("classpath:/templates", path);
+        freeMarkerConfigurer.setTemplateLoaderPaths("classpath:/templates", getPath());
         freemarker.template.Configuration configuration = freeMarkerConfigurer.createConfiguration();
         configuration.setDefaultEncoding("UTF-8");
         //这里可以添加其他共享变量 比如sso登录地址

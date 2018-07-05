@@ -18,14 +18,16 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.miniits.base.utils.FileUtil.createTemplateFolderAndHtmlFolder;
-import static com.miniits.base.utils.FileUtil.deleteFile;
 import static com.miniits.base.utils.RequestUtil.getPath;
 
 /**
@@ -65,9 +67,8 @@ public class HTMLUtil {
         logger.warn("path---：{}", path);
         logger.warn("templateName---：{}", root.get("templateName").toString());
 
-        createTemplateFolderAndHtmlFolder(null, null);
-//        htmlUtil.configuration.setServletContextForTemplateLoading(getRequest().getServletContext(),"/templates");
-//        htmlUtil.configuration.setDirectoryForTemplateLoading(new File(tp));
+        path = createTemplateFolderAndHtmlFolder(getPath(), getPath() + "customize\\tes\\");
+        htmlUtil.configuration.setDirectoryForTemplateLoading(new File(getPath()));
 
         Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
 //        Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
@@ -142,33 +143,6 @@ public class HTMLUtil {
             }
         }
         return keyword;
-    }
-
-    /**
-     * 创建模板文件
-     *
-     * @param fileName
-     * @param fileContent
-     */
-    public static void createTemplateFile(String fileName, String fileContent) {
-        byte[] sourceByte = ("<@compress single_line=true>" + fileContent + "</@compress>").getBytes();
-        if (null != sourceByte) {
-            try {
-                String path = getPath("templates/") + "/" + fileName + ".ftl";
-                File file = new File(path);
-                deleteFile(path);
-                if (!file.exists()) {
-                    File dir = new File(file.getParent());
-                    dir.mkdirs();
-                    file.createNewFile();
-                }
-                FileOutputStream outStream = new FileOutputStream(file);
-                outStream.write(sourceByte);
-                outStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     /**

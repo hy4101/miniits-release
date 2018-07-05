@@ -5,8 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.miniits.base.utils.RequestUtil.getPath;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -18,9 +21,9 @@ import java.util.regex.Pattern;
  */
 public class FileUtil {
 
-    private static final String LINUX_TEMPLATE_PATH = "/home/user/m-plus/template/";
+    public static final String LINUX_TEMPLATE_PATH = "/home/user/m-plus/template/";
 
-    private static final String WINDOWS_TEMPLATE_PATH = "c:\\user\\m-plus\\template\\";
+    public static final String WINDOWS_TEMPLATE_PATH = "c:\\user\\m-plus\\template\\";
 
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
@@ -141,4 +144,32 @@ public class FileUtil {
         }
         return true;
     }
+
+    /**
+     * 创建模板文件
+     *
+     * @param fileName
+     * @param fileContent
+     */
+    public static void createTemplateFile(String fileName, String fileContent) {
+        byte[] sourceByte = ("<@compress single_line=true>" + fileContent + "</@compress>").getBytes();
+        if (null != sourceByte) {
+            try {
+                String path = getPath()  + fileName + ".ftl";
+                File file = new File(path);
+                deleteFile(path);
+                if (!file.exists()) {
+                    File dir = new File(file.getParent());
+                    dir.mkdirs();
+                    file.createNewFile();
+                }
+                FileOutputStream outStream = new FileOutputStream(file);
+                outStream.write(sourceByte);
+                outStream.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 }

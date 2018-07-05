@@ -17,9 +17,9 @@ import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.CommonUtil.renderingPage;
-import static com.miniits.base.utils.FileUtil.fileExists;
-import static com.miniits.base.utils.FileUtil.validateFileName;
-import static com.miniits.base.utils.HTMLUtil.*;
+import static com.miniits.base.utils.FileUtil.*;
+import static com.miniits.base.utils.HTMLUtil.convertFreemarkerFormat;
+import static com.miniits.base.utils.HTMLUtil.createHtml;
 import static com.miniits.base.utils.RequestUtil.getFilters;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
@@ -78,7 +78,8 @@ public class OrtherPageController {
         logger.warn("start create html");
         createHtml(modelMap);
         logger.warn("start create success");
-        return pageName + "/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
+//        return pageName + "/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
+        return getPath() + "customize\\tes\\"+(modelMap.get("fileName").toString());
     }
 
 }

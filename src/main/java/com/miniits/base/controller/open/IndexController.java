@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.CommonUtil.renderingPage;
+import static com.miniits.base.utils.FileUtil.createTemplateFile;
 import static com.miniits.base.utils.FileUtil.fileExists;
 import static com.miniits.base.utils.HTMLUtil.*;
 import static com.miniits.base.utils.RequestUtil.getPath;
