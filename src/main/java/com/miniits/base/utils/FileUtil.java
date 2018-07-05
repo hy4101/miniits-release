@@ -18,6 +18,10 @@ import java.util.regex.Pattern;
  */
 public class FileUtil {
 
+    private static final String LINUX_TEMPLATE_PATH = "/home/user/m-plus/template/";
+
+    private static final String WINDOWS_TEMPLATE_PATH = "c:\\user\\m-plus\\template\\";
+
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
     private static String regEx = "[ `~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
@@ -36,6 +40,7 @@ public class FileUtil {
 
     public static String createTemplateFolderAndHtmlFolder(String lp, String sp) {
         if (OsUtil.isLinux()) {
+            lp = StringUtils.isEmpty(lp) ? LINUX_TEMPLATE_PATH : lp;
             File uploadDir = new File(lp);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
@@ -44,6 +49,7 @@ public class FileUtil {
         }
 
         if (OsUtil.isWindows()) {
+            sp = StringUtils.isEmpty(sp) ? WINDOWS_TEMPLATE_PATH : sp;
             File uploadDir = new File(sp);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
