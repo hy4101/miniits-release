@@ -12,6 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
@@ -27,6 +29,7 @@ import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.FileUtil.isPackageExist;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
+import static com.miniits.base.utils.RequestUtil.getRequest;
 import static com.miniits.base.utils.Result.getTotalPage;
 import static com.miniits.base.utils.SystemDict.*;
 
@@ -41,6 +44,7 @@ import static com.miniits.base.utils.SystemDict.*;
 @Component
 public class CommonUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(CommonUtil.class);
     @Autowired
     private ComponentImageServer componentImageServer;
 
@@ -223,9 +227,9 @@ public class CommonUtil {
     }
 
     public static ModelMap renderingPage(ModelMap modelMap, String pageName, String fileName, HttpServletRequest httpServletRequest) {
-        String base = "/templates/customize/";
-        String path = httpServletRequest.getSession().getServletContext().getClassLoader().getClass().getResource(base).getPath();
-        path = path + pageName + "/";
+        String base = "/templates/customize/" + pageName + "/";
+        logger.info(getRequest().getServletContext().getClassLoader().getClass().toString());
+        String path = getRequest().getServletContext().getContextPath() + base;
         isPackageExist(path);
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-" + pageName + ".ftl");

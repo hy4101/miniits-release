@@ -16,8 +16,6 @@ import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import java.io.IOException;
 
-import static com.miniits.base.utils.RequestUtil.getPath;
-
 /**
  * @author: WWW.MINIITS.COM
  * @Date: 2018/3/17
@@ -45,8 +43,7 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
     @Bean
     public FreeMarkerConfigurer freeMarkerConfigurer() throws IOException, TemplateException {
         FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
-
-        freeMarkerConfigurer.setTemplateLoaderPaths("classpath:/templates", getPath());
+        freeMarkerConfigurer.setTemplateLoaderPath("classpath:/templates");
         freemarker.template.Configuration configuration = freeMarkerConfigurer.createConfiguration();
         configuration.setDefaultEncoding("UTF-8");
         //这里可以添加其他共享变量 比如sso登录地址

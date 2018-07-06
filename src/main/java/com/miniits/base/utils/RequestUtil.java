@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static com.miniits.base.utils.FileUtil.LINUX_TEMPLATE_PATH;
-import static com.miniits.base.utils.FileUtil.WINDOWS_TEMPLATE_PATH;
-
 /**
  * 扩展HttpServletRequest的功能，所有请求参数获取都通过该类方法来获取。
  *
@@ -35,18 +32,6 @@ public class RequestUtil {
             path = getRequest().getClass().getClassLoader().getResource(resourceName).getPath();
         } catch (Exception e) {
 
-        }
-        return path;
-    }
-
-    public static String getPath() {
-        String path = null;
-        if (OsUtil.isLinux()) {
-            path = LINUX_TEMPLATE_PATH;
-        }
-
-        if (OsUtil.isWindows()) {
-            path = WINDOWS_TEMPLATE_PATH;
         }
         return path;
     }

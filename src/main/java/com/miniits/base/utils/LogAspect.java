@@ -3,7 +3,6 @@ package com.miniits.base.utils;
 import com.google.common.base.Joiner;
 import com.miniits.base.dao.LogRepository;
 import com.miniits.base.model.entity.Log;
-import freemarker.template.TemplateException;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -12,7 +11,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -28,7 +26,7 @@ public class LogAspect {
     private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     @Before("execution(* com.miniits.base.controller..*(..))")
-    public void anyOperation(JoinPoint point) throws IOException, TemplateException {
+    public void anyOperation(JoinPoint point) {
         Log log = new Log();
         String uri = RequestUtil.getRequest().getRequestURI();
         log.setMethod(RequestUtil.getRequest().getMethod());
@@ -43,9 +41,6 @@ public class LogAspect {
                 log.setCity(address.get("city"));
             } catch (Exception e) {
             }
-        } else {
-//            FreeMarkerConfigurer freeMarkerConfigurer = new FreeMarkerConfigurer();
-//            freeMarkerConfigurer.setTemplateLoaderPath("classpath:/templates");
         }
         log.setUri(RequestUtil.getRequest().getRequestURI());
         String params = Joiner.on(",").withKeyValueSeparator("=").join(RequestUtil.getRequestParams());

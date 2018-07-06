@@ -5,11 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static com.miniits.base.utils.RequestUtil.getPath;
 
 /**
  * @author: WWW.MINIITS.COM
@@ -21,11 +18,11 @@ import static com.miniits.base.utils.RequestUtil.getPath;
  */
 public class FileUtil {
 
-    public static final String LINUX_TEMPLATE_PATH = "/home/user/m-plus/template/";
-
-    public static final String WINDOWS_TEMPLATE_PATH = "c:\\user\\m-plus\\template\\";
-
     private static final Logger logger = LoggerFactory.getLogger(FileUtil.class);
+
+    private static final String LINUX_PATH = "/data/idnum/";
+
+    private static final String WINDOWS_PATH = "c:\\m-plus\\";
 
     private static String regEx = "[ `~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
 
@@ -38,28 +35,28 @@ public class FileUtil {
     /**
      * 创建模板和html文件夹
      *
+     * @param str
      * @return
      */
 
-    public static String createTemplateFolderAndHtmlFolder(String lp, String sp) {
+    public static String createTemplateFolderAndHtmlFolder(String str) {
+        String path = null;
         if (OsUtil.isLinux()) {
-            lp = StringUtils.isEmpty(lp) ? LINUX_TEMPLATE_PATH : lp;
-            File uploadDir = new File(lp);
+            path = LINUX_PATH + str + "/";
+            File uploadDir = new File(path);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
-            return lp;
         }
 
         if (OsUtil.isWindows()) {
-            sp = StringUtils.isEmpty(sp) ? WINDOWS_TEMPLATE_PATH : sp;
-            File uploadDir = new File(sp);
+            path = WINDOWS_PATH + str + "\\";
+            File uploadDir = new File(path);
             if (!uploadDir.exists()) {
                 uploadDir.mkdirs();
             }
-            return sp;
         }
-        return null;
+        return path;
     }
 
     /**
@@ -144,32 +141,4 @@ public class FileUtil {
         }
         return true;
     }
-
-    /**
-     * 创建模板文件
-     *
-     * @param fileName
-     * @param fileContent
-     */
-    public static void createTemplateFile(String fileName, String fileContent) {
-        byte[] sourceByte = ("<@compress single_line=true>" + fileContent + "</@compress>").getBytes();
-        if (null != sourceByte) {
-            try {
-                String path = getPath()  + fileName + ".ftl";
-                File file = new File(path);
-                deleteFile(path);
-                if (!file.exists()) {
-                    File dir = new File(file.getParent());
-                    dir.mkdirs();
-                    file.createNewFile();
-                }
-                FileOutputStream outStream = new FileOutputStream(file);
-                outStream.write(sourceByte);
-                outStream.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
 }

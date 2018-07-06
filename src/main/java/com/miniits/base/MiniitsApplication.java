@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.util.StringUtils;
@@ -28,8 +29,7 @@ import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
  */
 
 @SpringBootApplication
-@ServletComponentScan
-public class MiniitsApplication implements ApplicationListener {
+public class MiniitsApplication extends SpringBootServletInitializer implements ApplicationListener {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MiniitsApplication.class);
 
@@ -42,6 +42,11 @@ public class MiniitsApplication implements ApplicationListener {
     @Value("${admin.password}")
     private String password;
 
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(MiniitsApplication.class);
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(MiniitsApplication.class, args);
         LOGGER.info("started!!!");
@@ -50,11 +55,11 @@ public class MiniitsApplication implements ApplicationListener {
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
         if (event instanceof ApplicationReadyEvent) {
+            LOGGER.info("app start success");
             long count = userService.count();
             if (count > 0) {
                 return;
             }
-            LOGGER.info("app start success");
             LOGGER.info("install admin user");
             String un = userName;
             String pw = password;
