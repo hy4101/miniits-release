@@ -12,6 +12,8 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -37,6 +39,7 @@ import static com.miniits.base.utils.RequestUtil.getPath;
 @Component
 public class HTMLUtil {
 
+    private static Logger logger = LoggerFactory.getLogger(HTMLUtil.class);
     @Resource
     private Configuration configuration;
 
@@ -65,6 +68,7 @@ public class HTMLUtil {
         try {
             temp.process(root, writer);
         } catch (Exception e) {
+            logger.error(e.getMessage());
         }
         writer.flush();
         writer.close();

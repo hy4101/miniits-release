@@ -21,6 +21,8 @@ import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -229,12 +231,21 @@ public class CommonUtil {
     public static ModelMap renderingPage(ModelMap modelMap, String pageName, String fileName, HttpServletRequest httpServletRequest) {
         String base = "/templates/customize/" + pageName + "/";
         logger.info(getRequest().getServletContext().getClassLoader().getClass().toString());
-        String path = getRequest().getServletContext().getContextPath() + base;
+//        String path = getRequest().getServletContext().getContextPath() + base;
+        String path = commonUtil.getClass().getClassLoader().getResource("").getPath() + base;
         isPackageExist(path);
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-" + pageName + ".ftl");
         modelMap.put("fileName", pageName + "_" + fileName + ".html");
         return modelMap;
     }
+
+    public static void main(String[] args) throws IOException {
+        Properties properties = new Properties();
+        InputStream ra = CommonUtil.class.getResourceAsStream("banner.txt");
+        properties.load(ra);
+        String path = properties.getProperty("path");
+    }
+
 
 }

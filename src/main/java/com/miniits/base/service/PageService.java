@@ -123,7 +123,7 @@ public class PageService extends BaseServiceImpl<Page, String> {
             page.setPageStatus(100000002);
             page.setPageStatusName("禁用");
         }
-        if (StringUtils.isEmpty(page.getId())) {
+        if (StringUtils.isEmpty(page.getId()) || StringUtils.isEmpty(page.getTemplateCaching())) {
             page.setTemplateCaching(GLOBAL_STATUS_YES);
             page.setPageComponentAssociates(initPage(page));
         }
