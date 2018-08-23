@@ -2,7 +2,7 @@
 <div style="padding: 10px 10px 10px 10px">
     <div>
         <#import "../common/Search.ftl" as search>
-        <@search.form options=[{"type":"input","name":"fd","label":"名称","placeholder":"请输入名称"},
+        <@search.form options=[{"type":"input","name":"LIKE_name","label":"名称","placeholder":"请输入名称"},
         {"type":"select","key":"localhost","name":"sss","label":"用户状态","value":[{"name":"1","value":"2"},{"name":"1-1","value":"2-2"}]},
         <#--{"type":"select","key":"no_page","name":"sss","label":"远程数据不分页","target":"DICT","filters":"f"},-->
         {"type":"select","key":"ok_page","name":"sss","label":"远程数据分页","target":"LOG","filtersConnection":"LIKE_name,LIKE_id","filters":"EQ_userName=admin","pageSize":"15","pageNumber":"1","sorts":"-createDate","showField":"userName,id"}] formId="test" />

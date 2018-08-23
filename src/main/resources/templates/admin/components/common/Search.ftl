@@ -59,13 +59,10 @@
                        <input type="text" id="${item.key}">
                        <script>
                            (function ($, win) {
-                               debugger;
                                searchSelect("${item.key!''}", "${item.target!''}", "${item.filters!''}", "${item.filtersConnection!''}", "${item.pageSize!''}", "${item.pageNumber!''}", "${item.sorts!''}", "${item.showField!''}");
-                               debugger;
 
                                function searchSelect(key, target, filters, filtersConnection, pageSize, pageNumber, sorts, showField) {
                                    showField = showField.split(",");
-                                   debugger;
                                    $('#' + key + '').selectPage({
                                        // showField: "userName",
                                        showField: isEmpty(showField) ? 'name' : showField[0],
