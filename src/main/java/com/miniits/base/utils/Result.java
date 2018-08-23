@@ -32,6 +32,10 @@ public class Result {
      * 总记录数
      */
     private long totalCount;
+    /**
+     * 总记录数
+     */
+    private long totalRow = 21;
 
     private Integer errorCode;
 
@@ -157,4 +161,11 @@ public class Result {
         return totalPage;
     }
 
+    public long getTotalRow() {
+        return totalRow;
+    }
+
+    public void setTotalRow(long totalRow) {
+        this.totalRow = totalRow;
+    }
 }

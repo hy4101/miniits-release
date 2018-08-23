@@ -1,12 +1,11 @@
 <#include "../common/TableFiles.ftl"/>
-<script>
-    var a = "asd"
-</script>
 <div style="padding: 10px 10px 10px 10px">
     <div>
         <#import "../common/Search.ftl" as search>
         <@search.form options=[{"type":"input","name":"fd","label":"名称","placeholder":"请输入名称"},
-        {"type":"select","name":"sss","label":"用户状态","placeholder":"请输入用户状态"}] />
+        {"type":"select","key":"localhost","name":"sss","label":"用户状态","value":[{"name":"1","value":"2"},{"name":"1-1","value":"2-2"}]},
+        <#--{"type":"select","key":"no_page","name":"sss","label":"远程数据不分页","target":"DICT","filters":"f"},-->
+        {"type":"select","key":"ok_page","name":"sss","label":"远程数据分页","target":"LOG","filtersConnection":"LIKE_name,LIKE_id","filters":"EQ_userName=admin","pageSize":"15","pageNumber":"1","sorts":"-createDate","showField":"userName,id"}] formId="test" />
         <div id="toolbar" class="btn-group">
             <button id="btn_add_user_click" type="button" class="btn" style="background-color: #3c8dbc;color: #fff;">
                 <i class="fa fa-plus" aria-hidden="true"></i>
@@ -46,8 +45,8 @@
 <script>
     (function ($, win) {
         function userInit() {
-            searchUsers();
-            searchUsersByFilters();
+            // searchUsers();
+            // searchUsersByFilters();
         }
 
         function searchUsers() {
