@@ -53,7 +53,7 @@ public class ComponentImage extends BaseEntity {
         this.componentName = componentName;
     }
 
-    @Column(name = "component_id", nullable = false, unique = true, length = 45)
+    @Column(name = "component_id", nullable = false, length = 45)
     public String getComponentId() {
         return componentId;
     }

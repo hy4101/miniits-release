@@ -1,6 +1,11 @@
 spring:
   messages:
     basename: message
+  http:
+    encoding:
+      force: true
+      charset: utf-8
+      enabled: true
   jpa:
     show-sql: true
     generate-ddl: true
@@ -27,7 +32,7 @@ spring:
     name: miniits
   freemarker:
     cache: false
-    charset: utf-8
+    charset: UTF-8
     check-template-location: true
     content-type: text/html
     enabled: true
@@ -60,3 +65,6 @@ m-plus:
     apps: ${m-plus.url.base}/apps?filters={filters}&sorts={sorts}&pageSize={pageSize}&pageNumber={pageNumber}
     app: ${m-plus.url.base}/app?app-am={am}&app-sm={sm}
     push: ${m-plus.url.base}/push
+server:
+  tomcat:
+    uri-encoding: utf-8

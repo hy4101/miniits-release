@@ -49,6 +49,7 @@ public class HTMLUtil {
     public void init() {
         htmlUtil = this;
         htmlUtil.configuration = this.configuration;
+        htmlUtil.configuration.setDefaultEncoding("UTF-8");
     }
 
     /**
@@ -61,12 +62,12 @@ public class HTMLUtil {
      */
     public static String createHtml(Map<String, Object> root) throws IOException, TemplateException {
         String path = root.get("path").toString();
-        Template temp = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
+        Template template = htmlUtil.configuration.getTemplate(root.get("templateName").toString());
         createTemplateFolderAndHtmlFolder(path);
         path = path + root.get("fileName").toString();
         Writer writer = new FileWriter(new File(path));
         try {
-            temp.process(root, writer);
+            template.process(root, writer);
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
@@ -142,7 +143,8 @@ public class HTMLUtil {
      * @param fileContent
      */
     public static void createTemplateFile(String fileName, String fileContent) {
-        byte[] sourceByte = ("<@compress single_line=true>" + fileContent + "</@compress>").getBytes();
+        byte[] sourceByte = fileContent.getBytes();
+//        byte[] sourceByte = ("<@compress single_line=true>" + fileContent + "</@compress>").getBytes();
         if (null != sourceByte) {
             try {
                 String path = getPath("templates/") + "/" + fileName + ".ftl";

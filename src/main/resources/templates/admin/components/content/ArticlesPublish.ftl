@@ -27,7 +27,7 @@
                 </h4>
             </div>
             <div class="modal-body">
-                <div class="row clearfix" style="margin-bottom: 10px;">
+                <div class="row clearfix f-mb10">
                     <div class="col-md-4 column">
                         <div class="input-group" style="display: flex">
                             <label for="txt_parentdepartment" class="label-form-group-title-item"
@@ -63,7 +63,7 @@
                     <div class="col-md-4 column">
                         <div class="input-group" style="display: flex">
                             <label for="txt_parentdepartment" class="label-form-group-title-item"
-                                   style="flex: 1;line-height: 29px;">标题内容
+                                   style="flex: 1;line-height: 29px;">概述
                                 :</label>
                              <#if article?exists>
                             <input type="text" class="form-control" id="contentTitle" name="contentTitle"
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row clearfix">
+                <div class="row clearfix f-mb10">
                     <div class="col-md-4 column" style="display: flex">
                         <label for="txt_departmentlevel" class="label-form-group-title-item"
                                style="flex: 1;line-height: 29px;">类别
@@ -102,13 +102,29 @@
                             : </label>
                         <select class="form-control input-form-group-value-item" id="allowComment" style="flex: 4"
                                 name="allowComment">
-                            <option value="100000001" ${(article?exists&&article.status==100002001)?string('selected', '')}>
+                            <option value="100000001" ${(article?exists&&article.allowComment==100000001)?string('selected', '')}>
                                 允许
                             </option>
-                            <option value="100000002" ${(article?exists&&article.status==100002002)?string('selected', '')}>
+                            <option value="100000002" ${(article?exists&&article.allowComment==100000002)?string('selected', '')}>
                                 禁言
                             </option>
                         </select>
+                    </div>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-4 column" style="display: flex">
+                        <label for="txt_departmentlevel" class="label-form-group-title-item"
+                               style="flex: 1;line-height: 29px;">关键字
+                            : </label>
+                            <#if article?exists&&article.keys?exists>
+                            <input type="text" class="form-control" id="keys" name="keys"
+                                   style="flex: 4;" value="${article.keys}"
+                                   aria-describedby="basic-addon3" placeholder="请输入关键字（多个逗号隔开）">
+                            <#else>
+                         <input type="text" class="form-control" id="keys" name="keys"
+                                style="flex: 4;"
+                                aria-describedby="basic-addon3" placeholder="请输入关键字（多个逗号隔开）">
+                            </#if>
                     </div>
                 </div>
             </div>
@@ -157,6 +173,7 @@
             var typeNames = categorys.val().join();
             var tags = seTags.val().join();
             var allowComment = $("#allowComment").val();
+            var keys = $("#keys").val();
             var data = {
                 id: id,
                 titleName: titleName,
@@ -165,6 +182,7 @@
                 content: content,
                 typeNames: typeNames,
                 tags: tags,
+                keys: keys,
                 allowComment: allowComment
             };
             var param = {
@@ -178,11 +196,6 @@
         function initArticlesPublish() {
             editor = editormd("div-editormd", {
                 width: "95%",
-                // toolbarIcons: function () {
-                //     // Or return editormd.toolbarModes[name]; // full, simple, mini
-                //     // Using "||" set icons align right.
-                //     return ["undo", "redo", "|", "bold", "hr", "h1", "|", "preview", "watch", "|", "fullscreen", "info", "testIcon", "testIcon2", "file", "faicon", "||", "watch", "fullscreen", "preview", "imageUpload"]
-                // },
                 toolbarIconsClass: {
                     imageUpload: "fa-cloud-upload"  // 指定一个FontAawsome的图标类
                 },

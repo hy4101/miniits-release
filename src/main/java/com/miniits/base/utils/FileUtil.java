@@ -118,6 +118,7 @@ public class FileUtil {
      * @return Boolean
      */
     public static boolean deletefile(String deletePath) {
+        logger.info("delete dir:{}", deletePath);
         try {
             File file = new File(deletePath);
             if (!file.isDirectory()) {
@@ -125,16 +126,16 @@ public class FileUtil {
             } else if (file.isDirectory()) {
                 String[] filelist = file.list();
                 for (int i = 0; i < filelist.length; i++) {
-                    File delfile = new File(deletePath + "\\" + filelist[i]);
+                    File delfile = new File(deletePath + "/" + filelist[i]);
                     if (!delfile.isDirectory()) {
                         delfile.delete();
-                        logger.info(delfile.getAbsolutePath() + "delete success");
+                        logger.info(delfile.getAbsolutePath() + " delete success");
                     } else if (delfile.isDirectory()) {
-                        deletefile(deletePath + "\\" + filelist[i]);
+                        deletefile(deletePath + "/" + filelist[i]);
                     }
                 }
-                logger.info(file.getAbsolutePath() + "delete success");
                 file.delete();
+                logger.info(file.getAbsolutePath() + " delete success");
             }
         } catch (Exception e) {
             logger.error("delete file Exception:" + e.getMessage());

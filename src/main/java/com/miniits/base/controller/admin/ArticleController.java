@@ -87,6 +87,9 @@ public class ArticleController extends BaseController {
         List<String> tags = Arrays.asList(o.getTags().split(","));
         List<String> types = Arrays.asList(o.getTypeNames().split(","));
 
+        /**
+         * new
+         */
         if (StringUtils.isEmpty(o.getId())) {
             o = initDefaultValue(o);
             o.setSource(ARTICLES_TYPE_USER);
@@ -101,6 +104,9 @@ public class ArticleController extends BaseController {
             categoryServer.modifyCategoryNumber(types, 1);
 
         } else {
+            /**
+             * update
+             */
             Article old = articleServer.findOne(o.getId());
             List<String> oldTags = Arrays.asList(old.getTags().split(","));
             List<String> oldTypes = Arrays.asList(old.getTypeNames().split(","));
@@ -111,6 +117,7 @@ public class ArticleController extends BaseController {
             old.setContent(o.getContent());
             old.setTypeNames(o.getTypeNames());
             old.setTags(o.getTags());
+            old.setKeys(o.getKeys().replaceAll("，", ","));
             old.setAllowComment(o.getAllowComment());
 
             List<String> removeTags = oldTags.stream().filter(tag -> !StringUtils.isEmpty(tag) && !tags.contains(tag)).collect(Collectors.toList());

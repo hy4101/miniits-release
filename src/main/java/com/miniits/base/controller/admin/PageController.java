@@ -1,7 +1,6 @@
 package com.miniits.base.controller.admin;
 
 import com.miniits.base.model.dto.SeoDTO;
-import com.miniits.base.model.entity.User;
 import com.miniits.base.model.vo.PageVO;
 import com.miniits.base.model.vo.UserVO;
 import com.miniits.base.mysql.Pageable;
@@ -9,7 +8,8 @@ import com.miniits.base.service.PageService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
 import com.miniits.base.utils.Result;
-import org.apache.shiro.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -37,6 +37,8 @@ import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
 @RequestMapping("/admin/pages")
 public class PageController extends BaseController {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(PageController.class);
+
     @Value("${domain.path}")
     private String rootPath;
 
@@ -45,8 +47,8 @@ public class PageController extends BaseController {
 
     @GetMapping("init")
     public String init(ModelMap modelMap) {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
         modelMap.put("active", "layout");
+        modelMap.put("rootPath", rootPath);
         return "admin/views/layout/Pages";
     }
 
@@ -63,7 +65,7 @@ public class PageController extends BaseController {
     @ResponseBody
     public Result save(com.miniits.base.model.entity.Page page) {
         if (page.getPageStatus().equals(GLOBAL_STATUS_YES)) {
-            com.miniits.base.model.entity.Page p = pageService.getPage(page.getPageName(), GLOBAL_STATUS_YES);
+            com.miniits.base.model.entity.Page p = pageService.getPage(page.getPageName(), GLOBAL_STATUS_YES, 200);
             if (!ObjectUtils.isEmpty(p)) {
                 return error("你有一个【 " + page.getPageName() + " 】页面为启用状态，相同的页面文件只能有一个为启用状态，你可以选择禁用后重试！");
             }
@@ -82,7 +84,7 @@ public class PageController extends BaseController {
     @ResponseBody
     public Result changeStatus(@RequestParam(value = "id") String id, @RequestParam(value = "page_name") String pageName, @RequestParam(value = "status") Integer status) {
         if (status.equals(GLOBAL_STATUS_YES)) {
-            com.miniits.base.model.entity.Page page = pageService.getPage(pageName, GLOBAL_STATUS_YES);
+            com.miniits.base.model.entity.Page page = pageService.getPage(pageName, GLOBAL_STATUS_YES, 200);
             if (!ObjectUtils.isEmpty(page) && page.getPageStatus().equals(GLOBAL_STATUS_YES)) {
                 return error("你有一个【 " + page.getPageName() + " 】页面为启用状态，相同的页面文件只能有一个为启用状态，你可以选择禁用后重试！");
             }
@@ -111,6 +113,7 @@ public class PageController extends BaseController {
             if (!fileName.equals("index")) {
                 path = getPath("templates") + "/customize/" + fileName;
             }
+            LOGGER.warn("正在删除文件...", fileName);
             deletefile(path);
         }
         pageService.setCreateHtmlFile(id, createStaticFile);

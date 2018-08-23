@@ -1,12 +1,12 @@
 package com.miniits.base.utils;
 
 import com.miniits.base.model.dto.SeoDTO;
+import com.miniits.base.model.entity.Article;
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.mysql.Pageable;
-import com.miniits.base.service.ComponentImageServer;
-import com.miniits.base.service.PageService;
+import com.miniits.base.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -31,6 +31,7 @@ import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.FileUtil.isPackageExist;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
+import static com.miniits.base.utils.HTMLUtil.markdownToHtml;
 import static com.miniits.base.utils.RequestUtil.getRequest;
 import static com.miniits.base.utils.Result.getTotalPage;
 import static com.miniits.base.utils.SystemDict.*;
@@ -89,7 +90,7 @@ public class CommonUtil {
         String requestURI = httpServletRequest.getRequestURI();
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
         Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
-        Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001);
+        Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001,404);
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream()
                 .filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001))
                 .sorted(Comparator.comparing(PageComponentAssociate::getSorts))
@@ -134,6 +135,10 @@ public class CommonUtil {
                     org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
                             new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));
 
+                    SeoDTO cs = getSeoData(componentImage.getComponentBodyApi(), o);
+                    if (!ObjectUtils.isEmpty(cs)) {
+                        seoDTO = cs;
+                    }
                     body = body.replaceAll("object\\.", str + ".");
                     body = judgmentComponentType(body);
                     if (null != componentImage.getApiDataStructureType() && Arrays.asList(API_DATA_STRUCTURE_TYPE_PAGE, API_DATA_STRUCTURE_TYPE_NO_PAGE).contains(componentImage.getApiDataStructureType())) {
@@ -151,6 +156,29 @@ public class CommonUtil {
             doc = addHtmlDepend(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
+    }
+
+    /**
+     * 获取文章等类型的seo数据
+     * 该seo的数据权限高于页面的seo
+     * 比如：页面和文章都设置了seo数据，那么在访问文章详情时，优先展示文章所设置的seo数据
+     *
+     * @param api
+     * @param o
+     * @return
+     */
+    private static SeoDTO getSeoData(String api, org.springframework.data.domain.Page o) {
+        if (!StringUtils.isEmpty(api) && o.getContent().size() != 1) {
+            return null;
+        }
+        SeoDTO seoDTO = null;
+        switch (api) {
+            case ApiNames.ARTICLE_SEARCH_ONE:
+                Article article = (Article) o.getContent().get(0);
+                seoDTO = new SeoDTO(article.getId(), article.getKeys(), article.getContentTitle(), article.getTitleName());
+                break;
+        }
+        return seoDTO;
     }
 
     private static ComponentImage componentImageKey(ComponentImage componentImage, String str) {
@@ -239,13 +267,5 @@ public class CommonUtil {
         modelMap.put("fileName", pageName + "_" + fileName + ".html");
         return modelMap;
     }
-
-    public static void main(String[] args) throws IOException {
-        Properties properties = new Properties();
-        InputStream ra = CommonUtil.class.getResourceAsStream("banner.txt");
-        properties.load(ra);
-        String path = properties.getProperty("path");
-    }
-
 
 }

@@ -13,13 +13,29 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group div-form-group">
-                        <label for="txt_departmentname" class="label-form-group-title-item">首页 :</label>
-                        <input type="checkbox" id="index_btn" class="minimal">
+                        <label for="txt_departmentname" class="label-form-group-title-item">页面类型 :</label>
+                    <#--<input type="checkbox" id="index_btn" class="minimal">-->
+                        <select class="form-control input-form-group-value-item" id="index_btn" style="flex: 4"
+                                name="allowComment">
+                            <option value="diy" ${(article?exists&&article.allowComment==100000001)?string('selected', '')}>
+                                自定义
+                            </option>
+                            <option value="index" ${(article?exists&&article.allowComment==100000001)?string('selected', '')}>
+                                index
+                            </option>
+                            <option value="404" ${(article?exists&&article.allowComment==100000002)?string('selected', '')}>
+                                404
+                            </option>
+                            <#--<option value="500" ${(article?exists&&article.allowComment==100000002)?string('selected', '')}>-->
+                                <#--500-->
+                            <#--</option>-->
+                        </select>
                     </div>
+
                     <div class="form-group div-form-group">
                         <label for="txt_departmentname" class="label-form-group-title-item">页面(文件)名称 :
                             <br>
-                            (提示：该属性为创建静态HTML文件的名称，
+                            (提示：该属性为创建静态HTML文件的名称和文件的访问路径，
                             <label style="color: red">建议使用英文</label>
                             )</label>
                         <input type="text" name="pageName" class="form-control input-form-group-value-item"
@@ -27,20 +43,20 @@
                                placeholder="请输入页面名称">
                     </div>
                     <div class="form-group div-form-group">
+                        <label for="txt_parentdepartment" class="label-form-group-title-item">页面访问路径 : (
+                            默认后缀 .html )</label>
+                        <div class="input-group">
+                            <span class="input-group-addon" id="basic-addon3">https://www.URI.com/${rootPath}/</span>
+                            <input type="text" class="form-control" id="pagePath" name="pagePath" disabled
+                                   aria-describedby="basic-addon3" placeholder="页面访问路径">
+                            <span class="input-group-addon">.html</span>
+                        </div>
+                    </div>
+                    <div class="form-group div-form-group">
                         <label for="txt_departmentname" class="label-form-group-title-item">页面别名 :</label>
                         <input type="text" name="pageAliasName" class="form-control input-form-group-value-item"
                                id="pageAliasName"
                                placeholder="请输入页面别名">
-                    </div>
-                    <div class="form-group div-form-group">
-                        <label for="txt_parentdepartment" class="label-form-group-title-item">页面访问路径 : (
-                            miniits为固定路径，其余参数为自定义， 默认后缀 .html )</label>
-                        <div class="input-group">
-                            <span class="input-group-addon" id="basic-addon3">https://www.url.com/miniits/</span>
-                            <input type="text" class="form-control" id="pagePath" name="pagePath" disabled
-                                   aria-describedby="basic-addon3" placeholder="输入页面访问路径">
-                            <span class="input-group-addon">.html</span>
-                        </div>
                     </div>
                     <div class="form-group div-form-group">
                         <label for="txt_departmentlevel" class="label-form-group-title-item">状态 : </label>
@@ -70,23 +86,50 @@
     (function ($, win) {
         var page = null;
 
+        $("#index_btn").change(function () {
+            var sv = this.value;
+            if (sv === 'diy') {
+                $("#pageName").val(null);
+                $("#pagePath").val(null);
+                $("#pageName").removeAttr("disabled");
+                return;
+            }
+            if (sv) {
+                $("#pageName").attr("disabled", "disabled");
+                $("#pageName").val(sv);
+                $("#pagePath").val(sv);
+                // $("#pagePath").attr("disabled", "disabled");
+            } else {
+                $("#pageName").val(null);
+                $("#pagePath").val(null);
+                // $("#pagePath").removeAttr("disabled");
+                $("#pageName").removeAttr("disabled");
+            }
+        });
+
         function userDialogInit() {
 
         }
 
-        $("#index_btn").click(function () {
-            var check = $("#index_btn")[0].checked;
-            if (check) {
-                $("#pageName").val('index');
-                $("#pageName").attr("disabled", "disabled");
-                $("#pagePath").attr("disabled", "disabled");
-            } else {
-                $("#pageName").val(null);
-                $("#pagePath").val(null);
-                $("#pagePath").removeAttr("disabled");
-                $("#pageName").removeAttr("disabled");
+        $("#pageName").blur(function () {
+            var pageName = $("#pageName").val();
+            if (pageName) {
+                $("#pagePath").val(pageName);
             }
         });
+        // $("#index_btn").click(function () {
+        //     var check = $("#index_btn")[0].checked;
+        //     if (check) {
+        //         $("#pageName").val('index');
+        //         $("#pageName").attr("disabled", "disabled");
+        //         // $("#pagePath").attr("disabled", "disabled");
+        //     } else {
+        //         $("#pageName").val(null);
+        //         $("#pagePath").val(null);
+        //         // $("#pagePath").removeAttr("disabled");
+        //         $("#pageName").removeAttr("disabled");
+        //     }
+        // });
 
         //Modal验证销毁重构
         $('#page_modal').on('hidden.bs.modal', function () {

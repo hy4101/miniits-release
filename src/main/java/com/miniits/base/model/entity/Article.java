@@ -56,6 +56,11 @@ public class Article extends BaseEntity {
     private String titleName;
 
     /**
+     * 关键字
+     */
+    private String keys;
+
+    /**
      * 内容标题图片
      */
     private String titleImage;
@@ -297,5 +302,14 @@ public class Article extends BaseEntity {
 
     public void setCatrgoryAssociates(List<ArticleCatrgoryAssociate> catrgoryAssociates) {
         this.catrgoryAssociates = catrgoryAssociates;
+    }
+
+    @Column(name = "`keys`", length = 500)
+    public String getKeys() {
+        return keys;
+    }
+
+    public void setKeys(String keys) {
+        this.keys = keys;
     }
 }

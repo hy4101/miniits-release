@@ -1,6 +1,12 @@
 <#include "../common/TableFiles.ftl"/>
+<script>
+    var a = "asd"
+</script>
 <div style="padding: 10px 10px 10px 10px">
     <div>
+        <#import "../common/Search.ftl" as search>
+        <@search.form options=[{"type":"input","name":"fd","label":"名称","placeholder":"请输入名称"},
+        {"type":"select","name":"sss","label":"用户状态","placeholder":"请输入用户状态"}] />
         <div id="toolbar" class="btn-group">
             <button id="btn_add_user_click" type="button" class="btn" style="background-color: #3c8dbc;color: #fff;">
                 <i class="fa fa-plus" aria-hidden="true"></i>

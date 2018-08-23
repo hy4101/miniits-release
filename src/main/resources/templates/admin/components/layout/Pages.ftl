@@ -378,7 +378,7 @@
 
             editBtns.push(statusBtn);
             editBtns.push(createHTMLBtn);
-            editBtns.push('<a href="/admin/pages/access-page/' + row.pageName + '" target="_blank" class="f-mr10">\n' +
+            editBtns.push('<a href="/admin/pages/access-page/' + row.pageName + '.html" target="_blank" class="f-mr10">\n' +
                     '                    <i class="fa fa-internet-explorer" aria-hidden="true" style="color: #27AE60"></i>\n' +
                     '                </a>');
             return editBtns.join('');

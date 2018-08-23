@@ -136,7 +136,7 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a>
+                <li><a href="http://www:miniits.com/miniits/document.html" target="_blank"><i class="fa fa-book"></i> <span>Documentation</span></a>
                 </li>
             </ul>
         </section>

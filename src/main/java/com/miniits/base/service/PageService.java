@@ -44,9 +44,12 @@ public class PageService extends BaseServiceImpl<Page, String> {
         super.setBaseDao(pageRepository);
     }
 
-
-    public Page getPage(String pageName, Integer pageStatus) {
-        return pageRepository.findByPageNameAndPageStatus(pageName, pageStatus);
+    public Page getPage(String pageName, Integer pageStatus, int error) {
+        Page page = pageRepository.findByPageNameAndPageStatus(pageName, pageStatus);
+        if (ObjectUtils.isEmpty(page) && error == 404) {
+            page = pageRepository.findByPageNameAndPageStatus(String.valueOf(error), pageStatus);
+        }
+        return page;
     }
 
     /**
