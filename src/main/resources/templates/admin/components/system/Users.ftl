@@ -4,6 +4,7 @@
         <#import "../common/Search.ftl" as search>
         <@search.form options=[
         {"type":"input","name":"LIKE_name||LIKE_phone","label":"名称","placeholder":"请输入名称"},
+        {"type":"datepicker","name":"GT_date","label":"时间","placeholder":"请输入名称"},
         {"type":"input","name":"LIKE_name_t","label":"名称","placeholder":"请输入名称"},
         {"type":"select","key":"localhost","name":"LIKE_user_st","label":"用户状态","value":[{"name":"1","value":"2"},{"name":"1-1","value":"2-2"}]},
         {"type":"select","key":"ok_page","name":"LIKE_yc_shuju","label":"远程数据分页","target":"USER","filtersConnection":"LIKE_name,LIKE_id","filters":"EQ_userName=admin","pageSize":"15","pageNumber":"1","sorts":"-createDate","showField":"userName,id"},

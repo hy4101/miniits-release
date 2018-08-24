@@ -2,6 +2,10 @@
 <link rel="stylesheet" href="/static/css/selectpage.css" type="text/css">
 <script type="text/javascript" src="/static/js/selectpage.js"></script>
 
+<link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+
 <script>
     console.log("初始化查询表单。。。");
     /**
@@ -33,9 +37,6 @@
 </script>
         <form id="${formId!''}">
                 <#list options as item>
-                    <#if item_index%3 == 0 >
-                         <#--<div class="row">-->
-                    </#if>
                     <#if item.type == 'input'>
                         <div class="col-lg-4 f-mb5">
                             <div class="input-group">
@@ -44,6 +45,20 @@
                                        placeholder="${item.placeholder!''}" aria-describedby="basic-addon1">
                             </div>
                         </div>
+                    <#elseif  item.type == 'datepicker'>
+                       <div class="col-lg-4 f-mb5">
+                           <div class="input-group">
+                               <span class="input-group-addon">${item.label!''}：</span>
+                               <input type="text" data-date-format="${item.format!'yyyy-MM-dd'}" class="form-control ${item.type!''}-${item_index}" name="${item.name!''}">
+                           </div>
+                       </div>
+                        <script>
+                            (function ($, win) {
+                                $('.${item.type!''}-${item_index}').datetimepicker({
+                                    minView:2
+                                });
+                            })(jQuery, window)
+                        </script>
                     <#elseif item.type == 'select'>
                         <div class="col-lg-4 f-mb5">
                             <div class="input-group">
@@ -95,9 +110,6 @@
                                 </#if>
                             </div>
                         </div>
-                    </#if>
-                    <#if item_index%3 == 0 >
-                          <#--</div>-->
                     </#if>
                 </#list>
         </form>
