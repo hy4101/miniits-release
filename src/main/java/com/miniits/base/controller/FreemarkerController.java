@@ -1,10 +1,12 @@
 package com.miniits.base.controller;
 
 
+import com.miniits.base.model.entity.Log;
 import com.miniits.base.model.entity.User;
 import com.miniits.base.model.vo.TestVO;
 import com.miniits.base.model.vo.UserVO;
 import com.miniits.base.mysql.Pageable;
+import com.miniits.base.service.LogService;
 import com.miniits.base.service.UserService;
 import com.miniits.base.utils.BaseController;
 import com.miniits.base.utils.ConvertUtil;
@@ -34,15 +36,22 @@ public class FreemarkerController extends BaseController implements TemplateMeth
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LogService logService;
+
     @PostMapping
     @ResponseBody
     public Result sdf(Pageable pageable, String target) {
         Result result = null;
         switch (target) {
-            case "LOG":
+            case "USER":
                 Page<User> users = userService.search(pageable);
                 List<UserVO> userVOS = (List<UserVO>) ConvertUtil.toVOS(users.getContent(), UserVO.class);
                 result = page(userVOS).page(pageable.getPageSize()).size(pageable.getPageNumber()).totalCount(users.getTotalElements()).total(users.getTotalElements());
+                break;
+            case "LOG":
+                Page<Log> logs = logService.search(pageable);
+                result = page(logs.getContent()).page(pageable.getPageSize()).size(pageable.getPageNumber()).totalCount(logs.getTotalElements()).total(logs.getTotalElements());
                 break;
         }
         return result;

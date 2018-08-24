@@ -21,6 +21,33 @@
         return false;
     };
 
+    $.fn.getFilters = function () {
+        var sa = this.serializeArray();
+        var filters = '';
+        $.each(sa, function () {
+            if (!isEmpty(this.value)) {
+                filters += this.name.replace('||', '=' + this.value + '_OR_') + '=' + this.value + ';';
+            }
+        });
+        console.log(filters);
+    };
+
+    $.fn.serializeObject = function () {
+        var o = {};
+        var sa = this.serializeArray();
+        $.each(sa, function () {
+            if (o[this.name] !== undefined) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
     window.Mini = function () {
         var html = '<div id="[Id]" class="modal fade" role="dialog" aria-labelledby="modalLabel">' +
             '<div class="modal-dialog modal-sm" style="margin-top: 150px;width: 35%;">' +

@@ -32,92 +32,83 @@
      */
 </script>
         <form id="${formId!''}">
-            <div class="row">
-    <#list options as item>
-        <#if item.type == 'input'>
-              <div class="col-lg-4">
-                  <div class="input-group">
-                      <span class="input-group-addon">${item.label!''}：</span>
-                      <input type="text" name="${item.name!''}" class="form-control"
-                             placeholder="${item.placeholder!''}"
-                             aria-describedby="basic-addon1">
-                  </div>
-              </div>
-        <#elseif item.type == 'select'>
-           <div class="col-lg-4">
-               <div class="input-group">
-                   <span class="input-group-addon">${item.label!''}：</span>
-                       <#if item.value?exists>
-                           <select name="${item.name!''}"
-                                   class="form-control input-form-group-value-item" ${item.placeholder!''}
-                                   name="pageStatus">
-                               <#list item.value as o>
-                                   <option value="${o.name!''}">${o.value!''}</option>
-                               </#list>
-                           </select>
-                       <#elseif item.target?exists>
-                       <input type="text" id="${item.key}">
-                       <script>
-                           (function ($, win) {
-                               searchSelect("${item.key!''}", "${item.target!''}", "${item.filters!''}", "${item.filtersConnection!''}", "${item.pageSize!''}", "${item.pageNumber!''}", "${item.sorts!''}", "${item.showField!''}");
-                               function searchSelect(key, target, filters, filtersConnection, pageSize, pageNumber, sorts, showField) {
-                                   showField = showField.split(",");
-                                   $('#' + key + '').selectPage({
-                                       showField: isEmpty(showField) ? 'name' : showField[0],
-                                       keyField: isEmpty(showField) ? 'id' : showField[1],
-                                       pageSize: pageSize || 15,
-                                       target: target,
-                                       data: '/admin/search-form',
-                                       params: function () {
-                                           return {field: filtersConnection, sorts: sorts, filters: filters};
-                                       },
-                                       eAjaxSuccess: function (d) {
-                                           var result;
-                                           if (d) {
-                                               result = d
-                                           } else {
-                                               result = undefined
-                                           }
-                                           return result;
-                                       }
-                                   });
-                               }
+                <#list options as item>
+                    <#if item_index%3 == 0 >
+                         <#--<div class="row">-->
+                    </#if>
+                    <#if item.type == 'input'>
+                        <div class="col-lg-4 f-mb5">
+                            <div class="input-group">
+                                <span class="input-group-addon">${item.label!''}：</span>
+                                <input type="text" name="${item.name!''}" class="form-control"
+                                       placeholder="${item.placeholder!''}" aria-describedby="basic-addon1">
+                            </div>
+                        </div>
+                    <#elseif item.type == 'select'>
+                        <div class="col-lg-4 f-mb5">
+                            <div class="input-group">
+                                <span class="input-group-addon">${item.label!''}：</span>
+                                <#if item.value?exists>
+                                    <select name="${item.name!''}"
+                                            class="form-control input-form-group-value-item" ${item.placeholder!''}
+                                            name="pageStatus">
+                                        <#list item.value as o>
+                                            <option value="${o.name!''}">${o.value!''}</option>
+                                        </#list>
+                                    </select>
+                                <#elseif item.target?exists>
+                                    <input type="text" id="${item.key}" class="inp-sel" name="${item.name!''}">
+                                    <script>
+                                        (function ($, win) {
+                                            searchSelect("${item.key!''}", "${item.target!''}", "${item.filters!''}", "${item.filtersConnection!''}", "${item.pageSize!''}", "${item.pageNumber!''}", "${item.sorts!''}", "${item.showField!''}");
 
-                           })(jQuery, window)
-                       </script>
-                       <#--<#assign toupper = 'com.miniits.base.controller.FreemarkerController'?new() />-->
-                       <#--<option value="123"> ${toupper(item.filters!'',"12")}</option>-->
-                       </#if>
-               </div>
-           </div>
-        </#if>
-    </#list>
-            </div>
+                                            function searchSelect(key, target, filters, filtersConnection, pageSize, pageNumber, sorts, showField) {
+                                                showField = showField.split(",");
+                                                $('#' + key + '').selectPage({
+                                                    showField: isEmpty(showField) ? 'name' : showField[0],
+                                                    keyField: isEmpty(showField) ? 'id' : showField[1],
+                                                    pageSize: pageSize || 15,
+                                                    target: target,
+                                                    data: '/admin/search-form',
+                                                    params: function () {
+                                                        return {
+                                                            field: filtersConnection,
+                                                            sorts: sorts,
+                                                            filters: filters
+                                                        };
+                                                    },
+                                                    eAjaxSuccess: function (d) {
+                                                        var result;
+                                                        if (d) {
+                                                            result = d
+                                                        } else {
+                                                            result = undefined
+                                                        }
+                                                        return result;
+                                                    }
+                                                });
+                                            }
+                                        })(jQuery, window)
+                                    </script>
+                                <#--<#assign toupper = 'com.miniits.base.controller.FreemarkerController'?new() />-->
+                                <#--<option value="123"> ${toupper(item.filters!'',"12")}</option>-->
+                                </#if>
+                            </div>
+                        </div>
+                    </#if>
+                    <#if item_index%3 == 0 >
+                          <#--</div>-->
+                    </#if>
+                </#list>
         </form>
-<#--<script>-->
-<#--(function ($, win) {-->
-<#--function searchSelect(key, target, filters, filtersConnection, pageSize, pageNumber, sorts, showField) {-->
-<#--$('#' + key + '').selectPage({-->
-<#--showField: isEmpty(showField) ? 'name' : showField.split(",")[0],-->
-<#--keyField: isEmpty(showField) ? 'id' : showField.split(",")[1],-->
-<#--pageSize: pageSize || 15,-->
-<#--target: target,-->
-<#--data: '/admin/search-form',-->
-<#--params: function () {-->
-<#--return {field: filtersConnection, sorts: sorts, filters: filters};-->
-<#--},-->
-<#--eAjaxSuccess: function (d) {-->
-<#--var result;-->
-<#--if (d) {-->
-<#--result = d-->
-<#--} else {-->
-<#--result = undefined-->
-<#--}-->
-<#--return result;-->
-<#--}-->
-<#--});-->
-<#--}-->
+<style>
+    .sp_container {
+        width: 100% !important;
+    }
 
-<#--})(jQuery, window)-->
-<#--</script>-->
+    .inp-sel {
+        border-radius: 0 !important;
+        -webkit-border-radius: 0 !important;
+    }
+</style>
 </#macro>
