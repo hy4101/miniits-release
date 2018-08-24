@@ -49,13 +49,15 @@
                        <div class="col-lg-4 f-mb5">
                            <div class="input-group">
                                <span class="input-group-addon">${item.label!''}：</span>
-                               <input type="text" data-date-format="${item.format!'yyyy-MM-dd'}" class="form-control ${item.type!''}-${item_index}" name="${item.name!''}">
+                               <input type="text" data-date-format="${item.format!'yyyy-MM-dd'}"
+                                      placeholder="${item.placeholder!''}"
+                                      class="form-control ${item.type!''}-${item_index}" name="${item.name!''}">
                            </div>
                        </div>
                         <script>
                             (function ($, win) {
                                 $('.${item.type!''}-${item_index}').datetimepicker({
-                                    minView:2
+                                    minView: 2
                                 });
                             })(jQuery, window)
                         </script>
