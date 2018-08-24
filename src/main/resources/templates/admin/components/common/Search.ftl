@@ -60,14 +60,11 @@
                        <script>
                            (function ($, win) {
                                searchSelect("${item.key!''}", "${item.target!''}", "${item.filters!''}", "${item.filtersConnection!''}", "${item.pageSize!''}", "${item.pageNumber!''}", "${item.sorts!''}", "${item.showField!''}");
-
                                function searchSelect(key, target, filters, filtersConnection, pageSize, pageNumber, sorts, showField) {
                                    showField = showField.split(",");
                                    $('#' + key + '').selectPage({
-                                       // showField: "userName",
                                        showField: isEmpty(showField) ? 'name' : showField[0],
                                        keyField: isEmpty(showField) ? 'id' : showField[1],
-                                       // keyField: "id",
                                        pageSize: pageSize || 15,
                                        target: target,
                                        data: '/admin/search-form',
