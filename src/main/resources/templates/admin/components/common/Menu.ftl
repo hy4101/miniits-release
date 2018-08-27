@@ -8,7 +8,7 @@
     }
 </style>
 <div class="div-main-menu">
-    <aside class="main-sidebar">
+    <aside class="main-sidebar f-theme-c">
         <!-- sidebar: style can be found in sidebar.less -->
         <section class="sidebar">
             <!-- Sidebar user panel -->
@@ -32,7 +32,7 @@
         <#--</div>-->
         <#--</form>-->
             <ul class="sidebar-menu">
-                <li class="header txt-align-center txt-color-ffffff" style="background-color: #27AE60">
+                <li class="header txt-align-center txt-color-ffffff f-theme-c">
                     Welcome To M+ Admin
                 </li>
                 <li class="${(active == 'dashboard')?string('active', '')} treeview">
@@ -136,10 +136,20 @@
                         </li>
                     </ul>
                 </li>
-                <li><a href="http://www:miniits.com/miniits/document.html" target="_blank"><i class="fa fa-book"></i> <span>Documentation</span></a>
+                <li><a href="http://www:miniits.com/miniits/document.html" target="_blank"><i class="fa fa-book"></i>
+                    <span>Documentation</span></a>
                 </li>
             </ul>
         </section>
         <!-- /.sidebar -->
     </aside>
 </div>
+<script>
+    (function ($, win) {
+        var themeColor = sessionStorage.getItem("f-theme-c");
+        if (isEmpty(themeColor)) {
+            themeColor = '#27AE60';
+        }
+        $(".f-theme-c").css("background-color", themeColor);
+    })(jQuery, window)
+</script>

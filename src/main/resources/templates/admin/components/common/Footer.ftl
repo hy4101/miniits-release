@@ -7,3 +7,13 @@
         reserved.
     </footer>
 </div>
+<script>
+    (function ($, win) {
+        var themeColor = sessionStorage.getItem("f-theme-c");
+
+        if (isEmpty(themeColor)) {
+            themeColor = '#27AE60';
+        }
+        $(".f-theme-c").css("background-color", themeColor);
+    })(jQuery, window)
+</script>

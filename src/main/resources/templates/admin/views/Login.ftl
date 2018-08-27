@@ -11,7 +11,7 @@
     <link href="/static/toastr/toastr.css" rel="stylesheet"/>
     <script src="/static/toastr/toastr.min.js"></script>
 </head>
-<body class="f-bc">
+<body class="f-theme-c">
 <style>
     .f-w80 {
         width: 80%;
@@ -28,7 +28,7 @@
                 <form id="f_login" method="post" class="f-w80" style="display: flex;flex-direction: column;"
                       action="/admin/login">
                     <div class="input-group f-mt5 f-mb10 txt-align-center">
-                        <h2>M+</h2>
+                        <h2>M Plus</h2>
                     </div>
                     <div class="input-group f-mt5 f-mb10">
                         <input type="text" name="userName" class="form-control" placeholder="用户名"
@@ -41,13 +41,16 @@
                     <div class="input-group f-mt5 f-mb10">
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" id="inp_code" name="verificationCode" class="form-control" placeholder="验证码" aria-describedby="basic-addon1">
+                                <input type="text" id="inp_code" name="verificationCode" class="form-control"
+                                       placeholder="验证码" aria-describedby="basic-addon1">
                             </div>
                             <div class="col-md-4">
-                                <input type="text" id="code" class="form-control" placeholder="验证码" disabled aria-describedby="basic-addon1">
+                                <input type="text" id="code" class="form-control" placeholder="验证码" disabled
+                                       aria-describedby="basic-addon1">
                             </div>
                             <div class="col-md-2">
-                                <i style="line-height: 34px;cursor: pointer;" class="fa fa-refresh" id="i_refresh_code" aria-hidden="true"></i>
+                                <i style="line-height: 34px;cursor: pointer;" class="fa fa-refresh" id="i_refresh_code"
+                                   aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
@@ -62,6 +65,25 @@
 </div>
 <script>
     (function ($, win) {
+
+        var themeColor = sessionStorage.getItem("f-theme-c");
+        console.log(themeColor)
+        if (isEmpty(themeColor)) {
+            themeColor = '#27AE60';
+        }
+        $(".f-theme-c").css("background-color", themeColor);
+
+        function isEmpty(str) {
+            if (str === '' || str == null || str === undefined) {
+                return true;
+            }
+            if (str instanceof Array) {
+                if (str == null || str.length <= 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
 
         var code = '';
         var baseStr = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R'
@@ -81,6 +103,7 @@
             code = "";
             getCode();
         });
+
         function getCode(n, m) {
             for (var i = 0; i < 4; i++) {
                 var ds = rnd();

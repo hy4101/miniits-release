@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/static/css/Miniits.min.css">
     <link rel="stylesheet" href="/static/css/all-skins.min.css">
     <link rel="stylesheet" href="/static/css/Miniits_Common.css">
+    <link href="/static/css/colorpicker.css" rel="stylesheet">
 
     <script src="/static/js/jQuery-3.3.1.min.js"></script>
     <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
@@ -16,4 +17,6 @@
     <script src="/static/js/app.min.js"></script>
     <script src="/static/js/Util.js"></script>
     <script src="/static/js/HttpClientUtil.js"></script>
+    <#--<script src="https://cdn.bootcss.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>-->
+    <script src="/static/js/colorpicker.js"></script>
 </head>

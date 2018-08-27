@@ -1,5 +1,5 @@
 .skin-blue .main-header .navbar {
-    background-color: #27AE60
+    /*background-color: #27AE60*/
 }
 
 .skin-blue .main-header .navbar .nav > li > a {
@@ -43,7 +43,7 @@
 }
 
 .skin-blue .main-header .logo {
-    background-color: #27AE60;
+    /*background-color: #27AE60;*/
     color: #fff;
     border-bottom: 0 solid transparent
 }
@@ -61,7 +61,7 @@
 }
 
 .skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side {
-    background-color: #27AE60
+    /*background-color: #27AE60*/
 }
 
 .skin-blue .user-panel > .info, .skin-blue .user-panel > .info > a {
@@ -70,7 +70,7 @@
 
 .skin-blue .sidebar-menu > li.header {
     color: #ffffff;
-    background: #1a2226
+    /*background: #1a2226*/
 }
 
 .skin-blue .sidebar-menu > li > a {
