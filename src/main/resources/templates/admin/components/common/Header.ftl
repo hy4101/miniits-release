@@ -66,8 +66,9 @@
 </div>
 <script>
     (function ($, win) {
-        var themeColor = sessionStorage.getItem("f-theme-c");
+        var themeColor = localStorage.getItem("f-theme-c");
         //
+        console.log(themeColor)
         if (isEmpty(themeColor)) {
             themeColor = '#27AE60';
         }
@@ -81,7 +82,7 @@
                 container: true
             }).on('colorpickerChange colorpickerCreate', function (event) {
                 console.log(event.color.toString());
-                sessionStorage.setItem("f-theme-c", event.color.toString());
+                localStorage.setItem("f-theme-c", event.color.toString());
                 $(".f-theme-c").css("background-color", event.color.toString());
             });
         })

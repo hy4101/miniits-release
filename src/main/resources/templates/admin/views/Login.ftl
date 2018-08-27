@@ -66,7 +66,7 @@
 <script>
     (function ($, win) {
 
-        var themeColor = sessionStorage.getItem("f-theme-c");
+        var themeColor = localStorage.getItem("f-theme-c");
         console.log(themeColor)
         if (isEmpty(themeColor)) {
             themeColor = '#27AE60';
