@@ -49,7 +49,7 @@
     (function ($, win) {
         function userInit() {
             searchUsers();
-            searchUsersByFilters();
+            // searchUsersByFilters();
         }
 
         function searchUsers() {
@@ -78,7 +78,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../admin/users",//要请求数据的文件路径
+                url: "../users",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',

@@ -22,6 +22,11 @@ public class Pageable {
     //页码
     private Integer pageNumber = 1;
 
+    public Pageable addFilters(String filter) {
+        this.filters += filter;
+        return this;
+    }
+
     public String getFilters() {
         return filters;
     }
