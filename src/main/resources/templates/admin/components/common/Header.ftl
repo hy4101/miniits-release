@@ -66,6 +66,18 @@
 </div>
 <script>
     (function ($, win) {
+        // $('body').on('click', function (event) {
+        //     var target = $(event.target);
+        //     //弹窗内部点击不关闭
+        //     if (!target.hasClass('popover')
+        //             && target.parent('.popover-content').length === 0
+        //             && target.parent('.popover-title').length === 0
+        //             && target.parent('.popover').length === 0
+        //             && target.data("toggle") !== "popover") {
+        //         //弹窗触发列不关闭，否则显示后隐藏
+        //         $('[data-toggle="popover"]').popover('hide');
+        //     }
+        // });
         var themeColor = localStorage.getItem("f-theme-c");
         //
         console.log(themeColor)
@@ -75,7 +87,6 @@
         $(".f-theme-c").css("background-color", themeColor);
         $('#example').popover();
         $('#example').on('shown.bs.popover', function () {
-
             $('#cp1').data("color", themeColor);
             $('#cp1').colorpicker({
                 inline: true,
@@ -86,7 +97,5 @@
                 $(".f-theme-c").css("background-color", event.color.toString());
             });
         })
-
-
     })(jQuery, window)
 </script>

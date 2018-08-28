@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import static com.miniits.base.utils.CommonUtil.getPageNumber;
@@ -47,7 +48,13 @@ public class AppStoreController extends BaseController {
 
     @GetMapping("init")
     public String init(ModelMap modelMap, Pageable pageable) {
-        Result appStoresVOResult = restTemplate.getForObject(apps, Result.class, pageable.getFilters(), pageable.getSorts(), pageable.getPageSize(), pageable.getPageNumber());
+        Result appStoresVOResult = new Result();
+        try {
+            appStoresVOResult = restTemplate.getForObject(apps, Result.class, pageable.getFilters(), pageable.getSorts(), pageable.getPageSize(), pageable.getPageNumber());
+        } catch (RestClientException e) {
+            e.printStackTrace();
+        }
+
         modelMap.put("active", "layout");
         modelMap.put("thisPageNumber", pageable.getPageNumber());
         modelMap.put("pageNumbers", getPageNumber(appStoresVOResult.getTotal(), pageable));

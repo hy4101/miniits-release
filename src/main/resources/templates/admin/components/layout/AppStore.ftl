@@ -25,27 +25,29 @@
     </div>
     <div>
         <div id="div_apps" style="display:flex;flex-wrap:wrap">
-               <#list apps as app>
-                   <div style="margin: 5px;border: 1px solid #c8c8c8;">
-                       <a class="select-app-info" valueId="${app.am}" appName="${app.appTypeName}">
-                           <img src="${app.appImageUrl}"
-                                style="width: 400px;height: 300px;cursor: pointer;padding: 5px;">
-                       </a>
-                       <div class="row">
-                           <div class="col-md-8" style="line-height: 54px;">
-                               <label style="margin-left: 10px;">${app.appTypeName}</label>
-                               <label style="margin-left: 10px;font-size: 10px;font-weight: 100;">下载：${app.downloadNumber}</label>
-                           </div>
-                           <div class="col-md-4">
-                               <button type="button" am="${app.am}" sm="${app.sm}" valueName="${app.appTypeName}"
-                                       data-loading-text="正在获取。。。"
-                                       class="btn btn-link btn-get" style="float: right;margin: 10px;">
-                                   获取
-                               </button>
-                           </div>
-                       </div>
-                   </div>
-               </#list>
+        <#if apps?exists>
+            <#list apps as app>
+                <div style="margin: 5px;border: 1px solid #c8c8c8;">
+                    <a class="select-app-info" valueId="${app.am}" appName="${app.appTypeName}">
+                        <img src="${app.appImageUrl}"
+                             style="width: 400px;height: 300px;cursor: pointer;padding: 5px;">
+                    </a>
+                    <div class="row">
+                        <div class="col-md-8" style="line-height: 54px;">
+                            <label style="margin-left: 10px;">${app.appTypeName}</label>
+                            <label style="margin-left: 10px;font-size: 10px;font-weight: 100;">下载：${app.downloadNumber}</label>
+                        </div>
+                        <div class="col-md-4">
+                            <button type="button" am="${app.am}" sm="${app.sm}" valueName="${app.appTypeName}"
+                                    data-loading-text="正在获取。。。"
+                                    class="btn btn-link btn-get" style="float: right;margin: 10px;">
+                                获取
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </#list>
+        </#if>
         </div>
         <nav aria-label="Page navigation" style="display: flex; justify-content: flex-end;">
              <#assign baseUrl="/admin/app-store/init?pageSize=16&">
