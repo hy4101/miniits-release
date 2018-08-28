@@ -117,14 +117,14 @@ public class DataUtil {
         Map<String, Object> apis = new HashMap<>();
         switch (api) {
             case ApiNames.ARTICLE_SEARCH:
-                Page<Article> articlePage = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters("EQ_status=100002001"));
+                Page<Article> articlePage = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters(";EQ_status=100002001"));
                 articlePage.forEach(article -> {
                     article.setContent(markdownToHtml(article.getContent()));
                 });
                 apis.put("article/search", articlePage);
                 break;
             case ApiNames.ARTICLE_SEARCH_ONE:
-                Page<Article> page = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters("EQ_status=100002001"));
+                Page<Article> page = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters(";EQ_status=100002001"));
                 page.forEach(article -> {
                     article.setContent(markdownToHtml(article.getContent()));
                 });
