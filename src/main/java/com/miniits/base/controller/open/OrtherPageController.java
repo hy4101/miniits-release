@@ -5,6 +5,7 @@ import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,6 +49,9 @@ public class OrtherPageController {
             return pageName + "/" + pageName + "_" + pageNumber + "_" + filters;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName, httpServletRequest);
+        if (ObjectUtils.isEmpty(componentImageAndDocument)) {
+            return "default/Welcome";
+        }
         modelMap = componentImageAndDocument.getModelMap();
         modelMap = renderingPage(modelMap, pageName, pageNumber + "_" + filters, httpServletRequest);
         String path = modelMap.get("templateName").toString().split("\\.")[0];

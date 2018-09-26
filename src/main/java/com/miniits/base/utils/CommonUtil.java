@@ -6,7 +6,8 @@ import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
 import com.miniits.base.mysql.Pageable;
-import com.miniits.base.service.*;
+import com.miniits.base.service.ComponentImageServer;
+import com.miniits.base.service.PageService;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -21,8 +22,6 @@ import org.springframework.util.ObjectUtils;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -31,7 +30,6 @@ import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.FileUtil.isPackageExist;
 import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
 import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
-import static com.miniits.base.utils.HTMLUtil.markdownToHtml;
 import static com.miniits.base.utils.RequestUtil.getRequest;
 import static com.miniits.base.utils.Result.getTotalPage;
 import static com.miniits.base.utils.SystemDict.*;
@@ -90,7 +88,10 @@ public class CommonUtil {
         String requestURI = httpServletRequest.getRequestURI();
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
         Integer pageSize = StringUtils.isEmpty(httpServletRequest.getParameter("pageSize")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageSize"));
-        Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001,404);
+        Page page = SpringContextHolder.getBean(PageService.class).getPage(pageName, 100000001, 404);
+        if (ObjectUtils.isEmpty(page)) {
+            return null;
+        }
         List<PageComponentAssociate> pageComponentAssociates = page.getPageComponentAssociates().stream()
                 .filter(pca -> pca.getComponentImage().getComponentStatus().equals(100000001))
                 .sorted(Comparator.comparing(PageComponentAssociate::getSorts))

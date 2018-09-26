@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,6 +54,9 @@ public class IndexController {
             return "index/index_" + pageNumber;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
+        if (ObjectUtils.isEmpty(componentImageAndDocument)) {
+            return "default/Welcome";
+        }
         if (componentImageAndDocument.getPage().getTemplateCaching().equals(100000002)) {
             createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         }
