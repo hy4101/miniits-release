@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 import static com.miniits.base.utils.DataUtil.getData;
 import static com.miniits.base.utils.DataUtil.getPageData;
 import static com.miniits.base.utils.FileUtil.isPackageExist;
-import static com.miniits.base.utils.HTMLUtil.addHtmlDepend;
+import static com.miniits.base.utils.HTMLUtil.addHeader;
 import static com.miniits.base.utils.HTMLUtil.freemarkerIsNull;
 import static com.miniits.base.utils.RequestUtil.getRequest;
 import static com.miniits.base.utils.Result.getTotalPage;
@@ -154,7 +154,7 @@ public class CommonUtil {
             }
         }
         if (!ObjectUtils.isEmpty(doc)) {
-            doc = addHtmlDepend(doc, seoDTO);
+            doc = addHeader(doc, seoDTO);
         }
         return new ComponentImageAndDocument(doc, modelMap, componentImages, page);
     }

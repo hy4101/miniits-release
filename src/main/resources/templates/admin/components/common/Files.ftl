@@ -2,6 +2,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
     <title>M+ Admin</title>
     <meta name="keywords" content="m+,mplus">
     <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">

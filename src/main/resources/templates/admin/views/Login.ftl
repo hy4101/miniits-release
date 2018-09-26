@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta mplushtmlmapping="2018">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
     <title>登入-M-Plus</title>
     <script src="/static/js/jQuery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
