@@ -176,13 +176,13 @@
         function initArticlesPublish() {
             editor = editormd("div-editormd", {
                 width: "90%",
-                height: 1000,
+                height: '666',
                 watch: false,
                 toolbar: false,
                 codeFold: true,
                 searchReplace: true,
                 placeholder: "Enjoy coding!",
-                path: "/static/editor.md/lib/",
+                path: "${request.contextPath}/static/editor.md/lib/",
                 value: (localStorage.mode) ? $("#" + localStorage.mode.replace("text/", "") + "-code").val() : $("#html-code").val(),
                 theme: (localStorage.theme) ? localStorage.theme : "default",
                 mode: (localStorage.mode) ? localStorage.mode : "text/html"

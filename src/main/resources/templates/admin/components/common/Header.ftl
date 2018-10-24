@@ -25,13 +25,13 @@
                     <!-- User Account: style can be found in dropdown.less -->
                     <li class="dropdown user user-menu">
                         <a href="http://www.miniits.com" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="/static/images/default_user.png" class="user-image" alt="User Image">
+                            <img src="${request.contextPath}/static/images/default_user.png" class="user-image" alt="User Image">
                             <span class="hidden-xs">M+</span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">
-                                <img src="/static/images/default_user.png" class="img-circle" alt="User Image">
+                                <img src="${request.contextPath}/static/images/default_user.png" class="img-circle" alt="User Image">
                                 <p>
                                 <#--${user.userName}-->
                                     <small>
