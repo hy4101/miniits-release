@@ -66,7 +66,7 @@
 
         win.commitImage = function (params) {
             var param = {
-                method: 'get', url: params.imageId,sessionId:'set-image-info'
+                method: 'get', url: '${request.contextPath}/admin/images/' + params.imageId, sessionId: 'set-image-info'
             };
             httpClient(param);
         };

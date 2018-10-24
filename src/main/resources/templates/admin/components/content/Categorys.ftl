@@ -64,7 +64,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../categorys",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/categorys",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -94,7 +94,7 @@
                 sidePagination: 'server',//指定服务器端分页
                 contentType: "application/x-www-form-urlencoded",
                 method: 'get',
-                url: "../categorys",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/categorys",//要请求数据的文件路径
                 queryParams: function (params) {
                     var filters = '';
                     var categoryName = $("#categoryName").val();
@@ -153,7 +153,7 @@
                 return;
             }
             var param = {
-                method: 'post', url: '../categorys', data: {
+                method: 'post', url: '${request.contextPath}/admin/categorys', data: {
                     category: JSON.stringify({
                         categoryName: categoryName,
                         level: 1
@@ -197,7 +197,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: '../categorys/' + row.id, sessionId: 'category-refresh', message: '删除成功'
+                    method: 'delete', url: '${request.contextPath}/admin/categorys/' + row.id, sessionId: 'category-refresh', message: '删除成功'
                 };
                 httpClient(param);
             });
@@ -208,6 +208,7 @@
         win.httpClientSuccess = function (data) {
             switch (data.sessionId) {
                 case 'category-refresh':
+                    $("#categoryName").val(null);
                     $('#div_table_categorys').bootstrapTable('refresh');
                     break;
             }

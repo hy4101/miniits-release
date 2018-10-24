@@ -2,15 +2,15 @@
 <head>
     <meta charset="UTF-8">
     <meta mplushtmlmapping="2018">
-    <link rel="shortcut icon" href="/static/images/favicon.ico" type="image/x-icon">
     <title>登入-M-Plus</title>
-    <script src="/static/js/jQuery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="/static/bootstrap-3.3.7-dist/css/bootstrap.css">
-    <script src="/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <link href="/static/css/font-awesome/font-awesome.min.css" rel="stylesheet">
-    <link href="/static/css/Miniits_Common.css" rel="stylesheet">
-    <link href="/static/toastr/toastr.css" rel="stylesheet"/>
-    <script src="/static/toastr/toastr.min.js"></script>
+    <link rel="shortcut icon" href="${request.contextPath}/static/images/favicon.ico" type="image/x-icon">
+    <script src="${request.contextPath}/static/js/jQuery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="${request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <script src="${request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+    <link href="${request.contextPath}/static/css/font-awesome/font-awesome.min.css" rel="stylesheet">
+    <link href="${request.contextPath}/static/css/Miniits_Common.css" rel="stylesheet">
+    <link href="${request.contextPath}/static/toastr/toastr.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/static/toastr/toastr.min.js"></script>
 </head>
 <body class="f-theme-c">
 <style>
@@ -21,13 +21,13 @@
 <div style="width:100%;height:100%;display: flex;justify-content: center;align-items: center">
     <div class="row" style="display: flex;justify-content: center;align-items: center;width: 100%;">
         <div class="col-md-6" style="padding-left: 10%;">
-            <img src="/static/images/login-img.png">
+            <img src="${request.contextPath}/static/images/login-img.png">
         </div>
         <div class="col-md-6" style="display: flex; justify-content: center;">
             <div class="f-bc-fff"
                  style="width: 50%; height: 300px;display: flex;justify-content: center;align-items: center">
                 <form id="f_login" method="post" class="f-w80" style="display: flex;flex-direction: column;"
-                      action="/admin/login">
+                      action="${request.contextPath}/admin/login">
                     <div class="input-group f-mt5 f-mb10 txt-align-center">
                         <h2>M Plus</h2>
                     </div>
@@ -68,7 +68,7 @@
     (function ($, win) {
 
         var themeColor = localStorage.getItem("f-theme-c");
-        console.log(themeColor)
+        console.log(themeColor);
         if (isEmpty(themeColor)) {
             themeColor = '#27AE60';
         }

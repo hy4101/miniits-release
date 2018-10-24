@@ -78,7 +78,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../users",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/users",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -114,7 +114,7 @@
         });
 
         function searchUsersByFilters() {
-            $('#table_users').bootstrapTable('refresh', {url: '../users'});
+            $('#table_users').bootstrapTable('refresh', {url: '${request.contextPath}/admin/users'});
         }
 
         function operateFormatter(value, row, index) {
@@ -150,7 +150,7 @@
 
         function changeStatus(row, status, message) {
             var param = {
-                method: 'post', url: 'change/status', data: {
+                method: 'post', url: '${request.contextPath}/admin/users/change/status', data: {
                     id: row.id,
                     status: status
                 },
@@ -180,7 +180,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: 'delete/' + row.id,
+                    method: 'delete', url: '${request.contextPath}/admin/users/delete/' + row.id,
                     sessionId: 'user-save', message: '删除成功！'
                 };
                 httpClient(param);

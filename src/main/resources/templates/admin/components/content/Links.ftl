@@ -59,7 +59,11 @@
                 return toastr.error('请输入链接URL');
             }
             var param = {
-                method: 'post', url: '../links', sessionId: 'links-refresh', message: '链接添加成功', data: {
+                method: 'post',
+                url: '${request.contextPath}/admin/links',
+                sessionId: 'links-refresh',
+                message: '链接添加成功',
+                data: {
                     linkName: linkName,
                     url: url
                 },
@@ -94,7 +98,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../links",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/links",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -156,7 +160,7 @@
                 }
 
                 var param = {
-                    method: 'delete', url: row.id, sessionId: 'links-refresh'
+                    method: 'delete', url: "${request.contextPath}/admin/links/" + row.id, sessionId: 'links-refresh'
                 };
                 httpClient(param);
             });
@@ -164,7 +168,7 @@
 
         function changeStatus(row, status, message) {
             var param = {
-                method: 'post', url: 'change/status', sessionId: 'links-refresh', data: {
+                method: 'post', url: '${request.contextPath}/admin/links/change/status', sessionId: 'links-refresh', data: {
                     id: row.id,
                     status: status
                 }

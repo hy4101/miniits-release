@@ -55,7 +55,7 @@
             }
 
             var param = {
-                method: 'POST', url: '../categorys', data: {
+                method: 'POST', url: '${request.contextPath}/admin/categorys', data: {
                     category: JSON.stringify(row)
                 }, sessionId: 'category-refresh'
             };

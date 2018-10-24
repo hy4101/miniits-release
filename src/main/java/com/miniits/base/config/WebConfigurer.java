@@ -76,4 +76,19 @@ public class WebConfigurer extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
+//
+//    @Bean
+//    @Order(2)
+//    public FreeMarkerViewResolver freeMarkerViewResolver(FreeMarkerViewResolver freeMarkerViewResolver) {
+////        FreeMarkerView freeMarkerView = new FreeMarkerView();
+////        freeMarkerView.setContentType("text/html;charset=utf-8");
+//        freeMarkerViewResolver.setCache(true);
+//        freeMarkerViewResolver.setSuffix(".ftl");
+//        freeMarkerViewResolver.setRequestContextAttribute("request");
+////        freeMarkerViewResolver.setViewClass(FreeMarkerView.class);
+//        freeMarkerViewResolver.setContentType("text/html;charset=utf-8");
+//
+//        return freeMarkerViewResolver;
+//    }
+
 }

@@ -40,36 +40,36 @@
         </div>
         <table id="table_articles" style="background-color: #FFFFFF"></table>
     </div>
-    <#--<div style="padding-left: 10px;flex: 5">-->
-        <#--<div class="div-articles-component-title">-->
-            <#--评论管理-->
-        <#--</div>-->
-        <#--<div class="row">-->
-            <#--<div class="col-lg-4">-->
-                <#--<div class="input-group">-->
-                    <#--<input type="text" class="form-control" placeholder="请输入名称" id="titleName"-->
-                           <#--aria-describedby="basic-addon1">-->
-                <#--</div>-->
-            <#--</div>-->
-            <#--<div class="col-lg-4">-->
-                <#--<div class="input-group">-->
-                    <#--<input type="text" class="form-control" placeholder="请输入状态" id="statusName"-->
-                           <#--aria-describedby="basic-addon1">-->
-                <#--</div>-->
-            <#--</div>-->
-            <#--<div class="col-lg-4">-->
-                <#--<button id="btn_articles_search" type="button" class="btn"-->
-                        <#--style="background-color: #27AE60;color: #fff;">-->
-                    <#--<i class="fa fa-search" aria-hidden="true"></i>-->
-                <#--</button>-->
-                <#--<button id="btn_articles_refresh" type="button" class="btn"-->
-                        <#--style="background-color: #ff754e;color: #fff;">-->
-                    <#--<i class="fa fa-refresh" aria-hidden="true"></i>-->
-                <#--</button>-->
-            <#--</div>-->
-        <#--</div>-->
-        <#--<table id="table_comments" style="background-color: #FFFFFF"></table>-->
-    <#--</div>-->
+<#--<div style="padding-left: 10px;flex: 5">-->
+<#--<div class="div-articles-component-title">-->
+<#--评论管理-->
+<#--</div>-->
+<#--<div class="row">-->
+<#--<div class="col-lg-4">-->
+<#--<div class="input-group">-->
+<#--<input type="text" class="form-control" placeholder="请输入名称" id="titleName"-->
+<#--aria-describedby="basic-addon1">-->
+<#--</div>-->
+<#--</div>-->
+<#--<div class="col-lg-4">-->
+<#--<div class="input-group">-->
+<#--<input type="text" class="form-control" placeholder="请输入状态" id="statusName"-->
+<#--aria-describedby="basic-addon1">-->
+<#--</div>-->
+<#--</div>-->
+<#--<div class="col-lg-4">-->
+<#--<button id="btn_articles_search" type="button" class="btn"-->
+<#--style="background-color: #27AE60;color: #fff;">-->
+<#--<i class="fa fa-search" aria-hidden="true"></i>-->
+<#--</button>-->
+<#--<button id="btn_articles_refresh" type="button" class="btn"-->
+<#--style="background-color: #ff754e;color: #fff;">-->
+<#--<i class="fa fa-refresh" aria-hidden="true"></i>-->
+<#--</button>-->
+<#--</div>-->
+<#--</div>-->
+<#--<table id="table_comments" style="background-color: #FFFFFF"></table>-->
+<#--</div>-->
 </div>
 <script>
     (function ($, win) {
@@ -121,7 +121,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../article",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/contents/article",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -255,7 +255,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: row.id,
+                    method: 'delete', url: "${request.contextPath}/admin/contents/article/" + row.id,
                     sessionId: 'articles-refresh'
                 };
                 httpClient(param);
@@ -264,7 +264,7 @@
 
         function changeStatus(row, status, message) {
             var param = {
-                method: 'post', url: 'change/status', data: {
+                method: 'post', url: '${request.contextPath}/admin/contents/article/change/status', data: {
                     id: row.id,
                     status: status
                 },

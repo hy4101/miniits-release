@@ -141,7 +141,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: 'delete/' + row.id,
+                    method: 'delete', url: '${request.contextPath}/admin/pages/delete/' + row.id,
                     sessionId: 'change-status', message: '删除成功'
                 };
                 httpClient(param);
@@ -151,7 +151,7 @@
         function revisionSort(row, type) {
             console.log(row);
             var param = {
-                method: 'post', url: '../page-component-associate/revision-sort/' + row.id + '/' + type,
+                method: 'post', url: '${request.contextPath}/admin/page-component-associate/revision-sort/' + row.id + '/' + type,
                 sessionId: 'change-status-component'
             };
             httpClient(param);
@@ -167,7 +167,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: '../page-component-associate/delete/' + row.id,
+                    method: 'delete', url: '${request.contextPath}/admin/page-component-associate/delete/' + row.id,
                     sessionId: 'change-status-component', message: '删除成功'
                 };
                 httpClient(param);
@@ -206,7 +206,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../pages",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/pages",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -271,7 +271,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../page-component-associate",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/page-component-associate",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",
                 columns: [{
                     field: 'id',
@@ -312,7 +312,7 @@
                 sidePagination: 'server',//指定服务器端分页
                 contentType: "application/x-www-form-urlencoded",
                 method: 'get',
-                url: "../page-component-associate",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/page-component-associate",//要请求数据的文件路径
                 queryParams: function (params) {
                     var temp = {
                         pageSize: params.limit,                         //页面大小
@@ -378,7 +378,7 @@
 
             editBtns.push(statusBtn);
             editBtns.push(createHTMLBtn);
-            editBtns.push('<a href="/admin/pages/access-page/' + row.pageName + '.html" target="_blank" class="f-mr10">\n' +
+            editBtns.push('<a href="${request.contextPath}/admin/pages/access-page/' + row.pageName + '.html" target="_blank" class="f-mr10">\n' +
                     '                    <i class="fa fa-internet-explorer" aria-hidden="true" style="color: #27AE60"></i>\n' +
                     '                </a>');
             return editBtns.join('');
@@ -482,7 +482,7 @@
         function changeStatus(row, status, message) {
             var param = {
                 method: 'post',
-                url: 'change/status',
+                url: '${request.contextPath}/admin/pages/change/status',
                 data: {id: row.id, page_name: row.pageName, status: status},
                 sessionId: 'change-status'
             };
@@ -492,7 +492,7 @@
         function changeStatusComponent(row, status, message) {
             var param = {
                 method: 'post',
-                url: '../componentImages/change/status',
+                url: '${request.contextPath}/admin/componentImages/change/status',
                 data: {id: row.componentImageVO.id, status: status},
                 sessionId: 'change-status-component'
             };

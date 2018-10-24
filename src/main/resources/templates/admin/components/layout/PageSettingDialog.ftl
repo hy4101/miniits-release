@@ -72,7 +72,10 @@
                     title: $("#title").val()
                 };
                 var param = {
-                    url: 'setting/seo', method: 'post', data: seoData, sessionId: 'caching',
+                    url: '${request.contextPath}/admin/pages/setting/seo',
+                    method: 'post',
+                    data: seoData,
+                    sessionId: 'caching',
                     message: 'SEO设置成功'
                 };
                 httpClient(param)
@@ -85,7 +88,10 @@
                     pageName: pageData.pageName
                 };
                 var param = {
-                    url: 'setting/templates-caching', method: 'post', data: caching, sessionId: 'caching',
+                    url: '${request.contextPath}/admin/pages/setting/templates-caching',
+                    method: 'post',
+                    data: caching,
+                    sessionId: 'caching',
                     message: '缓存设置成功'
                 };
                 httpClient(param)
@@ -98,7 +104,7 @@
                     pageName: pageData.pageName
                 };
                 var param = {
-                    url: 'setting/templates-caching',
+                    url: '${request.contextPath}/admin/pages/setting/templates-caching',
                     method: 'post',
                     data: caching,
                     sessionId: 'caching',

@@ -104,7 +104,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../components",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/components",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -128,7 +128,7 @@
         $("#btn_save_page_component").click(function () {
             var rows = $('#table_components').bootstrapTable('getSelections');
             var param = {
-                method: 'post', url: '../page-component-associate/save',
+                method: 'post', url: '${request.contextPath}/admin/page-component-associate/save',
                 data: {
                     jsonPage: JSON.stringify(PData.page),
                     jsonComponentImagePId: JSON.stringify(PData.componentImagePId.componentImageVO),

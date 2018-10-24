@@ -1,5 +1,5 @@
-<script src="/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
-<script type="text/javascript" src="/static/js/md5.js"></script>
+<script src="${request.contextPath}/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/static/js/md5.js"></script>
 <div class="modal fade" id="user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="border-radius: 5px;">
     <div class="modal-dialog" role="document">
@@ -84,7 +84,7 @@
                 userData.createDate = isEmpty(userData.createDate) ? new Date() : new Date(userData.createDate);
 
                 var param = {
-                    method: 'post', url: 'save',
+                    method: 'post', url: '${request.contextPath}/admin/users/save',
                     data: userData, sessionId: 'user-save', message: '用户新增成功'
                 };
                 httpClient(param);

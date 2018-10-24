@@ -17,13 +17,13 @@
 <div style="text-align: center;">
     <h2>Welcome To M Plus</h2>
     <p>
-        <a href="/admin">start setting page</a>
+        <a href="${request.contextPath}/admin">start setting page</a>
     </p>
     <p>
-        <a href="/admin">select document</a>
+        <a href="${request.contextPath}/admin">select document</a>
     </p>
     <p>
-        <a href="/admin">select components</a>
+        <a href="${request.contextPath}/admin">select components</a>
     </p>
 </div>
 </body>

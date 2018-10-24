@@ -1,5 +1,5 @@
-<script src="/static/js/echarts.js"></script>
-<script type="text/javascript" src="/static/js/china.js"></script>
+<script src="${request.contextPath}/static/js/echarts.js"></script>
+<script type="text/javascript" src="${request.contextPath}/static/js/china.js"></script>
 <div id="body_dashboard"
      style="padding: 10px 10px 10px 10px;display: flex;width: 100%;height: 100%;flex-direction: column;">
     <!-- Main content -->
@@ -107,7 +107,6 @@
             // 基于准备好的dom，初始化echarts实例
             var myChart = echarts.init(document.getElementById('main'));
             // 使用刚指定的配置项和数据显示图表。
-            //数据纯属虚构
             var geoCoordMap = {
                 "阿巴嘎旗": [114.97, 44.03],
                 "阿巴哈纳尔旗": [116.08, 43.95],
@@ -2483,7 +2482,7 @@
 
         function todayDataInit() {
             var params = {
-                method: 'get', url: 'map-data',
+                method: 'get', url: '${request.contextPath}/admin/dashboard/map-data',
                 data: {filters: ""},
                 sessionId: 'today-data'
             };

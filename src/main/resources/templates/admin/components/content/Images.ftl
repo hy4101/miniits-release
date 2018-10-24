@@ -56,7 +56,7 @@
                </#list>
         </div>
         <nav aria-label="Page navigation" style="display: flex; justify-content: flex-end;">
-             <#assign baseUrl="/admin/images/init?pageSize=16&">
+             <#assign baseUrl="${request.contextPath}/admin/images/init?pageSize=16&">
             <ul class="pagination">
                 <#if (thisPageNumber>1)>
                 <li>
@@ -79,6 +79,7 @@
             </#if>
             </ul>
         </nav>
+        <#--<input type="hidden" id="inp-filters" value="${filters}">-->
     </div>
     <div>
     <#include "ImageUploadDialog.ftl"/>
@@ -92,8 +93,8 @@
             $("#imageUrl").val(null);
             localStorage.removeItem('filter_name');
             localStorage.removeItem('filter_url');
-            var params = {method: 'post', url: 'reset/filters-cache'};
-            httpClient(params);
+            // var params = {method: 'post', url: 'reset/filters-cache'};
+            // httpClient(params);
         });
 
         $("#btn_images_search").click(function () {
@@ -127,7 +128,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: imageId
+                    method: 'delete', url: '${request.contextPath}/admin/images/' +imageId
                 };
                 httpClient(param);
                 location.reload();

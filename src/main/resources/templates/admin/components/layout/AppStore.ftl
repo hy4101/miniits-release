@@ -1,6 +1,6 @@
 <div style="padding: 10px 10px 10px 10px">
-    <link href="/static/toastr/toastr.css" rel="stylesheet"/>
-    <script src="/static/toastr/toastr.min.js"></script>
+    <link href="${request.contextPath}/static/toastr/toastr.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/static/toastr/toastr.min.js"></script>
     <div class="row clearfix" style="margin-bottom: 10px;">
         <div class="col-md-4 column">
             <div class="input-group" style="display: flex">

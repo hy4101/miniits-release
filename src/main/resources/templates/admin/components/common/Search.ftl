@@ -1,10 +1,10 @@
 <#macro form options formId>
-<link rel="stylesheet" href="/static/css/selectpage.css" type="text/css">
-<script type="text/javascript" src="/static/js/selectpage.js"></script>
+<link rel="stylesheet" href="${request.contextPath}/static/css/selectpage.css" type="text/css">
+<script type="text/javascript" src="${request.contextPath}/static/js/selectpage.js"></script>
 
-<link href="/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="/static/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
+<link href="${request.contextPath}/static/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="${request.contextPath}/static/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="${request.contextPath}/static/js/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 
 <script>
     console.log("初始化查询表单。。。");
@@ -86,7 +86,7 @@
                                                     keyField: isEmpty(showField) ? 'id' : showField[1],
                                                     pageSize: pageSize || 15,
                                                     target: target,
-                                                    data: '/admin/search-form',
+                                                    data: '${request.contextPath}/admin/search-form',
                                                     params: function () {
                                                         return {
                                                             field: filtersConnection,

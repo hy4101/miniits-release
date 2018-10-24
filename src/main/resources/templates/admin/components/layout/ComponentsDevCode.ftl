@@ -8,11 +8,11 @@
     }
 </style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
-    <link href="/static/toastr/toastr.css" rel="stylesheet"/>
-    <script src="/static/toastr/toastr.min.js"></script>
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
+    <link href="${request.contextPath}/static/toastr/toastr.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/static/toastr/toastr.min.js"></script>
+    <link rel="stylesheet" href="${request.contextPath}/static/editor.md/css/editormd.css"/>
 <#--<link rel="stylesheet" href="/static/editor.md/examples/css/style.css"/>-->
-    <script src="/static/editor.md/editormd.js"></script>
+    <script src="${request.contextPath}/static/editor.md/editormd.js"></script>
     <div style="width: 100%;">
         <div class="modal-content" style="height: 100%;">
             <div class="modal-header">
@@ -75,8 +75,7 @@
                            </select>
                         <#else>
                                <select class="form-control input-form-group-value-item" id="componentBodyApi"
-                                       style="flex: 4;"
-                                       name="componentBodyApi">
+                                       style="flex: 4;" name="componentBodyApi">
                                    <option value="">请选择组件API（静态组件无需选择 API）</option>
                                    <option value="100007001=article/search">查文章-多条</option>
                                    <option value="100007001=article/search-one">查文章-单条</option>
@@ -167,7 +166,7 @@
             };
 
             var param = {
-                method: 'post', url: '/admin/components/save',
+                method: 'post', url: '${request.contextPath}/admin/components/save',
                 data: component
             };
             httpClient(param);
@@ -190,43 +189,43 @@
             });
         }
 
-        function searchCategorys() {
-            $.ajax({
-                type: 'get',
-                url: '/admin/categorys/category-and-tag',
-                data: {
-                    pageSize: 1000,
-                    pageNumber: 1,
-                    sorts: '-createDate',
-                    filters: ''
-                },
-                success: function (data) {
-                    var o = data.object;
-                    for (var i = 0; i < o.categories.length; i++) {
-                        var category = o.categories[i];
-                        $("#sel_category_select").append('<option value="' + category.categoryName + '">' + category.categoryName + '</option>');
-                    }
+        <#--function searchCategorys() {-->
+            <#--$.ajax({-->
+                <#--type: 'get',-->
+                <#--url: '${request.contextPath}/admin/categorys/category-and-tag',-->
+                <#--data: {-->
+                    <#--pageSize: 1000,-->
+                    <#--pageNumber: 1,-->
+                    <#--sorts: '-createDate',-->
+                    <#--filters: ''-->
+                <#--},-->
+                <#--success: function (data) {-->
+                    <#--var o = data.object;-->
+                    <#--for (var i = 0; i < o.categories.length; i++) {-->
+                        <#--var category = o.categories[i];-->
+                        <#--$("#sel_category_select").append('<option value="' + category.categoryName + '">' + category.categoryName + '</option>');-->
+                    <#--}-->
 
-                    for (var i = 0; i < o.tags.length; i++) {
-                        var tag = o.tags[i];
-                        $("#sel_tags").append('<option value="' + tag.name + '">' + tag.name + '</option>');
-                    }
-                    categorys = $('#sel_category_select').selectpicker({});
-                    seTags = $('.sel_tags').selectpicker({});
-                <#if article??&&article.typeNames??>
-                    var tnvs = '${article.typeNames}';
-                    $('#sel_category_select').selectpicker('val', tnvs.split(','));
-                </#if>
-                <#if article??&&article.tags??>
-                    var tgvs = '${article.tags}';
-                    $('.sel_tags').selectpicker('val', tgvs.split(','));
-                </#if>
-                },
-                error: function (data) {
-                    console.log(data);
-                }
-            });
-        }
+                    <#--for (var i = 0; i < o.tags.length; i++) {-->
+                        <#--var tag = o.tags[i];-->
+                        <#--$("#sel_tags").append('<option value="' + tag.name + '">' + tag.name + '</option>');-->
+                    <#--}-->
+                    <#--categorys = $('#sel_category_select').selectpicker({});-->
+                    <#--seTags = $('.sel_tags').selectpicker({});-->
+                <#--<#if article??&&article.typeNames??>-->
+                    <#--var tnvs = '${article.typeNames}';-->
+                    <#--$('#sel_category_select').selectpicker('val', tnvs.split(','));-->
+                <#--</#if>-->
+                <#--<#if article??&&article.tags??>-->
+                    <#--var tgvs = '${article.tags}';-->
+                    <#--$('.sel_tags').selectpicker('val', tgvs.split(','));-->
+                <#--</#if>-->
+                <#--},-->
+                <#--error: function (data) {-->
+                    <#--console.log(data);-->
+                <#--}-->
+            <#--});-->
+        <#--}-->
 
         initArticlesPublish();
 

@@ -41,7 +41,7 @@
                             class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="${(active == 'dashboard')?string('active', '')} treeview-menu">
-                        <li class="active"><a href="/admin/dashboard/init"><i class="fa fa-circle-o"></i>控制面板</a></li>
+                        <li class="active"><a href="${request.contextPath}/admin/dashboard/init"><i class="fa fa-circle-o"></i>控制面板</a></li>
                     </ul>
                 </li>
                 <li class="${(active == 'users')?string('active', '')} treeview">
@@ -51,7 +51,7 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li class="menu-item"><a href="../users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a>
+                        <li class="menu-item"><a href="${request.contextPath}/admin/users/init"><i class="fa fa-user" aria-hidden="true"></i>用户管理</a>
                         </li>
                     </ul>
                 </li>
@@ -64,31 +64,31 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="menu-item">
-                            <a href="/admin/pages/init">
+                            <a href="${request.contextPath}/admin/pages/init">
                                 <i class="fa fa-columns" aria-hidden="true"></i>
                                 页面管理
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/components/init">
+                            <a href="${request.contextPath}/admin/components/init">
                                 <i class="fa fa-puzzle-piece" aria-hidden="true"></i>
                                 组件管理
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/components/init-development-code">
+                            <a href="${request.contextPath}/admin/components/init-development-code">
                                 <i class="fa fa-desktop" aria-hidden="true"></i>
                                 组件开发-编程式
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/components/init-development">
+                            <a href="${request.contextPath}/admin/components/init-development">
                                 <i class="fa fa-compress" aria-hidden="true"></i>
                                 组件开发-拖拽式
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/app-store/init">
+                            <a href="${request.contextPath}/admin/app-store/init">
                                 <i class="fa fa-shopping-bag" aria-hidden="true"></i>
                                 DIY市场
                             </a>
@@ -102,34 +102,34 @@
                     </a>
                     <ul class="treeview-menu">
                         <li class="menu-item">
-                            <a href="/admin/contents/article/publish/init?id=">
+                            <a href="${request.contextPath}/admin/contents/article/publish/init?id=">
                                 <i class="fa fa-plus-circle" aria-hidden="true"></i>
                                 发布文章
                             </a>
                         </li>
-                        <li class="menu-item"><a href="/admin/contents/article/init">
+                        <li class="menu-item"><a href="${request.contextPath}/admin/contents/article/init">
                             <i class="fa fa-paperclip" aria-hidden="true"></i>
                             文章管理
                         </a>
                         </li>
-                        <li class="menu-item"><a href="/admin/tags/init">
+                        <li class="menu-item"><a href="${request.contextPath}/admin/tags/init">
                             <i class="fa fa-tags" aria-hidden="true"></i>
                             云标签管理
                         </a>
                         </li>
-                        <li class="menu-item"><a href="/admin/categorys/init">
+                        <li class="menu-item"><a href="${request.contextPath}/admin/categorys/init">
                             <i class="fa fa-sort-alpha-desc" aria-hidden="true"></i>
                             分类管理
                         </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/images/init?pageSize=16&pageNumber=1&sorts=-createDate&filters=">
+                            <a href="${request.contextPath}/admin/images/init?pageSize=16&pageNumber=1&sorts=-createDate&filters=">
                                 <i class="fa fa-picture-o" aria-hidden="true"></i>
                                 图片管理
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="/admin/links/init">
+                            <a href="${request.contextPath}/admin/links/init">
                                 <i class="fa fa-link" aria-hidden="true"></i>
                                 友情链接
                             </a>

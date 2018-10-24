@@ -1,5 +1,5 @@
-<script src="/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
-<script type="text/javascript" src="/static/js/md5.js"></script>
+<script src="${request.contextPath}/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
+<script type="text/javascript" src="${request.contextPath}/static/js/md5.js"></script>
 <div class="modal fade" id="page_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="border-radius: 5px;">
     <div class="modal-dialog" role="document">
@@ -171,7 +171,7 @@
                 pageData.createDate = isEmpty(pageData.createDate) ? new Date() : new Date(pageData.createDate);
 
                 var param = {
-                    method: 'post', url: 'save',
+                    method: 'post', url: '${request.contextPath}/admin/pages/save',
                     data: pageData, sessionId: 'page-save', message: '保存成功'
                 };
                 httpClient(param);

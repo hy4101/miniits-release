@@ -4,15 +4,14 @@
     }
 </style>
 <div style="padding: 10px 10px 10px 10px;display: flex">
-    <link href="/static/toastr/toastr.css" rel="stylesheet"/>
-    <script src="/static/toastr/toastr.min.js"></script>
-    <link rel="stylesheet" href="/static/editor.md/css/editormd.css"/>
-    <script src="/static/editor.md/src/editormd.js"></script>
-    <link rel="stylesheet" href="/static/tagsinput/jquery.tagsinput.css"/>
-    <script src="/static/tagsinput/jquery.tagsinput.min.js"></script>
-
-    <script type="text/javascript" src="/static/select-tree-search/bootstrap-select.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/select-tree-search/bootstrap-select.css">
+    <link href="${request.contextPath}/static/toastr/toastr.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/static/toastr/toastr.min.js"></script>
+    <link href="${request.contextPath}/static/editor.md/css/editormd.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/static/editor.md/src/editormd.js"></script>
+    <link href="${request.contextPath}/static/tagsinput/jquery.tagsinput.css" rel="stylesheet"/>
+    <script src="${request.contextPath}/static/tagsinput/jquery.tagsinput.min.js"></script>
+    <script src="${request.contextPath}/static/select-tree-search/bootstrap-select.js" type="text/javascript"></script>
+    <link href="${request.contextPath}/static/select-tree-search/bootstrap-select.css" rel="stylesheet" type="text/css">
 
     <div style="width: 100%;">
         <div class="modal-content" style="height: 100%;">
@@ -186,7 +185,7 @@
                 allowComment: allowComment
             };
             var param = {
-                method: 'post', url: '/admin/contents/article/publish', data: {article: JSON.stringify(data)},
+                method: 'post', url: '${request.contextPath}/admin/contents/article/publish', data: {article: JSON.stringify(data)},
                 sessionId: 'articles-refresh'
             };
             httpClient(param);
@@ -224,9 +223,7 @@
                 tex: true,  // 默认不解析
                 flowChart: true,  // 默认不解析
                 sequenceDiagram: true,  // 默认不解析
-                //你的lib目录的路径，我这边用JSP做测试的
                 path: "/static/editor.md/lib/",
-                //这个配置在simple.html中并没有，但是为了能够提交表单，使用这个配置可以让构造出来的HTML代码直接在第二个隐藏的textarea域中，方便post提交表单。
                 saveHTMLToTextarea: true
                 // imageUpload : true,
                 // imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
@@ -242,7 +239,7 @@
         function searchCategorys() {
             $.ajax({
                 type: 'get',
-                url: '/admin/categorys/category-and-tag',
+                url: '${request.contextPath}/admin/categorys/category-and-tag',
                 data: {
                     pageSize: 1000,
                     pageNumber: 1,

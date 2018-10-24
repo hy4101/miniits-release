@@ -46,13 +46,14 @@ public class ImageController extends BaseController {
 
     @GetMapping("init")
     public String init(ModelMap modelMap, Pageable pageable) {
-        pageable = filterCache(pageable);
+//        pageable = filterCache(pageable);
         Page<Image> images = imageServer.search(pageable);
         modelMap.put("active", "content");
         modelMap.put("thisPageNumber", pageable.getPageNumber());
         modelMap.put("pageNumbers", getPageNumber(images.getTotalElements(), pageable));
         modelMap.put("totalPageNumber", totalPage);
         modelMap.put("images", images.getContent());
+//        modelMap.put("filters", pageable.getFilters());
         return "admin/views/content/Images";
     }
 

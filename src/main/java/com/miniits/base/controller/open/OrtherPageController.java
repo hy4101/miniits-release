@@ -18,6 +18,7 @@ import static com.miniits.base.utils.CommonUtil.renderingPage;
 import static com.miniits.base.utils.FileUtil.fileExists;
 import static com.miniits.base.utils.FileUtil.validateFileName;
 import static com.miniits.base.utils.HTMLUtil.*;
+import static com.miniits.base.utils.MD5Util.hashStr;
 import static com.miniits.base.utils.RequestUtil.getFilters;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
@@ -43,26 +44,33 @@ public class OrtherPageController {
     @GetMapping("{page-name}")
     public String entrance(ModelMap modelMap, @PathVariable(value = "page-name") String pageName, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         String filters = validateFileName(pageName + "_" + getFilters(httpServletRequest));
+        String pn = hashStr(pageName);
+        String fs = hashStr(filters);
+
+        System.out.println("111111111111---------filters--------------1111111111111111111111111111111111111111111111111111111111111111111111111111");
+        System.out.println(filters);
+        System.out.println(fs);
+        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
 
-        if (fileExists(getPath("templates/customize/" + pageName + "/") + pageName + "_" + pageNumber + "_" + filters + ".html")) {
-            return pageName + "/" + pageName + "_" + pageNumber + "_" + filters;
+        if (fileExists(getPath("templates/customize/" + pn + "/") + pn + "_" + pageNumber + "_" + fs + ".html")) {
+            return pn + "/" + pn + "_" + pageNumber + "_" + fs;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, pageName, httpServletRequest);
         if (ObjectUtils.isEmpty(componentImageAndDocument)) {
             return "default/Welcome";
         }
         modelMap = componentImageAndDocument.getModelMap();
-        modelMap = renderingPage(modelMap, pageName, pageNumber + "_" + filters, httpServletRequest);
+        modelMap = renderingPage(modelMap, pn, pageNumber + "_" + fs, httpServletRequest);
         String path = modelMap.get("templateName").toString().split("\\.")[0];
         if (!fileExists(path) || componentImageAndDocument.getPage().getTemplateCaching().equals(GLOBAL_STATUS_NO)) {
-            createTemplateFile("ftl-" + pageName, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
+            createTemplateFile("ftl-" + pn, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         }
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
             return path;
         }
         createHtml(modelMap);
-        return pageName + "/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
+        return pn + "/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
     }
 
 }

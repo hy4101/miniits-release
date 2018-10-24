@@ -1,4 +1,4 @@
-<script src="/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
+<script src="${request.contextPath}/static/bootstrap-3.3.7-dist/table/bootstrapValidator.min.js"></script>
 <div class="modal fade" id="push_component_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      style="border-radius: 5px;">
     <div class="modal-dialog" role="document">
@@ -82,13 +82,13 @@
                 appTypeName: '组件',
                 number: number
             };
-            var url = '/admin/push/' + number;
+            var url = '${request.contextPath}/admin/push/' + number;
             var param = {
                 method: 'post',
                 url: url,
                 data: pushData,
                 sessionId: 'push-component',
-                message: '推送成功，等待审核'
+                message: '推送成功，等待审核...'
             };
             httpClient(param);
         });

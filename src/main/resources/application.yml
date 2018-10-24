@@ -15,7 +15,7 @@ spring:
       hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://${datasource.url}:3306/${datasource.dataName}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
+    url: jdbc:mysql://${datasource.url}:3306/${datasource.databaseName}?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&autoReconnectForPools=true&failOverReadOnly=false
     username: ${datasource.username}
     password: ${datasource.password}
     druid:
@@ -44,6 +44,7 @@ spring:
     prefer-file-system-access: false
     settings:
       classic_compatible: true
+    request-context-attribute: request
   thymeleaf:
     prefix: classpath:/templates
     suffix: .ftl

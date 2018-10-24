@@ -69,7 +69,7 @@
                 pageSize: 15,                       //每页的记录行数（*）
                 pageList: [15, 30, 50, 100],        //可供选择的每页的行数（*）
                 method: 'get',
-                url: "../components",//要请求数据的文件路径
+                url: "${request.contextPath}/admin/components",//要请求数据的文件路径
                 contentType: "application/x-www-form-urlencoded",//必须要有！！！！
                 columns: [{
                     field: 'id',
@@ -122,7 +122,7 @@
                 deleteArticle(row);
             },
             'click .copy-component-btn': function (e, value, row, index) {
-                var params = {url: 'copy-development/' + row.id, method: 'post', sessionId: 'components'};
+                var params = {url: '${request.contextPath}/admin/components/copy-development/' + row.id, method: 'post', sessionId: 'components'};
                 httpClient(params);
             },
             'click .components-status-disabled': function (e, value, row, index) {
@@ -142,7 +142,7 @@
                     return;
                 }
                 var param = {
-                    method: 'delete', url: row.id,
+                    method: 'delete', url: '${request.contextPath}/admin/components/' + row.id,
                     sessionId: 'components', message: '删除成功'
                 };
                 httpClient(param);
@@ -152,7 +152,7 @@
 
         function changeStatus(row, status, message) {
             var param = {
-                method: 'post', url: 'change/status', data: {
+                method: 'post', url: '${request.contextPath}/admin/components/change/status', data: {
                     id: row.id,
                     status: status
                 },
