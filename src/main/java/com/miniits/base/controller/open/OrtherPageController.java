@@ -47,7 +47,7 @@ public class OrtherPageController {
         return "redirect:/index";
     }
 
-    @GetMapping(value = "{page-name}", produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
+    @GetMapping(value = "{page-name}", produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
     public String entrance(ModelMap modelMap, @PathVariable(value = "page-name") String pageName, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         String filters = validateFileName(pageName + "_" + getFilters(httpServletRequest));
         logger.info("过滤条件{}", filters);

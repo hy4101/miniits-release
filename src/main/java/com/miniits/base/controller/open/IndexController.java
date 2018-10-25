@@ -48,7 +48,7 @@ public class IndexController {
      * @throws IOException
      * @throws TemplateException
      */
-    @GetMapping(value = {"/", "index", "index.html"}, produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
+    @GetMapping(value = {"/", "index", "index.html"}, produces = MediaType.TEXT_HTML_VALUE + ";charset=utf-8")
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
         String pn = hashStr("index");

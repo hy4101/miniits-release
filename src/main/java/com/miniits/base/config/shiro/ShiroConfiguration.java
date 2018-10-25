@@ -2,6 +2,7 @@ package com.miniits.base.config.shiro;
 
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,6 +19,9 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfiguration {
+
+    @Value("${domain.path}")
+    private String rootPath;
 
     @Bean(name = "securityManager")
     public DefaultWebSecurityManager securityManager() {
@@ -41,7 +45,8 @@ public class ShiroConfiguration {
         filterChainDefinitionMap.put("/index", "anon");
         filterChainDefinitionMap.put("/", "anon");
         filterChainDefinitionMap.put("/index.html", "anon");
-        filterChainDefinitionMap.put("/miniits/**", "anon");
+        //配置不拦截网站的前端访问路径
+        filterChainDefinitionMap.put("/" + rootPath + "/**", "anon");
         filterChainDefinitionMap.put("/static/**", "anon");
         filterChainDefinitionMap.put("/logout", "logout");
         filterChainDefinitionMap.put("/**", "authc");
