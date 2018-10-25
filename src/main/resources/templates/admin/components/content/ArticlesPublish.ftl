@@ -223,7 +223,7 @@
                 tex: true,  // 默认不解析
                 flowChart: true,  // 默认不解析
                 sequenceDiagram: true,  // 默认不解析
-                path: "/static/editor.md/lib/",
+                path: "${request.contextPath}/static/editor.md/lib/",
                 saveHTMLToTextarea: true
                 // imageUpload : true,
                 // imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
