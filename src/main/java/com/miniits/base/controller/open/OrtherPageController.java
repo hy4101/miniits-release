@@ -1,8 +1,12 @@
 package com.miniits.base.controller.open;
 
 import com.miniits.base.utils.ComponentImageAndDocument;
+import com.miniits.base.utils.LogAspect;
 import freemarker.template.TemplateException;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
@@ -36,14 +40,17 @@ import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 @RequestMapping("${domain.path}")
 public class OrtherPageController {
 
+    private final Logger logger = LoggerFactory.getLogger(LogAspect.class);
+
     @GetMapping
     public String index() {
         return "redirect:/index";
     }
 
-    @GetMapping("{page-name}")
+    @GetMapping(value = "{page-name}", produces = MediaType.TEXT_PLAIN_VALUE + ";charset=utf-8")
     public String entrance(ModelMap modelMap, @PathVariable(value = "page-name") String pageName, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         String filters = validateFileName(pageName + "_" + getFilters(httpServletRequest));
+        logger.info("过滤条件{}", filters);
         String pn = hashStr(pageName);
         String fs = hashStr(filters);
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));

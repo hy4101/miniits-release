@@ -266,6 +266,7 @@ public class CommonUtil {
         modelMap.put("path", path);
         modelMap.put("templateName", "ftl-" + pageName + ".ftl");
         modelMap.put("fileName", pageName + "_" + fileName + ".html");
+        modelMap.put("contextPath", RequestUtil.getRequest().getContextPath());
         return modelMap;
     }
 
