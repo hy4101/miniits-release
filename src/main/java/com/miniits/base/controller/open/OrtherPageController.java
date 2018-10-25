@@ -46,13 +46,7 @@ public class OrtherPageController {
         String filters = validateFileName(pageName + "_" + getFilters(httpServletRequest));
         String pn = hashStr(pageName);
         String fs = hashStr(filters);
-
-        System.out.println("111111111111---------filters--------------1111111111111111111111111111111111111111111111111111111111111111111111111111");
-        System.out.println(filters);
-        System.out.println(fs);
-        System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
-
         if (fileExists(getPath("templates/customize/" + pn + "/") + pn + "_" + pageNumber + "_" + fs + ".html")) {
             return pn + "/" + pn + "_" + pageNumber + "_" + fs;
         }

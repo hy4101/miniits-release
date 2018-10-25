@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.miniits.base.utils.FileUtil.deletefile;
+import static com.miniits.base.utils.MD5Util.hashStr;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_YES;
@@ -109,11 +110,12 @@ public class PageController extends BaseController {
             @RequestParam(value = "file_name") String fileName,
             @RequestParam(value = "create_static_file") Integer createStaticFile) {
         if (createStaticFile.equals(GLOBAL_STATUS_NO)) {
-            String path = getPath("templates") + "/customize/" + fileName + "/";
+            String pn = hashStr(fileName);
+            String path = getPath("templates") + "/customize/" + pn + "/";
             if (!fileName.equals("index")) {
-                path = getPath("templates") + "/customize/" + fileName;
+                path = getPath("templates") + "/customize/" + pn;
             }
-            LOGGER.warn("正在删除文件...", fileName);
+            LOGGER.warn("正在删除文件...", fileName, pn);
             deletefile(path);
         }
         pageService.setCreateHtmlFile(id, createStaticFile);

@@ -18,6 +18,7 @@ import static com.miniits.base.utils.CommonUtil.mergePage;
 import static com.miniits.base.utils.CommonUtil.renderingPage;
 import static com.miniits.base.utils.FileUtil.fileExists;
 import static com.miniits.base.utils.HTMLUtil.*;
+import static com.miniits.base.utils.MD5Util.hashStr;
 import static com.miniits.base.utils.RequestUtil.getPath;
 import static com.miniits.base.utils.SystemDict.GLOBAL_STATUS_NO;
 
@@ -49,24 +50,24 @@ public class IndexController {
     @GetMapping(value = {"/", "index", "index.html"})
     public String index(ModelMap modelMap, HttpServletRequest httpServletRequest) throws IOException, TemplateException {
         Integer pageNumber = StringUtils.isEmpty(httpServletRequest.getParameter("pageNumber")) ? 1 : Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
-
-        if (fileExists(getPath("templates/customize/index/") + "/index_" + pageNumber + ".html")) {
-            return "index/index_" + pageNumber;
+        String pn = hashStr("index");
+        if (fileExists(getPath("templates/customize/" + pn + "/") + "/" + pn + "_" + pageNumber + ".html")) {
+            return pn + "/" + pn + "_" + pageNumber;
         }
         ComponentImageAndDocument componentImageAndDocument = mergePage(modelMap, "index", httpServletRequest);
         if (ObjectUtils.isEmpty(componentImageAndDocument)) {
             return "default/Welcome";
         }
-        if (componentImageAndDocument.getPage().getTemplateCaching().equals(100000002)) {
-            createTemplateFile("ftl-index", convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
+        if (componentImageAndDocument.getPage().getTemplateCaching().equals(GLOBAL_STATUS_NO)) {
+            createTemplateFile("ftl-" + pn, convertFreemarkerFormat(componentImageAndDocument.getDocument().toString()));
         }
         modelMap = componentImageAndDocument.getModelMap();
-        modelMap = renderingPage(modelMap, "index", pageNumber.toString(), httpServletRequest);
+        modelMap = renderingPage(modelMap, pn, pageNumber.toString(), httpServletRequest);
         if (componentImageAndDocument.getPage().getCreateStaticFile().equals(GLOBAL_STATUS_NO)) {
             return modelMap.get("templateName").toString().split("\\.")[0];
         }
         createHtml(modelMap);
-        return "index/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
+        return pn + "/" + (modelMap.get("fileName").toString().replaceAll(".html", ""));
     }
 
 }
