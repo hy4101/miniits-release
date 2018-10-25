@@ -172,17 +172,18 @@ public class HTMLUtil {
      * @return
      */
     public static Document addHeader(Document doc, SeoDTO seo) {
+        String contextPath = RequestUtil.getRequest().getContextPath();
         doc.getElementsByTag("head").append("<meta charset=\"UTF-8\">");
         doc.getElementsByTag("head").append("<meta mPlusHtmlMapping=\"2018\">");
-        doc.getElementsByTag("head").append("<link rel=\"shortcut icon\" href=\"/static/images/favicon.ico\" type=\"image/x-icon\">");
+        doc.getElementsByTag("head").append("<link rel=\"shortcut icon\" href=\"" + contextPath + "/static/images/favicon.ico\" type=\"image/x-icon\">");
         doc.getElementsByTag("head").append("<title>" + seo.getTitle() + "</title>");
         doc.getElementsByTag("head").append("<meta name=\"keywords\" content=\"" + seo.getKeywords() + "\">");
         doc.getElementsByTag("head").append("<meta name=\"description\" content=\"" + seo.getDescription() + "\">");
-        doc.getElementsByTag("head").append("<script src=\"/static/js/jQuery-3.3.1.min.js\"></script>");
-        doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"/static/bootstrap-3.3.7-dist/css/bootstrap.css\" >");
-        doc.getElementsByTag("head").append("<script src=\"/static/bootstrap-3.3.7-dist/js/bootstrap.js\"></script>");
-        doc.getElementsByTag("head").append("<link href=\"/static/css/font-awesome/font-awesome.min.css\" rel=\"stylesheet\">");
-        doc.getElementsByTag("head").append("<link href=\"/static/css/Miniits_Common.css\" rel=\"stylesheet\">");
+        doc.getElementsByTag("head").append("<script src=\"" + contextPath + "/static/js/jQuery-3.3.1.min.js\"></script>");
+        doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"" + contextPath + "/static/bootstrap-3.3.7-dist/css/bootstrap.css\" >");
+        doc.getElementsByTag("head").append("<script src=\"" + contextPath + "/static/bootstrap-3.3.7-dist/js/bootstrap.js\"></script>");
+        doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/font-awesome/font-awesome.min.css\" rel=\"stylesheet\">");
+        doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/Miniits_Common.css\" rel=\"stylesheet\">");
         return doc;
     }
 
