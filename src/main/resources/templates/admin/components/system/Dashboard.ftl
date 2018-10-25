@@ -1,7 +1,7 @@
 <script src="${request.contextPath}/static/js/echarts.js"></script>
 <script type="text/javascript" src="${request.contextPath}/static/js/china.js"></script>
 <div id="body_dashboard"
-     style="padding: 10px 10px 10px 10px;display: flex;width: 100%;height: 100%;flex-direction: column;">
+     style="padding: 10px 10px 10px 10px;display: flex;width: 100%;height: 868px;flex-direction: column;">
     <!-- Main content -->
     <div class="row f-mr0 f-ml0 f-w100">
         <div class="col-md-12">
@@ -80,7 +80,7 @@
     </div>
     <div class="row f-mr0 f-ml0 f-w100">
         <div class="col-md-12">
-            <div class="box box-primary">
+            <div class="box box-primary" style="height: 610px;">
                 <div class="box-header with-border">
                     <h3 class="box-title">网站访问统计</h3>
                     <div class="box-tools pull-right">
@@ -90,7 +90,7 @@
                 </div>
                 <div class="box-body">
                     <div class="chart" style="display: flex;">
-                        <div id="main" style="width: 1300px;height:600px;"></div>
+                        <div id="main" style="width: 1300px;height:500px;"></div>
                         <div>
                             <h2 id="div_ip_total"></h2>
                         </div>

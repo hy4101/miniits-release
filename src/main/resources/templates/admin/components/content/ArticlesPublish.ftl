@@ -14,7 +14,7 @@
     <link href="${request.contextPath}/static/select-tree-search/bootstrap-select.css" rel="stylesheet" type="text/css">
 
     <div style="width: 100%;">
-        <div class="modal-content" style="height: 100%;">
+        <div class="modal-content" style="height: 848px;">
             <div class="modal-header">
                 <h4 class="modal-title" style="font-size: xx-large;">
                     发布文章
@@ -215,7 +215,7 @@
                         console.log("testIcon2 =>", this, icon.html());
                     }
                 },
-                height: 1000,
+                height: 610,
                 syncScrolling: "single",
                 htmlDecode: "style,script,iframe",
                 emoji: true,
