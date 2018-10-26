@@ -305,7 +305,7 @@ $(document).ready(function () {
         };
         $.ajax({
             type: 'post',
-            url: '/admin/components/save',
+            url: window.parent.document.getElementById("contextPath").value + '/admin/components/save',
             datatype: 'json',
             data: component,
             success: function (data) {

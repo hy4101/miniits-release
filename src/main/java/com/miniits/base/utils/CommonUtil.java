@@ -1,10 +1,11 @@
 package com.miniits.base.utils;
 
 import com.miniits.base.model.dto.SeoDTO;
-import com.miniits.base.model.entity.Article;
 import com.miniits.base.model.entity.ComponentImage;
 import com.miniits.base.model.entity.Page;
 import com.miniits.base.model.entity.PageComponentAssociate;
+import com.miniits.base.model.vo.ArticleVO;
+import com.miniits.base.model.vo.JPAPageVO;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.ComponentImageServer;
 import com.miniits.base.service.PageService;
@@ -136,7 +137,7 @@ public class CommonUtil {
                         pageSize = Integer.valueOf(map.get("page").toString());
                     }
 
-                    org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
+                    JPAPageVO o = (JPAPageVO) getData(componentImage.getComponentBodyApi(),
                             new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));
 
                     SeoDTO cs = getSeoData(componentImage.getComponentBodyApi(), o);
@@ -171,14 +172,14 @@ public class CommonUtil {
      * @param o
      * @return
      */
-    private static SeoDTO getSeoData(String api, org.springframework.data.domain.Page o) {
+    private static SeoDTO getSeoData(String api, JPAPageVO o) {
         if (!StringUtils.isEmpty(api) && o.getContent().size() != 1) {
             return null;
         }
         SeoDTO seoDTO = null;
         switch (api) {
             case ApiNames.ARTICLE_SEARCH_ONE:
-                Article article = (Article) o.getContent().get(0);
+                ArticleVO article = (ArticleVO) o.getContent().get(0);
                 seoDTO = new SeoDTO(article.getId(), article.getKeys(), article.getContentTitle(), article.getTitleName());
                 break;
         }
@@ -190,7 +191,7 @@ public class CommonUtil {
     }
 
     //组件交互
-    private static String interactiveComponent(String body, String str, org.springframework.data.domain.Page page, Integer pageNumber, Integer pageSize, String requestURI) {
+    private static String interactiveComponent(String body, String str, JPAPageVO page, Integer pageNumber, Integer pageSize, String requestURI) {
         String key = childElement.get("p-miniits-page-component");
         childElement.remove("p-miniits-page-component");
         if (!ObjectUtils.isEmpty(key)) {
