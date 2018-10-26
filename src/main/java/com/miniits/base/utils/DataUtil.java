@@ -2,13 +2,17 @@ package com.miniits.base.utils;
 
 
 import com.miniits.base.model.entity.Article;
+import com.miniits.base.model.vo.ArticleVO;
+import com.miniits.base.model.vo.JPAPageVO;
 import com.miniits.base.mysql.Pageable;
 import com.miniits.base.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.domain.Page;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -22,15 +26,24 @@ import static com.miniits.base.utils.HTMLUtil.markdownToHtml;
  * Description:
  * ***
  */
+@Transactional(readOnly = true)
 public class DataUtil {
 
     /**
-     * markdown解析器
+     * 连接条件转换
      */
 //    private static Parser parser = Parser.builder().build();
     private static String apply(String filter) {
         if (filter.indexOf("pageSize") >= 0) {
             return "";
+        }
+        if (filter.indexOf(">=") > 0) {
+            filter.replaceAll(">=", "=");
+            return "GTE_" + filter.replaceAll(">=", "=");
+        }
+        if (filter.indexOf("<=") > 0) {
+            filter.replaceAll("<=", "=");
+            return "LTE_" + filter.replaceAll("<=", "=");
         }
         if (filter.indexOf("=") > 0) {
             return "EQ_" + filter;
@@ -46,14 +59,6 @@ public class DataUtil {
         if (filter.indexOf("<") > 0) {
             filter.replaceAll("<", "=");
             return "LT_" + filter.replaceAll("<", "=");
-        }
-        if (filter.indexOf(">=") > 0) {
-            filter.replaceAll(">=", "=");
-            return "GTE_" + filter.replaceAll(">=", "=");
-        }
-        if (filter.indexOf("<=") > 0) {
-            filter.replaceAll("<=", "=");
-            return "LTE_" + filter.replaceAll("<=", "=");
         }
         return null;
     }
@@ -118,14 +123,20 @@ public class DataUtil {
         switch (api) {
             case ApiNames.ARTICLE_SEARCH:
                 Page<Article> articlePage = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters(";EQ_status=100002001"));
-                articlePage.forEach(article -> {
+                JPAPageVO<ArticleVO> jpaPageVO = ConvertUtil.toVO(articlePage, JPAPageVO.class);
+                List<ArticleVO> articleVOS1 = (List<ArticleVO>) ConvertUtil.toVOS(articlePage.getContent(), ArticleVO.class);
+                jpaPageVO.setContent(articleVOS1);
+                jpaPageVO.getContent().forEach(article -> {
                     article.setContent(markdownToHtml(article.getContent()));
                 });
                 apis.put("article/search", articlePage);
                 break;
             case ApiNames.ARTICLE_SEARCH_ONE:
                 Page<Article> page = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters(";EQ_status=100002001"));
-                page.forEach(article -> {
+                JPAPageVO<ArticleVO> jpaPageVO1 = ConvertUtil.toVO(page, JPAPageVO.class);
+                List<ArticleVO> articleVOS = (List<ArticleVO>) ConvertUtil.toVOS(page.getContent(), ArticleVO.class);
+                jpaPageVO1.setContent(articleVOS);
+                jpaPageVO1.getContent().forEach(article -> {
                     article.setContent(markdownToHtml(article.getContent()));
                 });
                 apis.put("article/search-one", page);
@@ -159,7 +170,7 @@ public class DataUtil {
     }
 
     public static String pageFilter(String filters) {
-        return Arrays.stream(filters.split(";")).filter(filter -> filter.indexOf("pageSize") > 0 && StringUtils.isNotEmpty(filter)).collect(Collectors.joining(";"));
+        return Arrays.stream(filters.split(";")).filter(filter -> filter.indexOf("pageSize") >= 0 && StringUtils.isNotEmpty(filter)).collect(Collectors.joining(";"));
     }
 
     public static String dataFilter(String filters) {

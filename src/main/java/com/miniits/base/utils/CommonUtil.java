@@ -132,6 +132,9 @@ public class CommonUtil {
                  */
                 if (StringUtils.isNotEmpty(componentImage.getComponentBodyApi()) && !org.springframework.util.StringUtils.isEmpty(filters)) {
                     Map<String, Object> map = getPageData(filters);
+                    if (!org.springframework.util.StringUtils.isEmpty(map.get("page"))) {
+                        pageSize = Integer.valueOf(map.get("page").toString());
+                    }
 
                     org.springframework.data.domain.Page o = (org.springframework.data.domain.Page) getData(componentImage.getComponentBodyApi(),
                             new Pageable(map.get("filters"), pageSize, !componentImage.getApiDataStructureType().equals(API_DATA_STRUCTURE_TYPE_PAGE) ? 1 : pageNumber));
@@ -202,7 +205,7 @@ public class CommonUtil {
                     active = "active";
                 }
                 li.attr("class", active);
-                li.select("a").attr("href", requestURI + "?pageNumber=" + ps.get(i) + "&pageSize=" + page.getSize()).html(ps.get(i).toString());
+                li.select("a").attr("href", requestURI + "?pageNumber=" + ps.get(i) + "&pageSize=" + pageSize).html(ps.get(i).toString());
                 document.select("ul").append(li.toString());
             }
             Document documentBody = Jsoup.parse(body);

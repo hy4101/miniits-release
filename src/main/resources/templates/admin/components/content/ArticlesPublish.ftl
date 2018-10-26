@@ -163,6 +163,8 @@
                 return toastr.error('文章名称不能为空');
             }
             var content = editor.getMarkdown();
+
+            // markdown-body editormd-preview-container
             if (isEmpty(content)) {
                 return toastr.error('文章内容不能为空');
             }
@@ -185,7 +187,9 @@
                 allowComment: allowComment
             };
             var param = {
-                method: 'post', url: '${request.contextPath}/admin/contents/article/publish', data: {article: JSON.stringify(data)},
+                method: 'post',
+                url: '${request.contextPath}/admin/contents/article/publish',
+                data: {article: JSON.stringify(data)},
                 sessionId: 'articles-refresh'
             };
             httpClient(param);

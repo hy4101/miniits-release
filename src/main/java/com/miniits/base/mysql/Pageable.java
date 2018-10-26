@@ -17,7 +17,7 @@ public class Pageable {
     private String sorts = "-createDate";
 
     //显示条数
-    private Integer pageSize = 15;
+    private Integer pageSize = 1;
 
     //页码
     private Integer pageNumber = 1;

@@ -86,12 +86,10 @@ public class HTMLUtil {
         MutableDataSet options = new MutableDataSet();
         options.setFrom(ParserEmulationProfile.MARKDOWN);
         options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create()));
-
         Parser parser = Parser.builder(options).build();
         HtmlRenderer renderer = HtmlRenderer.builder(options).build();
         Node document = parser.parse(markdown);
-        renderer.render(document);
-        return renderer.render(document);
+        return "<div class=\"markdown-body editormd-preview-container\">" + renderer.render(document) + "</div>";
     }
 
     /**
@@ -158,6 +156,7 @@ public class HTMLUtil {
                 FileOutputStream outStream = new FileOutputStream(file);
                 outStream.write(sourceByte);
                 outStream.close();
+                Thread.sleep(1000);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -181,6 +180,10 @@ public class HTMLUtil {
         doc.getElementsByTag("head").append("<meta name=\"description\" content=\"" + seo.getDescription() + "\">");
         doc.getElementsByTag("head").append("<script src=\"" + contextPath + "/static/js/jQuery-3.3.1.min.js\"></script>");
         doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"" + contextPath + "/static/bootstrap-3.3.7-dist/css/bootstrap.css\" >");
+
+        doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/editor.md/css/editormd.css\" rel=\"stylesheet\"/>");
+
+
         doc.getElementsByTag("head").append("<script src=\"" + contextPath + "/static/bootstrap-3.3.7-dist/js/bootstrap.js\"></script>");
         doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/font-awesome/font-awesome.min.css\" rel=\"stylesheet\">");
         doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/Miniits_Common.css\" rel=\"stylesheet\">");
