@@ -17,6 +17,7 @@ import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ObjectUtils;
@@ -52,10 +53,14 @@ public class CommonUtil {
 
     private static CommonUtil commonUtil;
 
+    @Value("${domain.path}")
+    private String domainPath;
+
     @PostConstruct
     private void init() {
         commonUtil = this;
         commonUtil.componentImageServer = this.componentImageServer;
+        commonUtil.domainPath = this.domainPath;
     }
 
     private static Map<String, String> childElement = new HashMap<>();
@@ -271,6 +276,8 @@ public class CommonUtil {
         modelMap.put("templateName", "ftl-" + pageName + ".ftl");
         modelMap.put("fileName", pageName + "_" + fileName + ".html");
         modelMap.put("contextPath", RequestUtil.getRequest().getContextPath());
+        modelMap.put("domainPath", commonUtil.domainPath);
+        modelMap.put("path", RequestUtil.getRequest().getContextPath() + "/" + commonUtil.domainPath);
         return modelMap;
     }
 
