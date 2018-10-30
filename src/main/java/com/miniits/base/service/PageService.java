@@ -62,13 +62,13 @@ public class PageService extends BaseServiceImpl<Page, String> {
         List<PageComponentAssociate> pageComponentAssociate = new ArrayList<>();
         ComponentImage componentImage_1 = new ComponentImage();
         PageComponentAssociate pageComponentAssociate_1 = new PageComponentAssociate();
-        componentImage_1.setComponentName(page.getPageName() + "_title");
+        componentImage_1.setComponentName(page.getPageName() + "_top");
         componentImage_1.setComponentId(++num + "");
         componentImage_1.setComponentSource(COMPONENT_SOURCE_SYSTEM);
         componentImage_1.setComponentSourceName("系统");
         componentImage_1.setComponentStatus(GLOBAL_STATUS_YES);
         componentImage_1.setComponentStatusName("启用");
-        componentImage_1.setComponentBody("<div componentId=" + componentImage_1.getComponentId() + " componentName=" + page.getPageName() + "_title style='width:100%;height:auto' >" +
+        componentImage_1.setComponentBody("<div componentId=" + componentImage_1.getComponentId() + " componentName=" + page.getPageName() + "_top style='width:100%;height:auto' >" +
                 "</div>");
         pageComponentAssociate_1.setSorts(1);
         pageComponentAssociate_1.setLevel(1);

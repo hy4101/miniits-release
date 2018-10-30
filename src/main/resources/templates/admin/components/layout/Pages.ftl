@@ -51,7 +51,7 @@
     <div style="width: 79%;padding-left: 10px;flex: 7">
         <div id="page_component_toolbar" class="btn-group">
             <button class="btn" style="background-color: #ffffff;color: red;">
-                提示：创建页面系统会自动生成三个默认的组件，分别为 "页面名称_title、_body、_footer"。
+                提示：创建页面系统会自动生成三个默认的组件，分别为 "页面名称_top、_body、_footer"。
                 排序会影响页面的组件布局，排序规则为在父组件内按升序排列
             </button>
         </div>

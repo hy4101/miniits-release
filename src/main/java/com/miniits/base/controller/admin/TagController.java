@@ -31,7 +31,7 @@ public class TagController extends BaseController {
     @GetMapping("init")
     public String init(ModelMap modelMap) {
         modelMap.put("active", "content");
-        return "admin/views/content/tags";
+        return "admin/views/content/Tags";
     }
 
     @GetMapping

@@ -7,7 +7,7 @@
     <script src="${request.contextPath}/static/js/jQuery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="${request.contextPath}/static/bootstrap-3.3.7-dist/css/bootstrap.css">
     <script src="${request.contextPath}/static/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
-    <link href="${request.contextPath}/static/css/font-awesome/font-awesome.min.css" rel="stylesheet">
+    <link href="${request.contextPath}/static/css/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="${request.contextPath}/static/css/Miniits_Common.css" rel="stylesheet">
     <link href="${request.contextPath}/static/toastr/toastr.css" rel="stylesheet"/>
     <script src="${request.contextPath}/static/toastr/toastr.min.js"></script>

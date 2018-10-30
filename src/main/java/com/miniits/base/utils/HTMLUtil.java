@@ -180,12 +180,9 @@ public class HTMLUtil {
         doc.getElementsByTag("head").append("<meta name=\"description\" content=\"" + seo.getDescription() + "\">");
         doc.getElementsByTag("head").append("<script src=\"" + contextPath + "/static/js/jQuery-3.3.1.min.js\"></script>");
         doc.getElementsByTag("head").append("<link rel=\"stylesheet\" href=\"" + contextPath + "/static/bootstrap-3.3.7-dist/css/bootstrap.css\" >");
-
         doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/editor.md/css/editormd.css\" rel=\"stylesheet\"/>");
-
-
         doc.getElementsByTag("head").append("<script src=\"" + contextPath + "/static/bootstrap-3.3.7-dist/js/bootstrap.js\"></script>");
-        doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/font-awesome/font-awesome.min.css\" rel=\"stylesheet\">");
+        doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/font-awesome/css/font-awesome.min.css\" rel=\"stylesheet\">");
         doc.getElementsByTag("head").append("<link href=\"" + contextPath + "/static/css/Miniits_Common.css\" rel=\"stylesheet\">");
         return doc;
     }
