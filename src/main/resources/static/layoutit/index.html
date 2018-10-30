@@ -21,8 +21,8 @@
     <script src="js/jquery-ui.js"></script>
     <script src="js/jquery.htmlClean.js"></script>
     <script src="lib/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link href="/static/toastr/toastr.css" rel="stylesheet"/>
-    <script src="/static/toastr/toastr.min.js"></script>
+    <link href="toastr/toastr.css" rel="stylesheet"/>
+    <script src="toastr/toastr.min.js"></script>
     <script src="js/scripts.js"></script>
 </head>
 
@@ -1887,40 +1887,40 @@
 
     <script type="text/javascript">
         downloadLayoutSrc();
-        $('#modal-download-sign-in-button').click(function (event) {
-            $('.help-inline').hide();
-            var form = $('#boxDownloadLoginForm');
-            var ajaxLoginUrl = '/login/ajaxLogin';
-            jQuery.ajax({
-                type: "post",
-                dataType: "json",
-                url: ajaxLoginUrl,
-                data: form.serialize(),
-                success: function (response) {
-                    if (response.success) {
-                        $('#download-not-logged').hide();
-                        $('#download').removeClass('hide');
-                        $('#download').show();
-                        $('#downloadhtml').removeClass('hide');
-                        $('#downloadhtml').show();
-                        $('#download-logged').removeClass('hide');
-                        $('#download-logged').show();
-                    } else {
-                        if (response.errors && response.errors.length > 0) {
-                            $.each(response.errors, function (i, item) {
-                                $('#' + item.field + '-download-error').html(item.error);
-                                $('#' + item.field + '-download-error').show();
-                            });
-                        }
-                    }
-                },
-                error: function (response) {
-
-                }
-            });
-
-            return false;
-        });
+        // $('#modal-download-sign-in-button').click(function (event) {
+        //     $('.help-inline').hide();
+        //     var form = $('#boxDownloadLoginForm');
+        //     var ajaxLoginUrl = '/login/ajaxLogin';
+        //     jQuery.ajax({
+        //         type: "post",
+        //         dataType: "json",
+        //         url: ajaxLoginUrl,
+        //         data: form.serialize(),
+        //         success: function (response) {
+        //             if (response.success) {
+        //                 $('#download-not-logged').hide();
+        //                 $('#download').removeClass('hide');
+        //                 $('#download').show();
+        //                 $('#downloadhtml').removeClass('hide');
+        //                 $('#downloadhtml').show();
+        //                 $('#download-logged').removeClass('hide');
+        //                 $('#download-logged').show();
+        //             } else {
+        //                 if (response.errors && response.errors.length > 0) {
+        //                     $.each(response.errors, function (i, item) {
+        //                         $('#' + item.field + '-download-error').html(item.error);
+        //                         $('#' + item.field + '-download-error').show();
+        //                     });
+        //                 }
+        //             }
+        //         },
+        //         error: function (response) {
+        //
+        //         }
+        //     });
+        //
+        //     return false;
+        // });
     </script>
 
 </div>

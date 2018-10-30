@@ -1,10 +1,10 @@
-function handleSaveLayout() {
-    var e = $(".demo").html();
-    if (e != window.demoHtml) {
-        saveLayout();
-        window.demoHtml = e
-    }
-}
+// function handleSaveLayout() {
+//     var e = $(".demo").html();
+//     if (e != window.demoHtml) {
+//         saveLayout();
+//         window.demoHtml = e
+//     }
+// }
 
 function handleJsIds() {
     handleModalIds();
@@ -320,7 +320,7 @@ $(document).ready(function () {
     removeElm();
     configurationElm();
     gridSystemGenerator();
-    setInterval(function () {
-        handleSaveLayout()
-    }, timerSave)
+    // setInterval(function () {
+    //     handleSaveLayout()
+    // }, timerSave)
 })
