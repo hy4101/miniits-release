@@ -22,6 +22,7 @@
                             style="float: right">
                         <i class="fa fa-floppy-o" aria-hidden="true"></i>
                         保存
+                        <input type="hidden" id="article_id">
                     </button>
                 </h4>
             </div>
@@ -155,10 +156,12 @@
 
         $("#save_article_btn").click(function () {
             var titleName = $("#titleName").val();
-            var id = null;
-               <#if article??&&article.id??>
-                   id = '${article.id}';
-               </#if>
+            var id = $("#article_id").val();
+            if (isEmpty(id)) {
+            <#if article??&&article.id??>
+                id = '${article.id}';
+            </#if>
+            }
             if (isEmpty(titleName)) {
                 return toastr.error('文章名称不能为空');
             }
@@ -190,10 +193,15 @@
                 method: 'post',
                 url: '${request.contextPath}/admin/contents/article/publish',
                 data: {article: JSON.stringify(data)},
+                callback: function (data) {
+                    if (data.success) {
+                        toastr.success('发布成功');
+                        $("#article_id").val(data.object.id);
+                    }
+                },
                 sessionId: 'articles-refresh'
             };
             httpClient(param);
-            toastr.success('发布成功');
         });
 
         function initArticlesPublish() {

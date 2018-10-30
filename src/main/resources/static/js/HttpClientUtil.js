@@ -25,6 +25,10 @@
             async: params.async || true,
             dataType: params.dataType || 'json',
             success: function (data) {
+                if (!isEmpty(params.callback)){
+                    params.callback(data);
+                    // return;
+                }
                 data.message = params.message || data.message;
                 if (!isEmpty(params.sessionId)) {
                     httpClientSuccess({sessionId: params.sessionId, data: data});
