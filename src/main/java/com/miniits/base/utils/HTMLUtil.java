@@ -92,6 +92,14 @@ public class HTMLUtil {
         return "<div class=\"markdown-body editormd-preview-container\">" + renderer.render(document) + "</div>";
     }
 
+    public String delKongHang(String str) {
+        if (str.trim() != null && !str.trim().equals("")) {
+            return str;
+        } else {
+            return "";
+        }
+    }
+
     /**
      * 将 html 转化成 freemarker 格式
      *

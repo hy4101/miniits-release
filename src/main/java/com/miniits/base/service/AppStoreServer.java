@@ -40,4 +40,9 @@ public class AppStoreServer extends BaseServiceImpl<AppStore, String> {
         return appStore;
     }
 
+    public AppStore download(String appId) {
+        AppStore appStore = appStoreRepository.findOne(appId);
+        appStore.setDownloadNumber(appStore.getDownloadNumber() + 1);
+        return appStore;
+    }
 }

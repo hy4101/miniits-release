@@ -130,7 +130,6 @@ public class DataUtil {
                 jpaPageVO.getContent().forEach(article -> {
                     article.setContent(markdownToHtml(article.getContent()));
                 });
-//                apis.put("article/search", jpaPageVO);
                 break;
             case ApiNames.ARTICLE_SEARCH_ONE:
                 Page<Article> page = SpringContextHolder.getBean(ArticleServer.class).search(pageable.addFilters(";EQ_status=100002001"));
@@ -140,39 +139,36 @@ public class DataUtil {
                 jpaPageVO.getContent().forEach(article -> {
                     article.setContent(markdownToHtml(article.getContent()));
                 });
-//                apis.put("article/search-one", jpaPageVO);
                 break;
             case ApiNames.IMAGE_SEARCH:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(ImageServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("image/search",jpaPageVO );
                 break;
             case ApiNames.IMAGE_SEARCH_ONE:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(ImageServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("image/search-one", SpringContextHolder.getBean(ImageServer.class).search(pageable));
                 break;
             case ApiNames.CATEGORY_SEARCH:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(CategoryServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("category/search", SpringContextHolder.getBean(CategoryServer.class).search(pageable));
                 break;
             case ApiNames.CATEGORY_SEARCH_ONE:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(CategoryServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("category/search-one", SpringContextHolder.getBean(CategoryServer.class).search(pageable));
                 break;
             case ApiNames.LINKS_SEARCH:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(LinksServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("links/search", SpringContextHolder.getBean(LinksServer.class).search(pageable));
                 break;
             case ApiNames.LINKS_SEARCH_ONE:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(LinksServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("links/search-one", SpringContextHolder.getBean(LinksServer.class).search(pageable));
                 break;
             case ApiNames.TAG_SEARCH:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(TagServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("tag/search", SpringContextHolder.getBean(TagServer.class).search(pageable));
                 break;
             case ApiNames.TAG_SEARCH_ONE:
                 jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(TagServer.class).search(pageable), JPAPageVO.class);
-//                apis.put("tag/search-one", SpringContextHolder.getBean(TagServer.class).search(pageable));
+                break;
+            case ApiNames.APP_STORE_SEARCH:
+                jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(AppStoreServer.class).search(pageable), JPAPageVO.class);
+                break;
+            case ApiNames.APP_STORE_SEARCH_ONE:
+                jpaPageVO = ConvertUtil.toVO(SpringContextHolder.getBean(AppStoreServer.class).search(pageable), JPAPageVO.class);
                 break;
         }
         apis.put(api, jpaPageVO);

@@ -4,7 +4,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,6 +58,41 @@ public class FileUtil {
             }
         }
         return path;
+    }
+
+    /**
+     * 下载文件
+     *
+     * @param response
+     * @param fileName 文件名称
+     * @throws IOException
+     */
+    public static void exportFile(HttpServletResponse response, String fileName, String s)
+            throws IOException {
+        response.setContentType("application/csv;charset=UTF-8");
+        response.setHeader("Content-Disposition", "attachment;  filename=" + new String(fileName.getBytes("UTF-8"), "ISO8859-1"));
+
+        ByteArrayInputStream in = null;
+        try {
+            in = new ByteArrayInputStream(s.getBytes());
+            int len = 0;
+            byte[] buffer = new byte[1024];
+            response.setCharacterEncoding("UTF-8");
+            OutputStream out = response.getOutputStream();
+            while ((len = in.read(buffer)) > 0) {
+                out.write(buffer, 0, len);
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     /**

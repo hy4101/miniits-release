@@ -30,4 +30,8 @@ public class ApiNames {
 
     public static final String TAG_SEARCH_ONE = "tag/search-one";
 
+    public static final String APP_STORE_SEARCH = "appStore/search";
+
+    public static final String APP_STORE_SEARCH_ONE = "appStore/search-one";
+
 }

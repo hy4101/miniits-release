@@ -66,12 +66,18 @@
                                    style="flex: 4;"
                                    name="componentBodyApi">
                                <option value="">请选择组件API（静态组件无需选择 API）</option>
-                               <option value="100007001=article/search" ${(development?exists&&development.filters=='100007001=article/search')?string('selected', '')}>
-                                   查文章-多条
-                               </option>
-                               <option value="100007001=article/search-one" ${(development?exists&&development.filters=='100007001=article/search-one')?string('selected', '')}>
-                                   查文章-单条
-                               </option>
+                               <option ${(development?exists&&development.filters=='100007001=article/search')?string('selected', '')} value="100007001=article/search" >查文章-多条</option>
+                               <option ${(development?exists&&development.filters=='100007001=article/search-one')?string('selected', '')} value="100007001=article/search-one" >查文章-单条</option>
+                               <option ${(development?exists&&development.filters=='100007001=image/search')?string('selected', '')} value="100007001=image/search">查图片-多条</option>
+                               <option ${(development?exists&&development.filters=='100007001=image/search-one')?string('selected', '')} value="100007001=image/search-one">查图片-单条</option>
+                               <option ${(development?exists&&development.filters=='100007001=category/search')?string('selected', '')} value="100007001=category/search">查分类-多条</option>
+                               <option ${(development?exists&&development.filters=='100007001=category/search-one')?string('selected', '')} value="100007001=category/search-one">查分类-单条</option>
+                               <option ${(development?exists&&development.filters=='100007001=links/search')?string('selected', '')} value="100007001=links/search">查友链-多条</option>
+                               <option ${(development?exists&&development.filters=='100007001=links/search-one')?string('selected', '')} value="100007001=links/search-one">查友链-单条</option>
+                               <option ${(development?exists&&development.filters=='100007001=tag/search')?string('selected', '')} value="100007001=tag/search">查标签-多条</option>
+                               <option ${(development?exists&&development.filters=='100007001=tag/search-one')?string('selected', '')} value="100007001=tag/search-one">查标签-单条</option>
+                               <option ${(development?exists&&development.filters=='100007001=appStore/search')?string('selected', '')} value="100007001=appStore/search">查应用-多条</option>
+                               <option ${(development?exists&&development.filters=='100007001=appStore/search-one')?string('selected', '')} value="100007001=appStore/search-one">查应用-单条</option>
                            </select>
                         <#else>
                                <select class="form-control input-form-group-value-item" id="componentBodyApi"
@@ -87,6 +93,8 @@
                                    <option value="100007001=links/search-one">查友链-单条</option>
                                    <option value="100007001=tag/search">查标签-多条</option>
                                    <option value="100007001=tag/search-one">查标签-单条</option>
+                                   <option value="100007001=appStore/search">查应用-多条</option>
+                                   <option value="100007001=appStore/search-one">查应用-单条</option>
                                </select>
                         </#if>
                         </div>

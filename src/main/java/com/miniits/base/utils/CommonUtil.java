@@ -244,6 +244,13 @@ public class CommonUtil {
         return document.toString();
     }
 
+    /**
+     * 获取总页数
+     *
+     * @param totalElements
+     * @param pageable
+     * @return
+     */
     public static List<Long> getPageNumber(long totalElements, Pageable pageable) {
         long thisPage = pageable.getPageNumber();
         totalPage = getTotalPage(totalElements, pageable.getPageSize());
@@ -278,6 +285,19 @@ public class CommonUtil {
         modelMap.put("contextPath", RequestUtil.getRequest().getContextPath());
         modelMap.put("domainPath", commonUtil.domainPath);
         modelMap.put("path", RequestUtil.getRequest().getContextPath() + "/" + commonUtil.domainPath);
+        Integer pageSize = Integer.valueOf(httpServletRequest.getParameter("pageSize"));
+        Integer pageNumber = Integer.valueOf(httpServletRequest.getParameter("pageNumber"));
+        String filters = httpServletRequest.getParameter("filters");
+        if (!org.springframework.util.StringUtils.isEmpty(pageSize)) {
+            modelMap.put("pageSize", pageSize);
+        }
+        if (!org.springframework.util.StringUtils.isEmpty(pageNumber)) {
+            modelMap.put("pageNumber", pageNumber);
+        }
+        if (org.springframework.util.StringUtils.isEmpty(filters)) {
+            filters = "";
+        }
+        modelMap.put("filters", filters);
         return modelMap;
     }
 
